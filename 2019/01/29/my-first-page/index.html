@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="##[1].数据库的创建查找和删除  创建数据库： 1CREATE DATABASE DATABASENAME  展示已经存在在的数据库 1SHOW DATABASES  展示创建了的数据库 1SHOW CREATE DATABASE DTABASENAME  删除数据库DROP DATABASE DATABASENAME   ##[2]表  使用当前数据库1USE DATABASENAME">
+<meta name="description" content="[1].数据库的创建查找和删除 创建数据库： 1CREATE DATABASE DATABASENAME  展示已经存在在的数据库 1SHOW DATABASES  展示创建了的数据库 1SHOW CREATE DATABASE DTABASENAME  删除数据库DROP DATABASE DATABASENAME   [2]表 使用当前数据库1USE DATABASENAME    创建表1C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL的基本语法 1：对表和数据库的基本操作">
 <meta property="og:url" content="http://yoursite.com/2019/01/29/my-first-page/index.html">
 <meta property="og:site_name" content="Yu-shui">
-<meta property="og:description" content="##[1].数据库的创建查找和删除  创建数据库： 1CREATE DATABASE DATABASENAME  展示已经存在在的数据库 1SHOW DATABASES  展示创建了的数据库 1SHOW CREATE DATABASE DTABASENAME  删除数据库DROP DATABASE DATABASENAME   ##[2]表  使用当前数据库1USE DATABASENAME">
+<meta property="og:description" content="[1].数据库的创建查找和删除 创建数据库： 1CREATE DATABASE DATABASENAME  展示已经存在在的数据库 1SHOW DATABASES  展示创建了的数据库 1SHOW CREATE DATABASE DTABASENAME  删除数据库DROP DATABASE DATABASENAME   [2]表 使用当前数据库1USE DATABASENAME    创建表1C">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-28T17:40:45.625Z">
+<meta property="og:updated_time" content="2019-01-31T16:41:41.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL的基本语法 1：对表和数据库的基本操作">
-<meta name="twitter:description" content="##[1].数据库的创建查找和删除  创建数据库： 1CREATE DATABASE DATABASENAME  展示已经存在在的数据库 1SHOW DATABASES  展示创建了的数据库 1SHOW CREATE DATABASE DTABASENAME  删除数据库DROP DATABASE DATABASENAME   ##[2]表  使用当前数据库1USE DATABASENAME">
+<meta name="twitter:description" content="[1].数据库的创建查找和删除 创建数据库： 1CREATE DATABASE DATABASENAME  展示已经存在在的数据库 1SHOW DATABASES  展示创建了的数据库 1SHOW CREATE DATABASE DTABASENAME  删除数据库DROP DATABASE DATABASENAME   [2]表 使用当前数据库1USE DATABASENAME    创建表1C">
 
 
 
@@ -402,8 +402,7 @@
       
 
       
-        <p>##[1].数据库的创建查找和删除</p>
-<ol>
+        <h2 id="1-数据库的创建查找和删除"><a href="#1-数据库的创建查找和删除" class="headerlink" title="[1].数据库的创建查找和删除"></a>[1].数据库的创建查找和删除</h2><ol>
 <li><p>创建数据库：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE DATABASENAME</span><br></pre></td></tr></table></figure>
 </li>
@@ -416,29 +415,50 @@
 <li><p>删除数据库<br>DROP DATABASE DATABASENAME</p>
 </li>
 </ol>
-<p>##[2]表</p>
-<ul>
+<h2 id="2-表"><a href="#2-表" class="headerlink" title="[2]表"></a>[2]表</h2><ul>
 <li>使用当前数据库<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USE DATABASENAME</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ul>
-<li><p>创建表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREAT TABLE ......</span><br></pre></td></tr></table></figure>
-<p>(1).主键<br> 1.列后面写PRIMARY KEY<br> 2.在CREATE 语句后面写PRIMARY KEY(….,…..,…..)<br> 3.可以为多个表项的合并<br>(2).外键<br> CONSTRAINT 外键名 FOREIGN KEY(本表中的表项名) REFERENCE 表名(主键名）<br>(3).不为空 not null<br>(4).唯一性约束 unique<br>  1…….unique<br>  2.constraint 约束名 unique (name)<br>(5)默认约束<br> default 默认值<br>(6)属性值自动增加<br>初始值为1，默认自动增加1：一般为主键项中的一项设置为，只能有一项设置为属性自动增加。：auto_increment</p>
-<p>##[3].表的基本操作</p>
+<li>创建表<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREAT TABLE ......</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ol>
-<li>desc 表名</li>
-<li>select  * from 表名</li>
-<li>alter table 表名 rename to 新表名</li>
-<li>alter table 表名 modify 字段名 字段类型(修改字段的数据类型）</li>
-<li>alter table 表名 change 旧字段名 新字段名 新数据类型（可以同时修改字段名和数据类型）</li>
-<li>添加字段 alter table 表名 add 新字段名 数据类型 约束条件 [first|after 已存在字段名]<br> (first将该字段放在第一位，after放在指定字段名的后面)</li>
-<li>alter table 表名 drop 字段名</li>
-<li>修改字段的位置：alter table 表名 modify 字段1 数据类型 first|after 字段2</li>
-<li>删除外键约束：alter table 表名 drop foreign key 外键名</li>
-<li>删除表： drop table 表名</li>
+<li><p>主键</p>
+<ul>
+<li>列后面写PRIMARY KEY</li>
+<li>在CREATE 语句后面写PRIMARY KEY(….,…..,…..) </li>
+<li>可以为多个表项的合并</li>
+</ul>
+</li>
+<li><p>外键</p>
+<ul>
+<li>CONSTRAINT 外键名 FOREIGN KEY(本表中的表项名) REFERENCE 表名(主键)</li>
+<li>constraint 约束名 unique (name)</li>
+</ul>
+</li>
+<li><p>约束</p>
+<ul>
+<li><p>不为空 not null</p>
+</li>
+<li><p>唯一性约束 unique(……unique)</p>
+</li>
+<li>默认约束<br>default 默认值</li>
+<li>属性值自动增加<br>初始值为1，默认自动增加1：一般为主键项中的一项设置为，只能有一项设置为属性自动增加：auto_increment</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-表的基本操作"><a href="#3-表的基本操作" class="headerlink" title="[3].表的基本操作"></a>[3].表的基本操作</h2><ol>
+<li><code>desc 表名</code></li>
+<li><code>select  * from 表名</code></li>
+<li><code>alter table 表名 rename to 新表名</code></li>
+<li><code>alter table 表名 modify 字段名 字段类型</code>(修改字段的数据类型）</li>
+<li><code>alter table 表名 change 旧字段名 新字段名 新数据类型</code>（可以同时修改字段名和数据类型）</li>
+<li><code>alter table 表名 add 新字段名 数据类型 约束条件 [first|after 已存在字段名]</code><br> (first将该字段放在第一位，after放在指定字段名的后面)添加字段</li>
+<li><code>alter table 表名 drop 字段名</code></li>
+<li><code>alter table 表名 modify 字段1 数据类型 first|after 字段2</code>修改字段的位置</li>
+<li><code>alter table 表名 drop foreign key 外键名</code>删除外键</li>
+<li><code>drop table 表名</code>删除表</li>
 </ol>
 
       
@@ -524,8 +544,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -577,6 +606,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数据库的创建查找和删除"><span class="nav-number">1.</span> <span class="nav-text">[1].数据库的创建查找和删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-表"><span class="nav-number">2.</span> <span class="nav-text">[2]表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-表的基本操作"><span class="nav-number">3.</span> <span class="nav-text">[3].表的基本操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
