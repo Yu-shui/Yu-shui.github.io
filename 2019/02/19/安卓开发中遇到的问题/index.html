@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="安卓开发中遇到的问题——Eclipse 中 AVD 启动失败报错：ERROR: This AVD’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image.转载自：https://blog.csdn.net/j">
+<meta name="description" content="安卓开发中遇到的问题——Eclipse 中 AVD 启动失败报错：ERROR: This AVD’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image.转载自： ndroid studio创建模拟器报错 e">
 <meta property="og:type" content="article">
 <meta property="og:title" content="安卓开发中遇到的问题">
 <meta property="og:url" content="http://yoursite.com/2019/02/19/安卓开发中遇到的问题/index.html">
 <meta property="og:site_name" content="Yu-shui">
-<meta property="og:description" content="安卓开发中遇到的问题——Eclipse 中 AVD 启动失败报错：ERROR: This AVD’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image.转载自：https://blog.csdn.net/j">
+<meta property="og:description" content="安卓开发中遇到的问题——Eclipse 中 AVD 启动失败报错：ERROR: This AVD’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image.转载自： ndroid studio创建模拟器报错 e">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-08T17:32:11.770Z">
+<meta property="og:updated_time" content="2019-03-08T18:28:43.711Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安卓开发中遇到的问题">
-<meta name="twitter:description" content="安卓开发中遇到的问题——Eclipse 中 AVD 启动失败报错：ERROR: This AVD’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image.转载自：https://blog.csdn.net/j">
+<meta name="twitter:description" content="安卓开发中遇到的问题——Eclipse 中 AVD 启动失败报错：ERROR: This AVD’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image.转载自： ndroid studio创建模拟器报错 e">
 
 
 
@@ -402,7 +402,7 @@
       
 
       
-        <h1 id="安卓开发中遇到的问题——Eclipse-中-AVD-启动失败"><a href="#安卓开发中遇到的问题——Eclipse-中-AVD-启动失败" class="headerlink" title="安卓开发中遇到的问题——Eclipse 中 AVD 启动失败"></a>安卓开发中遇到的问题——Eclipse 中 AVD 启动失败</h1><h3 id="报错：ERROR-This-AVD’s-configuration-is-missing-a-kernel-file-Please-ensure-the-file-“kernel-qemu”-is-in-the-same-location-as-your-system-image"><a href="#报错：ERROR-This-AVD’s-configuration-is-missing-a-kernel-file-Please-ensure-the-file-“kernel-qemu”-is-in-the-same-location-as-your-system-image" class="headerlink" title="报错：ERROR: This AVD’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image."></a>报错：<strong>ERROR: This</strong> <a href="https://www.baidu.com/s?wd=AVD&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd" target="_blank" rel="noopener">AVD</a><strong>’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image.</strong></h3><p>转载自：<a href="https://blog.csdn.net/jeapeducom/article/details/43977863" target="_blank" rel="noopener">https://blog.csdn.net/jeapeducom/article/details/43977863</a> </p>
+        <h1 id="安卓开发中遇到的问题——Eclipse-中-AVD-启动失败"><a href="#安卓开发中遇到的问题——Eclipse-中-AVD-启动失败" class="headerlink" title="安卓开发中遇到的问题——Eclipse 中 AVD 启动失败"></a>安卓开发中遇到的问题——Eclipse 中 AVD 启动失败</h1><h3 id="报错：ERROR-This-AVD’s-configuration-is-missing-a-kernel-file-Please-ensure-the-file-“kernel-qemu”-is-in-the-same-location-as-your-system-image"><a href="#报错：ERROR-This-AVD’s-configuration-is-missing-a-kernel-file-Please-ensure-the-file-“kernel-qemu”-is-in-the-same-location-as-your-system-image" class="headerlink" title="报错：ERROR: This AVD’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image."></a>报错：<strong>ERROR: This</strong> <a href="https://www.baidu.com/s?wd=AVD&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd" target="_blank" rel="noopener">AVD</a><strong>’s configuration is missing a kernel file! Please ensure the file “kernel-qemu” is in the same location as your system image.</strong></h3><p><a href="https://blog.csdn.net/jeapeducom/article/details/43977863" target="_blank" rel="noopener">转载自：</a></p>
 <p>ndroid studio创建模拟器报错 emulator: ERROR: This AVD’s configuration is missing a kernel file!! 的解决办法<br>原因有二：1 没有，解决办法通过sdk mangager 下载<br>                  2 找不到，解决办法看系统环境变量path(此种情况多数发生在android Studio和EclipseADT同时存在的情况下)</p>
 <p>原因是在刚刚安装完毕的androidstudio的sdk目录下没有system-image目录，也许有但没有相应的内核映像文件，解决办法是打开sdk manager更新，如果开发者想模拟api21的android操作系统，需安装api21的system image，见下图<br>安装完毕后如下所示</p>
 <p>看看sdk目录下有么有？</p>
