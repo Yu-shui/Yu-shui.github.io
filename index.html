@@ -301,6 +301,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/机器学习2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/09/机器学习2/" itemprop="url">机器学习2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-09T01:15:49+08:00">
+                2019-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="python机器学习基础库-numpy-pandas-matplotlib"><a href="#python机器学习基础库-numpy-pandas-matplotlib" class="headerlink" title="python机器学习基础库(numpy,pandas,matplotlib)"></a>python机器学习基础库(numpy,pandas,matplotlib)</h1><h3 id="1-numpy"><a href="#1-numpy" class="headerlink" title="1.numpy"></a>1.numpy</h3><p>NumPy是Python数值计算最重要的基础包，支持高级大量的维度数组与矩阵运算，大多数提供科学计算的包都是使用Numpy的数组作为构建基础。Numpy内部解除了Python的PIL(全局解释器锁),运算效率极好,是大量机器学习框架的基础库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 import numpy as np</span><br><span class="line">2 my_arr = np.arange(1000000)</span><br><span class="line">3 my_list = list(range(1000000))</span><br><span class="line">4 %time for _ in range(10): my_arr2 = my_arr * 2</span><br><span class="line">5 %time for _ in range(10): my_list2 = [x * 2 for x in my_list]</span><br></pre></td></tr></table></figure>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105110414788-596231448.png" alt="img"></p>
+<p>  很明显，基于NumPy的算法要比纯Python快10到100倍（甚至更快），并且使用的内存更少。</p>
+<h3 id="Numpy的ndarray：一种多维数组对象"><a href="#Numpy的ndarray：一种多维数组对象" class="headerlink" title="Numpy的ndarray：一种多维数组对象"></a>Numpy的ndarray：一种多维数组对象</h3><h5 id="1-什么是ndarry"><a href="#1-什么是ndarry" class="headerlink" title="1.什么是ndarry"></a>1.什么是ndarry</h5><p>  NumPy最重要的一个特点就是其N维数组对象（即ndarray），该对象是一个快速而灵活的大数据集容器。你可以利用这种数组对整块数据执行一些数学运算，其语法跟标量元素之间的运算一样。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105111234813-1544863876.png" alt="img"></p>
+<p>进行数学运算：</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105111327786-519286614.png" alt="img"></p>
+<p>这里可以很清晰的看出NumPy数组对整组数组的计算操作的简便之处。</p>
+<p>　　<strong>注：一般在import时都是使用 import numpy as np。当然，也可以使用 for numpy import * ，但不建议这么做，因为numpy的命名空间很大，包含很多函数，其中一些的名字与Python的内置函数重名（如min和max）。</strong></p>
+<p>  ndarray是一个通用的同构数据多维容器，也就是说，其中的所有元素必须是相同类型的。每个数组都有一个shape（一个表示各维度大小的元组）和一个dtype（一个用于说明数组数据类型的对象）：</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105112007790-868859213.png" alt="img"></p>
+<h4 id="2-创建ndarray"><a href="#2-创建ndarray" class="headerlink" title="2.创建ndarray"></a>2.创建ndarray</h4><p>  创建数组最简单的办法就是使用array函数。它接受一切序列型的对象（包括其他数组），然后产生一个新的含有传入数据的Numpy数组。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105112912855-588275477.png" alt="img"></p>
+<p>  除np.array之外，还有一些函数也可以新建数组。比如，zeros和ones分别可以创建指定长度或形状的全0或全1数组。empty可以创建一个没有任何具体值的数组。要用这些方法创建多维数组，只需传入一个表示形状的元组即可。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105113501225-1534848118.png" alt="img"></p>
+<p><strong>注：认为np.empty会返回全0数组的想法是不安全的。很多情况下（如前所示），它返回的都是一些未初始化的垃圾值。</strong></p>
+<p>arrange是Python内置函数的数组版：</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105113707210-752905345.png" alt="img"><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105130330410-1549986182.png" alt="img"></p>
+<h4 id="3-ndarray的数据类型"><a href="#3-ndarray的数据类型" class="headerlink" title="3.ndarray的数据类型"></a>3.ndarray的数据类型</h4><p>  dtype（数据类型）是一个特殊的对象，它含有ndarray将一块内存解释为特定数据类型所需的信息。是NumPy灵活交互其它系统的源泉之一。多数情况下，它们直接映射到相应的机器表示，这使得“读写磁盘上的二进制数据流”以及“集成低级语言代码（如C、Fortran）”等工作变得更加简单。数值型dtype的命名方式相同：一个类型名（如float或int），后面跟一个用于表示各元素位长的数字。标准的双精度浮点值（即Python中的float对象）需要占用8字节（即64位）。因此，该类型在NumPy中就记作float64。下表列出了NumPy所支持的全部数据类型。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105120317921-1523583165.png" alt="img"><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105120327799-1125060098.png" alt="img"></p>
+<p>你可以通过ndarray的astype方法明确地将一个数组从一个dtype转换成另一个dtype：</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105121040612-109319723.png" alt="img"></p>
+<h3 id="NumPy计算"><a href="#NumPy计算" class="headerlink" title="NumPy计算"></a>NumPy计算</h3><p>  这里将介绍Numpy的一些基本计算</p>
+<h4 id="1-条件运算"><a href="#1-条件运算" class="headerlink" title="1.条件运算"></a>1.条件运算</h4><p>  <img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105121828358-1380857998.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105122126376-835280267.png" alt="img"></p>
+<h4 id="2-统计运算"><a href="#2-统计运算" class="headerlink" title="2.统计运算"></a>2.统计运算</h4><p>  求最大值</p>
+<p>  <img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105122516169-1158525442.png" alt="img"></p>
+<p>  求最小值</p>
+<p>  <img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105122838893-1486811686.png" alt="img"></p>
+<p>  平均值</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105123105025-1166732887.png" alt="img"></p>
+<p>  方差</p>
+<p><img src="https://img2018.cnblogs.com/blog/1413964/201811/1413964-20181105123223622-1728584186.png" alt="img"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/机器学习1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1007,7 +1191,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
