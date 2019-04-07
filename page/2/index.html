@@ -301,6 +301,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/04/机器学习1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/04/机器学习1/" itemprop="url">机器学习1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T00:58:17+08:00">
+                2019-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="机器学习周记"><a href="#机器学习周记" class="headerlink" title="机器学习周记"></a>机器学习周记<1></1></h2><h5 id="1-基础知识点"><a href="#1-基础知识点" class="headerlink" title="1.基础知识点"></a>1.基础知识点</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 机器学习的核心是“使用算法解析数据，从中学习，然后对世界上的某件事情做出决定或预测”</span><br><span class="line"></span><br><span class="line">2. 机器学习分为监督学习，无监督学习，强化学习</span><br></pre></td></tr></table></figure>
+<h5 id="2-机器学习算法分类"><a href="#2-机器学习算法分类" class="headerlink" title="2.机器学习算法分类"></a>2.机器学习算法分类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 回归算法</span><br><span class="line">2. 基于实例的算法</span><br><span class="line">3. 决策树算法</span><br><span class="line">4. 贝叶斯算法</span><br><span class="line">5. 聚类算法</span><br><span class="line">6. 深度学习和神经网络算法</span><br><span class="line">7. 其他算法</span><br></pre></td></tr></table></figure>
+<h5 id="3-基础机器学习代码实现"><a href="#3-基础机器学习代码实现" class="headerlink" title="3.基础机器学习代码实现"></a>3.基础机器学习代码实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.区分橘子与苹果</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">rom sklearn import datasets</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">from sklearn.tree import DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    iris = datasets.load_iris()</span><br><span class="line">    iris_feature = iris.data</span><br><span class="line">    iris_target = iris.target</span><br><span class="line">    #print(iris_target)</span><br><span class="line">    #print(&apos;***********&apos;)</span><br><span class="line">    #print(iris_feature)</span><br><span class="line"></span><br><span class="line">    feature_train, feature_test, target_train, target_test =            train_test_split(iris_feature, iris_target,test_size=0.33,random_state=42)</span><br><span class="line">    dt_model=DecisionTreeClassifier()</span><br><span class="line">    dt_model.fit(feature_train,target_train)</span><br><span class="line">    predict_results=dt_model.predict(feature_test)</span><br><span class="line">    print(predict_results)</span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.识别鸢尾花类别</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">from sklearn import datasets#导入内置数据集模块</span><br><span class="line">from sklearn.neighbors import KNeighborsClassifier#导入sklear.neughbors模板中的KNN类</span><br><span class="line">import numpy as np</span><br><span class="line">np.random.seed(0)#设置随机种子</span><br><span class="line"></span><br><span class="line">#数据集梳理</span><br><span class="line">iris=datasets.load_iris()#导入鸢尾花样本数据</span><br><span class="line">iris_x=iris.data</span><br><span class="line">iris_y=iris.target</span><br><span class="line">indices=np.random.permutation(len(iris_x))#对样本数据进行打乱(150)</span><br><span class="line">iris_x_train=iris_x[indices[:-10]]#选取140个数据集作为训练集</span><br><span class="line">iris_y_train=iris_y[indices[:-10]]</span><br><span class="line">iris_x_test=iris_x[indices[-10:]]</span><br><span class="line">#剩下的十个样本作为测试集</span><br><span class="line">iris_y_test=iris_y[indices[-10:]]</span><br><span class="line"></span><br><span class="line">knn=KNeighborsClassifier()</span><br><span class="line">knn.fit(iris_x_train,iris_y_train)</span><br><span class="line">iris_y_predict=knn.predict(iris_x_test)</span><br><span class="line">#测试数据集</span><br><span class="line">probility=knn.predict_proba(iris_x_test)</span><br><span class="line">#计算各测试样本基于概率的预测</span><br><span class="line">neighbor=knn.kneighbors(iris_x_test[-1],5,False)</span><br><span class="line">#计算与最后一个样本距离最近的五个点，返回的是这些样本的序号组成的数组</span><br><span class="line">score=knn.score(iris_x_test,iris_y_test,sample_weight=None)</span><br><span class="line">#计算准确率</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(&apos;iris_y_predict=&apos;)</span><br><span class="line">print(iris_y_predict)</span><br><span class="line"></span><br><span class="line">print(&apos;iris_y_test:&apos;)</span><br><span class="line">print(iris_y_test)</span><br><span class="line">print(&quot;准确率：&quot;,score)</span><br><span class="line">print(&quot;邻近对象数据为：&quot;,neighbor)</span><br><span class="line">print(&quot;基于概率的预测：&quot;,probility)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/01/安卓实现动画生成/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -858,7 +1014,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

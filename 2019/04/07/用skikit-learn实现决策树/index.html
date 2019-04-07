@@ -79,23 +79,17 @@
 
 
 
-<meta name="description" content="引言越来越多的的人入坑机器学习，深度学习，tensorflow 作为目前十分流行又强大的一个框架，自然会有越来越多的新人（我也刚入门）准备使用，一般装的都是 CPU 版的 tensorflow，然而使用 GPU 跑 tensorflow，速度可以快上好几倍。正好前段时间看到了使用小米pro（我目前使用的笔记本，感觉贼好用（我没有在推销））配置 gpu 的教程，就试了试，最后成功了。 环境操作系统：">
+<meta name="description" content="用scikit-learn实现决策树算法1、scikit-learn决策树算法类库介绍​         scikit-learn决策树算法类库内部实现是使用了调优过的CART树算法，既可以做分类，又可以做回归。分类决策树的类对应的是DecisionTreeClassifier，而回归决策树的类对应的是DecisionTreeRegressor。两者的参数定义几乎完全相同，但是意义不全相同。下面就">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tensorflow-gpu配置">
-<meta property="og:url" content="http://yoursite.com/2019/04/07/tensorflow-gpu配置/index.html">
+<meta property="og:title" content="用skikit-learn实现决策树">
+<meta property="og:url" content="http://yoursite.com/2019/04/07/用skikit-learn实现决策树/index.html">
 <meta property="og:site_name" content="Yu-shui">
-<meta property="og:description" content="引言越来越多的的人入坑机器学习，深度学习，tensorflow 作为目前十分流行又强大的一个框架，自然会有越来越多的新人（我也刚入门）准备使用，一般装的都是 CPU 版的 tensorflow，然而使用 GPU 跑 tensorflow，速度可以快上好几倍。正好前段时间看到了使用小米pro（我目前使用的笔记本，感觉贼好用（我没有在推销））配置 gpu 的教程，就试了试，最后成功了。 环境操作系统：">
+<meta property="og:description" content="用scikit-learn实现决策树算法1、scikit-learn决策树算法类库介绍​         scikit-learn决策树算法类库内部实现是使用了调优过的CART树算法，既可以做分类，又可以做回归。分类决策树的类对应的是DecisionTreeClassifier，而回归决策树的类对应的是DecisionTreeRegressor。两者的参数定义几乎完全相同，但是意义不全相同。下面就">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1413964/201812/1413964-20181203205802914-999752375.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1413964/201812/1413964-20181203210228822-1233952696.png">
-<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
-<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1413964/201812/1413964-20181203211520084-903694026.png">
-<meta property="og:updated_time" content="2019-04-07T06:39:04.300Z">
+<meta property="og:updated_time" content="2019-04-07T13:43:05.622Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tensorflow-gpu配置">
-<meta name="twitter:description" content="引言越来越多的的人入坑机器学习，深度学习，tensorflow 作为目前十分流行又强大的一个框架，自然会有越来越多的新人（我也刚入门）准备使用，一般装的都是 CPU 版的 tensorflow，然而使用 GPU 跑 tensorflow，速度可以快上好几倍。正好前段时间看到了使用小米pro（我目前使用的笔记本，感觉贼好用（我没有在推销））配置 gpu 的教程，就试了试，最后成功了。 环境操作系统：">
-<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1413964/201812/1413964-20181203205802914-999752375.png">
+<meta name="twitter:title" content="用skikit-learn实现决策树">
+<meta name="twitter:description" content="用scikit-learn实现决策树算法1、scikit-learn决策树算法类库介绍​         scikit-learn决策树算法类库内部实现是使用了调优过的CART树算法，既可以做分类，又可以做回归。分类决策树的类对应的是DecisionTreeClassifier，而回归决策树的类对应的是DecisionTreeRegressor。两者的参数定义几乎完全相同，但是意义不全相同。下面就">
 
 
 
@@ -125,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/07/tensorflow-gpu配置/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/07/用skikit-learn实现决策树/">
 
 
 
 
 
-  <title>tensorflow-gpu配置 | Yu-shui</title>
+  <title>用skikit-learn实现决策树 | Yu-shui</title>
   
 
 
@@ -310,7 +304,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/tensorflow-gpu配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/用skikit-learn实现决策树/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yu-shui">
@@ -327,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">tensorflow-gpu配置</h1>
+          <h1 class="post-title" itemprop="name headline">用skikit-learn实现决策树</h1>
         
 
         <div class="post-meta">
@@ -339,7 +333,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T14:38:32+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T21:42:41+08:00">
                 2019-04-07
               </time>
             
@@ -408,46 +402,20 @@
       
 
       
-        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>越来越多的的人入坑机器学习，深度学习，tensorflow 作为目前十分流行又强大的一个框架，自然会有越来越多的新人（我也刚入门）准备使用，一般装的都是 CPU 版的 tensorflow，然而使用 GPU 跑 tensorflow，速度可以快上好几倍。正好前段时间看到了使用小米pro（我目前使用的笔记本，感觉贼好用（我没有在推销））配置 gpu 的教程，就试了试，最后成功了。</p>
-<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>操作系统：Windows10</p>
-<p>配置：<strong>Tensorflow 1.12 + CUDA 9.0 +cuDNN v7.1 for CUDA9.0</strong></p>
-<p>GPU：NVIDIA GeForce MX150（小米pro i7-8550 8G 256G）</p>
-<p>软件：Anaconda</p>
-<p><em>注：发现 tensorflow 1.13 发布了，但其配置要求与1.12版本有所差别，若按照本博客配置1.13版本运行会报错（可能与cuda版本相关，据说1.13版本支持cuda10了，可以试试cuda10）。         2019/3/2</em></p>
-<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="一、安装CUDA、cuDNN"><a href="#一、安装CUDA、cuDNN" class="headerlink" title="一、安装CUDA、cuDNN"></a>一、安装CUDA、cuDNN</h2><h3 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h3><p>关于 CUDA 的安装，看这篇<a href="https://blog.csdn.net/XCCCCZ/article/details/80385448" target="_blank" rel="noopener">文章</a>，写的很详细（好吧，还是我比较懒，不太想敲键盘）</p>
-<h3 id="cuDNN"><a href="#cuDNN" class="headerlink" title="cuDNN"></a>cuDNN</h3><p>官网<a href="https://developer.nvidia.com/cudnn" target="_blank" rel="noopener">下载地址</a></p>
-<p><strong>注意：下载的时候要下对应自己下载的CUDA的版本</strong></p>
-<p>把下载好的 cuDNN 的 zip 解压后，把 bin、include、lib 三个文件夹内的文件拷贝到 CUDA 9.0 的目录下的对应文件中即可。</p>
-<p>CUDA 的默认路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\</span><br></pre></td></tr></table></figure>
-<p>然后开始配置环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\lib\x64</span><br><span class="line">C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0</span><br></pre></td></tr></table></figure>
-<h2 id="二、创建虚拟环境"><a href="#二、创建虚拟环境" class="headerlink" title="二、创建虚拟环境"></a>二、创建虚拟环境</h2><p>这里还是比较建议新创建一个虚拟环境，免得安装好的 tensorflow-gpu 跟原环境中的某些包冲突。</p>
-<h3 id="1-打开Anaconda-Prompt"><a href="#1-打开Anaconda-Prompt" class="headerlink" title="1.打开Anaconda Prompt"></a>1.打开Anaconda Prompt</h3><p><img src="https://img2018.cnblogs.com/blog/1413964/201812/1413964-20181203205802914-999752375.png" alt="img"></p>
-<h3 id="2-创建虚拟环境"><a href="#2-创建虚拟环境" class="headerlink" title="2.创建虚拟环境"></a>2.创建虚拟环境</h3><p>键入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name tensorflow-gpu python=3.6.1</span><br></pre></td></tr></table></figure>
-<h3 id="3-启动虚拟环境"><a href="#3-启动虚拟环境" class="headerlink" title="3.启动虚拟环境"></a>3.启动虚拟环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activate tensorflow-gpu</span><br></pre></td></tr></table></figure>
-<p><img src="https://img2018.cnblogs.com/blog/1413964/201812/1413964-20181203210228822-1233952696.png" alt="img"></p>
-<h2 id="三、安装tensorflow-gpu"><a href="#三、安装tensorflow-gpu" class="headerlink" title="三、安装tensorflow-gpu"></a>三、安装tensorflow-gpu</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><p>两种方法</p>
-<ol>
-<li><p>pip install –upgrade tensorflow-gpu</p>
-</li>
-<li><p>下载 tensorflow-gpu 的离线安装包，找到下载好的whl路径，然后键入 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install c:\...\tensorflow_gpu-xxxx.whl</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">下载地址</a></p>
-</li>
-</ol>
-<h3 id="2-测试"><a href="#2-测试" class="headerlink" title="2.测试"></a>2.测试</h3><p>输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python</span><br></pre></td></tr></table></figure>
-<p>然后再输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br></pre></td></tr></table></figure>
-<p>如果没报错，就表示安装成功了。</p>
-<p>然后，再来段 tensorflow 的 hello world</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">tf.enable_eager_execution()</span><br><span class="line"></span><br><span class="line">a = tf.constant(1)</span><br><span class="line">b = tf.constant(1)</span><br><span class="line">c = tf.add(a, b)  </span><br><span class="line"></span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p><img src="https://img2018.cnblogs.com/blog/1413964/201812/1413964-20181203211520084-903694026.png" alt="img"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此，我们的 tensorflow-gpu 就装好了，接下来就开始 tensorflow 的学习之旅吧。</p>
+        <h1 id="用scikit-learn实现决策树算法"><a href="#用scikit-learn实现决策树算法" class="headerlink" title="用scikit-learn实现决策树算法"></a>用scikit-learn实现决策树算法</h1><h2 id="1、scikit-learn决策树算法类库介绍"><a href="#1、scikit-learn决策树算法类库介绍" class="headerlink" title="1、scikit-learn决策树算法类库介绍"></a>1、scikit-learn决策树算法类库介绍</h2><p>​         scikit-learn决策树算法类库内部实现是使用了调优过的CART树算法，既可以做分类，又可以做回归。分类决策树的类对应的是DecisionTreeClassifier，而回归决策树的类对应的是DecisionTreeRegressor。两者的参数定义几乎完全相同，但是意义不全相同。下面就对DecisionTreeClassifier和DecisionTreeRegressor的重要参数做一个总结，重点比较两者参数使用的不同点和调参的注意点。 </p>
+<h2 id="2、DecisionTreeClassifier和DecisionTreeClassifier-重要参数调参注意点"><a href="#2、DecisionTreeClassifier和DecisionTreeClassifier-重要参数调参注意点" class="headerlink" title="2、DecisionTreeClassifier和DecisionTreeClassifier 重要参数调参注意点"></a>2、DecisionTreeClassifier和DecisionTreeClassifier 重要参数调参注意点</h2><h3 id="2-1-特征选择标准criterion"><a href="#2-1-特征选择标准criterion" class="headerlink" title="2.1 特征选择标准criterion"></a>2.1 特征选择标准criterion</h3><p>​        DecisionTreeClassifier：可以使用”gini”或者”entropy”，前者代表基尼系数，后者代表信息增益。一般说使用默认的基尼系数”gini”就可以了，即CART算法。除非你更喜欢类似ID3, C4.5的最优特征选择方法。 </p>
+<p>​        DecisionTreeRegressor：可以使用”mse”或者”mae”，前者是均方差，后者是和均值之差的绝对值之和。推荐使用默认的”mse”。一般来说”mse”比”mae”更加精确。除非你想比较二个参数的效果的不同之处。</p>
+<h3 id="2-2-特征划分点选择标准splitter"><a href="#2-2-特征划分点选择标准splitter" class="headerlink" title="2.2 特征划分点选择标准splitter"></a>2.2 特征划分点选择标准splitter</h3><p>​        可以使用”best”或者”random”。前者在特征的所有划分点中找出最优的划分点。后者是随机的在部分划分点中找局部最优的划分点。<br>​         默认的”best”适合样本量不大的时候，而如果样本数据量非常大，此时决策树构建推荐”random” </p>
+<h3 id="2-3-划分时考虑的最大特征数max-features"><a href="#2-3-划分时考虑的最大特征数max-features" class="headerlink" title="2.3 划分时考虑的最大特征数max_features"></a>2.3 划分时考虑的最大特征数max_features</h3><p>​        可以使用很多种类型的值，默认是”None”,意味着划分时考虑所有的特征数；如果是”log2”意味着划分时最多考虑log2N个特征；如果是”sqrt”或者”auto”意味着划分时最多考虑sqrt(N)个特征。如果是整数，代表考虑的特征绝对数。如果是浮点数，代表考虑特征百分比，即考虑（百分比xN）取整后的特征数。其中N为样本总特征数。<br>​         一般来说，如果样本特征数不多，比如小于50，我们用默认的”None”就可以了，如果特征数非常多，我们可以灵活使用刚才描述的其他取值来控制划分时考虑的最大特征数，以控制决策树的生成时间。</p>
+<h3 id="2-4-决策树最大深max-depth"><a href="#2-4-决策树最大深max-depth" class="headerlink" title="2.4 决策树最大深max_depth"></a>2.4 决策树最大深max_depth</h3><p>​        决策树的最大深度，默认可以不输入，如果不输入的话，决策树在建立子树的时候不会限制子树的深度。一般来说，数据少或者特征少的时候可以不管这个值。如果模型样本量多，特征也多的情况下，推荐限制这个最大深度，具体的取值取决于数据的分布。常用的可以取值10-100之间。</p>
+<h3 id="2-5-内部节点再划分所需最小样本数min-samples-split"><a href="#2-5-内部节点再划分所需最小样本数min-samples-split" class="headerlink" title="2.5 内部节点再划分所需最小样本数min_samples_split"></a>2.5 内部节点再划分所需最小样本数min_samples_split</h3><p>​        这个值限制了子树继续划分的条件，如果某节点的样本数少于min_samples_split，则不会继续再尝试选择最优特征来进行划分。 默认是2.如果样本量不大，不需要管这个值。如果样本量数量级非常大，则推荐增大这个值。我之前的一个项目例子，有大概10万样本，建立决策树时，我选择了min_samples_split=10。可以作为参考。</p>
+<h3 id="2-6-叶子节点最少样本数min-samples-leaf"><a href="#2-6-叶子节点最少样本数min-samples-leaf" class="headerlink" title="2.6 叶子节点最少样本数min_samples_leaf"></a>2.6 叶子节点最少样本数min_samples_leaf</h3><p>​        这个值限制了叶子节点最少的样本数，如果某叶子节点数目小于样本数，则会和兄弟节点一起被剪枝。 默认是1，可以输入最少的样本数的整数，或者最少样本数占样本总数的百分比。如果样本量不大，不需要管这个值。如果样本量数量级非常大，则推荐增大这个值。之前的10万样本项目使用min_samples_leaf的值为5，仅供参考。</p>
+<h3 id="2-7-叶子节点最小的样本权重和min-weight-fraction-leaf"><a href="#2-7-叶子节点最小的样本权重和min-weight-fraction-leaf" class="headerlink" title="2.7 叶子节点最小的样本权重和min_weight_fraction_leaf"></a>2.7 叶子节点最小的样本权重和min_weight_fraction_leaf</h3><p>​        这个值限制了叶子节点所有样本权重和的最小值，如果小于这个值，则会和兄弟节点一起被剪枝。 默认是0，就是不考虑权重问题。一般来说，如果我们有较多样本有缺失值，或者分类树样本的分布类别偏差很大，就会引入样本权重，这时我们就要注意这个值了。</p>
+<h3 id="2-8-最大叶子节点数max-leaf-nodes"><a href="#2-8-最大叶子节点数max-leaf-nodes" class="headerlink" title="2.8 最大叶子节点数max_leaf_nodes"></a>2.8 最大叶子节点数max_leaf_nodes</h3><p>​        通过限制最大叶子节点数，可以防止过拟合，默认是”None”，即不限制最大的叶子节点数。如果加了限制，算法会建立在最大叶子节点数内最优的决策树。如果特征不多，可以不考虑这个值，但是如果特征分成多的话，可以加以限制，具体的值可以通过交叉验证得到。</p>
+<h3 id="2-9-类别权重class-weight"><a href="#2-9-类别权重class-weight" class="headerlink" title="2.9 类别权重class_weight"></a>2.9 类别权重class_weight</h3><p>​        不适用于回归树。指定样本各类别的的权重，主要是为了防止训练集某些类别的样本过多，导致训练的决策树过于偏向这些类别。这里可以自己指定各个样本的权重，或者用“balanced”，如果使用“balanced”，则算法会自己计算权重，样本量少的类别所对应的样本权重会高。当然，如果你的样本类别分布没有明显的偏倚，则可以不管这个参数，选择默认的”None”</p>
+<h3 id="2-10-节点划分最小不纯度min-impurity-split"><a href="#2-10-节点划分最小不纯度min-impurity-split" class="headerlink" title="2.10 节点划分最小不纯度min_impurity_split"></a>2.10 节点划分最小不纯度min_impurity_split</h3><p>​        这个值限制了决策树的增长，如果某节点的不纯度(基尼系数，信息增益，均方差，绝对差)小于这个阈值，则该节点不再生成子节点。即为叶子节点 。</p>
+<h3 id="2-11-数据是否预排序presort"><a href="#2-11-数据是否预排序presort" class="headerlink" title="2.11 数据是否预排序presort"></a>2.11 数据是否预排序presort</h3><p>​        这个值是布尔值，默认是False不排序。一般来说，如果样本量少或者限制了一个深度很小的决策树，设置为true可以让划分点选择更加快，决策树建立的更加快。如果样本量太大的话，反而没有什么好处。问题是样本量少的时候，我速度本来就不慢。所以这个值一般懒得理它就可以了。</p>
+<p>​        除了这些参数要注意以外，其他在调参时的注意点有：<br> 　　1）当样本少数量但是样本特征非常多的时候，决策树很容易过拟合，一般来说，样本数比特征数多一些会比较容易建立健壮的模型<br> 　　2）如果样本数量少但是样本特征非常多，在拟合决策树模型前，推荐先做维度规约，比如主成分分析（PCA），特征选择（Losso）或者独立成分分析（ICA）。这样特征的维度会大大减小。再来拟合决策树模型效果会好。<br>​     　3）推荐多用决策树的可视化（下节会讲），同时先限制决策树的深度（比如最多3层），这样可以先观察下生成的决策树里数据的初步拟合情况，然后再决定是否要增加深度。<br> 　　4）在训练模型前，注意观察样本的类别情况（主要指分类树），如果类别分布非常不均匀，就要考虑用class_weight来限制模型过于偏向样本多的类别。<br> 　　5）决策树的数组使用的是numpy的float32类型，如果训练数据不是这样的格式，算法会先做copy再运行。<br> 　　6）如果输入的样本矩阵是稀疏的，推荐在拟合前调用csc_matrix稀疏化，在预测前调用csr_matrix稀疏化</p>
 
       
     </div>
@@ -472,8 +440,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/19/机器学习5-决策树（部分/" rel="next" title="机器学习5  决策树（部分)">
-                <i class="fa fa-chevron-left"></i> 机器学习5  决策树（部分)
+              <a href="/2019/04/07/安装时遇到的问题/" rel="next" title="安装时遇到的问题">
+                <i class="fa fa-chevron-left"></i> 安装时遇到的问题
               </a>
             
           </div>
@@ -481,10 +449,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/07/安装时遇到的问题/" rel="prev" title="安装时遇到的问题">
-                安装时遇到的问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -608,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作"><span class="nav-number">3.</span> <span class="nav-text">实际操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、安装CUDA、cuDNN"><span class="nav-number">3.1.</span> <span class="nav-text">一、安装CUDA、cuDNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDA"><span class="nav-number">3.1.1.</span> <span class="nav-text">CUDA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cuDNN"><span class="nav-number">3.1.2.</span> <span class="nav-text">cuDNN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、创建虚拟环境"><span class="nav-number">3.2.</span> <span class="nav-text">二、创建虚拟环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-打开Anaconda-Prompt"><span class="nav-number">3.2.1.</span> <span class="nav-text">1.打开Anaconda Prompt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建虚拟环境"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.创建虚拟环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-启动虚拟环境"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.启动虚拟环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、安装tensorflow-gpu"><span class="nav-number">3.3.</span> <span class="nav-text">三、安装tensorflow-gpu</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装"><span class="nav-number">3.3.1.</span> <span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-测试"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用scikit-learn实现决策树算法"><span class="nav-number">1.</span> <span class="nav-text">用scikit-learn实现决策树算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、scikit-learn决策树算法类库介绍"><span class="nav-number">1.1.</span> <span class="nav-text">1、scikit-learn决策树算法类库介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、DecisionTreeClassifier和DecisionTreeClassifier-重要参数调参注意点"><span class="nav-number">1.2.</span> <span class="nav-text">2、DecisionTreeClassifier和DecisionTreeClassifier 重要参数调参注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-特征选择标准criterion"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 特征选择标准criterion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-特征划分点选择标准splitter"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 特征划分点选择标准splitter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-划分时考虑的最大特征数max-features"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 划分时考虑的最大特征数max_features</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-决策树最大深max-depth"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 决策树最大深max_depth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-内部节点再划分所需最小样本数min-samples-split"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 内部节点再划分所需最小样本数min_samples_split</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-叶子节点最少样本数min-samples-leaf"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 叶子节点最少样本数min_samples_leaf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-叶子节点最小的样本权重和min-weight-fraction-leaf"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7 叶子节点最小的样本权重和min_weight_fraction_leaf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-最大叶子节点数max-leaf-nodes"><span class="nav-number">1.2.8.</span> <span class="nav-text">2.8 最大叶子节点数max_leaf_nodes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-类别权重class-weight"><span class="nav-number">1.2.9.</span> <span class="nav-text">2.9 类别权重class_weight</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-节点划分最小不纯度min-impurity-split"><span class="nav-number">1.2.10.</span> <span class="nav-text">2.10 节点划分最小不纯度min_impurity_split</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-11-数据是否预排序presort"><span class="nav-number">1.2.11.</span> <span class="nav-text">2.11 数据是否预排序presort</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
