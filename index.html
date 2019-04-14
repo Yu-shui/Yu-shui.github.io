@@ -301,6 +301,390 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/自然语言处理4-文本分析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/14/自然语言处理4-文本分析/" itemprop="url">自然语言处理4:文本分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T14:13:39+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="自然语言处理-4-文本表示"><a href="#自然语言处理-4-文本表示" class="headerlink" title="自然语言处理(4):文本表示"></a>自然语言处理(4):文本表示</h1><h3 id="1-TF-IDF原理"><a href="#1-TF-IDF原理" class="headerlink" title="1.TF-IDF原理"></a>1.TF-IDF原理</h3><ol>
+<li><strong> 词频TF（item frequency）</strong>：某一给定词语在该文本中出现次数。该数字通常会被归一化（分子一般小于分母），以防止它偏向长的文件，因为不管该词语重要与否，它在长文件中出现的次数很可能比在段文件中出现的次数更大。       需要注意的是有一些通用词对文章主题没有太大作用，如“的”“是”等，而有一些频率出现少的词如一些专业词更能表现文章主题，所以为词语设置权重，权重的设计满足：一个词预测主题的能力越强，权重越大，反之，权重越小。也就是说，一些词只在很少几篇文章中出现，那么这样的词对文章主题的判断能力很大，这些词的权重应该设计的较大。IDF完成这样的工作。       </li>
+<li><strong>逆向文件频率IDF（inverse document frequency）</strong>：一个词语普遍重要性的度量。主要思想是：如果包含词条t的文档越少, IDF越大，则说明词条具有很好的类别区分能力。某一特定词语的IDF，可以由总文件数目除以包含该词语之文件的数目，再将得到的商取对数得到。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TF=(某个词在文章中出现的次数)/(文章的总词数)</span><br><span class="line">IDF=log((语料库的文档总数)/(包含该词的文档数+1))</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用不同的方法来计算TF-IDF的值"><a href="#2-使用不同的方法来计算TF-IDF的值" class="headerlink" title="2.使用不同的方法来计算TF-IDF的值"></a>2.使用不同的方法来计算TF-IDF的值</h3><ol>
+<li>词袋模型<br>Bag of words，也叫做“词袋”，在信息检索中，Bag of words model假定对于一个文本，忽略其词序和语法，句法，将其仅仅看做是一个词集合，或者说是词的一个组合，文本中每个词的出现都是独立的，不依赖于其他词是否出现，或者说当这篇文章的作者在任意一个位置选择一个词汇都不受前面句子的影响而独立选择的。</li>
+</ol>
+<h5 id="1-使用gensim模块"><a href="#1-使用gensim模块" class="headerlink" title="1.使用gensim模块"></a>1.使用gensim模块</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">corpus = [</span><br><span class="line">    &apos;this is the first document&apos;,</span><br><span class="line">    &apos;this is the second second document&apos;,</span><br><span class="line">    &apos;and the third one&apos;,</span><br><span class="line">    &apos;is this the first document&apos;</span><br><span class="line">]#语料库</span><br><span class="line"></span><br><span class="line">#先做分词处理</span><br><span class="line">word_list=[]</span><br><span class="line">for i in range(len(corpus)):</span><br><span class="line">    word_list.append(corpus[i].split(&apos; &apos;))</span><br><span class="line">print(word_list)</span><br><span class="line"></span><br><span class="line">#得到每个词的id值和词频</span><br><span class="line"></span><br><span class="line">from gensim import corpora</span><br><span class="line">dic=corpora.Dictionary(word_list)#赋给语料库中每个不重复的词一个id</span><br><span class="line">new_corpus=[dic.doc2bow(text) for text in word_list]#寻找整篇语料的词典、所有词，corpora.Dictionary</span><br><span class="line">print(new_corpus)</span><br><span class="line"></span><br><span class="line">#训练gensim模型</span><br><span class="line">from gensim import models</span><br><span class="line">tfidf=models.TfidfModel(new_corpus)</span><br><span class="line">tfidf.save(&quot;my_model.tfidf&quot;)</span><br><span class="line"></span><br><span class="line">#载入模型</span><br><span class="line">tfidf=models.TfidfModel.load(&quot;my_model.tfidf&quot;)</span><br><span class="line">#使用模型得到单词的tfidf值</span><br><span class="line">tfidf_vec=[]</span><br><span class="line">for i in range(len(corpus)):</span><br><span class="line">    string=corpus[i]</span><br><span class="line">    string_bow=dic.doc2bow(string.lower().split())</span><br><span class="line">    stringtfidf=tfidf[string_bow]</span><br><span class="line">    tfidf_vec.append(stringtfidf)</span><br><span class="line">print(tfidf_vec)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>结论</li>
+</ol>
+<ul>
+<li>gensim训练出来的tf-idf值左边是词的id，右边是词的tfidf值</li>
+<li>gensim有自动去除停用词的功能，比如the</li>
+<li>gensim会自动去除单个字母，比如i</li>
+<li>gensim会去除没有被训练到的词，比如name<br>所以通过gensim并不能计算每个单词的tfidf值</li>
+</ul>
+<h5 id="2-使用sklearn提取文本tfidf特征"><a href="#2-使用sklearn提取文本tfidf特征" class="headerlink" title="2.使用sklearn提取文本tfidf特征"></a>2.使用sklearn提取文本tfidf特征</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.feature_extraction.text import TfidfVectorizer</span><br><span class="line">tfidf_vec=TfidfVectorizer()#模型构建</span><br><span class="line">tfidf_matrix=tfidf_vec.fit_transform(corpus)#传入句子组成的list</span><br><span class="line"></span><br><span class="line">print(tfidf_vec.get_feature_names())#得到所有不重复的词</span><br><span class="line">print(tfidf_vec.vocabulary_)#得到对应的id值</span><br><span class="line">print(tfidf_matrix.toarray())</span><br></pre></td></tr></table></figure>
+<h6 id="3-python提取文本特征tfidf值"><a href="#3-python提取文本特征tfidf值" class="headerlink" title="3.python提取文本特征tfidf值"></a>3.python提取文本特征tfidf值</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#统计词频</span><br><span class="line">from collections import Counter</span><br><span class="line">countlist=[]</span><br><span class="line">for i in range(len(word_list)):</span><br><span class="line">    count=Counter(word_list[i])#每个count是一个句子</span><br><span class="line">    countlist.append(count)</span><br><span class="line"># word可以通过count得到，count可以通过countlist得到</span><br><span class="line"># count[word]可以得到每个单词的词频， sum(count.values())得到整个句子的单词总数</span><br><span class="line">def tf(word,count):</span><br><span class="line">    return count[word]/sum(count.values())</span><br><span class="line">#统计含有该单词的句子数</span><br><span class="line">def n_containing(word,countlist):</span><br><span class="line">    return sum(1 for count in countlist if word in count)</span><br><span class="line"># len(count_list)是指句子的总数，n_containing(word, count_list)是指含有该单词的句子的总数，加1是为了防止分母为0</span><br><span class="line">def idf(word, count_list):</span><br><span class="line">    return math.log(len(count_list) / (1 + n_containing(word, count_list)))</span><br><span class="line"></span><br><span class="line"># 将tf和idf相乘</span><br><span class="line">def tfidf(word, count, count_list):</span><br><span class="line">    return tf(word, count) * idf(word, count_list)</span><br><span class="line"></span><br><span class="line">import math</span><br><span class="line">for i,count in enumerate(countlist):</span><br><span class="line">    print(&quot;Top words in docment&#123;&#125;&quot;.format(i+1))</span><br><span class="line">    scores=&#123;word:tfidf(word,count,countlist) for word in count&#125;</span><br><span class="line">    sorted_words=sorted(scores.items(),key=lambda x:x[1],reverse=True)</span><br><span class="line">    for word,score in sorted_words[:]:</span><br><span class="line">        print(&quot;\tWord: &#123;&#125;, TF-IDF: &#123;&#125;&quot;.format(word, round(score, 5)))</span><br></pre></td></tr></table></figure>
+<h3 id="3-sklearn：点互信息和互信息"><a href="#3-sklearn：点互信息和互信息" class="headerlink" title="3.sklearn：点互信息和互信息"></a>3.sklearn：点互信息和互信息</h3><ol>
+<li>点互信息PMI<br>机器学习相关文献里面，经常会用到点互信息PMI(Pointwise Mutual Information)这个指标来衡量两个事物之间的相关性（比如两个词）。<br>  在概率论中，我们知道，如果x跟y不相关，则p(x,y)=p(x)p(y)。二者相关性越大，则p(x, y)就相比于p(x)p(y)越大。用后面的式子可能更好理解，在y出现的情况下x出现的条件概率p(x|y)除以x本身出现的概率p(x)，自然就表示x跟y的相关程度。举个自然语言处理中的例子来说，我们想衡量like这个词的极性（正向情感还是负向情感）。我们可以预先挑选一些正向情感的词，比如good。然后我们算like跟good的PMI。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PMI(x;y)=log(p(x,y)/(p(x)*p(y)))=log(p(y|x)/p(y))</span><br></pre></td></tr></table></figure>
+<ol>
+<li>互信息MI<br>衡量的是两个随机变量之间的相关性，即一个随机变量中包含的关于另一个随机变量的信息量。所谓的随机变量，即随机试验结果的量的表示，可以简单理解为按照一个概率分布进行取值的变量，比如随机抽查的一个人的身高就是一个随机变量。可以看出，互信息其实就是对X和Y的所有可能的取值情况的点互信息PMI的加权和。因此，点互信息这个名字还是很形象的。</li>
+</ol>
+<h3 id="4-如何进行特征选择（理论篇）机器学习你会遇到的“坑”-来源于网络"><a href="#4-如何进行特征选择（理论篇）机器学习你会遇到的“坑”-来源于网络" class="headerlink" title="4.如何进行特征选择（理论篇）机器学习你会遇到的“坑”(来源于网络)"></a>4.如何进行特征选择（理论篇）机器学习你会遇到的“坑”(来源于网络)</h3><p>一个典型的机器学习任务，是通过样本的特征来预测样本所对应的值。如果样本的特征少了，我们会考虑增加特征，比如Polynomial Regression就是典型的增加特征的算法。在前一周的课程中，相信大家已经体会到，模型特征越多，模型的复杂度也就越高，越容易导致过拟合。事实上，如果我们的样本数少于特征数，那么过拟合就不可避免。</p>
+<p>而现实中的情况，往往是特征太多了，需要减少一些特征。</p>
+<p>首先是“无关特征”（irrelevant feature）。比如，通过空气的湿度，环境的温度，风力和当地人的男女比例来预测明天会不会下雨，其中男女比例就是典型的无关特征。</p>
+<p>其次，要减少的另一类特征叫做“多余特征”（redundant feature），比如，通过房屋的面积，卧室的面积，车库的面积，所在城市的消费水平，所在城市的税收水平等特征来预测房价，那么消费水平（或税收水平）就是多余特征。证据表明，消费水平和税收水平存在相关性，我们只需要其中一个特征就够了，因为另一个能从其中一个推演出来。（如果是线性相关，那么我们在用线性模型做回归的时候，会出现严重的多重共线性问题，将会导致过拟合。）</p>
+<p>减少特征有非常重要的现实意义，甚至有人说，这是工业界最重要的问题。因为除了降低过拟合，特征选择还可以使模型获得更好的解释性，加快模型的训练速度，一般的，还会获得更好的性能。</p>
+<p>问题在于，在面对未知领域的时候，很难有足够的知识去判断特征与我们的目标是不是相关，特征与特征之间是不是相关。这时候，就需要一些数学和工程上的办法来帮助我们尽可能地把恰好需要的特征选择出来。</p>
+<p>常见的方法包括过滤法（Filter）、包裹法（Warpper），嵌入法</p>
+<h5 id="1-过滤法"><a href="#1-过滤法" class="headerlink" title="1.过滤法"></a>1.过滤法</h5><p>过滤法只用于检验特征向量和目标（响应变量）的相关度，不需要任何的机器学习的算法，不依赖于任何模型，只是应用统计量做筛选：我们根据统计量的大小，设置合适的阈值，将低于阈值的特征剔除.</p>
+<h5 id="2-包裹法"><a href="#2-包裹法" class="headerlink" title="2.包裹法"></a>2.包裹法</h5><p>与过滤法不同的是，包裹法采用的是特征搜索的办法。它的基本思路是，从初始特征集合中不断的选择子集合，根据学习器的性能来对子集进行评价，直到选择出最佳的子集。在搜索过程中，我们会对每个子集做建模和训练。</p>
+<p>图为包裹法的流程图，其中Estimated Accuracy是机器学习分类问题的典型的性能指标。</p>
+<p>基于此，包裹法很大程度上变成了一个计算机问题：在特征子集的搜索问题（subset search）。我们有多种思路，最容易想到的办法是穷举（Brute-force search），遍历所有可能的子集，但这样的方法适用于特征数较少的情形，特征一旦增多，就会遇到组合爆炸，在计算上并不可行。（N个特征，则子集会有种可能）</p>
+<p>另一个思路是随机化搜索，比如拉斯维加斯算法（Las Vegas algorithm），但这样的算法在特征数大的时候，计算开销仍然很大，而且有给不出任何解的风险。所以，我们常使用的是贪心算法：</p>
+<ul>
+<li>前向搜索（Forward search）</li>
+</ul>
+<p>在开始时，按照特征数来划分子集，每个子集只有一个特征，对每个子集进行评价。然后在最优的子集上逐步增加特征，使模型性能提升最大，直到增加特征并不能使模型性能提升为止。</p>
+<ul>
+<li>后向搜索（Backward search）</li>
+</ul>
+<p>在开始时，将特征集合分别减去一个特征作为子集，每个子集有N—1个特征，对每个子集进行评价。然后在最优的子集上逐步减少特征，使得模型性能提升最大，直到减少特征并不能使模型性能提升为止。</p>
+<ul>
+<li>双向搜索（Bidirectional search）</li>
+</ul>
+<p>将Forward search 和Backward search结合起来。</p>
+<ul>
+<li>递归剔除（Recursive elimination ）</li>
+</ul>
+<p>反复的训练模型，并剔除每次的最优或者最差的特征，将剔除完毕的特征集进入下一轮训练，直到所有的特征被剔除，被剔除的顺序度量了特征的重要程度。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/自然语言处理3-文本处理技能基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/14/自然语言处理3-文本处理技能基础/" itemprop="url">自然语言处理3:文本处理技能基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T14:13:14+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="NPL之基本文本处理技能"><a href="#NPL之基本文本处理技能" class="headerlink" title="NPL之基本文本处理技能"></a>NPL之基本文本处理技能</h1><h2 id="1-分词的概念"><a href="#1-分词的概念" class="headerlink" title="1.分词的概念"></a>1.分词的概念</h2><p>一个良好的分词系统应由词典和统计两套系统组成。后者为前者构造可持续更新的词典，识别新词，同时对消岐部分进行匹配。在分词过程中，好的词典很重要，其次算法要跟着需求走，不同需求选择不同算法，比如有些要求速度快，与兴趣相关，此时算法是次要的，而有些需求注重的是精度。</p>
+<p>现有方法：基于词典的匹配：前向最大匹配，后向最大匹配；基于字的标注：最大熵模型，条件随机场模型，感知器模型；其他方法：与词性标注集合，与句法分析结合。</p>
+<h2 id="2-分词最大向量化，逆向最大，双向最大匹配法"><a href="#2-分词最大向量化，逆向最大，双向最大匹配法" class="headerlink" title="2.分词最大向量化，逆向最大，双向最大匹配法"></a>2.分词最大向量化，逆向最大，双向最大匹配法</h2><h5 id="1-分词最大正向匹配法（示例来自网络）"><a href="#1-分词最大正向匹配法（示例来自网络）" class="headerlink" title="1.分词最大正向匹配法（示例来自网络）"></a>1.分词最大正向匹配法（示例来自网络）</h5><p>1、正向最大匹配法：<br>正向即从前往后取词，从7-&gt;1，每次减一个字，直到词典命中或剩下1个单字。<br>第1次：“我们在野生动物”，扫描7字词典，无<br>第2次：“我们在野生动”，扫描6字词典，无<br>。。。。<br>第6次：“我们”，扫描2字词典，有<br>扫描中止，输出第1个词为“我们”，去除第1个词后开始第2轮扫描，即：<br>第2轮扫描：<br>第1次：“在野生动物园玩”，扫描7字词典，无<br>第2次：“在野生动物园”，扫描6字词典，无<br>。。。。<br>第6次：“在野”，扫描2字词典，有<br>扫描中止，输出第2个词为“在野”，去除第2个词后开始第3轮扫描，即：<br>第3轮扫描：<br>第1次：“生动物园玩”，扫描5字词典，无<br>第2次：“生动物园”，扫描4字词典，无<br>第3次：“生动物”，扫描3字词典，无<br>第4次：“生动”，扫描2字词典，有<br>扫描中止，输出第3个词为“生动”，第4轮扫描，即：<br>第4轮扫描：<br>第1次：“物园玩”，扫描3字词典，无<br>第2次：“物园”，扫描2字词典，无<br>第3次：“物”，扫描1字词典，无<br>扫描中止，输出第4个词为“物”，非字典词数加1，开始第5轮扫描，即：<br>第5轮扫描：<br>第1次：“园玩”，扫描2字词典，无<br>第2次：“园”，扫描1字词典，有<br>扫描中止，输出第5个词为“园”，单字字典词数加1，开始第6轮扫描，即：<br>第6轮扫描：<br>第1次：“玩”，扫描1字字典词，有<br>扫描中止，输出第6个词为“玩”，单字字典词数加1，整体扫描结束。<br>正向最大匹配法，最终切分结果为：“我们/在野/生动/物/园/玩”，其中，单字字典词为2，非词典词为1。</p>
+<h5 id="2-逆向最大匹配法"><a href="#2-逆向最大匹配法" class="headerlink" title="2.逆向最大匹配法"></a>2.逆向最大匹配法</h5><p>逆向即从后往前取词，其他逻辑和正向相同。即：<br>第1轮扫描：“在野生动物园玩”<br>第1次：“在野生动物园玩”，扫描7字词典，无<br>第2次：“野生动物园玩”，扫描6字词典，无<br>。。。。<br>第7次：“玩”，扫描1字词典，有<br>扫描中止，输出“玩”，单字字典词加1，开始第2轮扫描<br>第2轮扫描：“们在野生动物园”<br>第1次：“们在野生动物园”，扫描7字词典，无<br>第2次：“在野生动物园”，扫描6字词典，无<br>第3次：“野生动物园”，扫描5字词典，有<br>扫描中止，输出“野生动物园”，开始第3轮扫描<br>第3轮扫描：“我们在”<br>第1次：“我们在”，扫描3字词典，无<br>第2次：“们在”，扫描2字词典，无<br>第3次：“在”，扫描1字词典，有<br>扫描中止，输出“在”，单字字典词加1，开始第4轮扫描<br>第4轮扫描：“我们”<br>第1次：“我们”，扫描2字词典，有<br>扫描中止，输出“我们”，整体扫描结束。<br>逆向最大匹配法，最终切分结果为：“我们/在/野生动物园/玩”，其中，单字字典词为2，非词典词为0。</p>
+<h5 id="3-双向最大匹配法"><a href="#3-双向最大匹配法" class="headerlink" title="3.双向最大匹配法"></a>3.双向最大匹配法</h5><p>正向最大匹配法和逆向最大匹配法，都有其局限性(如：长春药店，逆向切分为“长/春药店”），因此有人又提出了双向最大匹配法，双向最大匹配法。即，两种算法都切一遍，然后根据大颗粒度词越多越好，非词典词和单字词越少越好的原则，选取其中一种分词结果输出。<br>如：“我们在野生动物园玩”<br>正向最大匹配法，最终切分结果为：“我们/在野/生动/物/园/玩”，其中，两字词3个，单字字典词为2，非词典词为1。<br>逆向最大匹配法，最终切分结果为：“我们/在/野生动物园/玩”，其中，五字词1个，两字词1个，单字字典词为2，非词典词为0。<br>非字典词：正向(1)&gt;逆向(0)（越少越好）<br>单字字典词：正向(2)=逆向(2)（越少越好）<br>总词数：正向(6)&gt;逆向(4)（越少越好）<br>因此最终输出为逆向结果。</p>
+<h2 id="2-Python标准库——collections模块的Counter类"><a href="#2-Python标准库——collections模块的Counter类" class="headerlink" title="2.Python标准库——collections模块的Counter类"></a>2.Python标准库——collections模块的Counter类</h2><p>Counter类的目的是用来跟踪值出现的次数。它是一个无序的容器类型，以字典的键值对形式存储，其中元素作为key，其计数作为value。计数值可以是任意的Interger（包括0和负数）</p>
+<h6 id="1-创建"><a href="#1-创建" class="headerlink" title="1.创建"></a>1.创建</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter()  # 创建一个空的Counter类</span><br><span class="line">&gt;&gt;&gt; c = Counter(&apos;gallahad&apos;)  # 从一个可iterable对象（list、tuple、dict、字符串等）创建</span><br><span class="line">&gt;&gt;&gt; c = Counter(&#123;&apos;a&apos;: 4, &apos;b&apos;: 2&#125;)  # 从一个字典对象创建</span><br><span class="line">&gt;&gt;&gt; c = Counter(a=4, b=2)  # 从一组键值对创建</span><br></pre></td></tr></table></figure>
+<h6 id="2-2-计数值的访问与缺失的键"><a href="#2-2-计数值的访问与缺失的键" class="headerlink" title="2.2 计数值的访问与缺失的键"></a>2.2 计数值的访问与缺失的键</h6><p>当所访问的键不存在时，返回0，而不是KeyError；否则返回它的计数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter(&quot;abcdefgab&quot;)</span><br><span class="line">&gt;&gt;&gt; c[&quot;a&quot;]</span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; c[&quot;c&quot;]</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; c[&quot;h&quot;]</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<h5 id="3-计数器的更新（update和subtract）"><a href="#3-计数器的更新（update和subtract）" class="headerlink" title="3. 计数器的更新（update和subtract）"></a>3. 计数器的更新（update和subtract）</h5><p>可以使用一个iterable对象或者另一个Counter对象来更新键值。<br>计数器的更新包括增加和减少两种。其中，增加使用update()方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter(&apos;which&apos;)</span><br><span class="line">&gt;&gt;&gt; c.update(&apos;witch&apos;)  # 使用另一个iterable对象更新</span><br><span class="line">&gt;&gt;&gt; c[&apos;h&apos;]</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; d = Counter(&apos;watch&apos;)</span><br><span class="line">&gt;&gt;&gt; c.update(d)  # 使用另一个Counter对象更新</span><br><span class="line">&gt;&gt;&gt; c[&apos;h&apos;]</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<h5 id="4-元素的删除"><a href="#4-元素的删除" class="headerlink" title="4.元素的删除"></a>4.元素的删除</h5><p>删除元素使用del</p>
+<h5 id="5-elements"><a href="#5-elements" class="headerlink" title="5 elements()"></a>5 elements()</h5><p>返回一个迭代器。元素被重复了多少次，在该迭代器中就包含多少个该元素。元素排列无确定顺序，个数小于1的元素不被包含。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter(a=4, b=2, c=0, d=-2)</span><br><span class="line">&gt;&gt;&gt; list(c.elements())</span><br><span class="line">[&apos;a&apos;, &apos;a&apos;, &apos;a&apos;, &apos;a&apos;, &apos;b&apos;, &apos;b&apos;]</span><br></pre></td></tr></table></figure>
+<h5 id="6-most-common-n"><a href="#6-most-common-n" class="headerlink" title="6.most_common([n])"></a>6.most_common([n])</h5><p>返回一个TopN列表。如果n没有被指定，则返回所有元素。当多个元素计数值相同时，排列是无确定顺序的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter(&apos;abracadabra&apos;)</span><br><span class="line">&gt;&gt;&gt; c.most_common()</span><br><span class="line">[(&apos;a&apos;, 5), (&apos;r&apos;, 2), (&apos;b&apos;, 2), (&apos;c&apos;, 1), (&apos;d&apos;, 1)]</span><br><span class="line">&gt;&gt;&gt; c.most_common(3)</span><br><span class="line">[(&apos;a&apos;, 5), (&apos;r&apos;, 2), (&apos;b&apos;, 2)]</span><br></pre></td></tr></table></figure>
+<h5 id="7-常规操作"><a href="#7-常规操作" class="headerlink" title="7.常规操作"></a>7.常规操作</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sum(c.values())  # 所有计数的总数</span><br><span class="line">c.clear()  # 重置Counter对象，注意不是删除</span><br><span class="line">list(c)  # 将c中的键转为列表</span><br><span class="line">set(c)  # 将c中的键转为set</span><br><span class="line">dict(c)  # 将c中的键值对转为字典</span><br><span class="line">c.items()  # 转为(elem, cnt)格式的列表</span><br><span class="line">Counter(dict(list_of_pairs))  # 从(elem, cnt)格式的列表转换为Counter类对象</span><br><span class="line">c.most_common()[:-n:-1]  # 取出计数最少的n-1个元素</span><br><span class="line">c += Counter()  # 移除0和负值</span><br></pre></td></tr></table></figure>
+<h2 id="3-语言模型中unigram、bigram、trigram的概念"><a href="#3-语言模型中unigram、bigram、trigram的概念" class="headerlink" title="3.语言模型中unigram、bigram、trigram的概念"></a>3.语言模型中unigram、bigram、trigram的概念</h2><ol>
+<li>unigram 一元分词，把句子分成一个一个的汉字</li>
+<li>bigram 二元分词，把句子从头到尾每两个字组成一个词语</li>
+<li>trigram 三元分词，把句子从头到尾每三个字组成一个词语.</li>
+</ol>
+<h5 id="n-gram模型的概念"><a href="#n-gram模型的概念" class="headerlink" title="n-gram模型的概念"></a>n-gram模型的概念</h5><p>n-gram模型也称为n-1阶马尔科夫模型，它有一个有限历史假设：当前词的出现概率仅仅与前面n-1个词相关。因此(1)式可以近似为：</p>
+<p>当n取1、2、3时，n-gram模型分别称为unigram、bigram和trigram语言模型。n-gram模型的参数就是条件概率</p>
+<p>假设词表的大小为100,000，那么n-gram模型的参数数量为</p>
+<p>n越大，模型越准确，也越复杂，需要的计算量越大。最常用的是bigram，其次是unigram和trigram，n取≥4的情况较少。</p>
+<h2 id="4-文本矩阵化-要求采用结巴分词来进行分词操作"><a href="#4-文本矩阵化-要求采用结巴分词来进行分词操作" class="headerlink" title="4.文本矩阵化(要求采用结巴分词来进行分词操作)"></a>4.文本矩阵化(要求采用结巴分词来进行分词操作)</h2><p>分词（可采用结巴分词来进行分词操作，其他库也可以）；去停用词；构造词表。<br>每篇文档的向量化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import jieba</span><br><span class="line">import re</span><br><span class="line">stopwords = &#123;&#125;</span><br><span class="line">fstop = open(&apos;stop_words.txt&apos;, &apos;r&apos;,encoding=&apos;utf-8&apos;,errors=&apos;ingnore&apos;)</span><br><span class="line">for eachWord in fstop:</span><br><span class="line">    stopwords[eachWord.strip()] = eachWord.strip()  #停用词典</span><br><span class="line">fstop.close()</span><br><span class="line">f1=open(&apos;tt1.txt&apos;,&apos;r&apos;,encoding=&apos;utf-8&apos;,errors=&apos;ignore&apos;)</span><br><span class="line">f2=open(&apos;fenci.txt&apos;,&apos;w&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line"></span><br><span class="line">line=f1.readline()</span><br><span class="line">while line:</span><br><span class="line">    line = line.strip()  #去前后的空格</span><br><span class="line">    line = re.sub(r&quot;[0-9\s+\.\!\/_,$%^*()?;；:-【】+\&quot;\&apos;]+|[+——！，;:。？、~@#￥%……&amp;*（）]+&quot;, &quot; &quot;, line) #去标点符号</span><br><span class="line">    seg_list=jieba.cut(line,cut_all=False)  #结巴分词</span><br><span class="line">    outStr=&quot;&quot;</span><br><span class="line">    for word in seg_list:</span><br><span class="line">        if word not in stopwords:</span><br><span class="line">            outStr+=word</span><br><span class="line">            outStr+=&quot; &quot;</span><br><span class="line">    f2.write(outStr)</span><br><span class="line">    line=f1.readline()</span><br><span class="line">f1.close()</span><br><span class="line">f2.close()</span><br></pre></td></tr></table></figure>
+<p>##### </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/tensorflow-及机器学习基础知识/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1587,342 +1971,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/补充：matplotlib/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/09/补充：matplotlib/" itemprop="url">补充：matplotlib</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-09T04:04:58+08:00">
-                2019-03-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="机器学习2（补充：Matplotlib"><a href="#机器学习2（补充：Matplotlib" class="headerlink" title="机器学习2（补充：Matplotlib)"></a>机器学习2（补充：Matplotlib)</h2><p>matplotlib及其子包PyPlot时实现可视化二维数据的基本工具，PyPlot的核心时plot方法，实现为传入一个列表或者一维数组，只要传入一个参数，就会假设该值为y值序列，并自动生成x值。可以接受指明线条属性的参数。</p>
-<p>示例代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">x=np.arange(0.,5.,0.2)</span><br><span class="line">plt.plot(x,x**4,&apos;r&apos;,x,x*90,&apos;bs&apos;,x,x**3,&apos;g^&apos;)</span><br><span class="line">plt.show()</span><br><span class="line">print(help(plt.plot))</span><br></pre></td></tr></table></figure>
-<p>图形显示结果如下：</p>
-<p><img src="/2019/03/09/补充：matplotlib/C:/blog\source\_posts\补充：matplotlib\捕获.PNG" alt="程序运行结果"></p>
-<p>也可以使用help(plt.plot)获得完整的线条风格列表,截取一部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Parameters</span><br><span class="line">    ----------</span><br><span class="line">    x, y : array-like or scalar</span><br><span class="line">        The horizontal / vertical coordinates of the data points.</span><br><span class="line">        *x* values are optional. If not given, they default to</span><br><span class="line">        ``[0, ..., N-1]``.</span><br><span class="line">    </span><br><span class="line">        Commonly, these parameters are arrays of length N. However,</span><br><span class="line">        scalars are supported as well (equivalent to an array with</span><br><span class="line">        constant value).</span><br><span class="line">    </span><br><span class="line">        The parameters can also be 2-dimensional. Then, the columns</span><br><span class="line">        represent separate data sets.</span><br></pre></td></tr></table></figure>
-<h3 id="创建多个坐标轴，使用subplot命令"><a href="#创建多个坐标轴，使用subplot命令" class="headerlink" title="创建多个坐标轴，使用subplot命令"></a>创建多个坐标轴，使用subplot命令</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/机器学习2/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/09/机器学习2/" itemprop="url">机器学习2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-09T01:15:49+08:00">
-                2019-03-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="python机器学习基础库-numpy-pandas-matplotlib"><a href="#python机器学习基础库-numpy-pandas-matplotlib" class="headerlink" title="python机器学习基础库(numpy,pandas,matplotlib)"></a>python机器学习基础库(numpy,pandas,matplotlib)</h1><h2 id="1-numpy"><a href="#1-numpy" class="headerlink" title="1.numpy"></a>1.numpy</h2><p>NumPy是Python数值计算最重要的基础包，支持高级大量的维度数组与矩阵运算，大多数提供科学计算的包都是使用Numpy的数组作为构建基础。Numpy内部解除了Python的PIL(全局解释器锁),运算效率极好,是大量机器学习框架的基础库。</p>
-<p>下面简要介绍numpy的简单使用方法</p>
-<h4 id="创建ndarray对象"><a href="#创建ndarray对象" class="headerlink" title="创建ndarray对象:"></a>创建ndarray对象:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">numpy.array(object, dtype = None, copy = True, order = None, subok = False, ndmin = 0)</span><br><span class="line"></span><br><span class="line">1.</span><br><span class="line">object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。</span><br><span class="line">2.</span><br><span class="line">dtype 数组的所需数据类型，可选。</span><br><span class="line">3.</span><br><span class="line">copy 可选，默认为true，对象是否被复制。</span><br><span class="line">4.</span><br><span class="line">order C（按行）、F（按列）或A（任意，默认）。</span><br><span class="line">5.</span><br><span class="line">subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。</span><br><span class="line">6.</span><br><span class="line">ndmin 指定返回数组的最小维数。</span><br></pre></td></tr></table></figure>
-<p>代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line"></span><br><span class="line">a = np.array([1,2,3])  </span><br><span class="line"></span><br><span class="line">print a</span><br><span class="line"></span><br><span class="line">输出为：[1, 2, 3]</span><br></pre></td></tr></table></figure>
-<h4 id="创建一个二维数组"><a href="#创建一个二维数组" class="headerlink" title="创建一个二维数组"></a>创建一个二维数组</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line"></span><br><span class="line">a = np.array([[1,  2],  [3,  4]])  </span><br><span class="line"></span><br><span class="line">print a</span><br><span class="line"></span><br><span class="line">output:[[1, 2] ,[3, 4]]</span><br></pre></td></tr></table></figure>
-<h5 id="使用reshape调整数组大小"><a href="#使用reshape调整数组大小" class="headerlink" title="使用reshape调整数组大小"></a>使用reshape调整数组大小</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line"></span><br><span class="line">a = np.array([[1,2,3],[4,5,6]]) </span><br><span class="line"></span><br><span class="line">b = a.reshape(3,2)  </span><br><span class="line"></span><br><span class="line">print b</span><br><span class="line"></span><br><span class="line">output:</span><br><span class="line">[[1, 2] </span><br><span class="line"></span><br><span class="line"> [3, 4] </span><br><span class="line"></span><br><span class="line"> [5, 6]]</span><br></pre></td></tr></table></figure>
-<h3 id="切片和索引"><a href="#切片和索引" class="headerlink" title="切片和索引"></a>切片和索引</h3><p><code>ndarray</code>对象的内容可以通过索引或切片来访问和修改，就像 Python 的内置容器对象一样。</p>
-<p>如前所述，<code>ndarray</code>对象中的元素遵循基于零的索引。 有三种可用的索引方法类型： <strong>字段访问，基本切片</strong>和<strong>高级索引</strong>。</p>
-<p>基本切片是 Python 中基本切片概念到 n 维的扩展。 通过将<code>start</code>，<code>stop</code>和<code>step</code>参数提供给内置的<code>slice</code>函数来构造一个 Python <code>slice</code>对象。 此<code>slice</code>对象被传递给数组来提取数组的一部分。</p>
-<h5 id="示例-1"><a href="#示例-1" class="headerlink" title="示例 1"></a>示例 1</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">10</span>)</span><br><span class="line">s = slice(<span class="number">2</span>,<span class="number">7</span>,<span class="number">2</span>)  </span><br><span class="line"><span class="keyword">print</span> a[s]</span><br></pre></td></tr></table></figure>
-<p>输出如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2  4  6]</span><br></pre></td></tr></table></figure>
-<p>在上面的例子中，<code>ndarray</code>对象由<code>arange()</code>函数创建。 然后，分别用起始，终止和步长值<code>2</code>，<code>7</code>和<code>2</code>定义切片对象。 当这个切片对象传递给<code>ndarray</code>时，会对它的一部分进行切片，从索引<code>2</code>到<code>7</code>，步长为<code>2</code>。</p>
-<p>通过将由冒号分隔的切片参数（<code>start:stop:step</code>）直接提供给<code>ndarray</code>对象，也可以获得相同的结果。</p>
-<h5 id="示例-2"><a href="#示例-2" class="headerlink" title="示例 2"></a>示例 2</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">10</span>)</span><br><span class="line">b = a[<span class="number">2</span>:<span class="number">7</span>:<span class="number">2</span>]  </span><br><span class="line"><span class="keyword">print</span> b</span><br></pre></td></tr></table></figure>
-<p>输出如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2  4  6]</span><br></pre></td></tr></table></figure>
-<p>如果只输入一个参数，则将返回与索引对应的单个项目。 如果使用<code>a:</code>，则从该索引向后的所有项目将被提取。 如果使用两个参数（以<code>:</code>分隔），则对两个索引（不包括停止索引）之间的元素以默认步骤进行切片。</p>
-<h5 id="示例-3"><a href="#示例-3" class="headerlink" title="示例 3"></a>示例 3</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对单个元素进行切片  </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">10</span>)</span><br><span class="line">b = a[<span class="number">5</span>]  </span><br><span class="line"><span class="keyword">print</span> b</span><br></pre></td></tr></table></figure>
-<p>输出如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
-<h5 id="示例-4"><a href="#示例-4" class="headerlink" title="示例 4"></a>示例 4</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对始于索引的元素进行切片  </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">10</span>)  </span><br><span class="line"><span class="keyword">print</span> a[<span class="number">2</span>:]</span><br></pre></td></tr></table></figure>
-<h3 id="数学运算"><a href="#数学运算" class="headerlink" title="数学运算"></a>数学运算</h3><p>可以对Numpy数组进行加法，减法，乘法，甚至三角运算，可以通过广度映射对不同阵型的数组进行算术运算。</p>
-<h4 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h4><p>使用np.vectorize(函数)创建标量函数的向量化版本，以Python函数或方法作为参数，输出函数的向量化版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">def myfunc(a,b):</span><br><span class="line">def myfunc(a,b):</span><br><span class="line">	if a&gt;b:</span><br><span class="line">		return a-b</span><br><span class="line">  	else:</span><br><span class="line">    	return a+b</span><br><span class="line">vfunc=np.vectorize(myfunc)</span><br><span class="line">print(vfunc([1,2,3,4],[4,3,2,1]))</span><br></pre></td></tr></table></figure>
-<p>输出为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[5 5 1 3]</span><br></pre></td></tr></table></figure></p>
-<h3 id="多项式函数"><a href="#多项式函数" class="headerlink" title="多项式函数"></a>多项式函数</h3><p>ployld接受降幂次序的参数数组作为参数</p>
-<h5 id="创建多项式"><a href="#创建多项式" class="headerlink" title="创建多项式"></a>创建多项式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import  numpy as np</span><br><span class="line">p=np.poly1d([2,3,4])</span><br><span class="line">print(np.poly1d(p))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">output: </span><br><span class="line">   2</span><br><span class="line">2 x + 3 x + 4</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1973,7 +2021,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
