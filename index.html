@@ -867,6 +867,193 @@ P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/KNN算法原理及代码实现/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/14/KNN算法原理及代码实现/" itemprop="url">KNN算法原理及代码实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T00:51:31+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="k邻近算法的原理和使用"><a href="#k邻近算法的原理和使用" class="headerlink" title="k邻近算法的原理和使用"></a>k邻近算法的原理和使用</h1><h3 id="1-算法原理"><a href="#1-算法原理" class="headerlink" title="1.算法原理"></a>1.算法原理</h3><h6 id="1-KNN算法三要素"><a href="#1-KNN算法三要素" class="headerlink" title="1. KNN算法三要素"></a>1. KNN算法三要素</h6><blockquote>
+<p>KNN算法我们主要要考虑三个重要的要素，对于固定的训练集，只要这三点确定了，算法的预测方式也就决定了。这三个最终的要素是k值的选取，距离度量的方式和分类决策规则。</p>
+</blockquote>
+<ol>
+<li>对于分类决策规则，一般都是使用前面提到的多数表决法。所以我们重点是关注与k值的选择和距离的度量方式。</li>
+</ol>
+<ol start="2">
+<li>对于k值的选择，没有一个固定的经验，一般根据样本的分布，选择一个较小的值，可以通过交叉验证选择一个合适的k值。</li>
+</ol>
+<ul>
+<li>选择较小的k值，就相当于用较小的领域中的训练实例进行预测，训练误差会减小，只有与输入实例较近或相似的训练实例才会对预测结果起作用，与此同时带来的问题是泛化误差会增大，换句话说，K值的减小就意味着整体模型变得复杂，容易发生过拟合；</li>
+<li>选择较大的k值，就相当于用较大领域中的训练实例进行预测，其优点是可以减少泛化误差，但缺点是训练误差会增大。这时候，与输入实例较远（不相似的）训练实例也会对预测器作用，使预测发生错误，且K值的增大就意味着整体的模型变得简单。</li>
+<li>一个极端是k等于样本数m，则完全没有分类，此时无论输入实例是什么，都只是简单的预测它属于在训练实例中最多的类，模型过于简单。</li>
+</ul>
+<ol start="3">
+<li>对于距离的度量，我们有很多的距离度量方式，但是最常用的是欧式距离。</li>
+</ol>
+<h5 id="2-核心思想"><a href="#2-核心思想" class="headerlink" title="2.核心思想"></a>2.核心思想</h5><blockquote>
+<p>计算待标记的数据样本和数据集中的每个样本的距离，取距离最近的K个样本，待标记的数据样本就由这k个距离最近的样本投票产生</p>
+</blockquote>
+<p>算法原理的伪代码</p>
+<ul>
+<li>遍历x_train中的所有样本，计算每个样本与X_test的距离，并吧距离保存在Distance数组中 </li>
+<li>对Distance数组进行排序，取距离最近的k个点，即为X_knn</li>
+<li>对X-knn中统计每个类别的个数，即在class0在X_knn中有几个样本，class1在X_knn中有几个样本…..</li>
+<li>待标记的样本类别，就是在X_knn中样本个数最多的那个类别。</li>
+</ul>
+<h5 id="3-算法优缺点"><a href="#3-算法优缺点" class="headerlink" title="3.算法优缺点"></a>3.算法优缺点</h5><ul>
+<li><em>优点</em>:准确性高，对异常值和噪声有较高的容忍度</li>
+<li><em>缺点</em>:计算量大，对内存需求大<h3 id="2-简单运用-使用k邻近算法进行分类"><a href="#2-简单运用-使用k邻近算法进行分类" class="headerlink" title="2.简单运用(使用k邻近算法进行分类)"></a>2.简单运用(使用k邻近算法进行分类)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.datasets.samples_generator import make_blobs</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line">#生成数据</span><br><span class="line"></span><br><span class="line">centers=[[-2,2],[2,2],[0,4]]</span><br><span class="line">X,y=make_blobs(n_samples=600,centers=centers,random_state=0,cluster_std=0.6)</span><br><span class="line"></span><br><span class="line">#画出数据</span><br><span class="line">plt.figure(figsize=(16,10),dpi=144)</span><br><span class="line">c=np.array(centers)</span><br><span class="line">plt.scatter(X[:,0],X[:,1],cmap=&apos;cool&apos;,c=y,s=100)</span><br><span class="line">plt.scatter(c[:,0],c[:,1],s=100,marker=&apos;^&apos;,c=&apos;orange&apos;)</span><br><span class="line"></span><br><span class="line">#调用训练器来进行分类</span><br><span class="line">from sklearn.neighbors import KNeighborsClassifier</span><br><span class="line">k=5</span><br><span class="line">#训练模型</span><br><span class="line">clf=KNeighborsClassifier()</span><br><span class="line">clf.fit(X,y)</span><br><span class="line"></span><br><span class="line">#预测</span><br><span class="line">X_sample=[[0,2]]</span><br><span class="line">y_sample=clf.predict(X_sample)</span><br><span class="line">neighbors=clf.kneighbors(X_sample,return_distance=False)</span><br><span class="line"></span><br><span class="line">#画出该点和临近点</span><br><span class="line">print(X_sample)</span><br><span class="line">print(neighbors)</span><br><span class="line">print(X_sample[0][0])</span><br><span class="line">plt.scatter(X_sample[0][0],X_sample[0][1],c=&quot;red&quot;,s=100)</span><br><span class="line"></span><br><span class="line">for i in neighbors[0]:</span><br><span class="line">    #print(X[i][0])</span><br><span class="line">    plt.plot([X[i][0],X_sample[0][0]],[X[i][1],X_sample[0][1]],&apos;k--&apos;,linewidth=0.8);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/04/14/KNN算法原理及代码实现/C:/blog\source\_posts\KNN算法原理及代码实现\捕获.PNG" alt=""></p>
+<h3 id="3-示例运用-使用k邻近算法进行回归拟合"><a href="#3-示例运用-使用k邻近算法进行回归拟合" class="headerlink" title="3.示例运用(使用k邻近算法进行回归拟合)"></a>3.示例运用(使用k邻近算法进行回归拟合)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#生成数据集</span><br><span class="line">import numpy as np</span><br><span class="line">n_dots=400</span><br><span class="line">X=5*np.random.rand(n_dots,1)</span><br><span class="line">y=np.cos(X).ravel()#将多为数组将为一维</span><br><span class="line">#print(X)</span><br><span class="line">print(&quot;******************&quot;)</span><br><span class="line">#print(y)</span><br><span class="line"></span><br><span class="line">#添加一些噪声</span><br><span class="line">y=y+0.2*np.random.rand(n_dots)-0.1</span><br><span class="line"></span><br><span class="line">#训练模型</span><br><span class="line">from sklearn.neighbors import KNeighborsRegressor</span><br><span class="line">k=5</span><br><span class="line">knn=KNeighborsRegressor(k)</span><br><span class="line">knn.fit(X,y)</span><br><span class="line"></span><br><span class="line">#将所有的预测点用吸纳画起来，形成回归曲线</span><br><span class="line">T=np.linspace(0,5,500)[:,np.newaxis]#np.newaxis 在使用和功能上等价于 None，其实就是 None 的一个别名. </span><br><span class="line">print(T.shape)</span><br><span class="line">y_pred=knn.predict(T)</span><br><span class="line">print(&quot;得分为&#123;0&#125;&quot;.format(knn.score(X,y)))</span><br><span class="line"></span><br><span class="line">#画出拟合曲线</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line">plt.figure(figsize=(16,10),dpi=144)</span><br><span class="line">plt.scatter(X,y,c=&apos;g&apos;,label=&apos;data&apos;,s=100)#画出训练样本</span><br><span class="line">plt.plot(T,y_pred,c=&apos;k&apos;,label=&apos;prediction&apos;,lw=4)#画出拟合曲线（T为横坐标，y_pred为纵坐标</span><br><span class="line">plt.axis(&apos;tight&apos;)</span><br><span class="line">plt.title(&quot;KNeightborsRessor&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/14/KNN算法原理及代码实现/C:/blog\source\_posts\KNN算法原理及代码实现\mm.PNG" alt=""></p>
+<h3 id="4-实际运用"><a href="#4-实际运用" class="headerlink" title="4.实际运用"></a>4.实际运用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">![gg](C:\Users\wuxun\Desktop\gg.PNG)from sklearn import datasets</span><br><span class="line">import numpy as np</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line"></span><br><span class="line">text=datasets.load_iris()</span><br><span class="line">#print(text)</span><br><span class="line">target=text.target</span><br><span class="line">data=text.data</span><br><span class="line">#print(target)</span><br><span class="line">print(&quot;***********&quot;)</span><br><span class="line">#print(data)</span><br><span class="line"></span><br><span class="line">data.shape</span><br><span class="line">#将样本分为训练集和测试集</span><br><span class="line">X_train,X_test,Y_train,Y_test=train_test_split(data,target,test_size=0.2)</span><br><span class="line"></span><br><span class="line">#通过使用普通的k-均值算法，带权重的k-均值算法，指定半斤的k-均值算法对数据进行拟合</span><br><span class="line">from sklearn.neighbors import KNeighborsClassifier,RadiusNeighborsClassifier</span><br><span class="line"></span><br><span class="line">#构造三个模型</span><br><span class="line"></span><br><span class="line">models=[]</span><br><span class="line">models.append((&quot;KNN&quot;,KNeighborsClassifier(n_neighbors=2)))</span><br><span class="line">models.append((&quot;KNN with weight&quot;,KNeighborsClassifier(n_neighbors2,weightsh=&quot;distance&quot;)))</span><br><span class="line">models.append((&quot;Radius Neighbors&quot;,RadiusNeighborsClassifier(n_neighbors=2,radius=500.0)))</span><br><span class="line"></span><br><span class="line">#分别训练三个模型</span><br><span class="line">results=[]</span><br><span class="line">for name,model in models:</span><br><span class="line">    model.fit(X_train,Y_train)</span><br><span class="line">    results.append((name,model.score(X_test,Y_test)))</span><br><span class="line">for i in range(len(results)):</span><br><span class="line">    print(&quot;name: &#123;&#125;: score:&#123;&#125;&quot;.format(results[i][0],results[i][1]))</span><br><span class="line"></span><br><span class="line">#由于随机测验数据存在的差异，所以我们用KFold计算一般的算法性质</span><br><span class="line">from sklearn.model_selection import KFold</span><br><span class="line">from sklearn.model_selection import cross_val_score</span><br><span class="line">results=[]</span><br><span class="line">for name,model in models:</span><br><span class="line">    kfold=KFold(n_splits=10)#将数据集分成十份，一份作为验证集</span><br><span class="line">    cv_result=cross_val_score(model,data,target,cv=kfold)#函数计算出十次数据集组合而得的模型得分</span><br><span class="line">for i in range(len(results)):</span><br><span class="line">    print(&quot;name &#123;&#125; :scor &#123;&#125;&quot;.format(results[i][0],results[i][1].mean()))</span><br><span class="line">    </span><br><span class="line">#模型训练及分析</span><br><span class="line">#普通的knn训练模型可能更优，我们使用普通的knn模型训练数据</span><br><span class="line"></span><br><span class="line">knn=KNeighborsClassifier(n_neighbors=2)</span><br><span class="line">knn.fit(X_train,Y_train)</span><br><span class="line">train_score=knn.score(X_train,Y_train)</span><br><span class="line">test_score=knn.score(X_test,Y_test)</span><br><span class="line">print(&quot;tsin score:&#123;&#125;,test score:&#123;&#125;&quot;.format(train_score,test_score))</span><br><span class="line"></span><br><span class="line">from sklearn.model_selection import ShuffleSplit</span><br><span class="line">#from common.utils import plot_learning_curve</span><br><span class="line"></span><br><span class="line">#knn.KNeighborsClassifier(n_neighbors=2)</span><br><span class="line">#cv=ShuffleSplit(n_splits=10,test_size=0.2,random_state=0)</span><br><span class="line"></span><br><span class="line">from sklearn.feature_selection import SelectKBest#选择相关性最大的两个特征</span><br><span class="line"></span><br><span class="line">selector=SelectKBest(k=2)</span><br><span class="line">X_new=selector.fit_transform(data,target)</span><br><span class="line">X_new[0:5]</span><br><span class="line"></span><br><span class="line">#选择最好的两个特征在对三个模型进行检测</span><br><span class="line">results=[]</span><br><span class="line">for name,model in models:</span><br><span class="line">    kfold=KFold(n_splits=10)</span><br><span class="line">    cv_result=cross_val_score(model,X_new,target,cv=kfold)</span><br><span class="line">    results.append((name,cv_result))</span><br><span class="line">for i in range(len(results)):</span><br><span class="line">    print(&quot;name:&#123;&#125;; cross val score:&#123;&#125;&quot;.format(results[i][0],results[i][1].mean()))</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">#画出二维数据</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line">plt.figure(figsize=(10,6),dpi=200)</span><br><span class="line">plt.ylabel(&quot;BMI&quot;)</span><br><span class="line">plt.xlabel(&quot;Glucose&quot;)</span><br><span class="line">plt.scatter(X_new[:,0],X_new[:,1],c=target)</span><br><span class="line">#plt.scatter(X_new,target,c=&apos;r&apos;,s=20,marker=&apos;o&apos;)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/14/KNN算法原理及代码实现/C:/blog\source\_posts\KNN算法原理及代码实现\gg.PNG" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/tensorflow-及机器学习基础知识/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1847,159 +2034,6 @@ P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/java聊天室的实现/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/18/java聊天室的实现/" itemprop="url">java聊天室的实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T10:01:45+08:00">
-                2019-03-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="java-聊天室的实现"><a href="#java-聊天室的实现" class="headerlink" title="java 聊天室的实现"></a>java 聊天室的实现</h1><h4 id="1-部分代码"><a href="#1-部分代码" class="headerlink" title="1.部分代码"></a>1.部分代码</h4><p>Sqlserver类是一个自己设定的数据存储类，与登录界面共同作用，记录当前在线的人数，以及实现一些必备的功能函数，如返回在线用户的列表，删除用户等。<br><figure class="highlight plain"><figcaption><span>projectcenter;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Map.Entry;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">//用户数据库</span><br><span class="line">public class SqlServer &#123;</span><br><span class="line">   private static Map&lt;String,UserInfor&gt;SQL=new HashMap();</span><br><span class="line">   </span><br><span class="line">   //判断输入账号是否存在</span><br><span class="line">    public static boolean CheckUser(String name) &#123;</span><br><span class="line">    	if(SQL.containsKey(name)) &#123;</span><br><span class="line">    		return true;</span><br><span class="line">    	&#125;</span><br><span class="line">    	//System.out.println(&quot;不存在此用户：&quot;+name);</span><br><span class="line">    	return false;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //检查账号密码是否输入正确</span><br><span class="line">    public static boolean CheckPassword(String name,String Password) &#123;</span><br><span class="line">    	if(SQL.get(name).Check(Password)) &#123;</span><br><span class="line">    		return true;</span><br><span class="line">    	&#125;else &#123;</span><br><span class="line">    		return false;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回对象数组</span><br><span class="line">    public static Map&lt;String, UserInfor&gt; Getusers() &#123;</span><br><span class="line">    	return SQL;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //返回key1值对应的对象</span><br><span class="line">    public UserInfor returnUser(String name) &#123;</span><br><span class="line">    	return SQL.get(name);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //返回用户姓名列表</span><br><span class="line">    public String[] Groupusername() &#123;</span><br><span class="line">    	</span><br><span class="line">    	Object[] key =  SQL.keySet().toArray();    </span><br><span class="line">    	Arrays.sort(key); </span><br><span class="line">    	int l=key.length;</span><br><span class="line">    	String username[]=new String[l];</span><br><span class="line">  </span><br><span class="line">    	</span><br><span class="line">    	for(int i=0;i&lt;key.length;i++) &#123;</span><br><span class="line">    		username[i]=key[i].toString();</span><br><span class="line">    		//System.out.println(key[i].toString());</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	</span><br><span class="line">        return username;</span><br><span class="line">    &#125;</span><br><span class="line">    	</span><br><span class="line">    //创建用户</span><br><span class="line">    public int BuildNewUser(String name,String password) &#123;</span><br><span class="line">    	if(SQL.containsKey(name)) &#123;</span><br><span class="line">    		//System.out.println(&quot;该用户名已存在!请重新输入&quot;);</span><br><span class="line">    		return 0;</span><br><span class="line">    	   &#125;else &#123;</span><br><span class="line">    		   UserInfor u=new UserInfor();</span><br><span class="line">    		   u.SetName(name);</span><br><span class="line">    		   u.SetPwd(password);</span><br><span class="line">    		   System.out.println(&quot;新用户密码为：&quot;+password);</span><br><span class="line">    		   this.SQL.put(name,u);</span><br><span class="line">    		   return 1;</span><br><span class="line">    	   &#125;</span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //遍历打印Map中的键值对</span><br><span class="line">    public static void ShowMap()&#123;</span><br><span class="line">        for(Map.Entry&lt;String, UserInfor&gt; entry: SQL.entrySet())&#123;</span><br><span class="line">            System.out.println(entry.getKey()+&quot;=&quot;+entry.getValue().toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //删除用户</span><br><span class="line">    public static void DeleteUser(String name) &#123;</span><br><span class="line">    	SQL.get(name).SetOnline2();</span><br><span class="line">    </span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回在线的用户id列表</span><br><span class="line">    public String[] WhoisOnline() &#123;</span><br><span class="line">    	</span><br><span class="line">    	Object[] key =  SQL.keySet().toArray();    </span><br><span class="line">    	Arrays.sort(key); </span><br><span class="line">    	int l=key.length;</span><br><span class="line">    	String username[]=new String[l];</span><br><span class="line">    	for(int i=0;i&lt;key.length;i++) &#123;</span><br><span class="line">            if(SQL.get(key[i].toString()).getOnline()) &#123;//如果在线则加入数组</span><br><span class="line">    		username[i]=key[i].toString();</span><br><span class="line">           &#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	return username;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回不在线用户列表</span><br><span class="line">    public String[] WHoisnotOnline() &#123;</span><br><span class="line">    	Object[] key =  SQL.keySet().toArray();    </span><br><span class="line">    	Arrays.sort(key); </span><br><span class="line">    	int l=key.length;</span><br><span class="line">    	String username[]=new String[l];</span><br><span class="line">    	for(int i=0;i&lt;key.length;i++) &#123;</span><br><span class="line">            if(!SQL.get(key[i].toString()).getOnline()) &#123;//如果不在线则加入数组</span><br><span class="line">    		username[i]=key[i].toString();</span><br><span class="line">           &#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	return username;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //系统先建立十个用户</span><br><span class="line">    static&#123;</span><br><span class="line">    	for (int i=0;i&lt;10;i++) &#123;</span><br><span class="line">    		UserInfor u=new UserInfor();</span><br><span class="line">    		u.SetName(String.valueOf(i+1));//用户名即是索引</span><br><span class="line">    		u.SetPwd(&quot;123456&quot;);</span><br><span class="line">    		SQL.put(u.get_name(),u);</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>接下来是用户界面类，与BuildCheck类相连接每当用户实现了登录窗口的检测，则新建一个用户类对象Client,用户类中包含了界面的实现和socket消息的发送和接受，以信息的开头辨别信息的种类，若为一号信息则是私聊信息，则再在BufferedReader中读取私聊信息并显示在私聊界面上，二号信息指代群信息。在界面设计时，应当有好友列表上下线下线的的刷新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Client extends Thread&#123;/部分代码</span><br><span class="line">	</span><br><span class="line">		//监听事件的添加</span><br><span class="line">		send.addActionListener(new ActionListener() &#123;//发送私聊消息</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent arg0) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">			   WriterMess(&quot;1&quot;);//表示是私聊信息</span><br><span class="line">         	   WriterMess(selected);//私聊用户号</span><br><span class="line">         	   String mess=textfield.getText();</span><br><span class="line">         	   WriterMess(mess);//私聊信息</span><br><span class="line">         	   area.append(&quot;自己：&quot;+mess+&quot;\n&quot;);</span><br><span class="line">         	  if(mess.equals(&quot;bye&quot;)) &#123;//设置用户下线</span><br><span class="line">					WriterMess(&quot;3&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		send2.addActionListener(new ActionListener() &#123;//实现群聊功能</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent arg0) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">				try &#123;</span><br><span class="line">					WriterMess(&quot;2&quot;);</span><br><span class="line">					String gets=textfield2.getText();				</span><br><span class="line">					WriterMess(gets);</span><br><span class="line">					if(gets.equals(&quot;bye&quot;)) &#123;//设置用户下线</span><br><span class="line">						WriterMess(&quot;3&quot;);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125; catch(Exception e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">					</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		 //JList点击事件的添加</span><br><span class="line">		list1.addMouseListener(new MouseAdapter() &#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void mouseClicked(MouseEvent arg0) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">				String select=(String) list1.getSelectedValue();</span><br><span class="line">            	if(!select.equals(userinfor.get_name())) &#123;//不能对自己进行私聊</span><br><span class="line">                   area.append(&quot;	================================================\n&quot;);</span><br><span class="line">            	   area.append(&quot;	===你选择&quot;+select+&quot;号在线客户进行私聊===\n&quot;);</span><br><span class="line">            	   </span><br><span class="line">            	   selected=select;</span><br><span class="line"></span><br><span class="line">            	&#125;else &#123;</span><br><span class="line">            		area.append(&quot;    	============您不能选择自己进行私聊!===========\n&quot;);</span><br><span class="line">            	&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		list2.addMouseListener(new MouseAdapter() &#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void mouseClicked(MouseEvent e) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">				area.append(&quot;=================当前用户不在线！=============\n&quot;);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public void ShashSelf() &#123;</span><br><span class="line">		this.use.updateUI();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public void CloseSelf() &#123;//将自己关闭</span><br><span class="line">		try &#123;</span><br><span class="line">			socket.close();</span><br><span class="line">		&#125; catch (IOException e) &#123;</span><br><span class="line">			// TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void ReadMess() &#123;</span><br><span class="line">		 //读取服务器返回的消息</span><br><span class="line">		try &#123;</span><br><span class="line">			BufferedReader br = new BufferedReader(new InputStreamReader(in));</span><br><span class="line">	        String mess1 = br.readLine();</span><br><span class="line">		while(true) &#123;</span><br><span class="line">        </span><br><span class="line">        //私聊消息</span><br><span class="line">        </span><br><span class="line">        System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">        System.out.println(&quot;****************************************&quot;);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        	</span><br><span class="line">        /*while(mess1.equals(&quot;4&quot;)) &#123;//刷新</span><br><span class="line">        		this.use.revalidate();</span><br><span class="line">        		mess1=br.readLine();</span><br><span class="line">        		 System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">        	        System.out.println(&quot;****************************************&quot;);</span><br><span class="line">        	&#125;*/</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        while(mess1.equals(&quot;1&quot;)) &#123;//私聊</span><br><span class="line">        	System.out.println(&quot;*********收到信息**************\n&quot;);</span><br><span class="line">        	String mess2=br.readLine();//用户号</span><br><span class="line">        	System.out.println(&quot;发信息的用户号为&quot;+mess2);</span><br><span class="line">        	String mess3=br.readLine();//信息</span><br><span class="line">        	System.out.println(&quot;私信为&quot;+mess3);</span><br><span class="line">        	area.append(&quot;客户&quot;+mess2+&quot;对您私聊说:  &quot;);</span><br><span class="line">        	area.append(mess3+&quot;\n&quot;);</span><br><span class="line">        	</span><br><span class="line">        	mess1=br.readLine();//刷新mess1</span><br><span class="line">        	 System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">             System.out.println(&quot;****************************************&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //群聊消息</span><br><span class="line">        while((mess1.equals(&quot;2&quot;))) &#123;</span><br><span class="line">        	String mess2=br.readLine();</span><br><span class="line">        	if(mess2.equals(&quot;4&quot;)) &#123;</span><br><span class="line">        		//this.use.revalidate();</span><br><span class="line">        		//use.repaint();</span><br><span class="line">        		String WhoisOnline[]=SQL.WhoisOnline();</span><br><span class="line">        		list1.setListData(WhoisOnline);</span><br><span class="line">        		String WhoisNotOnline[]=SQL.WHoisnotOnline();</span><br><span class="line">        		list2.setListData(WhoisNotOnline);</span><br><span class="line">        		System.out.println(&quot;2中收到四号消息&quot;);</span><br><span class="line">        		mess1=br.readLine();</span><br><span class="line">        	&#125;else &#123;</span><br><span class="line">        	area2.append(mess2+&quot;\n&quot;);</span><br><span class="line">        	mess1=br.readLine();</span><br><span class="line">        	 System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">             System.out.println(&quot;****************************************&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">       while((mess1.equals(&quot;3&quot;))) &#123;//终止</span><br><span class="line">        	br.close();</span><br><span class="line">        	bw.close();</span><br><span class="line">        	in.close();</span><br><span class="line">        	out.close();</span><br><span class="line">        	this.socket.close();</span><br><span class="line">        	mess1=&quot;&quot;;</span><br><span class="line">        	this.runnning=false;</span><br><span class="line">        	SqlServer.DeleteUser(this.userinfor.get_name());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(!this.runnning) &#123;</span><br><span class="line">        	break;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">        </span><br><span class="line">	     &#125;catch(Exception e) &#123;</span><br><span class="line">	    	 e.printStackTrace();</span><br><span class="line">	   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>自定义一个ChatList类，用于管理在线聊天的与服务器相连的线程对象，在这个类中实现了向所有的在线Client发送消息的函数功能，也实现了删除在线ThreadForChat对象，在线的ThreadForChat是一个与Server服务器相关联的类，每当有一个Client与Server相连接，Server就创造一个ThreadForChat对象与之相连实现通信，在Server类中的强制删除功能既是删除对应的ThreadForChat类并向对应的Client对象发出下线的消息,实现强制下线。CLass   BuildCheck是登录窗口，每当用户输入账号和验证密码并且检验正确时，就new一个Client对象。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2050,7 +2084,7 @@ P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

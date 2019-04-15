@@ -301,6 +301,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/java聊天室的实现/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/18/java聊天室的实现/" itemprop="url">java聊天室的实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T10:01:45+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="java-聊天室的实现"><a href="#java-聊天室的实现" class="headerlink" title="java 聊天室的实现"></a>java 聊天室的实现</h1><h4 id="1-部分代码"><a href="#1-部分代码" class="headerlink" title="1.部分代码"></a>1.部分代码</h4><p>Sqlserver类是一个自己设定的数据存储类，与登录界面共同作用，记录当前在线的人数，以及实现一些必备的功能函数，如返回在线用户的列表，删除用户等。<br><figure class="highlight plain"><figcaption><span>projectcenter;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Map.Entry;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">//用户数据库</span><br><span class="line">public class SqlServer &#123;</span><br><span class="line">   private static Map&lt;String,UserInfor&gt;SQL=new HashMap();</span><br><span class="line">   </span><br><span class="line">   //判断输入账号是否存在</span><br><span class="line">    public static boolean CheckUser(String name) &#123;</span><br><span class="line">    	if(SQL.containsKey(name)) &#123;</span><br><span class="line">    		return true;</span><br><span class="line">    	&#125;</span><br><span class="line">    	//System.out.println(&quot;不存在此用户：&quot;+name);</span><br><span class="line">    	return false;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //检查账号密码是否输入正确</span><br><span class="line">    public static boolean CheckPassword(String name,String Password) &#123;</span><br><span class="line">    	if(SQL.get(name).Check(Password)) &#123;</span><br><span class="line">    		return true;</span><br><span class="line">    	&#125;else &#123;</span><br><span class="line">    		return false;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回对象数组</span><br><span class="line">    public static Map&lt;String, UserInfor&gt; Getusers() &#123;</span><br><span class="line">    	return SQL;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //返回key1值对应的对象</span><br><span class="line">    public UserInfor returnUser(String name) &#123;</span><br><span class="line">    	return SQL.get(name);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //返回用户姓名列表</span><br><span class="line">    public String[] Groupusername() &#123;</span><br><span class="line">    	</span><br><span class="line">    	Object[] key =  SQL.keySet().toArray();    </span><br><span class="line">    	Arrays.sort(key); </span><br><span class="line">    	int l=key.length;</span><br><span class="line">    	String username[]=new String[l];</span><br><span class="line">  </span><br><span class="line">    	</span><br><span class="line">    	for(int i=0;i&lt;key.length;i++) &#123;</span><br><span class="line">    		username[i]=key[i].toString();</span><br><span class="line">    		//System.out.println(key[i].toString());</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	</span><br><span class="line">        return username;</span><br><span class="line">    &#125;</span><br><span class="line">    	</span><br><span class="line">    //创建用户</span><br><span class="line">    public int BuildNewUser(String name,String password) &#123;</span><br><span class="line">    	if(SQL.containsKey(name)) &#123;</span><br><span class="line">    		//System.out.println(&quot;该用户名已存在!请重新输入&quot;);</span><br><span class="line">    		return 0;</span><br><span class="line">    	   &#125;else &#123;</span><br><span class="line">    		   UserInfor u=new UserInfor();</span><br><span class="line">    		   u.SetName(name);</span><br><span class="line">    		   u.SetPwd(password);</span><br><span class="line">    		   System.out.println(&quot;新用户密码为：&quot;+password);</span><br><span class="line">    		   this.SQL.put(name,u);</span><br><span class="line">    		   return 1;</span><br><span class="line">    	   &#125;</span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //遍历打印Map中的键值对</span><br><span class="line">    public static void ShowMap()&#123;</span><br><span class="line">        for(Map.Entry&lt;String, UserInfor&gt; entry: SQL.entrySet())&#123;</span><br><span class="line">            System.out.println(entry.getKey()+&quot;=&quot;+entry.getValue().toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //删除用户</span><br><span class="line">    public static void DeleteUser(String name) &#123;</span><br><span class="line">    	SQL.get(name).SetOnline2();</span><br><span class="line">    </span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回在线的用户id列表</span><br><span class="line">    public String[] WhoisOnline() &#123;</span><br><span class="line">    	</span><br><span class="line">    	Object[] key =  SQL.keySet().toArray();    </span><br><span class="line">    	Arrays.sort(key); </span><br><span class="line">    	int l=key.length;</span><br><span class="line">    	String username[]=new String[l];</span><br><span class="line">    	for(int i=0;i&lt;key.length;i++) &#123;</span><br><span class="line">            if(SQL.get(key[i].toString()).getOnline()) &#123;//如果在线则加入数组</span><br><span class="line">    		username[i]=key[i].toString();</span><br><span class="line">           &#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	return username;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回不在线用户列表</span><br><span class="line">    public String[] WHoisnotOnline() &#123;</span><br><span class="line">    	Object[] key =  SQL.keySet().toArray();    </span><br><span class="line">    	Arrays.sort(key); </span><br><span class="line">    	int l=key.length;</span><br><span class="line">    	String username[]=new String[l];</span><br><span class="line">    	for(int i=0;i&lt;key.length;i++) &#123;</span><br><span class="line">            if(!SQL.get(key[i].toString()).getOnline()) &#123;//如果不在线则加入数组</span><br><span class="line">    		username[i]=key[i].toString();</span><br><span class="line">           &#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	return username;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //系统先建立十个用户</span><br><span class="line">    static&#123;</span><br><span class="line">    	for (int i=0;i&lt;10;i++) &#123;</span><br><span class="line">    		UserInfor u=new UserInfor();</span><br><span class="line">    		u.SetName(String.valueOf(i+1));//用户名即是索引</span><br><span class="line">    		u.SetPwd(&quot;123456&quot;);</span><br><span class="line">    		SQL.put(u.get_name(),u);</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来是用户界面类，与BuildCheck类相连接每当用户实现了登录窗口的检测，则新建一个用户类对象Client,用户类中包含了界面的实现和socket消息的发送和接受，以信息的开头辨别信息的种类，若为一号信息则是私聊信息，则再在BufferedReader中读取私聊信息并显示在私聊界面上，二号信息指代群信息。在界面设计时，应当有好友列表上下线下线的的刷新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Client extends Thread&#123;/部分代码</span><br><span class="line">	</span><br><span class="line">		//监听事件的添加</span><br><span class="line">		send.addActionListener(new ActionListener() &#123;//发送私聊消息</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent arg0) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">			   WriterMess(&quot;1&quot;);//表示是私聊信息</span><br><span class="line">         	   WriterMess(selected);//私聊用户号</span><br><span class="line">         	   String mess=textfield.getText();</span><br><span class="line">         	   WriterMess(mess);//私聊信息</span><br><span class="line">         	   area.append(&quot;自己：&quot;+mess+&quot;\n&quot;);</span><br><span class="line">         	  if(mess.equals(&quot;bye&quot;)) &#123;//设置用户下线</span><br><span class="line">					WriterMess(&quot;3&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		send2.addActionListener(new ActionListener() &#123;//实现群聊功能</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent arg0) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">				try &#123;</span><br><span class="line">					WriterMess(&quot;2&quot;);</span><br><span class="line">					String gets=textfield2.getText();				</span><br><span class="line">					WriterMess(gets);</span><br><span class="line">					if(gets.equals(&quot;bye&quot;)) &#123;//设置用户下线</span><br><span class="line">						WriterMess(&quot;3&quot;);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125; catch(Exception e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">					</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		 //JList点击事件的添加</span><br><span class="line">		list1.addMouseListener(new MouseAdapter() &#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void mouseClicked(MouseEvent arg0) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">				String select=(String) list1.getSelectedValue();</span><br><span class="line">            	if(!select.equals(userinfor.get_name())) &#123;//不能对自己进行私聊</span><br><span class="line">                   area.append(&quot;	================================================\n&quot;);</span><br><span class="line">            	   area.append(&quot;	===你选择&quot;+select+&quot;号在线客户进行私聊===\n&quot;);</span><br><span class="line">            	   </span><br><span class="line">            	   selected=select;</span><br><span class="line"></span><br><span class="line">            	&#125;else &#123;</span><br><span class="line">            		area.append(&quot;    	============您不能选择自己进行私聊!===========\n&quot;);</span><br><span class="line">            	&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		list2.addMouseListener(new MouseAdapter() &#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void mouseClicked(MouseEvent e) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">				area.append(&quot;=================当前用户不在线！=============\n&quot;);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public void ShashSelf() &#123;</span><br><span class="line">		this.use.updateUI();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public void CloseSelf() &#123;//将自己关闭</span><br><span class="line">		try &#123;</span><br><span class="line">			socket.close();</span><br><span class="line">		&#125; catch (IOException e) &#123;</span><br><span class="line">			// TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void ReadMess() &#123;</span><br><span class="line">		 //读取服务器返回的消息</span><br><span class="line">		try &#123;</span><br><span class="line">			BufferedReader br = new BufferedReader(new InputStreamReader(in));</span><br><span class="line">	        String mess1 = br.readLine();</span><br><span class="line">		while(true) &#123;</span><br><span class="line">        </span><br><span class="line">        //私聊消息</span><br><span class="line">        </span><br><span class="line">        System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">        System.out.println(&quot;****************************************&quot;);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        	</span><br><span class="line">        /*while(mess1.equals(&quot;4&quot;)) &#123;//刷新</span><br><span class="line">        		this.use.revalidate();</span><br><span class="line">        		mess1=br.readLine();</span><br><span class="line">        		 System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">        	        System.out.println(&quot;****************************************&quot;);</span><br><span class="line">        	&#125;*/</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        while(mess1.equals(&quot;1&quot;)) &#123;//私聊</span><br><span class="line">        	System.out.println(&quot;*********收到信息**************\n&quot;);</span><br><span class="line">        	String mess2=br.readLine();//用户号</span><br><span class="line">        	System.out.println(&quot;发信息的用户号为&quot;+mess2);</span><br><span class="line">        	String mess3=br.readLine();//信息</span><br><span class="line">        	System.out.println(&quot;私信为&quot;+mess3);</span><br><span class="line">        	area.append(&quot;客户&quot;+mess2+&quot;对您私聊说:  &quot;);</span><br><span class="line">        	area.append(mess3+&quot;\n&quot;);</span><br><span class="line">        	</span><br><span class="line">        	mess1=br.readLine();//刷新mess1</span><br><span class="line">        	 System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">             System.out.println(&quot;****************************************&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //群聊消息</span><br><span class="line">        while((mess1.equals(&quot;2&quot;))) &#123;</span><br><span class="line">        	String mess2=br.readLine();</span><br><span class="line">        	if(mess2.equals(&quot;4&quot;)) &#123;</span><br><span class="line">        		//this.use.revalidate();</span><br><span class="line">        		//use.repaint();</span><br><span class="line">        		String WhoisOnline[]=SQL.WhoisOnline();</span><br><span class="line">        		list1.setListData(WhoisOnline);</span><br><span class="line">        		String WhoisNotOnline[]=SQL.WHoisnotOnline();</span><br><span class="line">        		list2.setListData(WhoisNotOnline);</span><br><span class="line">        		System.out.println(&quot;2中收到四号消息&quot;);</span><br><span class="line">        		mess1=br.readLine();</span><br><span class="line">        	&#125;else &#123;</span><br><span class="line">        	area2.append(mess2+&quot;\n&quot;);</span><br><span class="line">        	mess1=br.readLine();</span><br><span class="line">        	 System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">             System.out.println(&quot;****************************************&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">       while((mess1.equals(&quot;3&quot;))) &#123;//终止</span><br><span class="line">        	br.close();</span><br><span class="line">        	bw.close();</span><br><span class="line">        	in.close();</span><br><span class="line">        	out.close();</span><br><span class="line">        	this.socket.close();</span><br><span class="line">        	mess1=&quot;&quot;;</span><br><span class="line">        	this.runnning=false;</span><br><span class="line">        	SqlServer.DeleteUser(this.userinfor.get_name());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(!this.runnning) &#123;</span><br><span class="line">        	break;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">        </span><br><span class="line">	     &#125;catch(Exception e) &#123;</span><br><span class="line">	    	 e.printStackTrace();</span><br><span class="line">	   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>自定义一个ChatList类，用于管理在线聊天的与服务器相连的线程对象，在这个类中实现了向所有的在线Client发送消息的函数功能，也实现了删除在线ThreadForChat对象，在线的ThreadForChat是一个与Server服务器相关联的类，每当有一个Client与Server相连接，Server就创造一个ThreadForChat对象与之相连实现通信，在Server类中的强制删除功能既是删除对应的ThreadForChat类并向对应的Client对象发出下线的消息,实现强制下线。CLass   BuildCheck是登录窗口，每当用户输入账号和验证密码并且检验正确时，就new一个Client对象。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/机器学习3/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1655,7 +1808,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
