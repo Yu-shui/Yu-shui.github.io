@@ -301,6 +301,219 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/支持向量机原理及应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/16/支持向量机原理及应用/" itemprop="url">支持向量机原理及应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T13:33:59+08:00">
+                2019-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="支持向量机（SVM）原理及应用"><a href="#支持向量机（SVM）原理及应用" class="headerlink" title="支持向量机（SVM）原理及应用"></a>支持向量机（SVM）原理及应用</h1><h3 id="1-算法原理"><a href="#1-算法原理" class="headerlink" title="1.算法原理"></a>1.算法原理</h3><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><p>支持向量机（support vector machines）是一种二分类模型，它的目的是寻找一个超平面来对样本进行分割，分割的原则是间隔最大化，最终转化为一个凸二次规划问题来求解。由简至繁的模型包括：</p>
+<ul>
+<li>当训练样本线性可分时，通过硬间隔最大化，学习一个线性可分支持向量机；</li>
+<li>当训练样本近似线性可分时，通过软间隔最大化，学习一个线性支持向量机；</li>
+<li>当训练样本线性不可分时，通过核技巧和软间隔最大化，学习一个非线性支持向量机；</li>
+</ul>
+<p><img src="/2019/04/16/支持向量机原理及应用/C:/blog\source\_posts\支持向量机原理及应用\oo3.PNG" alt=""></p>
+<h5 id="2-线性可分的支持向量机"><a href="#2-线性可分的支持向量机" class="headerlink" title="2. 线性可分的支持向量机"></a>2. 线性可分的支持向量机</h5><p>基本的想法就是基于训练集D在样本空间中找到一个划分超平面，将不同类别的样本分开。训练集标签为yi={1|-1}</p>
+<p><img src="/2019/04/16/支持向量机原理及应用/oo1.PNG" alt=""></p>
+<p>直观看上去，能将训练样本分开的划分超平面有很多，但应该去找位于两类训练样本“正中间”的划分超平面，即图6.1中红色的那条，因为该划分超平面对训练样本局部扰动的“容忍”性最好，例如，由于训练集的局限性或者噪声的因素，训练集外的样本可能比图6.1中的训练样本更接近两个类的分隔界，这将使许多划分超平面出现错误。而红色超平面的影响最小，简言之，这个划分超平面所产生的结果是鲁棒性的。</p>
+<p>那什么是线性可分呢？</p>
+<p>如果一个线性函数能够将样本分开，称这些数据样本是线性可分的。那么什么是线性函数呢？其实很简单，在二维空间中就是一条直线，在三维空间中就是一个平面，以此类推，如果不考虑空间维数，这样的线性函数统称为超平面。我们看一个简单的二维空间的例子，O代表正类，X代表负类，样本是线性可分的，但是很显然不只有这一条直线可以将样本分开，而是有无数条，我们所说的线性可分支持向量机就对应着能将数据正确划分并且间隔最大的直线。 </p>
+<p>在实际应用总，我们所要求解的是能将数据正确划分的并且间隔最大的超平面<br>一个点距离超平面的远近可以表示分类的确信度，，距离超平面更远的点确信度更高，求解最号的SVM时，我们不许考录所有点，只要让超平面距离较近的点的点间隔最大即可</p>
+<pre><code>距离超平面最近的几个点成为“支持向量”，两条虚线的距离称为 * 间隔 *
+</code></pre><hr>
+<p><img src="/2019/04/16/支持向量机原理及应用/oo2.PNG" alt=""></p>
+<blockquote>
+<p>间隔的计算：两个异类支持向量在实现的法线方向的投影大小</p>
+</blockquote>
+<h5 id="3-非线性支持向量机和核函数"><a href="#3-非线性支持向量机和核函数" class="headerlink" title="3.非线性支持向量机和核函数"></a>3.非线性支持向量机和核函数</h5><p>待补充</p>
+<h5 id="4-线性支持向量机（软间隔支持向量机）与松弛变量"><a href="#4-线性支持向量机（软间隔支持向量机）与松弛变量" class="headerlink" title="4.线性支持向量机（软间隔支持向量机）与松弛变量"></a>4.线性支持向量机（软间隔支持向量机）与松弛变量</h5><p>待补充</p>
+<h3 id="2-SVM优缺点"><a href="#2-SVM优缺点" class="headerlink" title="2.SVM优缺点"></a>2.SVM优缺点</h3><blockquote>
+<p>优点：<br>1、使用核函数可以向高维空间进行映射<br>2、使用核函数可以解决非线性的分类<br>3、分类思想很简单，就是将样本与决策面的间隔最大化<br>4、分类效果较好<br>缺点：<br>1、对大规模数据训练比较困难<br>2、无法直接支持多分类，但是可以使用间接的方法来做 </p>
+</blockquote>
+<h3 id="3-SVM应用场景"><a href="#3-SVM应用场景" class="headerlink" title="3.SVM应用场景"></a>3.SVM应用场景</h3><blockquote>
+<p>SVM在很多数据集上都有优秀的表现。<br>相对来说，SVM尽量保持与样本间距离的性质导致它抗攻击的能力更强。<br>和随机森林一样，这也是一个拿到数据就可以先尝试一下的算法</p>
+</blockquote>
+<h3 id="4-SVM-sklearn参数学习"><a href="#4-SVM-sklearn参数学习" class="headerlink" title="4.SVM sklearn参数学习"></a>4.SVM sklearn参数学习</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class sklearn.svm.SVC(</span><br><span class="line">            C=1.0, </span><br><span class="line">            kernel=&apos;rbf&apos;, </span><br><span class="line">            degree=3, </span><br><span class="line">            gamma=&apos;auto&apos;, </span><br><span class="line">            coef0=0.0, </span><br><span class="line">            shrinking=True, </span><br><span class="line">            probability=False, </span><br><span class="line">            tol=0.001, </span><br><span class="line">            cache_size=200, </span><br><span class="line">            class_weight=None, </span><br><span class="line">            verbose=False, </span><br><span class="line">            max_iter=-1, </span><br><span class="line">            decision_function_shape=&apos;ovr&apos;, </span><br><span class="line">            random_state=None)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>SVC</strong>　<em>class</em> <code>sklearn.svm.`</code>SVC`(<em>C=1.0</em>, <em>kernel=’rbf’</em>, <em>degree=3</em>, <em>gamma=’auto’</em>, <em>coef0=0.0</em>, <em>shrinking=True</em>, <em>probability=False</em>, <em>tol=0.001</em>, <em>cache_size=200</em>, <em>class_weight=None</em>, <em>verbose=False</em>, <em>max_iter=-1</em>, <em>decision_function_shape=’ovr’</em>, <em>random_state=None</em>)　</li>
+</ul>
+<p>　　<code>**C:**</code>惩罚系数，用来控制损失函数的惩罚系数，类似于LR中的正则化系数。C越大，相当于惩罚松弛变量，希望松弛变量接近0，即对误分类的惩罚增大，趋向于对训练集全分对的情况，这样会出现训练集测试时准确率很高，但泛化能力弱，容易导致过拟合。 C值小，对误分类的惩罚减小，容错能力增强，泛化能力较强，但也可能欠拟合。</p>
+<p>　　<code>**kernel:**</code>算法中采用的和函数类型，核函数是用来将非线性问题转化为线性问题的一种方法。参数选择有RBF, Linear, Poly, Sigmoid，precomputed或者自定义一个核函数, 默认的是”RBF”，即径向基核，也就是高斯核函数；而Linear指的是线性核函数，Poly指的是多项式核，Sigmoid指的是双曲正切函数tanh核；。</p>
+<p>　　<strong>degree:</strong> 当指定kernel为’poly’时，表示选择的多项式的最高次数，默认为三次多项式；若指定kernel不是’poly’，则忽略，即该参数只对’poly’有用。（多项式核函数是将低维的输入空间映射到高维的特征空间）</p>
+<p>　　<code>**gamma:**</code>核函数系数，该参数是rbf，poly和sigmoid的内核系数；默认是’auto’，那么将会使用特征位数的倒数，即1 / n_features。（即核函数的带宽，超圆的半径）。gamma越大，σ越小，使得高斯分布又高又瘦，造成模型只能作用于支持向量附近，可能导致过拟合；反之，gamma越小，σ越大，高斯分布会过于平滑，在训练集上分类效果不佳，可能导致欠拟合。 </p>
+<p>　　<code>**coef0:**</code>核函数常数值(y=kx+b中的b值)，只有‘poly’和‘sigmoid’核函数有，默认值是0。</p>
+<p>　　<strong>shrinking :</strong>  是否进行启发式。如果能预知哪些变量对应着支持向量，则只要在这些样本上训练就够了，其他样本可不予考虑，这不影响训练结果，但降低了问题的规模并有助于迅速求解。进一步，如果能预知哪些变量在边界上(即a=C)，则这些变量可保持不动，只对其他变量进行优化，从而使问题的规模更小，训练时间大大降低。这就是Shrinking技术。 Shrinking技术基于这样一个事实：支持向量只占训练样本的少部分，并且大多数支持向量的拉格朗日乘子等于C。</p>
+<p>　　<strong>probability:</strong> 是否使用概率估计，默认是False。必须在 fit( ) 方法前使用，该方法的使用会降低运算速度。</p>
+<p>　　<code>**tol:**</code>残差收敛条件，默认是0.0001，即容忍1000分类里出现一个错误，与LR中的一致；误差项达到指定值时则停止训练。</p>
+<p>　　<code>**cache_size:**</code>缓冲大小，用来限制计算量大小，默认是200M。</p>
+<p>　　<strong>class_weight :</strong>  {dict, ‘balanced’}，字典类型或者’balance’字符串。权重设置，正类和反类的样本数量是不一样的，这里就会出现类别不平衡问题，该参数就是指每个类所占据的权重，默认为1，即默认正类样本数量和反类一样多，也可以用一个字典dict指定每个类的权值，或者选择默认的参数balanced，指按照每个类中样本数量的比例自动分配权值。如果不设置，则默认所有类权重值相同，以字典形式传入。 将类i 的参数C设置为SVC的class_weight[i]<em>C。如果没有给出，所有类的weight 为1。’balanced’模式使用y 值自动调整权重，调整方式是与输入数据中类频率成反比。如n_samples / (n_classes </em> np.bincount(y))。（给每个类别分别设置不同的惩罚参数C，如果没有给，则会给所有类别都给C=1，即前面参数指出的参数C。如果给定参数’balance’，则使用y的值自动调整与输入数据中的类频率成反比的权重。）</p>
+<p>　　<strong>verbose :</strong>  是否启用详细输出。在训练数据完成之后，会把训练的详细信息全部输出打印出来，可以看到训练了多少步，训练的目标值是多少；但是在多线程环境下，由于多个线程会导致线程变量通信有困难，因此verbose选项的值就是出错，所以多线程下不要使用该参数。</p>
+<p>　　<code>**max_iter:**</code>最大迭代次数，默认是-1，即没有限制。这个是硬限制，它的优先级要高于tol参数，不论训练的标准和精度达到要求没有，都要停止训练。</p>
+<p>　　<strong>decision_function_shape ：</strong>  原始的SVM只适用于二分类问题，如果要将其扩展到多类分类，就要采取一定的融合策略，这里提供了三种选择。‘ovo’ 一对一，为one v one，即将类别两两之间进行划分，用二分类的方法模拟多分类的结果，决策所使用的返回的是（样本数，类别数*(类别数-1)/2）； ‘ovr’ 一对多，为one v rest，即一个类别与其他类别进行划分，返回的是(样本数，类别数)，或者None，就是不采用任何融合策略。默认是ovr，因为此种效果要比oro略好一点。</p>
+<p>　　<strong>random_state:</strong> 在使用SVM训练数据时，要先将训练数据打乱顺序，用来提高分类精度，这里就用到了伪随机序列。如果该参数给定的是一个整数，则该整数就是伪随机序列的种子值；如果给定的就是一个随机实例，则采用给定的随机实例来进行打乱处理；如果啥都没给，则采用默认的 np.random实例来处理。 </p>
+<ul>
+<li><p><strong>NuSVC</strong>　　　　　　　　　　　　　　　　　<em>class</em> <code>sklearn.svm.`</code>NuSVC`(<em>nu=0.5</em>, <em>kernel=’rbf’</em>, <em>degree=3</em>, <em>gamma=’auto’</em>, <em>coef0=0.0</em>, <em>shrinking=True</em>, <em>probability=False</em>, <em>tol=0.001</em>, <em>cache_size=200</em>, <em>class_weight=None</em>, <em>verbose=False</em>, <em>max_iter=-1</em>, <em>decision_function_shape=’ovr’</em>, <em>random_state=None</em>) 　</p>
+<p>　　<strong>nu：</strong> 训练误差部分的上限和支持向量部分的下限，取值在（0，1）之间，默认是0.5</p>
+</li>
+<li><p><strong>LinearSVC</strong>　　　　<em>class</em> <code>sklearn.svm.`</code>LinearSVC`(<em>penalty=’l2’</em>, <em>loss=’squared_hinge’</em>, <em>dual=True</em>, <em>tol=0.0001</em>, <em>C=1.0</em>, <em>multi_class=’ovr’</em>, <em>fit_intercept=True</em>, <em>intercept_scaling=1</em>, <em>class_weight=None</em>, <em>verbose=0</em>, <em>random_state=None</em>, <em>max_iter=1000</em>)</p>
+</li>
+</ul>
+<p>　　<code>**penalty:**</code>正则化参数，L1和L2两种参数可选，仅LinearSVC有。</p>
+<p>　　<code>**loss:**</code>损失函数，有‘hinge’和‘squared_hinge’两种可选，前者又称L1损失，后者称为L2损失，默认是是’squared_hinge’，其中hinge是SVM的标准损失，squared_hinge是hinge的平方</p>
+<p>　　<code>**dual:**</code>是否转化为对偶问题求解，默认是True。</p>
+<p>　　<code>**tol:**</code>残差收敛条件，默认是0.0001，与LR中的一致。</p>
+<p>　　<code>**C:**</code>惩罚系数，用来控制损失函数的惩罚系数，类似于LR中的正则化系数。</p>
+<p>　　<code>**multi_class:**</code>负责多分类问题中分类策略制定，有‘ovr’和‘crammer_singer’ 两种参数值可选，默认值是’ovr’，’ovr’的分类原则是将待分类中的某一类当作正类，其他全部归为负类，通过这样求取得到每个类别作为正类时的正确率，取正确率最高的那个类别为正类；‘crammer_singer’ 是直接针对目标函数设置多个参数值，最后进行优化，得到不同类别的参数值大小</p>
+<p>　　<code>**fit_intercept:**</code>是否计算截距，与LR模型中的意思一致。</p>
+<p>　　<code>**class_weight:**</code>与其他模型中参数含义一样，也是用来处理不平衡样本数据的，可以直接以字典的形式指定不同类别的权重，也可以使用balanced参数值。</p>
+<p>　　<code>**verbose:**</code>是否冗余，默认是False。</p>
+<p>　　<code>**random_state:**</code>随机种子。</p>
+<p>　　<code>**max_iter:**</code>最大迭代次数，默认是1000。</p>
+<h3 id="SVM结合TF-IDF原理进行文本分类"><a href="#SVM结合TF-IDF原理进行文本分类" class="headerlink" title="SVM结合TF-IDF原理进行文本分类"></a>SVM结合TF-IDF原理进行文本分类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">import jieba</span><br><span class="line">import numpy as np</span><br><span class="line">import os</span><br><span class="line">import time</span><br><span class="line">import codecs</span><br><span class="line">import re</span><br><span class="line">import jieba.posseg as pseg</span><br><span class="line">from sklearn.feature_extraction.text import CountVectorizer</span><br><span class="line">from sklearn.feature_extraction.text import TfidfTransformer</span><br><span class="line">from sklearn.naive_bayes import MultinomialNB</span><br><span class="line">from sklearn.svm import SVC</span><br><span class="line">from sklearn.pipeline import Pipeline</span><br><span class="line">from sklearn import metrics</span><br><span class="line"></span><br><span class="line">open=codecs.open</span><br><span class="line">path_en=&apos;../After/En&apos;</span><br><span class="line">path_peo=&apos;../After/new_people&apos;</span><br><span class="line">content_train_src=[]      #训练集文本列表</span><br><span class="line">opinion_train_stc=[]      #训练集类别列表</span><br><span class="line">file_name_src=[]          #训练集文本文件名列表</span><br><span class="line">train_src=[]              #训练集总列表</span><br><span class="line">test_src=[]               #测试集总列表</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def readfile(path):</span><br><span class="line">    for filename in os.listdir(path):</span><br><span class="line">        starttime=time.time()</span><br><span class="line">        filepath=path+&quot;/&quot;+filename</span><br><span class="line">        filestr=open(filepath).read()</span><br><span class="line">        opinion=path[9:]</span><br><span class="line">        train_src.append((filename,filestr,opinion))</span><br><span class="line">        endtime=time.time()</span><br><span class="line">        print &apos;类别:%s &gt;&gt;&gt;&gt;文件:%s &gt;&gt;&gt;&gt;导入用时: %.3f&apos; % (opinion, filename, endtime - starttime)</span><br><span class="line">    return train_src</span><br><span class="line">    </span><br><span class="line">    train_src_all=readfile(path_en)</span><br><span class="line">train_src_all=train_src_all+readfile(path_peo)</span><br><span class="line"></span><br><span class="line">def readtrain(train_src_list):</span><br><span class="line">    for (fn,w,s) in train_src_list:</span><br><span class="line">        file_name_src.append(fn)</span><br><span class="line">        content_train_src.append(w)</span><br><span class="line">        opinion_train_stc.append(s)</span><br><span class="line">    train=[content_train_src,opinion_train_stc,file_name_src]</span><br><span class="line">    return train</span><br><span class="line"></span><br><span class="line">def segmentWord(cont):</span><br><span class="line">    listseg=[]</span><br><span class="line">    for i in cont:</span><br><span class="line">        Wordp = Word_pseg(i)</span><br><span class="line">        New_str = &apos;&apos;.join(Wordp)</span><br><span class="line">        Wordlist = Word_cut_list(New_str)</span><br><span class="line">        file_string = &apos;&apos;.join(Wordlist)</span><br><span class="line">        listseg.append(file_string)</span><br><span class="line">    return listseg</span><br><span class="line"></span><br><span class="line">train=readtrain(train_src_all)</span><br><span class="line">content=segmentWord(train[0])</span><br><span class="line">filenamel=train[2]</span><br><span class="line">opinion=train[1]</span><br><span class="line"></span><br><span class="line">train_content=content[:3000]</span><br><span class="line">test_content=content[3000:]</span><br><span class="line">train_opinion=opinion[:3000]</span><br><span class="line">test_opinion=opinion[3000:]</span><br><span class="line">train_filename=filenamel[:3000]</span><br><span class="line">test_filename=filenamel[3000:]</span><br><span class="line"></span><br><span class="line">test_all=[test_content,test_opinion,test_filename]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vectorizer=CountVectorizer()</span><br><span class="line">tfidftransformer=TfidfTransformer()</span><br><span class="line">tfidf = tfidftransformer.fit_transform(vectorizer.fit_transform(train_content))  # 先转换成词频矩阵，再计算TFIDF值</span><br><span class="line"></span><br><span class="line">print tfidf.shape</span><br><span class="line"></span><br><span class="line">word = vectorizer.get_feature_names()</span><br><span class="line">weight = tfidf.toarray()</span><br><span class="line"># 分类器</span><br><span class="line">clf = MultinomialNB().fit(tfidf, opinion)</span><br><span class="line">docs = [&quot;原任第一集团军副军长&quot;, &quot;在9·3抗战胜利日阅兵中担任“雁门关伏击战英雄连”英模方队领队记者林韵诗继黄铭少将后&quot;]</span><br><span class="line">new_tfidf = tfidftransformer.transform(vectorizer.transform(docs))</span><br><span class="line">predicted = clf.predict(new_tfidf)</span><br><span class="line">print predicted</span><br><span class="line"></span><br><span class="line"># 训练和预测一体</span><br><span class="line">text_clf = Pipeline([(&apos;vect&apos;, CountVectorizer()), (&apos;tfidf&apos;, TfidfTransformer()), (&apos;clf&apos;, SVC(C=1, kernel = &apos;linear&apos;))])</span><br><span class="line">text_clf = text_clf.fit(train_content, train_opinion)</span><br><span class="line">predicted = text_clf.predict(test_content)</span><br><span class="line">print &apos;SVC&apos;,np.mean(predicted == test_opinion)</span><br><span class="line">print set(predicted)</span><br><span class="line">print metrics.confusion_matrix(test_opinion,predicted) # 混淆矩阵</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/朴素贝叶斯/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1884,156 +2097,6 @@ P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/应用实例/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/18/应用实例/" itemprop="url">应用实例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T18:57:57+08:00">
-                2019-03-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="海量数据中的商品推荐"><a href="#海量数据中的商品推荐" class="headerlink" title="海量数据中的商品推荐"></a>海量数据中的商品推荐</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from collections import defaultdict</span><br><span class="line">from operator import itemgetter</span><br><span class="line"></span><br><span class="line">dataset_filename=&quot;C:\Python数据挖掘入门与实践代码和数据集\Code_REWRITE\Chapter 1&quot;</span><br><span class="line">X=np.loadtxt(dataset_filename+r&quot;\affinity_dataset.txt&quot;)</span><br><span class="line">#print(X)</span><br><span class="line">v=defaultdict(int)</span><br><span class="line">i=defaultdict(int)</span><br><span class="line">n=defaultdict(int)</span><br><span class="line"></span><br><span class="line">for sample in X:</span><br><span class="line">    for permiss in range(4):</span><br><span class="line">        if sample[permiss]==0:</span><br><span class="line">            continue</span><br><span class="line">        n[permiss]+=1</span><br><span class="line">        for c in range(4):</span><br><span class="line">            if permiss==c:</span><br><span class="line">                continue</span><br><span class="line">            if sample[c]==1:</span><br><span class="line">                v[(permiss,c)]+=1#两者均为1时加一</span><br><span class="line">            else:</span><br><span class="line">                i[(permiss,c)]+=1#两者不同时为1</span><br><span class="line"></span><br><span class="line">support=v</span><br><span class="line">#permiss=1</span><br><span class="line">#c=3</span><br><span class="line">#print(&quot; -Support:&#123;0&#125;&quot;.format(support[(permiss,c)]))</span><br><span class="line">confidence=defaultdict(float)</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">for permiss,c in v.keys():</span><br><span class="line">    rule=(permiss,c)</span><br><span class="line">    confidence[rule]=v[rule]/n[permiss]</span><br><span class="line">    print(confidence[rule])</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">def print_rule(permiss,c,support,confidence,features):</span><br><span class="line">    permiss_name=features[permiss]</span><br><span class="line">    c_name=features[c]</span><br><span class="line">    print(&quot;Rule if a people buy &#123;0&#125; they will also buy &#123;1&#125;&quot;.format(permiss_name,c_name))</span><br><span class="line"></span><br><span class="line">    #s输出置信度</span><br><span class="line">    #输出支持度</span><br><span class="line">    print(&quot;  -Support: &#123;0&#125;&quot;.format(support[(permiss,c)]))</span><br><span class="line">    print(&quot;  -Confidence&quot;.format(confidence[(permiss,c)]))</span><br><span class="line">##排序找出最佳规则</span><br><span class="line"></span><br><span class="line">print(support)#内涵键值对</span><br><span class="line">sorted_support=sorted(support.items(),key=itemgetter(1),reverse=True)</span><br><span class="line">#输出支持度最高的五个规则</span><br><span class="line">for index in range(5):</span><br><span class="line">    print(&quot; Rule #&#123;0&#125;&quot;.format(index+1))</span><br><span class="line">    permiss,c=sorted_support[index][0]</span><br><span class="line">    print_rule(permiss,c,support,confidence,features)</span><br><span class="line">    </span><br><span class="line">#输出置信度最高的规则</span><br><span class="line">sorted_confidence=sorted(support.items(),key=itemgetter(1),reverse=True)</span><br><span class="line">for index in sorted_confidence:</span><br><span class="line">    permiss,c=sorted_confidence[index][0]</span><br><span class="line">    print_rule(permiss,c,support,confidence,features)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2084,7 +2147,7 @@ P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
