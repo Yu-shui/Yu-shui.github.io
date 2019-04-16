@@ -86,14 +86,14 @@
 <meta property="og:site_name" content="Yu-shui">
 <meta property="og:description" content="支持向量机（SVM）原理及应用1.算法原理1.简介支持向量机（support vector machines）是一种二分类模型，它的目的是寻找一个超平面来对样本进行分割，分割的原则是间隔最大化，最终转化为一个凸二次规划问题来求解。由简至繁的模型包括：  当训练样本线性可分时，通过硬间隔最大化，学习一个线性可分支持向量机； 当训练样本近似线性可分时，通过软间隔最大化，学习一个线性支持向量机； 当训练">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/04/16/支持向量机原理及应用/C:/blog/source/_posts/支持向量机原理及应用/oo3.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/16/支持向量机原理及应用/oo3.PNG">
 <meta property="og:image" content="http://yoursite.com/2019/04/16/支持向量机原理及应用/oo1.PNG">
 <meta property="og:image" content="http://yoursite.com/2019/04/16/支持向量机原理及应用/oo2.PNG">
-<meta property="og:updated_time" content="2019-04-16T13:05:24.823Z">
+<meta property="og:updated_time" content="2019-04-16T13:09:48.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机原理及应用">
 <meta name="twitter:description" content="支持向量机（SVM）原理及应用1.算法原理1.简介支持向量机（support vector machines）是一种二分类模型，它的目的是寻找一个超平面来对样本进行分割，分割的原则是间隔最大化，最终转化为一个凸二次规划问题来求解。由简至繁的模型包括：  当训练样本线性可分时，通过硬间隔最大化，学习一个线性可分支持向量机； 当训练样本近似线性可分时，通过软间隔最大化，学习一个线性支持向量机； 当训练">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/16/支持向量机原理及应用/C:/blog/source/_posts/支持向量机原理及应用/oo3.PNG">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/16/支持向量机原理及应用/oo3.PNG">
 
 
 
@@ -412,7 +412,7 @@
 <li>当训练样本近似线性可分时，通过软间隔最大化，学习一个线性支持向量机；</li>
 <li>当训练样本线性不可分时，通过核技巧和软间隔最大化，学习一个非线性支持向量机；</li>
 </ul>
-<p><img src="/2019/04/16/支持向量机原理及应用/C:/blog\source\_posts\支持向量机原理及应用\oo3.PNG" alt=""></p>
+<p><img src="/2019/04/16/支持向量机原理及应用/oo3.PNG" alt=""></p>
 <h5 id="2-线性可分的支持向量机"><a href="#2-线性可分的支持向量机" class="headerlink" title="2. 线性可分的支持向量机"></a>2. 线性可分的支持向量机</h5><p>基本的想法就是基于训练集D在样本空间中找到一个划分超平面，将不同类别的样本分开。训练集标签为yi={1|-1}</p>
 <p><img src="/2019/04/16/支持向量机原理及应用/oo1.PNG" alt=""></p>
 <p>直观看上去，能将训练样本分开的划分超平面有很多，但应该去找位于两类训练样本“正中间”的划分超平面，即图6.1中红色的那条，因为该划分超平面对训练样本局部扰动的“容忍”性最好，例如，由于训练集的局限性或者噪声的因素，训练集外的样本可能比图6.1中的训练样本更接近两个类的分隔界，这将使许多划分超平面出现错误。而红色超平面的影响最小，简言之，这个划分超平面所产生的结果是鲁棒性的。</p>
