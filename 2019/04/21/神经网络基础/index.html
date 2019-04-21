@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="神经网络基础1.神经网络模型所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。例如，下图就是一个简单的神经网络：   我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为”’偏置节点”’，也就是截距项。神经网络最左边的一层叫做 ”‘输入层”’，最右的一层叫做”‘输出层’”（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做”’隐">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神经网络基础">
+<meta property="og:url" content="http://yoursite.com/2019/04/21/神经网络基础/index.html">
+<meta property="og:site_name" content="Yu-shui">
+<meta property="og:description" content="神经网络基础1.神经网络模型所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。例如，下图就是一个简单的神经网络：   我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为”’偏置节点”’，也就是截距项。神经网络最左边的一层叫做 ”‘输入层”’，最右的一层叫做”‘输出层’”（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做”’隐">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn1.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn2.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn3.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn4.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn5.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn6.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn7.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn8.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn10.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn11.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn12.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn13.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn14.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn15.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn16.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/C:/blog/source/_posts/神经网络基础/nn17.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/C:/blog/source/_posts/神经网络基础/nn18.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/C:/blog/source/_posts/神经网络基础/nn19.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/C:/blog/source/_posts/神经网络基础/nn20.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/n27.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn23.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/n24.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/n23.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/神经网络基础/n26.PNG">
+<meta property="og:updated_time" content="2019-04-21T08:23:53.595Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="神经网络基础">
+<meta name="twitter:description" content="神经网络基础1.神经网络模型所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。例如，下图就是一个简单的神经网络：   我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为”’偏置节点”’，也就是截距项。神经网络最左边的一层叫做 ”‘输入层”’，最右的一层叫做”‘输出层’”（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做”’隐">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/21/神经网络基础/nn1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/21/神经网络基础/">
+
+
+
+
+
+  <title>神经网络基础 | Yu-shui</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Yu-shui" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yu-shui</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/21/神经网络基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">神经网络基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-21T11:20:09+08:00">
+                2019-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="神经网络基础"><a href="#神经网络基础" class="headerlink" title="神经网络基础"></a>神经网络基础</h1><h3 id="1-神经网络模型"><a href="#1-神经网络模型" class="headerlink" title="1.神经网络模型"></a>1.神经网络模型</h3><p>所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。例如，下图就是一个简单的神经网络： </p>
+<p><img src="/2019/04/21/神经网络基础/nn1.PNG" alt=""></p>
+<p>我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为”’偏置节点”’，也就是截距项。神经网络最左边的一层叫做 <strong>”‘输入层”’</strong>，最右的一层叫做<strong>”‘输出层’”</strong>（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做<strong>”’隐藏层”’</strong>，因为我们不能在训练样本集中观测到它们的值。同时可以看到，以上神经网络的例子中有3个”’输入单元”’（偏置单元不计在内），3个”’隐藏单元”’及一个”’输出单元”’。</p>
+<p>我们用nl 来表示网络的层数，本例中nl=3，我们将第l 层记为Ll ，于是L1是输入层，输出层Lni 。本例神经网络有参数(W,b)=(W(1),b(1),W(2),b(2)) ，其中W(l)ij（下面的式子中用到）是第l层第j 单元与第l+1 层第i 单元之间的联接参数（其实就是连接线上的权重，注意标号顺序），bi(l) 是第l+1 层第i 单元的偏置项。因此在本例中，W(1)∈ℜ3×3 ，W(2)∈ℜ1×3 。注意，没有其他单元连向偏置单元(即偏置单元没有输入)，因为它们总是输出+1。同时，我们用sl表示第ll 层的节点数（偏置单元不计在内）。</p>
+<p>本例神经网络的计算步骤如下:</p>
+<p><img src="/2019/04/21/神经网络基础/nn2.PNG" alt=""></p>
+<p>我们用<em>z</em>(<em>l</em>)<em>i</em> 表示第<em>l</em> 层第<em>i</em>单元输入加权和（包括偏置单元）:</p>
+<p><img src="/2019/04/21/神经网络基础/nn3.PNG" alt=""></p>
+<p>再将激活函数进行广播,及可以得到前向传播过程：</p>
+<p><img src="/2019/04/21/神经网络基础/nn4.PNG" alt=""></p>
+<p>当然神经网络也可以具有多个隐藏层，其计算原理同之前类似。</p>
+<p><img src="/2019/04/21/神经网络基础/nn5.PNG" alt=""></p>
+<p>如果你想预测的输出是多个的，那这种神经网络很适用。（比如，在医疗诊断应用中，患者的体征指标就可以作为向量的输入值，而不同的输出值<em>y**i</em>yi 可以表示不同的疾病存在与否。）</p>
+<h3 id="2-前馈神经网络-FF"><a href="#2-前馈神经网络-FF" class="headerlink" title="2.前馈神经网络(FF)"></a>2.前馈神经网络(FF)</h3><p><img src="/2019/04/21/神经网络基础/nn6.PNG" alt=""></p>
+<p><strong>前馈神经网络（FF）</strong>，这是一个很古老的方法——这种方法起源于50年代。它的工作原理通常遵循以下规则：</p>
+<p>1.所有节点都完全连接</p>
+<p>2.激活从输入层流向输出，无回环</p>
+<p>3.输入和输出之间有一层（隐含层）</p>
+<p>在大多数情况下，这种类型的网络使用<strong>反向传播方法</strong>进行训练。</p>
+<h3 id="3-感知机"><a href="#3-感知机" class="headerlink" title="3.感知机"></a>3.感知机</h3><h5 id="1-算法原理"><a href="#1-算法原理" class="headerlink" title="1.算法原理"></a>1.算法原理</h5><p>想法来自生物学的神经元的一些工作方式，多个生物信号 (input singals) 到达树突 (dentrites)并进入细胞核 (cell nucleus)，如果这些信号的效果累加达到一个阈值，那么通过轴突 (axon) 产生一个输出信号 (output signals)。在有监督学习与分类的背景下，这样的算法可被用来预测一个样本是否属于某个类别。</p>
+<p><img src="/2019/04/21/神经网络基础/nn7.PNG" alt=""></p>
+<p>正式地，我们可以把这个问题表述为一个二分类任务，并且为了简单起见，将这两个类别分别定义为 1 (正类) 与 -1（负类）。接着定义一个激活函数 (activation function) ,, 它输入的是 xx 与其对应的权重向量 ww 的一个线性组合.</p>
+<p>对于一个指定样本 x(i)x(i), 如果 ϕ(z)ϕ(z) 的输出值大于预先定义的一个阈值 Θ, 那么就预测其类别 1. 否则，预测为类别 -1. 在感知器算法中，激活函数 是一个简单的单位阶跃函数 (unit step function)</p>
+<p>需要注意一点的是只有当两个类别是<strong>线性可分</strong>时，感知器算法才能保证收敛。如果两个类别不是线性可分，那么我们可以在训练集上设置一个最大的迭代次数, 或是设置一个可接受的错误分类的阈值。</p>
+<h5 id="2-感知机权重的学习过程"><a href="#2-感知机权重的学习过程" class="headerlink" title="2.感知机权重的学习过程"></a>2.感知机权重的学习过程</h5><p>采用随机梯度下降法：<br><img src="/2019/04/21/神经网络基础/nn8.PNG" alt=""></p>
+<h3 id="推荐一个神经网络可视化的网站-tensorflow-游乐场"><a href="#推荐一个神经网络可视化的网站-tensorflow-游乐场" class="headerlink" title="推荐一个神经网络可视化的网站 :tensorflow 游乐场"></a>推荐一个神经网络可视化的网站 :<a href="https://www.jianshu.com/p/191d1e21f7ed" target="_blank" rel="noopener">tensorflow 游乐场</a></h3><h3 id="3-使用tensoeflow定义几层简单的神经网络"><a href="#3-使用tensoeflow定义几层简单的神经网络" class="headerlink" title="3.使用tensoeflow定义几层简单的神经网络"></a>3.使用tensoeflow定义几层简单的神经网络</h3><p>激活函数使用sigmoid,递归使用链式法则来实现反向传播:</p>
+<h3 id="4-激活函数的种类以及各自的背景，优缺点"><a href="#4-激活函数的种类以及各自的背景，优缺点" class="headerlink" title="4.激活函数的种类以及各自的背景，优缺点"></a>4.激活函数的种类以及各自的背景，优缺点</h3><h5 id="1-定义"><a href="#1-定义" class="headerlink" title="1,定义"></a>1,定义</h5><p>在神经元中，输入的 inputs 通过加权，求和后，还被作用了一个函数，这个函数就是激活函数 Activation Function。</p>
+<p>使用激活函数对线性值进行去线性化。</p>
+<h5 id="2-为什么要使用激活函数-线性模型的局限性"><a href="#2-为什么要使用激活函数-线性模型的局限性" class="headerlink" title="2.为什么要使用激活函数(线性模型的局限性)"></a>2.为什么要使用激活函数(线性模型的局限性)</h5><p>如果不用激励函数，每一层输出都是上层输入的线性函数，无论神经网络有多少层，输出都是输入的线性组合。如果使用的话，激活函数给神经元引入了非线性因素，使得神经网络可以任意逼近任何非线性函数，这样神经网络就可以应用到众多的非线性模型中</p>
+<h5 id="3-分类定义"><a href="#3-分类定义" class="headerlink" title="3.分类定义"></a>3.分类定义</h5><h6 id="1-sigmoid函数"><a href="#1-sigmoid函数" class="headerlink" title="(1).sigmoid函数"></a>(1).sigmoid函数</h6><p>公式：<br><img src="/2019/04/21/神经网络基础/nn10.PNG" alt=""></p>
+<p>曲线:</p>
+<p><img src="/2019/04/21/神经网络基础/nn11.PNG" alt=""></p>
+<p>取值范围为(0,1)，用于<strong>隐层神经元输出</strong>。<br>它可以将一个实数映射到(0,1)的区间，可以用来做二分类。<br><strong>在特征相差比较复杂或是相差不是特别大时效果比较好。</strong><br><strong>sigmoid缺点</strong>：</p>
+<p>激活函数计算量大，反向传播求误差梯度时，求导涉及除法。反向传播时，很容易就会出现梯度消失的情况，从而无法完成深层网络的训练。</p>
+<h4 id="2-Tanh函数"><a href="#2-Tanh函数" class="headerlink" title="(2) Tanh函数"></a>(2) Tanh函数</h4><p>公式：</p>
+<p><img src="/2019/04/21/神经网络基础/nn12.PNG" alt=""></p>
+<p>曲线:</p>
+<p><img src="/2019/04/21/神经网络基础/nn13.PNG" alt=""></p>
+<p>也称为双切正切函数<br>取值范围为[-1,1]。<br>tanh在特征相差明显时的效果会很好，在循环过程中会不断扩大特征果。与 sigmoid 的区别是，tanh 是 0 均值的，因此实际应用中 tanh 会比 sigmoid 更好。</p>
+<h4 id="3-ReLU"><a href="#3-ReLU" class="headerlink" title="3) ReLU"></a>3) ReLU</h4><p>Rectified Linear Unit(ReLU) - 用于隐层神经元输出</p>
+<p>公式：</p>
+<p><img src="/2019/04/21/神经网络基础/nn14.PNG" alt=""></p>
+<p>曲线</p>
+<p><img src="/2019/04/21/神经网络基础/nn15.PNG" alt=""></p>
+<p>输入信号 <0 时，输出都是0，="">0 的情况下，输出等于输入</0></p>
+<p><strong>ReLU 的优点</strong>：使用 ReLU 得到的 SGD 的收敛速度会比 sigmoid/tanh 快很多</p>
+<p><strong>ReLU 的缺点</strong>：<br> 训练的时候很”脆弱”，很容易就”die”了<br> 例如，一个非常大的梯度流过一个 ReLU 神经元，更新过参数之后，这个神经元再也不会对任何数据有激活现象了，那么这个神经元的梯度就永远都会是 0.<br> 如果 learning rate 很大，那么很有可能网络中的 40% 的神经元都”dead”了。</p>
+<h3 id="5-深度学习中的正则化"><a href="#5-深度学习中的正则化" class="headerlink" title="5.深度学习中的正则化"></a>5.深度学习中的正则化</h3><h5 id="1-定义-1"><a href="#1-定义-1" class="headerlink" title="1.定义"></a>1.定义</h5><p>《统计学习方法》中认为正则化是<strong>选择模型</strong>的一种方法。</p>
+<p>正则化通过对学习算法的修改，旨在减少泛化误差而不是训练误差。目前有很多正则化策略，有些是向机器学习模型中添加限制参数值的额外约束，有些是向目标函数添加额外项来对参数值进行软约束。</p>
+<h5 id="2-L1正则化"><a href="#2-L1正则化" class="headerlink" title="2.L1正则化"></a>2.L1正则化</h5><p>L1正则化对梯度的影响不是线性地缩放每个wi而是添加了一项与sign(wi)同号的常数。这种形式的梯度不一定能得到直接算术解。 </p>
+<p><img src="/2019/04/21/神经网络基础/nn16.PNG" alt=""></p>
+<p>相比L2正则化，L1正则化会产生更稀疏的解。这种稀疏性广泛用于特征选择机制，可以从可用的特征子集中选择出有意义的特征，化简机器学习问题。</p>
+<p><strong>L1正则化可通过假设权重w的先验分布为拉普拉斯分布，由最大后验概率估计导出. </strong></p>
+<h5 id="3-L2正则化"><a href="#3-L2正则化" class="headerlink" title="3.L2正则化"></a>3.L2正则化</h5><p>通过向目标函数添加一个L2范数平方项，使权重更加接近原点。<br><img src="/2019/04/21/神经网络基础/C:/blog\source\_posts\神经网络基础\nn17.PNG" alt=""></p>
+<p>《Deep Learning》书中也提到：<strong>L2正则化能让学习算法“感知”到具有较高方差的输入xx，因此与输出目标的协方差较小的特征的权重将会收缩。</strong>L2正则化能够很好的防止过拟合：</p>
+<ol>
+<li>通过引入L2正则，使模型参数偏好比较小的值，这其实也限制的函数空间的大小，有针对的减小了模型容量。一般来说，大的参数值对应于波动剧烈的函数，小的参数值对应于比较平缓的参数，因为小参数对于输入的改变不会那么敏感。发生过拟合往往是因为顾及到了所有样本点，所以此时的函数波动会比较大，如下面右图所示。过拟合的模型往往具有比较大的参数，如果将这部分模型族从假设空间中剔除掉，发生过拟合的可能就变小。</li>
+</ol>
+<p>​       <img src="/2019/04/21/神经网络基础/C:/blog\source\_posts\神经网络基础\nn18.PNG" alt=""></p>
+<ol start="2">
+<li>L2正则化能让学习算法“感知”到具有较高方差的输入xx，因此与输出目标的协方差较小的特征的权重将会收缩。因此L2正则化总是倾向于对那些训练集样本共用的特征产生较大的响应，而减小对个别样本独有的特征产生的响应。因此L2正则有抑制那些“独有特征”的作用，这在一定程度上也减小了过拟合的风险。<br>　　<strong>L2正则化可通过假设权重ww的先验分布为高斯分布，由最大后验概率估计导出.</strong></li>
+</ol>
+<h5 id="4-数据集增强"><a href="#4-数据集增强" class="headerlink" title="4.数据集增强"></a>4.数据集增强</h5><ul>
+<li>原因：一般而言，比较成功的神经网络需要大量的参数，许许多多的神经网路的参数都是数以百万计，而使得这些参数可以正确工作则需要大量的数据进行训练，而实际情况中数据并没有我们想象中的那么多</li>
+<li>作用：<ol>
+<li>增加训练的数据量，提高模型的泛化能力</li>
+<li>增加噪声数据，提升模型的鲁棒性</li>
+</ol>
+</li>
+<li>方法：<ol>
+<li>增加数据集，一般较难实现</li>
+<li>利用已有的数据比如翻转、平移或旋转，创造出更多的数据，来使得神经网络具有更好的泛化效果。</li>
+</ol>
+</li>
+<li>分类：<ol>
+<li><strong>离线增强</strong> ： 直接对数据集进行处理，数据的数目会变成增强因子 x 原数据集的数目 ，这种方法常常用于数据集很小的时候</li>
+<li><strong>在线增强</strong> ： 这种增强的方法用于，获得 batch 数据之后，然后对这个 batch 的数据进行增强，如旋转、平移、翻折等相应的变化，由于有些数据集不能接受线性级别的增长，这种方法长用于大的数据集，很多机器学习框架已经支持了这种数据增强方式，并且可以使用 GPU 优化计算。</li>
+</ol>
+</li>
+</ul>
+<h5 id="5-噪声增加"><a href="#5-噪声增加" class="headerlink" title="5.噪声增加"></a>5.噪声增加</h5><p>​    简单提高网络抗噪能力的方法，就是在训练中加入随机噪声一起训练。我们可以在网络的不同位置加入噪声：输入层，隐藏层，输出层。<br>　　数据集增强在某种意义上也能看做是在输入层加入噪声，通过随机旋转、翻转，色彩变换，裁剪等操作人工扩充训练集大小。这样可以使得网络对于输入更加鲁棒。<br>　　当然如果你能保证数据集没错误，不向输出层加入噪声也没关系。解决这个问题常见的办法是<strong>标签平滑</strong>，通过把确切的分类目标从0和1替换成ϵk−1和1−ϵ，正则化具有k个输出的softmax函数的模型。标签平滑的优势是能够防止模型追求确切的概率而不能学习正确分类。<br>　　从优化过程的角度来看，对权重叠加方差极小噪声等价于对权重是假范数惩罚，可以被解释为关于权重的贝叶斯推断的随即实现（这一点我不是很理解）。换个角度就很结论就很明朗了，因为我们在权重中添加了一些随机扰动，这鼓励优化过程找到一个参数空间，该空间对微小参数变化引起的输出变化影像很小。将模型送入了一个对于微小变化不敏感的区域，不仅找到了最小值，还找到了一个宽扁的最小值区域。</p>
+<h5 id="early-stop（提前终止"><a href="#early-stop（提前终止" class="headerlink" title="early stop（提前终止)"></a>early stop（提前终止)</h5><p>模型过拟合一般是发生在训练次数过多的情况下，那么只要我们在过拟合之前停止训练即可。这也是深度学习中最常用的正则化形式，主要是因为它的有效性和简单性。提前终止需要验证集损失作为观测指标，当验证集损失开始持续上升时，这时就该停止训练过程了。 </p>
+<h5 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h5><p>先介绍集成学习的概念</p>
+<ul>
+<li><p>集成学习通过结合几个模型降低泛化误差的技术。分别训练几个不同的模型，然后让所有模型表决测试样例的输出，也被称为模型平均。模型平均奏效的原因是不同的模型通常不会再测试集上产生完全相同的误差。 </p>
+<p>  假设我们有k个回归模型，每个模型在每个例子上的误差为ϵi，这个误差服从均值为0，方差E[ϵi^2]=v且协方差E[ϵiϵj]=c的多维正态分布。通过所有集成模型的平均预测所得误差是1k∑iϵi，则该集成预测期的平方误差的期望为：</p>
+<p>  <img src="/2019/04/21/神经网络基础/C:/blog\source\_posts\神经网络基础\nn19.PNG" alt=""></p>
+</li>
+</ul>
+<p>​      在误差完全相关即c=v的情况下，E[(1/k*∑iϵi)^2]=v，模型平均对提升结果没有任何帮       助；在误差完全不想关即c=0的情况下，集成模型的误差期望为E[(1/k∑iϵi)^2]=(1/k)v。用一  句话说，平均上，集成至少与它任何成员表现的一样好，并且如果成员误差是独立的，集成将显著地比其成员表现的更好。神经网络中随机初始化的差异、小批量的随机选择、超参数的差异或不同输出的非确定性实现往往足以使得集成中的不同成员具有部分独立的误差。 </p>
+<ul>
+<li><p>Dropout</p>
+<p>Dropout是每次训练过程中随机舍弃一些神经元之间的连接</p>
+<p><img src="/2019/04/21/神经网络基础/C:/blog\source\_posts\神经网络基础\nn20.PNG" alt=""></p>
+</li>
+</ul>
+<p>Dropout提供了一种廉价的Bagging集成近似，能够训练和评估指数级数量的神经网络。Dropout和Bagging训练不太一样，Bagging所有模型都是独立的，而Dropout是所有模型共享参数，每个模型集成父神经网络参数的不同子集，这中参数共享的方式使得在有限可用内存下表示指数级数量的模型变得可能。<br>　　隐藏单元经过Dropout训练后，它必须学习与不同采样神经元的合作，使得神经元具有更强的健壮性，并驱使神经元通过自身获取到有用的特征，而不是依赖其他神经元去纠正自身的错误。这可以看错对输入内容的信息高度智能化，自适应破坏的一种形式，而不是对输入原始值的破坏。<br>　　Dropout的另一个重要方面是噪声是乘性的。如果是固定规模的加性噪声，那么加了噪声ϵ的ReLU可以简单的学会使hi变得很大（使增加的噪声ϵϵ变得不显著）。乘性噪声就不允许这样病态的去解决噪声鲁棒问题。</p>
+<h3 id="深度模型的优化"><a href="#深度模型的优化" class="headerlink" title="深度模型的优化"></a>深度模型的优化</h3><h5 id="1-参数初始化策略"><a href="#1-参数初始化策略" class="headerlink" title="1.参数初始化策略"></a>1.参数初始化策略</h5><p>1.梯度下降算法</p>
+<ul>
+<li><p>批量梯度下降<strong>(Batch gradient descent)</strong> </p>
+<p>批量梯度下降每次学习都使用整个训练集，因此其优点在于每次更新都会朝着正确的方向进行，最后能够保证收敛于极值点(凸函数收敛于全局极值点，非凸函数可能会收敛于局部极值点)，但是其缺点在于每次学习时间过长，并且如果训练集很大以至于需要消耗大量的内存，并且全量梯度下降不能进行在线模型参数更新。</p>
+</li>
+<li><p>随机梯度下降<strong>(Stochastic gradient descent)</strong></p>
+<p>随机梯度下降算法每次从训练集中随机选择一个样本来进行学习，即： θ=θ−η⋅∇θJ(θ;xi;yi)</p>
+<p>批量梯度下降算法每次都会使用全部训练样本，因此这些计算是冗余的，因为每次都使用完全相同的样本集。而随机梯度下降算法每次只随机选择一个样本来更新模型参数，因此每次的学习是非常快速的，并且可以进行在线更新。</p>
+<p>随机梯度下降最大的缺点在于每次更新可能并不会按照正确的方向进行，因此可以带来优化波动(扰动)</p>
+<p><img src="/2019/04/21/神经网络基础/n27.PNG" alt=""></p>
+</li>
+<li><p>小批量梯度下降<strong>(Mini-batch gradient descent)</strong></p>
+<p>Mini-batch 梯度下降综合了 batch 梯度下降与 stochastic 梯度下降，在每次更新速度与更新次数中间取得一个平衡，其每次更新从训练集中随机选择 m,m&lt;n 个样本进行学习，mini-batch梯度下降可以保证收敛性，常用于神经网络中。</p>
+</li>
+</ul>
+<p>以下摘抄自网络:<a href="https://blog.csdn.net/qq_29462849/article/details/80626772" target="_blank" rel="noopener">参数初始化策略</a><br><strong>2.AdaGrad</strong></p>
+<p>AdaGrad 算法，如下图所示，独立地适应所有模型参数的学习率，缩放每个参数反比于其所有梯度历史平方值总和的平方根 (Duchi et al., 2011)。具有损失最大偏导的参数相应地有一个快速下降的学习率，而具有小偏导的参数在学习率上有相对较小的下降。净效果是在参数空间中更为平缓的倾斜方向会取得更大的进步。在凸优化背景中， AdaGrad 算法具有一些令人满意的理论性质。然而，经验上已经发现，对于训练深度神经网络模型而言， 从训练开始时积累梯度平方会导致有效学习率过早和过量的减小。 AdaGrad 在某些深度学习模型上效果不错，但不是全部</p>
+<p><img src="/2019/04/21/神经网络基础/nn23.PNG" alt=""></p>
+<p><strong>1.RMSProp</strong></p>
+<p>RMSProp 算法 (Hinton, 2012) 修改 AdaGrad 以在非凸设定下效果更好，改<br>变梯度积累为指数加权的移动平均。 AdaGrad 旨在应用于凸问题时快速收敛。当应用于非凸函数训练神经网络时，学习轨迹可能穿过了很多不同的结构，最终到达一个局部是凸碗的区域。 AdaGrad 根据平方梯度的整个历史收缩学习率，可能使得学习率在达到这样的凸结构前就变得太小了。 RMSProp 使用指数衰减平均以丢弃遥远过去的历史，使其能够在找到凸碗状结构后快速收敛，它就像一个初始化于该碗状结构的 AdaGrad 算法实例。RMSProp 的标准形式如算法 8.5 所示，结合 Nesterov 动量的形式如算法 8.6 所示。相比于 AdaGrad，使用移动平均引入了一个新的超参数ρ，用来控制移动平均的长度范围。经验上， RMSProp 已被证明是一种有效且实用的深度神经网络优化算法。目前它是深度学习从业者经常采用的优化方法之一。<br><img src="/2019/04/21/神经网络基础/n24.PNG" alt=""></p>
+<p><img src="/2019/04/21/神经网络基础/n23.PNG" alt=""></p>
+<p><strong>4.Adam</strong></p>
+<p>Adam (Kingma and Ba, 2014) 是另一种学习率自适应的优化算法，如算法 8.7 所示。 “Adam’’ 这个名字派生自短语 “adaptive moments’’。早期算法背景下，它也许最好被看作结合 RMSProp 和具有一些重要区别的动量的变种。首先，在 Adam 中，动量直接并入了梯度一阶矩（指数加权）的估计。将动量加入 RMSProp 最直观的方法是将动量应用于缩放后的梯度。结合缩放的动量使用没有明确的理论动机。其次， Adam 包括偏置修正，修正从原点初始化的一阶矩（动量项）和（非中心的）二阶矩的估计（算法 8.7 ）。 RMSProp 也采用了（非中心的）二阶矩估计，然而缺失了修正因子。因此，不像 Adam，RMSProp 二阶矩估计可能在训练初期有很高的偏置。Adam 通常被认为对超参数的选择相当鲁棒，尽管学习率有时需要从建议的默认修改。<br><img src="/2019/04/21/神经网络基础/n26.PNG" alt=""></p>
+<h5 id="2-batch-normal层"><a href="#2-batch-normal层" class="headerlink" title="2.batch normal层"></a>2.batch normal层</h5><h5 id="3-layer-normal层"><a href="#3-layer-normal层" class="headerlink" title="3.layer normal层"></a>3.layer normal层</h5>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/17/传统机器学习-LDA/" rel="next" title="传统机器学习--LDA">
+                <i class="fa fa-chevron-left"></i> 传统机器学习--LDA
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Yu-shui</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Yu-shui" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络基础"><span class="nav-number">1.</span> <span class="nav-text">神经网络基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-神经网络模型"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.神经网络模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-前馈神经网络-FF"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.前馈神经网络(FF)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-感知机"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.感知机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-算法原理"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">1.算法原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-感知机权重的学习过程"><span class="nav-number">1.0.3.0.2.</span> <span class="nav-text">2.感知机权重的学习过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐一个神经网络可视化的网站-tensorflow-游乐场"><span class="nav-number">1.0.4.</span> <span class="nav-text">推荐一个神经网络可视化的网站 :tensorflow 游乐场</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-使用tensoeflow定义几层简单的神经网络"><span class="nav-number">1.0.5.</span> <span class="nav-text">3.使用tensoeflow定义几层简单的神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-激活函数的种类以及各自的背景，优缺点"><span class="nav-number">1.0.6.</span> <span class="nav-text">4.激活函数的种类以及各自的背景，优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-定义"><span class="nav-number">1.0.6.0.1.</span> <span class="nav-text">1,定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-为什么要使用激活函数-线性模型的局限性"><span class="nav-number">1.0.6.0.2.</span> <span class="nav-text">2.为什么要使用激活函数(线性模型的局限性)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-分类定义"><span class="nav-number">1.0.6.0.3.</span> <span class="nav-text">3.分类定义</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-sigmoid函数"><span class="nav-number">1.0.6.0.3.1.</span> <span class="nav-text">(1).sigmoid函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Tanh函数"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">(2) Tanh函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-ReLU"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">3) ReLU</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#5-深度学习中的正则化"><span class="nav-number">1.0.7.</span> <span class="nav-text">5.深度学习中的正则化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-定义-1"><span class="nav-number">1.0.7.0.1.</span> <span class="nav-text">1.定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-L1正则化"><span class="nav-number">1.0.7.0.2.</span> <span class="nav-text">2.L1正则化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-L2正则化"><span class="nav-number">1.0.7.0.3.</span> <span class="nav-text">3.L2正则化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-数据集增强"><span class="nav-number">1.0.7.0.4.</span> <span class="nav-text">4.数据集增强</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-噪声增加"><span class="nav-number">1.0.7.0.5.</span> <span class="nav-text">5.噪声增加</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#early-stop（提前终止"><span class="nav-number">1.0.7.0.6.</span> <span class="nav-text">early stop（提前终止)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Dropout"><span class="nav-number">1.0.7.0.7.</span> <span class="nav-text">Dropout</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度模型的优化"><span class="nav-number">1.0.8.</span> <span class="nav-text">深度模型的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-参数初始化策略"><span class="nav-number">1.0.8.0.1.</span> <span class="nav-text">1.参数初始化策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-batch-normal层"><span class="nav-number">1.0.8.0.2.</span> <span class="nav-text">2.batch normal层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-layer-normal层"><span class="nav-number">1.0.8.0.3.</span> <span class="nav-text">3.layer normal层</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yu-shui</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
