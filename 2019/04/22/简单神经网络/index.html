@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简单神经网络1.文本表示(1).one-hotone-hot即独立热词，词语被表示成一个维度为词表大小的向量，这个向量中只有一个维度是1其他位置都是0.假如词表中只有四个个词“奥巴马”、“特朗普”、“宣誓”、“就职”，那么他们将被表示为：  one-hot表示的优点是简单易用，但是有着致命的缺点：  如果一个词表有十万个单词，那么就需要十万维的向量来表示每一个单词，而每个向量只有一位是1，在储存上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单神经网络">
+<meta property="og:url" content="http://yoursite.com/2019/04/22/简单神经网络/index.html">
+<meta property="og:site_name" content="Yu-shui">
+<meta property="og:description" content="简单神经网络1.文本表示(1).one-hotone-hot即独立热词，词语被表示成一个维度为词表大小的向量，这个向量中只有一个维度是1其他位置都是0.假如词表中只有四个个词“奥巴马”、“特朗普”、“宣誓”、“就职”，那么他们将被表示为：  one-hot表示的优点是简单易用，但是有着致命的缺点：  如果一个词表有十万个单词，那么就需要十万维的向量来表示每一个单词，而每个向量只有一位是1，在储存上">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络/nn1.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络/nn2.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络/nn3.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络/nn4.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络/nn5.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络/nn6.PNG">
+<meta property="og:updated_time" content="2019-04-22T13:28:41.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单神经网络">
+<meta name="twitter:description" content="简单神经网络1.文本表示(1).one-hotone-hot即独立热词，词语被表示成一个维度为词表大小的向量，这个向量中只有一个维度是1其他位置都是0.假如词表中只有四个个词“奥巴马”、“特朗普”、“宣誓”、“就职”，那么他们将被表示为：  one-hot表示的优点是简单易用，但是有着致命的缺点：  如果一个词表有十万个单词，那么就需要十万维的向量来表示每一个单词，而每个向量只有一位是1，在储存上">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/22/简单神经网络/nn1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/22/简单神经网络/">
+
+
+
+
+
+  <title>简单神经网络 | Yu-shui</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Yu-shui" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yu-shui</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/简单神经网络/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">简单神经网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T14:29:45+08:00">
+                2019-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简单神经网络"><a href="#简单神经网络" class="headerlink" title="简单神经网络"></a>简单神经网络</h1><h3 id="1-文本表示"><a href="#1-文本表示" class="headerlink" title="1.文本表示"></a>1.文本表示</h3><h5 id="1-one-hot"><a href="#1-one-hot" class="headerlink" title="(1).one-hot"></a>(1).one-hot</h5><p>one-hot即独立热词，词语被表示成一个维度为词表大小的向量，这个向量中<strong>只有一个维度是1其他位置都是0</strong>.假如词表中只有四个个词“奥巴马”、“特朗普”、“宣誓”、“就职”，那么他们将被表示为：</p>
+<p><img src="/2019/04/22/简单神经网络/nn1.PNG" alt=""></p>
+<p>one-hot表示的优点是简单易用，但是有着致命的缺点：</p>
+<ul>
+<li>如果一个词表有十万个单词，那么就需要十万维的向量来表示每一个单词，而每个向量只有一位是1，在储存上造成大量浪费，在深度学习场景中容易受到维度灾难的困扰。</li>
+<li>奥巴马和特朗普都是美国总统，而one-hot表示出的两个向量是正交向量，也就是他们之间毫无关系，这显然是丢失了相关语义信息。<br> 因此我们需要更好的表示方法。</li>
+</ul>
+<p><strong>实例例举</strong>：</p>
+<p><img src="/2019/04/22/简单神经网络/nn2.PNG" alt=""></p>
+<h5 id="word2vec"><a href="#word2vec" class="headerlink" title="word2vec"></a>word2vec</h5><p><strong>word2vec</strong>就是将词表征为实数值向量的一种高效的算法模型，其利用深度学习的思想，可以通过训练，把对文本内容的处理简化为 K 维向量空间中的向量运算，而向量空间上的相似度可以用来表示文本语义上的相似。当我们在说word2vec算法或模型的时候，其实指的是其背后用于计算word vector的CBoW模型和Skip-gram模型。很多人以为word2vec指的是一个算法或模型，这也是一种谬误。</p>
+<ul>
+<li><p><strong>引子</strong>：<strong>Distributed representation词向量表示</strong></p>
+<p>低维实数向量。向量的距离可以用最传统的欧氏距离来衡量，也可以用 cos 夹角来衡量。它的思路是通过训练，将每个词都映射到一个较短的词向量上来。所有的这些词向量就构成了向量空间，进而可以用普通的统计学的方法来研究词与词之间的关系。这个较短的词向量维度是多大呢？这个一般需要我们在训练时自己来指定。</p>
+</li>
+<li><p><strong>Word2vec</strong> 使用的词向量不是我们上述提到的One-hot Representation那种词向量，而是 Distributed representation 的词向量表示方式。其基本思想是 <strong>通过训练将每个词映射成 K 维实数向量</strong>（K 一般为模型中的超参数），通过词之间的距离（比如 cosine 相似度、欧氏距离等）来判断它们之间的语义相似度.其采用一个 <strong>三层的神经网络</strong> ，输入层-隐层-输出层。有个核心的技术是 <strong>根据词频用Huffman编码</strong> ，使得所有词频相似的词隐藏层激活的内容基本一致，出现频率越高的词语，他们激活的隐藏层数目越少，这样有效的降低了计算的复杂度。而Word2vec大受欢迎的一个原因正是其高效性。这个三层神经网络本身是 <strong>对语言模型进行建模</strong> ，但也同时 <strong>获得一种单词在向量空间上的表示</strong> ，而这个副作用才是Word2vec的真正目标。</p>
+</li>
+<li><p>输入是one-hot,，Hidden Layer没有激活函数，也就是线性的单元。Output Layer维度跟Input Layer的维度一样，用的是Softmax回归。当这个模型训练好以后，我们并不会用这个训练好的模型处理新的任务，我们真正需要的是这个模型通过训练数据所学得的参数，例如隐层的权重矩阵。</p>
+</li>
+</ul>
+<p><strong>Word2Vec</strong>实际上是两种不同的方法：Continuous Bag of Words (CBOW) 和 Skip-gram。CBOW的目标是根据上下文来预测当前词语的概率。Skip-gram刚好相反：根据当前词语来预测上下文的概率（如下图所示）。这两种方法都利用人工神经网络作为它们的分类算法。起初，每个单词都是一个随机 N 维向量。经过训练之后，该算法利用 CBOW 或者 Skip-gram 的方法获得了每个单词的最优向量。</p>
+<p><img src="/2019/04/22/简单神经网络/nn3.PNG" alt=""></p>
+<p>　取一个适当大小的窗口当做语境，输入层读入窗口内的词，将它们的向量（K维，初始随机）加和在一起，形成隐藏层K个节点。输出层是一个巨大的二叉 树，叶节点代表语料里所有的词（语料含有V个独立的词，则二叉树有|V|个叶节点）。而这整颗二叉树构建的算法就是Huffman树。这样，对于叶节点的 每一个词，就会有一个全局唯一的编码，形如”010011”，不妨记左子树为1，右子树为0。接下来，隐层的每一个节点都会跟二叉树的内节点有连边，于是 对于二叉树的每一个内节点都会有K条连边，每条边上也会有权值。</p>
+<p><img src="/2019/04/22/简单神经网络/nn4.PNG" alt=""></p>
+<p>对于语料库中的某个词w_t，对应着二叉树的某个叶子节点，因此它必然有一个二进制编码，如”010011”。在训练阶段，当给定上下文，要预测后 面的词w_t的时候，我们就从二叉树的根节点开始遍历，这里的目标就是预测这个词的二进制编号的每一位。即对于给定的上下文，我们的目标是使得预测词的二 进制编码概率最大。形象地说，我们希望在根节点，词向量和与根节点相连经过 logistic 计算得到 bit=1 的概率尽量接近 0，在第二层，希望其 bit=1 的概率尽量接近1，这么一直下去，我们把一路上计算得到的概率相乘，即得到目标词w_t在当前网络下的概率P(w_t)，那么对于当前这个 sample的残差就是1-P(w_t)，于是就可以使用梯度下降法训练这个网络得到所有的参数值了。显而易见，按照目标词的二进制编码计算到最后的概率 值就是归一化的。</p>
+<p>　　最先优化使用的数据结构是用霍夫曼树来代替隐藏层和输出层的神经元，霍夫曼树的叶子节点起到输出层神经元的作用，叶子节点的个数即为词汇表的小大,word2vec使用霍夫曼树来代替传统的DNN算法（因为DNN算法处理过程非常耗时）。 而内部节点则起到隐藏层神经元的作用。其实借助了分类问题中，使用一连串二分类近似多分类的思想。例如我们是把所有的词都作为输出，那么“桔 子”、“汽车”都是混在一起。给定w_t的上下文，先让模型判断w_t是不是名词，再判断是不是食物名，再判断是不是水果，再判断是不是“桔子”。</p>
+<p>　　但是在训练过程中，模型会赋予这些抽象的中间结点一个合适的向量，这个向量代表了它对应的所有子结点。因为真正的单词公用了这些抽象结点的向量，所 以Hierarchical Softmax方法和原始问题并不是等价的，但是这种近似并不会显著带来性能上的损失同时又使得模型的求解规模显著上升。</p>
+<p>　　没有使用这种二叉树，而是直接从隐层直接计算每一个输出的概率——即传统的Softmax，就需要对|V|中的每一个词都算一遍，这个过程时间复杂 度是O(|V|)的。而使用了二叉树（如Word2vec中的Huffman树），其时间复杂度就降到了O(log2(|V|))，速度大大地加快了。</p>
+<p>　　现在这些词向量已经捕捉到上下文的信息。我们可以利用基本代数公式来发现单词之间的关系（比如，“国王”-“男人”+“女人”=“王后”）。这些词向量可 以代替词袋用来预测未知数据的情感状况。该模型的优点在于不仅考虑了语境信息还压缩了数据规模（通常情况下，词汇量规模大约在300个单词左右而不是之前 模型的100000个单词）。因为神经网络可以替我们提取出这些特征的信息，所以我们仅需要做很少的手动工作。但是由于文本的长度各异，我们可能需要利用 所有词向量的平均值作为分类算法的输入值，从而对整个文本文档进行分类处理。</p>
+<p><strong>注：以下内容转载自<a href="https://www.cnblogs.com/pinard/p/7243513.html" target="_blank" rel="noopener">网络</a></strong></p>
+<h3 id="基于Hierarchical-Softmax的模型概述"><a href="#基于Hierarchical-Softmax的模型概述" class="headerlink" title=". 基于Hierarchical Softmax的模型概述"></a>. 基于Hierarchical Softmax的模型概述</h3><p>　　　　我们先回顾下传统的神经网络词向量语言模型，里面一般有三层，输入层（词向量），隐藏层和输出层（softmax层）。里面最大的问题在于从隐藏层到输出的softmax层的计算量很大，因为要计算所有词的softmax概率，再去找概率最大的值。这个模型如下图所示。其中<em>V</em>V  是词汇表的大小，</p>
+<p><img src="/2019/04/22/简单神经网络/nn5.PNG" alt=""></p>
+<p>　　　　word2vec对这个模型做了改进，首先，对于从输入层到隐藏层的映射，没有采取神经网络的线性变换加激活函数的方法，而是采用简单的对所有输入词向量求和并取平均的方法。比如输入的是三个4维词向量：(1,2,3,4),(9,6,11,8),(5,10,7,12)(1,2,3,4),(9,6,11,8),(5,10,7,12)  ,那么我们word2vec映射后的词向量就是(5,6,7,8)(5,6,7,8)  。由于这里是从多个词向量变成了一个词向量。</p>
+<p>　　　　第二个改进就是从隐藏层到输出的softmax层这里的计算量个改进。为了避免要计算所有词的softmax概率，word2vec采样了霍夫曼树来代替从隐藏层到输出softmax层的映射。我们在上一节已经介绍了霍夫曼树的原理。如何映射呢？这里就是理解word2vec的关键所在了。</p>
+<p>　　　　由于我们把之前所有都要计算的从输出softmax层的概率计算变成了一颗二叉霍夫曼树，那么我们的softmax概率计算只需要沿着树形结构进行就可以了。如下图所示，我们可以沿着霍夫曼树从根节点一直走到我们的叶子节点的词<em>w</em>2w2  。</p>
+<p><img src="/2019/04/22/简单神经网络/nn6.PNG" alt=""></p>
+<p>　　　　和之前的神经网络语言模型相比，我们的霍夫曼树的所有内部节点就类似之前神经网络隐藏层的神经元,其中，根节点的词向量对应我们的投影后的词向量，而所有叶子节点就类似于之前神经网络softmax输出层的神经元，叶子节点的个数就是词汇表的大小。在霍夫曼树中，隐藏层到输出层的softmax映射不是一下子完成的，而是沿着霍夫曼树一步步完成的，因此这种softmax取名为”Hierarchical Softmax”。</p>
+<p>　　　　如何“沿着霍夫曼树一步步完成”呢？在word2vec中，我们采用了二元逻辑回归的方法，即规定沿着左子树走，那么就是负类(霍夫曼树编码1)，沿着右子树走，那么就是正类(霍夫曼树编码0)。判别正类和负类的方法是使用sigmoid函数，即：</p>
+<p><em>P</em>(+)=<em>σ</em>(<em>x<strong>T</strong>w**θ</em>)=11+<em>e</em>−<em>x<strong>T</strong>w**θ</em>P(+)=σ(xwTθ)=11+e−xwTθ</p>
+<p>　　　　其中<em>x**w</em>xw  是当前内部节点的词向量，而<em>θ</em>θ  则是我们需要从训练样本求出的逻辑回归的模型参数。</p>
+<p>　　　　使用霍夫曼树有什么好处呢？首先，由于是二叉树，之前计算量为<em>V</em>V  ,现在变成了<em>l<strong>o</strong>g</em>2<em>V</em>log2V  。第二，由于使用霍夫曼树是高频的词靠近树根，这样高频词需要更少的时间会被找到，这符合我们的贪心优化思想。</p>
+<p>　　　　容易理解，被划分为左子树而成为负类的概率为<em>P</em>(−)=1−<em>P</em>(+)P(−)=1−P(+)  。在某一个内部节点，要判断是沿左子树还是右子树走的标准就是看<em>P</em>(−),<em>P</em>(+)P(−),P(+)  谁的概率值大。而控制<em>P</em>(−),<em>P</em>(+)P(−),P(+)  谁的概率值大的因素一个是当前节点的词向量，另一个是当前节点的模型参数<em>θ</em>θ  。</p>
+<p>　　　　对于上图中的<em>w</em>2w2  ，如果它是一个训练样本的输出，那么我们期望对于里面的隐藏节点<em>n</em>(<em>w</em>2,1)n(w2,1)  的<em>P</em>(−)P(−)  概率大，<em>n</em>(<em>w</em>2,2)n(w2,2)  的<em>P</em>(−)P(−)  概率大，<em>n</em>(<em>w</em>2,3)n(w2,3)  的<em>P</em>(+)P(+)  概率大。</p>
+<p>　　　　回到基于Hierarchical Softmax的word2vec本身，我们的目标就是找到合适的所有节点的词向量和所有内部节点<em>θ</em>θ  , 使训练样本达到最大似然。那么如何达到最大似然呢？</p>
+<h3 id="2-基于Hierarchical-Softmax的模型梯度计算"><a href="#2-基于Hierarchical-Softmax的模型梯度计算" class="headerlink" title="2. 基于Hierarchical Softmax的模型梯度计算"></a>2. 基于Hierarchical Softmax的模型梯度计算</h3><p>　　　我们使用最大似然法来寻找所有节点的词向量和所有内部节点<em>θ</em>θ  。先拿上面的<em>w</em>2w2  例子来看，我们期望最大化下面的似然函数：</p>
+<p>∏<em>i</em>=13<em>P</em>(<em>n</em>(<em>w**i</em>),<em>i</em>)=(1−11+<em>e</em>−<em>x<strong>T</strong>w**θ</em>1)(1−11+<em>e</em>−<em>x<strong>T</strong>w**θ</em>2)11+<em>e</em>−<em>x<strong>T</strong>w**θ</em>3∏i=13P(n(wi),i)=(1−11+e−xwTθ1)(1−11+e−xwTθ2)11+e−xwTθ3</p>
+<p>　　　　对于所有的训练样本，我们期望最大化所有样本的似然函数乘积。</p>
+<p>　　　　为了便于我们后面一般化的描述，我们定义输入的词为<em>w</em>w  ,其从输入层词向量求和平均后的霍夫曼树根节点词向量为<em>x**w</em>xw  , 从根节点到<em>w</em>w  所在的叶子节点，包含的节点总数为<em>l**w</em>lw  , <em>w</em>w  在霍夫曼树中从根节点开始，经过的第<em>i</em>i  个节点表示为<em>p<strong>w</strong>i</em>piw  ,对应的霍夫曼编码为<em>d<strong>w</strong>i</em>∈{0,1}diw∈{0,1}  ,其中<em>i</em>=2,3,…<em>l**w</em>i=2,3,…lw  。而该节点对应的模型参数表示为<em>θ<strong>w</strong>i</em>θiw  , 其中<em>i</em>=1,2,…<em>l**w</em>−1i=1,2,…lw−1  ，没有<em>i</em>=<em>l**w</em>i=lw  是因为模型参数仅仅针对于霍夫曼树的内部节点。</p>
+<p>　　　　定义<em>w</em>w  经过的霍夫曼树某一个节点j的逻辑回归概率为<em>P</em>(<em>d<strong>w</strong>j</em>|<em>x**w</em>,<em>θ<strong>w</strong>j</em>−1)P(djw|xw,θj−1w)  ，其表达式为：</p>
+<p><em>P</em>(<em>d<strong>w</strong>j</em>|<em>x**w</em>,<em>θ<strong>w</strong>j</em>−1)={<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)1−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)<em>d<strong>w</strong>j</em>=0<em>d<strong>w</strong>j</em>=1P(djw|xw,θj−1w)={σ(xwTθj−1w)djw=01−σ(xwTθj−1w)djw=1</p>
+<p>　　　　那么对于某一个目标输出词<em>w</em>w  ,其最大似然为：</p>
+<p>∏<em>j</em>=2<em>l<strong>w</strong>P</em>(<em>d<strong>w</strong>j</em>|<em>x**w</em>,<em>θ<strong>w</strong>j</em>−1)=∏<em>j</em>=2<em>l**w</em>[<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)]1−<em>d<strong>w</strong>j</em>[1−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)]<em>d<strong>w</strong>j</em>∏j=2lwP(djw|xw,θj−1w)=∏j=2lw[σ(xwTθj−1w)]1−djw[1−σ(xwTθj−1w)]djw</p>
+<p>　　　　在word2vec中，由于使用的是随机梯度上升法，所以并没有把所有样本的似然乘起来得到真正的训练集最大似然，仅仅每次只用一个样本更新梯度，这样做的目的是减少梯度计算量。这样我们可以得到<em>w</em>w  的对数似然函数<em>L</em>L  如下：</p>
+<p><em>L</em>=<em>l<strong>o</strong>g</em>∏<em>j</em>=2<em>l<strong>w</strong>P</em>(<em>d<strong>w</strong>j</em>|<em>x**w</em>,<em>θ<strong>w</strong>j</em>−1)=∑<em>j</em>=2<em>l**w</em>((1−<em>d<strong>w</strong>j</em>)<em>l<strong>o</strong>g</em>[<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)]+<em>d<strong>w</strong>j<strong>l</strong>o**g</em>[1−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)])L=log∏j=2lwP(djw|xw,θj−1w)=∑j=2lw((1−djw)log[σ(xwTθj−1w)]+djwlog[1−σ(xwTθj−1w)])</p>
+<p>　　　　要得到模型中<em>w</em>w  词向量和内部节点的模型参数<em>θ</em>θ  , 我们使用梯度上升法即可。首先我们求模型参数<em>θ<strong>w</strong>j</em>−1θj−1w  的梯度：</p>
+<p>∂<em>L</em>∂<em>θ<strong>w</strong>j</em>−1=(1−<em>d<strong>w</strong>j</em>)(<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)(1−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)<em>x**w</em>−<em>d<strong>w</strong>j</em>(<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)(1−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)1−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)<em>x**w</em>=(1−<em>d<strong>w</strong>j</em>)(1−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1))<em>x**w</em>−<em>d<strong>w</strong>j**σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)<em>x**w</em>=(1−<em>d<strong>w</strong>j</em>−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1))<em>x**w</em>(1)(2)(3)(1)∂L∂θj−1w=(1−djw)(σ(xwTθj−1w)(1−σ(xwTθj−1w)σ(xwTθj−1w)xw−djw(σ(xwTθj−1w)(1−σ(xwTθj−1w)1−σ(xwTθj−1w)xw(2)=(1−djw)(1−σ(xwTθj−1w))xw−djwσ(xwTθj−1w)xw(3)=(1−djw−σ(xwTθj−1w))xw</p>
+<p>　　　　如果大家看过之前写的<a href="http://www.cnblogs.com/pinard/p/6029432.html" target="_blank" rel="noopener">逻辑回归原理小结</a>，会发现这里的梯度推导过程基本类似。</p>
+<p>　　　　同样的方法，可以求出<em>x**w</em>xw  的梯度表达式如下：</p>
+<p>∂<em>L</em>∂<em>x**w</em>=∑<em>j</em>=2<em>l**w</em>(1−<em>d<strong>w</strong>j</em>−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1))<em>θ<strong>w</strong>j</em>−1∂L∂xw=∑j=2lw(1−djw−σ(xwTθj−1w))θj−1w</p>
+<p>　　　　有了梯度表达式，我们就可以用梯度上升法进行迭代来一步步的求解我们需要的所有的<em>θ<strong>w</strong>j</em>−1θj−1w  和<em>x**w</em>xw  。</p>
+<h3 id="3-基于Hierarchical-Softmax的CBOW模型"><a href="#3-基于Hierarchical-Softmax的CBOW模型" class="headerlink" title="3. 基于Hierarchical Softmax的CBOW模型"></a>3. 基于Hierarchical Softmax的CBOW模型</h3><p>　　　　由于word2vec有两种模型：CBOW和Skip-Gram,我们先看看基于CBOW模型时， Hierarchical Softmax如何使用。</p>
+<p>　　　　首先我们要定义词向量的维度大小<em>M</em>M  ，以及CBOW的上下文大小2<em>c</em>2c  ,这样我们对于训练样本中的每一个词，其前面的<em>c</em>c  个词和后面的<em>c</em>c  个词作为了CBOW模型的输入,该词本身作为样本的输出，期望softmax概率最大。</p>
+<p>　　　　在做CBOW模型前，我们需要先将词汇表建立成一颗霍夫曼树。</p>
+<p>　　　　对于从输入层到隐藏层（投影层），这一步比较简单，就是对<em>w</em>w  周围的2<em>c</em>2c  个词向量求和取平均即可，即：</p>
+<p><em>x**w</em>=12<em>c</em>∑<em>i</em>=12<em>c<strong>x</strong>i</em>xw=12c∑i=12cxi</p>
+<p>　　　　第二步，通过梯度上升法来更新我们的<em>θ<strong>w</strong>j</em>−1θj−1w  和<em>x**w</em>xw  ，注意这里的<em>x**w</em>xw  是由2<em>c</em>2c  个词向量相加而成，我们做梯度更新完毕后会用梯度项直接更新原始的各个<em>x**i</em>(<em>i</em>=1,2,,,,2<em>c</em>)xi(i=1,2,,,,2c)  ，即：</p>
+<p><em>θ<strong>w</strong>j</em>−1=<em>θ<strong>w</strong>j</em>−1+<em>η</em>(1−<em>d<strong>w</strong>j</em>−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1))<em>x**w</em>θj−1w=θj−1w+η(1−djw−σ(xwTθj−1w))xw</p>
+<p><em>x**i</em>=<em>x**i</em>+<em>η</em>∑<em>j</em>=2<em>l**w</em>(1−<em>d<strong>w</strong>j</em>−<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1))<em>θ<strong>w</strong>j</em>−1(<em>i</em>=1,2..,2<em>c</em>)xi=xi+η∑j=2lw(1−djw−σ(xwTθj−1w))θj−1w(i=1,2..,2c)</p>
+<p>　　　　其中<em>η</em>η  为梯度上升法的步长。</p>
+<p>　　　　这里总结下基于Hierarchical Softmax的CBOW模型算法流程，梯度迭代使用了随机梯度上升法：</p>
+<p>　　　　输入：基于CBOW的语料训练样本，词向量的维度大小<em>M</em>M  ，CBOW的上下文大小2<em>c</em>2c  ,步长<em>η</em>η  </p>
+<p>　　　　输出：霍夫曼树的内部节点模型参数<em>θ</em>θ  ，所有的词向量<em>w</em>w  </p>
+<p>　　　　1. 基于语料训练样本建立霍夫曼树。</p>
+<p>　　　　2. 随机初始化所有的模型参数<em>θ</em>θ  ，所有的词向量<em>w</em>w  </p>
+<p>　　　　3. 进行梯度上升迭代过程，对于训练集中的每一个样本(<em>c<strong>o</strong>n<strong>t</strong>e<strong>x</strong>t</em>(<em>w</em>),<em>w</em>)(context(w),w)  做如下处理：</p>
+<p>　　　　　　a)  e=0， 计算<em>x**w</em>=12<em>c</em>∑<em>i</em>=12<em>c<strong>x</strong>i</em>xw=12c∑i=12cxi  </p>
+<p>　　　　　　b)  for j = 2 to <em>l**w</em>lw  , 计算：</p>
+<p><em>f</em>=<em>σ</em>(<em>x<strong>T</strong>w<strong>θ</strong>w**j</em>−1)f=σ(xwTθj−1w)</p>
+<p><em>g</em>=(1−<em>d<strong>w</strong>j</em>−<em>f</em>)<em>η</em>g=(1−djw−f)η</p>
+<p><em>e</em>=<em>e</em>+<em>g<strong>θ</strong>w**j</em>−1e=e+gθj−1w</p>
+<p><em>θ<strong>w</strong>j</em>−1=<em>θ<strong>w</strong>j</em>−1+<em>g<strong>x</strong>w</em>θj−1w=θj−1w+gxw</p>
+<p>　　　           c) 对于<em>c<strong>o</strong>n<strong>t</strong>e<strong>x</strong>t</em>(<em>w</em>)context(w)  中的每一个词向量<em>x**i</em>xi  (共2c个)进行更新：</p>
+<p><em>x**i</em>=<em>x**i</em>+<em>e</em>xi=xi+e</p>
+<p>　　　　　　d) 如果梯度收敛，则结束梯度迭代，否则回到步骤3继续迭代。</p>
+<h3 id="4-基于Hierarchical-Softmax的Skip-Gram模型"><a href="#4-基于Hierarchical-Softmax的Skip-Gram模型" class="headerlink" title="4. 基于Hierarchical Softmax的Skip-Gram模型"></a>4. 基于Hierarchical Softmax的Skip-Gram模型</h3><p>　　　　现在我们先看看基于Skip-Gram模型时， Hierarchical Softmax如何使用。此时输入的只有一个词<em>w</em>w  ,输出的为2<em>c</em>2c  个词向量<em>c<strong>o</strong>n<strong>t</strong>e<strong>x</strong>t</em>(<em>w</em>)context(w)  。</p>
+<p>　　　　我们对于训练样本中的每一个词，该词本身作为样本的输入， 其前面的<em>c</em>c  个词和后面的<em>c</em>c  个词作为了Skip-Gram模型的输出,，期望这些词的softmax概率比其他的词大。</p>
+<p>　　　　Skip-Gram模型和CBOW模型其实是反过来的，在上一篇已经讲过。</p>
+<p>　　　　在做CBOW模型前，我们需要先将词汇表建立成一颗霍夫曼树。</p>
+<p>　　　　对于从输入层到隐藏层（投影层），这一步比CBOW简单，由于只有一个词，所以，即<em>x**w</em>xw  就是词<em>w</em>w  对应的词向量。</p>
+<p>　　　　第二步，通过梯度上升法来更新我们的<em>θ<strong>w</strong>j</em>−1θj−1w  和<em>x**w</em>xw  ，注意这里的<em>x**w</em>xw  周围有2<em>c</em>2c  个词向量，此时如果我们期望<em>P</em>(<em>x**i</em>|<em>x**w</em>),<em>i</em>=1,2…2<em>c</em>P(xi|xw),i=1,2…2c  最大。此时我们注意到由于上下文是相互的，在期望<em>P</em>(<em>x**i</em>|<em>x**w</em>),<em>i</em>=1,2…2<em>c</em>P(xi|xw),i=1,2…2c  最大化的同时，反过来我们也期望<em>P</em>(<em>x**w</em>|<em>x**i</em>),<em>i</em>=1,2…2<em>c</em>P(xw|xi),i=1,2…2c  最大。那么是使用<em>P</em>(<em>x**i</em>|<em>x**w</em>)P(xi|xw)  好还是<em>P</em>(<em>x**w</em>|<em>x**i</em>)P(xw|xi)  好呢，word2vec使用了后者，这样做的好处就是在一个迭代窗口内，我们不是只更新<em>x**w</em>xw  一个词，而是<em>x**i</em>,<em>i</em>=1,2…2<em>c</em>xi,i=1,2…2c  共2<em>c</em>2c  个词。这样整体的迭代会更加的均衡。因为这个原因，Skip-Gram模型并没有和CBOW模型一样对输入进行迭代更新，而是对2<em>c</em>2c  个输出进行迭代更新。</p>
+<p>　　　　这里总结下基于Hierarchical Softmax的Skip-Gram模型算法流程，梯度迭代使用了随机梯度上升法：</p>
+<p>　　　　输入：基于Skip-Gram的语料训练样本，词向量的维度大小<em>M</em>M  ，Skip-Gram的上下文大小2<em>c</em>2c  ,步长<em>η</em>η  </p>
+<p>　　　　输出：霍夫曼树的内部节点模型参数<em>θ</em>θ  ，所有的词向量<em>w</em>w  </p>
+<p>　　　　1. 基于语料训练样本建立霍夫曼树。</p>
+<p>　　　　2. 随机初始化所有的模型参数<em>θ</em>θ  ，所有的词向量<em>w</em>w  ,</p>
+<p>　　　　3. 进行梯度上升迭代过程，对于训练集中的每一个样本(<em>w</em>,<em>c<strong>o</strong>n<strong>t</strong>e<strong>x</strong>t</em>(<em>w</em>))(w,context(w))  做如下处理：</p>
+<p>　　　　　　a)  for i =1 to 2c:</p>
+<p>　　　　　　　　i) e=0</p>
+<p>　　　　　　　　ii)for j = 2 to <em>l**w</em>lw  , 计算：</p>
+<p><em>f</em>=<em>σ</em>(<em>x<strong>T</strong>i<strong>θ</strong>w**j</em>−1)f=σ(xiTθj−1w)</p>
+<p><em>g</em>=(1−<em>d<strong>w</strong>j</em>−<em>f</em>)<em>η</em>g=(1−djw−f)η</p>
+<p><em>e</em>=<em>e</em>+<em>g<strong>θ</strong>w**j</em>−1e=e+gθj−1w</p>
+<p><em>θ<strong>w</strong>j</em>−1=<em>θ<strong>w</strong>j</em>−1+<em>g<strong>x</strong>i</em>θj−1w=θj−1w+gxi   iii) </p>
+<p><em>x**i</em>=<em>x**i</em>+<em>e</em>xi=xi+e</p>
+<p>　　　　　　b)如果梯度收敛，则结束梯度迭代，算法结束，否则回到步骤a继续迭代。</p>
+<h3 id="5-Hierarchical-Softmax的模型源码和算法的对应"><a href="#5-Hierarchical-Softmax的模型源码和算法的对应" class="headerlink" title="5. Hierarchical Softmax的模型源码和算法的对应　　　　"></a>5. Hierarchical Softmax的模型源码和算法的对应　　　　</h3><p>　　　　这里给出上面算法和<a href="https://github.com/tmikolov/word2vec/blob/master/word2vec.c" target="_blank" rel="noopener">word2vec源码</a>中的变量对应关系。</p>
+<p>　　　　在源代码中，基于Hierarchical Softmax的CBOW模型算法在435-463行，基于Hierarchical Softmax的Skip-Gram的模型算法在495-519行。大家可以对着源代码再深入研究下算法。</p>
+<p>　　　　在源代码中，neule对应我们上面的<em>e</em>e  , syn0对应我们的<em>x**w</em>xw  , syn1对应我们的<em>θ<strong>i</strong>j</em>−1θj−1i  , layer1_size对应词向量的维度，window对应我们的<em>c</em>c  。</p>
+<p>　　　　另外，vocab[word].code[d]指的是，当前单词word的，第d个编码，编码不含Root结点。vocab[word].point[d]指的是，当前单词word，第d个编码下，前置的结点。</p>
+<p>　　</p>
+<p>　</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/21/神经网络基础/" rel="next" title="神经网络基础">
+                <i class="fa fa-chevron-left"></i> 神经网络基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Yu-shui</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Yu-shui" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单神经网络"><span class="nav-number">1.</span> <span class="nav-text">简单神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-文本表示"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.文本表示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-one-hot"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">(1).one-hot</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#word2vec"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">word2vec</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于Hierarchical-Softmax的模型概述"><span class="nav-number">1.0.2.</span> <span class="nav-text">. 基于Hierarchical Softmax的模型概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-基于Hierarchical-Softmax的模型梯度计算"><span class="nav-number">1.0.3.</span> <span class="nav-text">2. 基于Hierarchical Softmax的模型梯度计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-基于Hierarchical-Softmax的CBOW模型"><span class="nav-number">1.0.4.</span> <span class="nav-text">3. 基于Hierarchical Softmax的CBOW模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-基于Hierarchical-Softmax的Skip-Gram模型"><span class="nav-number">1.0.5.</span> <span class="nav-text">4. 基于Hierarchical Softmax的Skip-Gram模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Hierarchical-Softmax的模型源码和算法的对应"><span class="nav-number">1.0.6.</span> <span class="nav-text">5. Hierarchical Softmax的模型源码和算法的对应　　　　</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yu-shui</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
