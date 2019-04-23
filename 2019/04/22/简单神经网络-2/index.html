@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="配置 python 和 anaconda 环境，在装 jupyter notebook 时，出了点问题，搞了一天半终于搞好了，也是在 github 里找到了这个问题的解答。 当时显示的是无法连接到python，不知道为什么，帮他们装的notebook居然都是中文，后来发现是 no connection to kernel 具体操作 1pip install tornado==4.5.3 这么一个错">
+<meta name="description" content="简单神经网络（2）1.词袋模型(bow : 离散、高维、稀疏)在自然语言处理和文本分析的问题中，词袋（Bag of Words, BOW）和词向量（Word Embedding）是两种最常用的模型。更准确地说，词向量只能表征单个词，如果要表示文本，需要做一些额外的处理。所谓BOW，就是将文本/Query看作是一系列词的集合。  离散：无法衡量词向量之间的关系, 比如酒店、宾馆、旅社 三者都只在某一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安装时遇到的问题">
-<meta property="og:url" content="http://yoursite.com/2019/04/07/安装时遇到的问题/index.html">
+<meta property="og:title" content="简单神经网络(2)">
+<meta property="og:url" content="http://yoursite.com/2019/04/22/简单神经网络-2/index.html">
 <meta property="og:site_name" content="Yu-shui">
-<meta property="og:description" content="配置 python 和 anaconda 环境，在装 jupyter notebook 时，出了点问题，搞了一天半终于搞好了，也是在 github 里找到了这个问题的解答。 当时显示的是无法连接到python，不知道为什么，帮他们装的notebook居然都是中文，后来发现是 no connection to kernel 具体操作 1pip install tornado==4.5.3 这么一个错">
+<meta property="og:description" content="简单神经网络（2）1.词袋模型(bow : 离散、高维、稀疏)在自然语言处理和文本分析的问题中，词袋（Bag of Words, BOW）和词向量（Word Embedding）是两种最常用的模型。更准确地说，词向量只能表征单个词，如果要表示文本，需要做一些额外的处理。所谓BOW，就是将文本/Query看作是一系列词的集合。  离散：无法衡量词向量之间的关系, 比如酒店、宾馆、旅社 三者都只在某一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-07T06:40:04.926Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络-2/nn1.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络-2/nn2.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络-2/nn3.PNG">
+<meta property="og:updated_time" content="2019-04-23T06:16:25.837Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安装时遇到的问题">
-<meta name="twitter:description" content="配置 python 和 anaconda 环境，在装 jupyter notebook 时，出了点问题，搞了一天半终于搞好了，也是在 github 里找到了这个问题的解答。 当时显示的是无法连接到python，不知道为什么，帮他们装的notebook居然都是中文，后来发现是 no connection to kernel 具体操作 1pip install tornado==4.5.3 这么一个错">
+<meta name="twitter:title" content="简单神经网络(2)">
+<meta name="twitter:description" content="简单神经网络（2）1.词袋模型(bow : 离散、高维、稀疏)在自然语言处理和文本分析的问题中，词袋（Bag of Words, BOW）和词向量（Word Embedding）是两种最常用的模型。更准确地说，词向量只能表征单个词，如果要表示文本，需要做一些额外的处理。所谓BOW，就是将文本/Query看作是一系列词的集合。  离散：无法衡量词向量之间的关系, 比如酒店、宾馆、旅社 三者都只在某一">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/22/简单神经网络-2/nn1.PNG">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/07/安装时遇到的问题/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/22/简单神经网络-2/">
 
 
 
 
 
-  <title>安装时遇到的问题 | Yu-shui</title>
+  <title>简单神经网络(2) | Yu-shui</title>
   
 
 
@@ -304,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/安装时遇到的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/简单神经网络-2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yu-shui">
@@ -321,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">安装时遇到的问题</h1>
+          <h1 class="post-title" itemprop="name headline">简单神经网络(2)</h1>
         
 
         <div class="post-meta">
@@ -333,8 +337,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T14:39:38+08:00">
-                2019-04-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T21:31:36+08:00">
+                2019-04-22
               </time>
             
 
@@ -402,12 +406,29 @@
       
 
       
-        <p>配置 python 和 anaconda 环境，在装 jupyter notebook 时，出了点问题，搞了一天半终于搞好了，也是在 github 里找到了这个问题的解答。</p>
-<p>当时显示的是无法连接到python，不知道为什么，帮他们装的notebook居然都是中文，后来发现是 no connection to kernel</p>
-<p>具体操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tornado==4.5.3</span><br></pre></td></tr></table></figure>
-<p>这么一个错误花了一天多。。服了。。</p>
-<p>很明显，这是版本问题，现在直接 pip install jupyter notebook 时，附带安装的 tornado 是6.0版本的，而能操作的是4.5.3版本的（掀桌）。。。</p>
+        <h1 id="简单神经网络（2）"><a href="#简单神经网络（2）" class="headerlink" title="简单神经网络（2）"></a>简单神经网络（2）</h1><h3 id="1-词袋模型-bow-离散、高维、稀疏"><a href="#1-词袋模型-bow-离散、高维、稀疏" class="headerlink" title="1.词袋模型(bow : 离散、高维、稀疏)"></a>1.词袋模型(bow : 离散、高维、稀疏)</h3><p>在自然语言处理和文本分析的问题中，词袋（Bag of Words, BOW）和词向量（Word Embedding）是两种最常用的模型。更准确地说，词向量只能表征单个词，如果要表示文本，需要做一些额外的处理。所谓BOW，就是将文本/Query看作是一系列词的集合。</p>
+<ul>
+<li><strong>离散</strong>：无法衡量词向量之间的关系, 比如酒店、宾馆、旅社 三者都只在某一个固定的位置为 1 ，所以找不到三者的关系，各种度量(与或非、距离)都不合适，即太稀疏，很难捕捉到文本的含义。</li>
+<li><p><strong>高维</strong>：词表维度随着语料库增长膨胀，n-gram 序列随语料库膨胀更快。</p>
+</li>
+<li><p><strong>数据稀疏</strong>： 数据都没有特征多，数据有 100 条，特征有 1000 个</p>
+</li>
+</ul>
+<p>举个例子：<br>                   <strong>文本1：苏宁易购/是/国内/著名/的/B2C/电商/之一</strong><br>这是一个短文本。“/”作为词与词之间的分割。从中我们可以看到这个文本包含“苏宁易购”，“B2C”，“电商”等词。换句话说，该文本的的词袋由“苏宁易购”，“电商”等词构成。就像这样：</p>
+<p><img src="/2019/04/22/简单神经网络-2/nn1.PNG" alt=""></p>
+<p>但计算机不认识字，只认识数字，那在计算机中怎么表示词袋模型呢？其实很简单，给每个词一个位置/索引就可以了。例如，我们令“苏宁易购”的索引为0，“电商”的索引为1，其他以此类推。则该文本的词袋就变成了：</p>
+<p><img src="/2019/04/22/简单神经网络-2/nn2.PNG" alt=""></p>
+<p>词袋是在词集的基础上增加了频率的维度，词集只关注有和没有，词袋还要关注有几个。 </p>
+<p>假设我们要对一篇文章进行特征化，最常见的方式就是词袋。</p>
+<p>假如现在有1000篇新闻文档，把这些文档拆成一个个的字，去重后得到3000个字，然后把这3000个字作为字典，进行文本表示的模型，叫做词袋模型。这种模型的特点是字典中的字没有特定的顺序，句子的总体结构也被舍弃了.</p>
+<ul>
+<li>2.分布式表示(连续，稠密，低维)</li>
+</ul>
+<p>分布式（distributed）描述的是把<br>信息分布式地存储在向量的各个维度中，与之相对的是局部表示（local<br>representation），如词的独热表示（one-hot representation），在高维向量中<br>只有一个维度描述了词的语义。一般来说，通过矩阵降维或神经网络降维<br>可以将语义分散存储到向量的各个维度中，因此，这类方法得到的低维向 量一般都可以称作分布式表示。</p>
+<h3 id="2-word2vec代码实现"><a href="#2-word2vec代码实现" class="headerlink" title="2.word2vec代码实现"></a>2.word2vec代码实现</h3><p><img src="/2019/04/22/简单神经网络-2/nn3.PNG" alt=""></p>
+<h3 id="3-bow2vec-TFIDF模型"><a href="#3-bow2vec-TFIDF模型" class="headerlink" title="3.bow2vec + TFIDF模型"></a>3.bow2vec + TFIDF模型</h3><p>主要内容为：<br>拆分句子为单词颗粒，记号化；<br>生成词典；<br>生成稀疏文档矩阵</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">documents = [&quot;Human machine interface for lab abc computer applications&quot;,</span><br><span class="line">             &quot;A survey of user opinion of computer system response time&quot;,</span><br><span class="line">             &quot;The EPS user interface management system&quot;,</span><br><span class="line">             &quot;System and human system engineering testing of EPS&quot;,              </span><br><span class="line">             &quot;Relation of user perceived response time to error measurement&quot;,</span><br><span class="line">             &quot;The generation of random binary unordered trees&quot;,</span><br><span class="line">             &quot;The intersection graph of paths in trees&quot;,</span><br><span class="line">             &quot;Graph minors IV Widths of trees and well quasi ordering&quot;,</span><br><span class="line">             &quot;Graph minors A survey&quot;]</span><br><span class="line"></span><br><span class="line"># 分词并根据词频剔除</span><br><span class="line"># remove common words and tokenize</span><br><span class="line">stoplist = set(&apos;for a of the and to in&apos;.split())</span><br><span class="line">texts = [[word for word in document.lower().split() if word not in stoplist]</span><br><span class="line">         for document in documents]</span><br><span class="line">         </span><br><span class="line">         #分词并根据词频剔除</span><br><span class="line">#将句子划分为词</span><br><span class="line">stoplist=set(&apos;for a of the end to in&apos;.split())</span><br><span class="line">texts=[[word for word in document.lower().split() if word not in stoplist] for document in documents]</span><br><span class="line">print(texts)</span><br><span class="line"></span><br><span class="line">#生成词典</span><br><span class="line">from gensim import corpora</span><br><span class="line">import os</span><br><span class="line">dictionary=corpora.Dictionary(texts)</span><br><span class="line">dictionary.save(os.path.join(&apos;C:/Users/wuxun/Desktop/&apos;,&apos;deerwester.dict&apos;))#存储词典#路径拼接函数</span><br><span class="line">print(dictionary)</span><br><span class="line">print(dictionary.token2id)</span><br></pre></td></tr></table></figure>
+<h5 id="tfidf"><a href="#tfidf" class="headerlink" title="tfidf"></a>tfidf</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#生成词袋</span><br><span class="line">new_doc=&quot;Human computer interaction Human&quot;</span><br><span class="line">new_vec=dictionary.doc2bow(new_doc.lower().split())</span><br><span class="line">print(new_vec)</span><br><span class="line"># the word &quot;interaction&quot; does not appear in the dictionary and is ignored</span><br><span class="line">    # [(0, 1), (1, 1)] ，词典（dictionary）中第0个词，出现的频数为1（当前句子），</span><br><span class="line">    # 第1个词，出现的频数为1</span><br><span class="line">#多句bow生成</span><br><span class="line">[dictionary.doc2bow(text) for text in texts]</span><br><span class="line">#print(texts)</span><br><span class="line"></span><br><span class="line">from gensim import corpora,models,similarities</span><br><span class="line">corpus = [[(0, 1.0), (1, 1.0), (2, 1.0)],</span><br><span class="line">          [(2, 1.0), (3, 1.0), (4, 1.0), (5, 1.0), (6, 1.0), (8, 1.0)],</span><br><span class="line">          [(1, 1.0), (3, 1.0), (4, 1.0), (7, 1.0)],</span><br><span class="line">          [(0, 1.0), (4, 2.0), (7, 1.0)],</span><br><span class="line">          [(3, 1.0), (5, 1.0), (6, 1.0)],</span><br><span class="line">          [(9, 1.0)],</span><br><span class="line">          [(9, 1.0), (10, 1.0)],</span><br><span class="line">          [(9, 1.0), (10, 1.0), (11, 1.0)],</span><br><span class="line">          [(8, 1.0), (10, 1.0), (11, 1.0)]]</span><br><span class="line">tfidf=models.TfidfModel(corpus)</span><br><span class="line"></span><br><span class="line">#词袋模型，实践</span><br><span class="line">vec=[(0,1),(4,1),(9,1)]</span><br><span class="line">print(tfidf[vec])</span><br><span class="line">#查找vec中，0,4,9号三个词的TFIDF值。同时进行转化，把之前的文档矩阵中的词频变成了TFIDF值。</span><br><span class="line">#利用tfidf求相似：</span><br><span class="line"></span><br><span class="line">index=similarities.SparseMatrixSimilarity(tfidf[corpus],num_features=12)</span><br><span class="line">vec=[(0,1),(4,1),(9,1)]</span><br><span class="line">sims=index[tfidf[vec]]</span><br><span class="line">#对corpus中的九个文档进行文档级别索引，vec是新文档的词袋,sim就是该vec向量对corpus中九个文档的相似性</span><br><span class="line">print(list(enumerate(sims)))</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -432,8 +453,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/07/tensorflow-gpu配置/" rel="next" title="tensorflow-gpu配置">
-                <i class="fa fa-chevron-left"></i> tensorflow-gpu配置
+              <a href="/2019/04/22/简单神经网络/" rel="next" title="简单神经网络">
+                <i class="fa fa-chevron-left"></i> 简单神经网络
               </a>
             
           </div>
@@ -442,8 +463,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/07/用skikit-learn实现决策树/" rel="prev" title="用skikit-learn实现决策树">
-                用skikit-learn实现决策树 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/23/tensorflow-实现神经网络/" rel="prev" title="tensorflow 实现神经网络">
+                tensorflow 实现神经网络 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -496,8 +517,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -549,6 +579,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单神经网络（2）"><span class="nav-number">1.</span> <span class="nav-text">简单神经网络（2）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-词袋模型-bow-离散、高维、稀疏"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.词袋模型(bow : 离散、高维、稀疏)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-word2vec代码实现"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.word2vec代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-bow2vec-TFIDF模型"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.bow2vec + TFIDF模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#tfidf"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">tfidf</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
