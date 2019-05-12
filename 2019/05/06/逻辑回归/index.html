@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="NPL之基本文本处理技能1.分词的概念一个良好的分词系统应由词典和统计两套系统组成。后者为前者构造可持续更新的词典，识别新词，同时对消岐部分进行匹配。在分词过程中，好的词典很重要，其次算法要跟着需求走，不同需求选择不同算法，比如有些要求速度快，与兴趣相关，此时算法是次要的，而有些需求注重的是精度。 现有方法：基于词典的匹配：前向最大匹配，后向最大匹配；基于字的标注：最大熵模型，条件随机场模型，感知">
+<meta name="description" content="逻辑回归基础所以逻辑回归，不是回归，而是分类器，二分类，多分类。 1.使用sigmoid函数，对y的取值进行压缩至[0,1] 图像如下：  2.损失函数真实值与预测值之间的误差的函数，我们希望这个函数越小越好。在这里，最小损失是0。  3.在sklearm中的应用123456789101112131415161718192021222324252627282930sklearn.linear_mo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自然语言处理3:文本处理技能基础">
-<meta property="og:url" content="http://yoursite.com/2019/04/14/自然语言处理3-文本处理技能基础/index.html">
+<meta property="og:title" content="逻辑回归">
+<meta property="og:url" content="http://yoursite.com/2019/05/06/逻辑回归/index.html">
 <meta property="og:site_name" content="Yu-shui">
-<meta property="og:description" content="NPL之基本文本处理技能1.分词的概念一个良好的分词系统应由词典和统计两套系统组成。后者为前者构造可持续更新的词典，识别新词，同时对消岐部分进行匹配。在分词过程中，好的词典很重要，其次算法要跟着需求走，不同需求选择不同算法，比如有些要求速度快，与兴趣相关，此时算法是次要的，而有些需求注重的是精度。 现有方法：基于词典的匹配：前向最大匹配，后向最大匹配；基于字的标注：最大熵模型，条件随机场模型，感知">
+<meta property="og:description" content="逻辑回归基础所以逻辑回归，不是回归，而是分类器，二分类，多分类。 1.使用sigmoid函数，对y的取值进行压缩至[0,1] 图像如下：  2.损失函数真实值与预测值之间的误差的函数，我们希望这个函数越小越好。在这里，最小损失是0。  3.在sklearm中的应用123456789101112131415161718192021222324252627282930sklearn.linear_mo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-14T06:14:51.911Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/06/逻辑回归/nn1.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/05/06/逻辑回归/nn2.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/05/06/逻辑回归/nn3.PNG">
+<meta property="og:updated_time" content="2019-05-07T06:53:21.764Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自然语言处理3:文本处理技能基础">
-<meta name="twitter:description" content="NPL之基本文本处理技能1.分词的概念一个良好的分词系统应由词典和统计两套系统组成。后者为前者构造可持续更新的词典，识别新词，同时对消岐部分进行匹配。在分词过程中，好的词典很重要，其次算法要跟着需求走，不同需求选择不同算法，比如有些要求速度快，与兴趣相关，此时算法是次要的，而有些需求注重的是精度。 现有方法：基于词典的匹配：前向最大匹配，后向最大匹配；基于字的标注：最大熵模型，条件随机场模型，感知">
+<meta name="twitter:title" content="逻辑回归">
+<meta name="twitter:description" content="逻辑回归基础所以逻辑回归，不是回归，而是分类器，二分类，多分类。 1.使用sigmoid函数，对y的取值进行压缩至[0,1] 图像如下：  2.损失函数真实值与预测值之间的误差的函数，我们希望这个函数越小越好。在这里，最小损失是0。  3.在sklearm中的应用123456789101112131415161718192021222324252627282930sklearn.linear_mo">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/06/逻辑回归/nn1.PNG">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/14/自然语言处理3-文本处理技能基础/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/06/逻辑回归/">
 
 
 
 
 
-  <title>自然语言处理3:文本处理技能基础 | Yu-shui</title>
+  <title>逻辑回归 | Yu-shui</title>
   
 
 
@@ -304,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/自然语言处理3-文本处理技能基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/06/逻辑回归/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yu-shui">
@@ -321,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">自然语言处理3:文本处理技能基础</h1>
+          <h1 class="post-title" itemprop="name headline">逻辑回归</h1>
         
 
         <div class="post-meta">
@@ -333,8 +337,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T14:13:14+08:00">
-                2019-04-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-06T23:44:12+08:00">
+                2019-05-06
               </time>
             
 
@@ -402,35 +406,13 @@
       
 
       
-        <h1 id="NPL之基本文本处理技能"><a href="#NPL之基本文本处理技能" class="headerlink" title="NPL之基本文本处理技能"></a>NPL之基本文本处理技能</h1><h2 id="1-分词的概念"><a href="#1-分词的概念" class="headerlink" title="1.分词的概念"></a>1.分词的概念</h2><p>一个良好的分词系统应由词典和统计两套系统组成。后者为前者构造可持续更新的词典，识别新词，同时对消岐部分进行匹配。在分词过程中，好的词典很重要，其次算法要跟着需求走，不同需求选择不同算法，比如有些要求速度快，与兴趣相关，此时算法是次要的，而有些需求注重的是精度。</p>
-<p>现有方法：基于词典的匹配：前向最大匹配，后向最大匹配；基于字的标注：最大熵模型，条件随机场模型，感知器模型；其他方法：与词性标注集合，与句法分析结合。</p>
-<h2 id="2-分词最大向量化，逆向最大，双向最大匹配法"><a href="#2-分词最大向量化，逆向最大，双向最大匹配法" class="headerlink" title="2.分词最大向量化，逆向最大，双向最大匹配法"></a>2.分词最大向量化，逆向最大，双向最大匹配法</h2><h5 id="1-分词最大正向匹配法（示例来自网络）"><a href="#1-分词最大正向匹配法（示例来自网络）" class="headerlink" title="1.分词最大正向匹配法（示例来自网络）"></a>1.分词最大正向匹配法（示例来自网络）</h5><p>1、正向最大匹配法：<br>正向即从前往后取词，从7-&gt;1，每次减一个字，直到词典命中或剩下1个单字。<br>第1次：“我们在野生动物”，扫描7字词典，无<br>第2次：“我们在野生动”，扫描6字词典，无<br>。。。。<br>第6次：“我们”，扫描2字词典，有<br>扫描中止，输出第1个词为“我们”，去除第1个词后开始第2轮扫描，即：<br>第2轮扫描：<br>第1次：“在野生动物园玩”，扫描7字词典，无<br>第2次：“在野生动物园”，扫描6字词典，无<br>。。。。<br>第6次：“在野”，扫描2字词典，有<br>扫描中止，输出第2个词为“在野”，去除第2个词后开始第3轮扫描，即：<br>第3轮扫描：<br>第1次：“生动物园玩”，扫描5字词典，无<br>第2次：“生动物园”，扫描4字词典，无<br>第3次：“生动物”，扫描3字词典，无<br>第4次：“生动”，扫描2字词典，有<br>扫描中止，输出第3个词为“生动”，第4轮扫描，即：<br>第4轮扫描：<br>第1次：“物园玩”，扫描3字词典，无<br>第2次：“物园”，扫描2字词典，无<br>第3次：“物”，扫描1字词典，无<br>扫描中止，输出第4个词为“物”，非字典词数加1，开始第5轮扫描，即：<br>第5轮扫描：<br>第1次：“园玩”，扫描2字词典，无<br>第2次：“园”，扫描1字词典，有<br>扫描中止，输出第5个词为“园”，单字字典词数加1，开始第6轮扫描，即：<br>第6轮扫描：<br>第1次：“玩”，扫描1字字典词，有<br>扫描中止，输出第6个词为“玩”，单字字典词数加1，整体扫描结束。<br>正向最大匹配法，最终切分结果为：“我们/在野/生动/物/园/玩”，其中，单字字典词为2，非词典词为1。</p>
-<h5 id="2-逆向最大匹配法"><a href="#2-逆向最大匹配法" class="headerlink" title="2.逆向最大匹配法"></a>2.逆向最大匹配法</h5><p>逆向即从后往前取词，其他逻辑和正向相同。即：<br>第1轮扫描：“在野生动物园玩”<br>第1次：“在野生动物园玩”，扫描7字词典，无<br>第2次：“野生动物园玩”，扫描6字词典，无<br>。。。。<br>第7次：“玩”，扫描1字词典，有<br>扫描中止，输出“玩”，单字字典词加1，开始第2轮扫描<br>第2轮扫描：“们在野生动物园”<br>第1次：“们在野生动物园”，扫描7字词典，无<br>第2次：“在野生动物园”，扫描6字词典，无<br>第3次：“野生动物园”，扫描5字词典，有<br>扫描中止，输出“野生动物园”，开始第3轮扫描<br>第3轮扫描：“我们在”<br>第1次：“我们在”，扫描3字词典，无<br>第2次：“们在”，扫描2字词典，无<br>第3次：“在”，扫描1字词典，有<br>扫描中止，输出“在”，单字字典词加1，开始第4轮扫描<br>第4轮扫描：“我们”<br>第1次：“我们”，扫描2字词典，有<br>扫描中止，输出“我们”，整体扫描结束。<br>逆向最大匹配法，最终切分结果为：“我们/在/野生动物园/玩”，其中，单字字典词为2，非词典词为0。</p>
-<h5 id="3-双向最大匹配法"><a href="#3-双向最大匹配法" class="headerlink" title="3.双向最大匹配法"></a>3.双向最大匹配法</h5><p>正向最大匹配法和逆向最大匹配法，都有其局限性(如：长春药店，逆向切分为“长/春药店”），因此有人又提出了双向最大匹配法，双向最大匹配法。即，两种算法都切一遍，然后根据大颗粒度词越多越好，非词典词和单字词越少越好的原则，选取其中一种分词结果输出。<br>如：“我们在野生动物园玩”<br>正向最大匹配法，最终切分结果为：“我们/在野/生动/物/园/玩”，其中，两字词3个，单字字典词为2，非词典词为1。<br>逆向最大匹配法，最终切分结果为：“我们/在/野生动物园/玩”，其中，五字词1个，两字词1个，单字字典词为2，非词典词为0。<br>非字典词：正向(1)&gt;逆向(0)（越少越好）<br>单字字典词：正向(2)=逆向(2)（越少越好）<br>总词数：正向(6)&gt;逆向(4)（越少越好）<br>因此最终输出为逆向结果。</p>
-<h2 id="2-Python标准库——collections模块的Counter类"><a href="#2-Python标准库——collections模块的Counter类" class="headerlink" title="2.Python标准库——collections模块的Counter类"></a>2.Python标准库——collections模块的Counter类</h2><p>Counter类的目的是用来跟踪值出现的次数。它是一个无序的容器类型，以字典的键值对形式存储，其中元素作为key，其计数作为value。计数值可以是任意的Interger（包括0和负数）</p>
-<h6 id="1-创建"><a href="#1-创建" class="headerlink" title="1.创建"></a>1.创建</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter()  # 创建一个空的Counter类</span><br><span class="line">&gt;&gt;&gt; c = Counter(&apos;gallahad&apos;)  # 从一个可iterable对象（list、tuple、dict、字符串等）创建</span><br><span class="line">&gt;&gt;&gt; c = Counter(&#123;&apos;a&apos;: 4, &apos;b&apos;: 2&#125;)  # 从一个字典对象创建</span><br><span class="line">&gt;&gt;&gt; c = Counter(a=4, b=2)  # 从一组键值对创建</span><br></pre></td></tr></table></figure>
-<h6 id="2-2-计数值的访问与缺失的键"><a href="#2-2-计数值的访问与缺失的键" class="headerlink" title="2.2 计数值的访问与缺失的键"></a>2.2 计数值的访问与缺失的键</h6><p>当所访问的键不存在时，返回0，而不是KeyError；否则返回它的计数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter(&quot;abcdefgab&quot;)</span><br><span class="line">&gt;&gt;&gt; c[&quot;a&quot;]</span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; c[&quot;c&quot;]</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; c[&quot;h&quot;]</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<h5 id="3-计数器的更新（update和subtract）"><a href="#3-计数器的更新（update和subtract）" class="headerlink" title="3. 计数器的更新（update和subtract）"></a>3. 计数器的更新（update和subtract）</h5><p>可以使用一个iterable对象或者另一个Counter对象来更新键值。<br>计数器的更新包括增加和减少两种。其中，增加使用update()方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter(&apos;which&apos;)</span><br><span class="line">&gt;&gt;&gt; c.update(&apos;witch&apos;)  # 使用另一个iterable对象更新</span><br><span class="line">&gt;&gt;&gt; c[&apos;h&apos;]</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; d = Counter(&apos;watch&apos;)</span><br><span class="line">&gt;&gt;&gt; c.update(d)  # 使用另一个Counter对象更新</span><br><span class="line">&gt;&gt;&gt; c[&apos;h&apos;]</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
-<h5 id="4-元素的删除"><a href="#4-元素的删除" class="headerlink" title="4.元素的删除"></a>4.元素的删除</h5><p>删除元素使用del</p>
-<h5 id="5-elements"><a href="#5-elements" class="headerlink" title="5 elements()"></a>5 elements()</h5><p>返回一个迭代器。元素被重复了多少次，在该迭代器中就包含多少个该元素。元素排列无确定顺序，个数小于1的元素不被包含。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter(a=4, b=2, c=0, d=-2)</span><br><span class="line">&gt;&gt;&gt; list(c.elements())</span><br><span class="line">[&apos;a&apos;, &apos;a&apos;, &apos;a&apos;, &apos;a&apos;, &apos;b&apos;, &apos;b&apos;]</span><br></pre></td></tr></table></figure>
-<h5 id="6-most-common-n"><a href="#6-most-common-n" class="headerlink" title="6.most_common([n])"></a>6.most_common([n])</h5><p>返回一个TopN列表。如果n没有被指定，则返回所有元素。当多个元素计数值相同时，排列是无确定顺序的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = Counter(&apos;abracadabra&apos;)</span><br><span class="line">&gt;&gt;&gt; c.most_common()</span><br><span class="line">[(&apos;a&apos;, 5), (&apos;r&apos;, 2), (&apos;b&apos;, 2), (&apos;c&apos;, 1), (&apos;d&apos;, 1)]</span><br><span class="line">&gt;&gt;&gt; c.most_common(3)</span><br><span class="line">[(&apos;a&apos;, 5), (&apos;r&apos;, 2), (&apos;b&apos;, 2)]</span><br></pre></td></tr></table></figure>
-<h5 id="7-常规操作"><a href="#7-常规操作" class="headerlink" title="7.常规操作"></a>7.常规操作</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sum(c.values())  # 所有计数的总数</span><br><span class="line">c.clear()  # 重置Counter对象，注意不是删除</span><br><span class="line">list(c)  # 将c中的键转为列表</span><br><span class="line">set(c)  # 将c中的键转为set</span><br><span class="line">dict(c)  # 将c中的键值对转为字典</span><br><span class="line">c.items()  # 转为(elem, cnt)格式的列表</span><br><span class="line">Counter(dict(list_of_pairs))  # 从(elem, cnt)格式的列表转换为Counter类对象</span><br><span class="line">c.most_common()[:-n:-1]  # 取出计数最少的n-1个元素</span><br><span class="line">c += Counter()  # 移除0和负值</span><br></pre></td></tr></table></figure>
-<h2 id="3-语言模型中unigram、bigram、trigram的概念"><a href="#3-语言模型中unigram、bigram、trigram的概念" class="headerlink" title="3.语言模型中unigram、bigram、trigram的概念"></a>3.语言模型中unigram、bigram、trigram的概念</h2><ol>
-<li>unigram 一元分词，把句子分成一个一个的汉字</li>
-<li>bigram 二元分词，把句子从头到尾每两个字组成一个词语</li>
-<li>trigram 三元分词，把句子从头到尾每三个字组成一个词语.</li>
-</ol>
-<h5 id="n-gram模型的概念"><a href="#n-gram模型的概念" class="headerlink" title="n-gram模型的概念"></a>n-gram模型的概念</h5><p>n-gram模型也称为n-1阶马尔科夫模型，它有一个有限历史假设：当前词的出现概率仅仅与前面n-1个词相关。因此(1)式可以近似为：</p>
-<p>当n取1、2、3时，n-gram模型分别称为unigram、bigram和trigram语言模型。n-gram模型的参数就是条件概率</p>
-<p>假设词表的大小为100,000，那么n-gram模型的参数数量为</p>
-<p>n越大，模型越准确，也越复杂，需要的计算量越大。最常用的是bigram，其次是unigram和trigram，n取≥4的情况较少。</p>
-<h2 id="4-文本矩阵化-要求采用结巴分词来进行分词操作"><a href="#4-文本矩阵化-要求采用结巴分词来进行分词操作" class="headerlink" title="4.文本矩阵化(要求采用结巴分词来进行分词操作)"></a>4.文本矩阵化(要求采用结巴分词来进行分词操作)</h2><p>分词（可采用结巴分词来进行分词操作，其他库也可以）；去停用词；构造词表。<br>每篇文档的向量化。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import jieba</span><br><span class="line">import re</span><br><span class="line">stopwords = &#123;&#125;</span><br><span class="line">fstop = open(&apos;stop_words.txt&apos;, &apos;r&apos;,encoding=&apos;utf-8&apos;,errors=&apos;ingnore&apos;)</span><br><span class="line">for eachWord in fstop:</span><br><span class="line">    stopwords[eachWord.strip()] = eachWord.strip()  #停用词典</span><br><span class="line">fstop.close()</span><br><span class="line">f1=open(&apos;tt1.txt&apos;,&apos;r&apos;,encoding=&apos;utf-8&apos;,errors=&apos;ignore&apos;)</span><br><span class="line">f2=open(&apos;fenci.txt&apos;,&apos;w&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line"></span><br><span class="line">line=f1.readline()</span><br><span class="line">while line:</span><br><span class="line">    line = line.strip()  #去前后的空格</span><br><span class="line">    line = re.sub(r&quot;[0-9\s+\.\!\/_,$%^*()?;；:-【】+\&quot;\&apos;]+|[+——！，;:。？、~@#￥%……&amp;*（）]+&quot;, &quot; &quot;, line) #去标点符号</span><br><span class="line">    seg_list=jieba.cut(line,cut_all=False)  #结巴分词</span><br><span class="line">    outStr=&quot;&quot;</span><br><span class="line">    for word in seg_list:</span><br><span class="line">        if word not in stopwords:</span><br><span class="line">            outStr+=word</span><br><span class="line">            outStr+=&quot; &quot;</span><br><span class="line">    f2.write(outStr)</span><br><span class="line">    line=f1.readline()</span><br><span class="line">f1.close()</span><br><span class="line">f2.close()</span><br></pre></td></tr></table></figure>
-<p>##### </p>
+        <h1 id="逻辑回归基础"><a href="#逻辑回归基础" class="headerlink" title="逻辑回归基础"></a>逻辑回归基础</h1><p><strong>所以逻辑回归，不是回归，而是分类器，二分类，多分类。</strong></p>
+<h3 id="1-使用sigmoid函数，对y的取值进行压缩至-0-1"><a href="#1-使用sigmoid函数，对y的取值进行压缩至-0-1" class="headerlink" title="1.使用sigmoid函数，对y的取值进行压缩至[0,1]"></a>1.使用sigmoid函数，对y的取值进行压缩至[0,1]</h3><p><img src="/2019/05/06/逻辑回归/nn1.PNG" alt=""></p>
+<p>图像如下：</p>
+<p><img src="/2019/05/06/逻辑回归/nn2.PNG" alt=""></p>
+<h3 id="2-损失函数"><a href="#2-损失函数" class="headerlink" title="2.损失函数"></a>2.损失函数</h3><p>真实值与预测值之间的误差的函数，我们希望这个函数越小越好。在这里，最小损失是0。</p>
+<p><img src="/2019/05/06/逻辑回归/nn3.PNG" alt=""></p>
+<h3 id="3-在sklearm中的应用"><a href="#3-在sklearm中的应用" class="headerlink" title="3.在sklearm中的应用"></a>3.在sklearm中的应用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sklearn.linear_model.LogisticRegression(penalty=l2, # 惩罚项，可选l1,l2，对参数约束，减少过拟合风险</span><br><span class="line"></span><br><span class="line">                                        dual=False, # 对偶方法（原始问题和对偶问题），用于求解线性多核（liblinear)的L2的惩罚项上。样本数大于特征数时设置False</span><br><span class="line"></span><br><span class="line">                                        tol=0.0001, # 迭代停止的条件，小于等于这个值停止迭代，损失迭代到的最小值。</span><br><span class="line"></span><br><span class="line">                                        C=1.0, # 正则化系数λ的倒数，越小表示越强的正则化。</span><br><span class="line"></span><br><span class="line">                                        fit_intercept=True, # 是否存在截距值，即b</span><br><span class="line"></span><br><span class="line">                                        intercept_scaling=1, #</span><br><span class="line"></span><br><span class="line">                                        class_weight=None, # 类别的权重，样本类别不平衡时使用，设置balanced会自动调整权重。为了平横样本类别比例，类别样本多的，权重低，类别样本少的，权重高。</span><br><span class="line"></span><br><span class="line">                                        random_state=None, # 随机种子</span><br><span class="line"></span><br><span class="line">                                        solver=’liblinear’, # 优化算法的参数，包括newton-cg,lbfgs,liblinear,sag,saga,对损失的优化的方法</span><br><span class="line"></span><br><span class="line">                                        max_iter=100,# 最大迭代次数，</span><br><span class="line"></span><br><span class="line">                                        multi_class=’ovr’,# 多分类方式，有‘ovr&apos;,&apos;mvm&apos;</span><br><span class="line"></span><br><span class="line">                                        verbose=0, # 输出日志，设置为1，会输出训练过程的一些结果</span><br><span class="line"></span><br><span class="line">                                        warm_start=False, # 热启动参数，如果设置为True,则下一次训练是以追加树的形式进行（重新使用上一次的调用作为初始化）</span><br><span class="line"></span><br><span class="line">                                        n_jobs=1 # 并行数，设置为1，用1个cpu运行，设置-1，用你电脑的所有cpu运行程序</span><br><span class="line"></span><br><span class="line">                                            )</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -455,8 +437,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/14/KNN算法原理及代码实现/" rel="next" title="KNN算法原理及代码实现">
-                <i class="fa fa-chevron-left"></i> KNN算法原理及代码实现
+              <a href="/2019/05/02/干货/" rel="next" title="干货">
+                <i class="fa fa-chevron-left"></i> 干货
               </a>
             
           </div>
@@ -465,8 +447,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/14/自然语言处理4-文本分析/" rel="prev" title="自然语言处理4:文本分析">
-                自然语言处理4:文本分析 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/12/数据分析任务1/" rel="prev" title="数据分析任务1">
+                数据分析任务1 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -591,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NPL之基本文本处理技能"><span class="nav-number">1.</span> <span class="nav-text">NPL之基本文本处理技能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-分词的概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.分词的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分词最大向量化，逆向最大，双向最大匹配法"><span class="nav-number">1.2.</span> <span class="nav-text">2.分词最大向量化，逆向最大，双向最大匹配法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-分词最大正向匹配法（示例来自网络）"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">1.分词最大正向匹配法（示例来自网络）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-逆向最大匹配法"><span class="nav-number">1.2.0.0.2.</span> <span class="nav-text">2.逆向最大匹配法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-双向最大匹配法"><span class="nav-number">1.2.0.0.3.</span> <span class="nav-text">3.双向最大匹配法</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Python标准库——collections模块的Counter类"><span class="nav-number">1.3.</span> <span class="nav-text">2.Python标准库——collections模块的Counter类</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-创建"><span class="nav-number">1.3.0.0.0.1.</span> <span class="nav-text">1.创建</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-计数值的访问与缺失的键"><span class="nav-number">1.3.0.0.0.2.</span> <span class="nav-text">2.2 计数值的访问与缺失的键</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-计数器的更新（update和subtract）"><span class="nav-number">1.3.0.0.1.</span> <span class="nav-text">3. 计数器的更新（update和subtract）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元素的删除"><span class="nav-number">1.3.0.0.2.</span> <span class="nav-text">4.元素的删除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-elements"><span class="nav-number">1.3.0.0.3.</span> <span class="nav-text">5 elements()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-most-common-n"><span class="nav-number">1.3.0.0.4.</span> <span class="nav-text">6.most_common([n])</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-常规操作"><span class="nav-number">1.3.0.0.5.</span> <span class="nav-text">7.常规操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-语言模型中unigram、bigram、trigram的概念"><span class="nav-number">1.4.</span> <span class="nav-text">3.语言模型中unigram、bigram、trigram的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#n-gram模型的概念"><span class="nav-number">1.4.0.0.1.</span> <span class="nav-text">n-gram模型的概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-文本矩阵化-要求采用结巴分词来进行分词操作"><span class="nav-number">1.5.</span> <span class="nav-text">4.文本矩阵化(要求采用结巴分词来进行分词操作)</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归基础"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用sigmoid函数，对y的取值进行压缩至-0-1"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.使用sigmoid函数，对y的取值进行压缩至[0,1]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-损失函数"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-在sklearm中的应用"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.在sklearm中的应用</span></a></li></ol></li></ol></div>
             
 
           </div>

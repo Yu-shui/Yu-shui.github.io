@@ -301,6 +301,606 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/支持向量机原理及应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/16/支持向量机原理及应用/" itemprop="url">支持向量机原理及应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T13:33:59+08:00">
+                2019-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="支持向量机（SVM）原理及应用"><a href="#支持向量机（SVM）原理及应用" class="headerlink" title="支持向量机（SVM）原理及应用"></a>支持向量机（SVM）原理及应用</h1><h3 id="1-算法原理"><a href="#1-算法原理" class="headerlink" title="1.算法原理"></a>1.算法原理</h3><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><p>支持向量机（support vector machines）是一种二分类模型，它的目的是寻找一个超平面来对样本进行分割，分割的原则是间隔最大化，最终转化为一个凸二次规划问题来求解。由简至繁的模型包括：</p>
+<ul>
+<li>当训练样本线性可分时，通过硬间隔最大化，学习一个线性可分支持向量机；</li>
+<li>当训练样本近似线性可分时，通过软间隔最大化，学习一个线性支持向量机；</li>
+<li>当训练样本线性不可分时，通过核技巧和软间隔最大化，学习一个非线性支持向量机；</li>
+</ul>
+<p><img src="/2019/04/16/支持向量机原理及应用/oo3.PNG" alt=""></p>
+<h5 id="2-线性可分的支持向量机"><a href="#2-线性可分的支持向量机" class="headerlink" title="2. 线性可分的支持向量机"></a>2. 线性可分的支持向量机</h5><p>基本的想法就是基于训练集D在样本空间中找到一个划分超平面，将不同类别的样本分开。训练集标签为yi={1|-1}</p>
+<p><img src="/2019/04/16/支持向量机原理及应用/oo1.PNG" alt=""></p>
+<p>直观看上去，能将训练样本分开的划分超平面有很多，但应该去找位于两类训练样本“正中间”的划分超平面，即图6.1中红色的那条，因为该划分超平面对训练样本局部扰动的“容忍”性最好，例如，由于训练集的局限性或者噪声的因素，训练集外的样本可能比图6.1中的训练样本更接近两个类的分隔界，这将使许多划分超平面出现错误。而红色超平面的影响最小，简言之，这个划分超平面所产生的结果是鲁棒性的。</p>
+<p>那什么是线性可分呢？</p>
+<p>如果一个线性函数能够将样本分开，称这些数据样本是线性可分的。那么什么是线性函数呢？其实很简单，在二维空间中就是一条直线，在三维空间中就是一个平面，以此类推，如果不考虑空间维数，这样的线性函数统称为超平面。我们看一个简单的二维空间的例子，O代表正类，X代表负类，样本是线性可分的，但是很显然不只有这一条直线可以将样本分开，而是有无数条，我们所说的线性可分支持向量机就对应着能将数据正确划分并且间隔最大的直线。 </p>
+<p>在实际应用总，我们所要求解的是能将数据正确划分的并且间隔最大的超平面<br>一个点距离超平面的远近可以表示分类的确信度，，距离超平面更远的点确信度更高，求解最号的SVM时，我们不许考录所有点，只要让超平面距离较近的点的点间隔最大即可</p>
+<pre><code>距离超平面最近的几个点成为“支持向量”，两条虚线的距离称为 * 间隔 *
+</code></pre><hr>
+<p><img src="/2019/04/16/支持向量机原理及应用/oo2.PNG" alt=""></p>
+<blockquote>
+<p>间隔的计算：两个异类支持向量在实现的法线方向的投影大小</p>
+</blockquote>
+<h5 id="3-非线性支持向量机和核函数"><a href="#3-非线性支持向量机和核函数" class="headerlink" title="3.非线性支持向量机和核函数"></a>3.非线性支持向量机和核函数</h5><p>待补充</p>
+<h5 id="4-线性支持向量机（软间隔支持向量机）与松弛变量"><a href="#4-线性支持向量机（软间隔支持向量机）与松弛变量" class="headerlink" title="4.线性支持向量机（软间隔支持向量机）与松弛变量"></a>4.线性支持向量机（软间隔支持向量机）与松弛变量</h5><p>待补充</p>
+<h3 id="2-SVM优缺点"><a href="#2-SVM优缺点" class="headerlink" title="2.SVM优缺点"></a>2.SVM优缺点</h3><blockquote>
+<p>优点：<br>1、使用核函数可以向高维空间进行映射<br>2、使用核函数可以解决非线性的分类<br>3、分类思想很简单，就是将样本与决策面的间隔最大化<br>4、分类效果较好<br>缺点：<br>1、对大规模数据训练比较困难<br>2、无法直接支持多分类，但是可以使用间接的方法来做 </p>
+</blockquote>
+<h3 id="3-SVM应用场景"><a href="#3-SVM应用场景" class="headerlink" title="3.SVM应用场景"></a>3.SVM应用场景</h3><blockquote>
+<p>SVM在很多数据集上都有优秀的表现。<br>相对来说，SVM尽量保持与样本间距离的性质导致它抗攻击的能力更强。<br>和随机森林一样，这也是一个拿到数据就可以先尝试一下的算法</p>
+</blockquote>
+<h3 id="4-SVM-sklearn参数学习"><a href="#4-SVM-sklearn参数学习" class="headerlink" title="4.SVM sklearn参数学习"></a>4.SVM sklearn参数学习</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class sklearn.svm.SVC(</span><br><span class="line">            C=1.0, </span><br><span class="line">            kernel=&apos;rbf&apos;, </span><br><span class="line">            degree=3, </span><br><span class="line">            gamma=&apos;auto&apos;, </span><br><span class="line">            coef0=0.0, </span><br><span class="line">            shrinking=True, </span><br><span class="line">            probability=False, </span><br><span class="line">            tol=0.001, </span><br><span class="line">            cache_size=200, </span><br><span class="line">            class_weight=None, </span><br><span class="line">            verbose=False, </span><br><span class="line">            max_iter=-1, </span><br><span class="line">            decision_function_shape=&apos;ovr&apos;, </span><br><span class="line">            random_state=None)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>SVC</strong>　<em>class</em> <code>sklearn.svm.`</code>SVC`(<em>C=1.0</em>, <em>kernel=’rbf’</em>, <em>degree=3</em>, <em>gamma=’auto’</em>, <em>coef0=0.0</em>, <em>shrinking=True</em>, <em>probability=False</em>, <em>tol=0.001</em>, <em>cache_size=200</em>, <em>class_weight=None</em>, <em>verbose=False</em>, <em>max_iter=-1</em>, <em>decision_function_shape=’ovr’</em>, <em>random_state=None</em>)　</li>
+</ul>
+<p>　　<code>**C:**</code>惩罚系数，用来控制损失函数的惩罚系数，类似于LR中的正则化系数。C越大，相当于惩罚松弛变量，希望松弛变量接近0，即对误分类的惩罚增大，趋向于对训练集全分对的情况，这样会出现训练集测试时准确率很高，但泛化能力弱，容易导致过拟合。 C值小，对误分类的惩罚减小，容错能力增强，泛化能力较强，但也可能欠拟合。</p>
+<p>　　<code>**kernel:**</code>算法中采用的和函数类型，核函数是用来将非线性问题转化为线性问题的一种方法。参数选择有RBF, Linear, Poly, Sigmoid，precomputed或者自定义一个核函数, 默认的是”RBF”，即径向基核，也就是高斯核函数；而Linear指的是线性核函数，Poly指的是多项式核，Sigmoid指的是双曲正切函数tanh核；。</p>
+<p>　　<strong>degree:</strong> 当指定kernel为’poly’时，表示选择的多项式的最高次数，默认为三次多项式；若指定kernel不是’poly’，则忽略，即该参数只对’poly’有用。（多项式核函数是将低维的输入空间映射到高维的特征空间）</p>
+<p>　　<code>**gamma:**</code>核函数系数，该参数是rbf，poly和sigmoid的内核系数；默认是’auto’，那么将会使用特征位数的倒数，即1 / n_features。（即核函数的带宽，超圆的半径）。gamma越大，σ越小，使得高斯分布又高又瘦，造成模型只能作用于支持向量附近，可能导致过拟合；反之，gamma越小，σ越大，高斯分布会过于平滑，在训练集上分类效果不佳，可能导致欠拟合。 </p>
+<p>　　<code>**coef0:**</code>核函数常数值(y=kx+b中的b值)，只有‘poly’和‘sigmoid’核函数有，默认值是0。</p>
+<p>　　<strong>shrinking :</strong>  是否进行启发式。如果能预知哪些变量对应着支持向量，则只要在这些样本上训练就够了，其他样本可不予考虑，这不影响训练结果，但降低了问题的规模并有助于迅速求解。进一步，如果能预知哪些变量在边界上(即a=C)，则这些变量可保持不动，只对其他变量进行优化，从而使问题的规模更小，训练时间大大降低。这就是Shrinking技术。 Shrinking技术基于这样一个事实：支持向量只占训练样本的少部分，并且大多数支持向量的拉格朗日乘子等于C。</p>
+<p>　　<strong>probability:</strong> 是否使用概率估计，默认是False。必须在 fit( ) 方法前使用，该方法的使用会降低运算速度。</p>
+<p>　　<code>**tol:**</code>残差收敛条件，默认是0.0001，即容忍1000分类里出现一个错误，与LR中的一致；误差项达到指定值时则停止训练。</p>
+<p>　　<code>**cache_size:**</code>缓冲大小，用来限制计算量大小，默认是200M。</p>
+<p>　　<strong>class_weight :</strong>  {dict, ‘balanced’}，字典类型或者’balance’字符串。权重设置，正类和反类的样本数量是不一样的，这里就会出现类别不平衡问题，该参数就是指每个类所占据的权重，默认为1，即默认正类样本数量和反类一样多，也可以用一个字典dict指定每个类的权值，或者选择默认的参数balanced，指按照每个类中样本数量的比例自动分配权值。如果不设置，则默认所有类权重值相同，以字典形式传入。 将类i 的参数C设置为SVC的class_weight[i]<em>C。如果没有给出，所有类的weight 为1。’balanced’模式使用y 值自动调整权重，调整方式是与输入数据中类频率成反比。如n_samples / (n_classes </em> np.bincount(y))。（给每个类别分别设置不同的惩罚参数C，如果没有给，则会给所有类别都给C=1，即前面参数指出的参数C。如果给定参数’balance’，则使用y的值自动调整与输入数据中的类频率成反比的权重。）</p>
+<p>　　<strong>verbose :</strong>  是否启用详细输出。在训练数据完成之后，会把训练的详细信息全部输出打印出来，可以看到训练了多少步，训练的目标值是多少；但是在多线程环境下，由于多个线程会导致线程变量通信有困难，因此verbose选项的值就是出错，所以多线程下不要使用该参数。</p>
+<p>　　<code>**max_iter:**</code>最大迭代次数，默认是-1，即没有限制。这个是硬限制，它的优先级要高于tol参数，不论训练的标准和精度达到要求没有，都要停止训练。</p>
+<p>　　<strong>decision_function_shape ：</strong>  原始的SVM只适用于二分类问题，如果要将其扩展到多类分类，就要采取一定的融合策略，这里提供了三种选择。‘ovo’ 一对一，为one v one，即将类别两两之间进行划分，用二分类的方法模拟多分类的结果，决策所使用的返回的是（样本数，类别数*(类别数-1)/2）； ‘ovr’ 一对多，为one v rest，即一个类别与其他类别进行划分，返回的是(样本数，类别数)，或者None，就是不采用任何融合策略。默认是ovr，因为此种效果要比oro略好一点。</p>
+<p>　　<strong>random_state:</strong> 在使用SVM训练数据时，要先将训练数据打乱顺序，用来提高分类精度，这里就用到了伪随机序列。如果该参数给定的是一个整数，则该整数就是伪随机序列的种子值；如果给定的就是一个随机实例，则采用给定的随机实例来进行打乱处理；如果啥都没给，则采用默认的 np.random实例来处理。 </p>
+<ul>
+<li><p><strong>NuSVC</strong>　　　　　　　　　　　　　　　　　<em>class</em> <code>sklearn.svm.`</code>NuSVC`(<em>nu=0.5</em>, <em>kernel=’rbf’</em>, <em>degree=3</em>, <em>gamma=’auto’</em>, <em>coef0=0.0</em>, <em>shrinking=True</em>, <em>probability=False</em>, <em>tol=0.001</em>, <em>cache_size=200</em>, <em>class_weight=None</em>, <em>verbose=False</em>, <em>max_iter=-1</em>, <em>decision_function_shape=’ovr’</em>, <em>random_state=None</em>) 　</p>
+<p>　　<strong>nu：</strong> 训练误差部分的上限和支持向量部分的下限，取值在（0，1）之间，默认是0.5</p>
+</li>
+<li><p><strong>LinearSVC</strong>　　　　<em>class</em> <code>sklearn.svm.`</code>LinearSVC`(<em>penalty=’l2’</em>, <em>loss=’squared_hinge’</em>, <em>dual=True</em>, <em>tol=0.0001</em>, <em>C=1.0</em>, <em>multi_class=’ovr’</em>, <em>fit_intercept=True</em>, <em>intercept_scaling=1</em>, <em>class_weight=None</em>, <em>verbose=0</em>, <em>random_state=None</em>, <em>max_iter=1000</em>)</p>
+</li>
+</ul>
+<p>　　<code>**penalty:**</code>正则化参数，L1和L2两种参数可选，仅LinearSVC有。</p>
+<p>　　<code>**loss:**</code>损失函数，有‘hinge’和‘squared_hinge’两种可选，前者又称L1损失，后者称为L2损失，默认是是’squared_hinge’，其中hinge是SVM的标准损失，squared_hinge是hinge的平方</p>
+<p>　　<code>**dual:**</code>是否转化为对偶问题求解，默认是True。</p>
+<p>　　<code>**tol:**</code>残差收敛条件，默认是0.0001，与LR中的一致。</p>
+<p>　　<code>**C:**</code>惩罚系数，用来控制损失函数的惩罚系数，类似于LR中的正则化系数。</p>
+<p>　　<code>**multi_class:**</code>负责多分类问题中分类策略制定，有‘ovr’和‘crammer_singer’ 两种参数值可选，默认值是’ovr’，’ovr’的分类原则是将待分类中的某一类当作正类，其他全部归为负类，通过这样求取得到每个类别作为正类时的正确率，取正确率最高的那个类别为正类；‘crammer_singer’ 是直接针对目标函数设置多个参数值，最后进行优化，得到不同类别的参数值大小</p>
+<p>　　<code>**fit_intercept:**</code>是否计算截距，与LR模型中的意思一致。</p>
+<p>　　<code>**class_weight:**</code>与其他模型中参数含义一样，也是用来处理不平衡样本数据的，可以直接以字典的形式指定不同类别的权重，也可以使用balanced参数值。</p>
+<p>　　<code>**verbose:**</code>是否冗余，默认是False。</p>
+<p>　　<code>**random_state:**</code>随机种子。</p>
+<p>　　<code>**max_iter:**</code>最大迭代次数，默认是1000。</p>
+<h3 id="SVM结合TF-IDF原理进行文本分类"><a href="#SVM结合TF-IDF原理进行文本分类" class="headerlink" title="SVM结合TF-IDF原理进行文本分类"></a>SVM结合TF-IDF原理进行文本分类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">import jieba</span><br><span class="line">import numpy as np</span><br><span class="line">import os</span><br><span class="line">import time</span><br><span class="line">import codecs</span><br><span class="line">import re</span><br><span class="line">import jieba.posseg as pseg</span><br><span class="line">from sklearn.feature_extraction.text import CountVectorizer</span><br><span class="line">from sklearn.feature_extraction.text import TfidfTransformer</span><br><span class="line">from sklearn.naive_bayes import MultinomialNB</span><br><span class="line">from sklearn.svm import SVC</span><br><span class="line">from sklearn.pipeline import Pipeline</span><br><span class="line">from sklearn import metrics</span><br><span class="line"></span><br><span class="line">open=codecs.open</span><br><span class="line">path_en=&apos;../After/En&apos;</span><br><span class="line">path_peo=&apos;../After/new_people&apos;</span><br><span class="line">content_train_src=[]      #训练集文本列表</span><br><span class="line">opinion_train_stc=[]      #训练集类别列表</span><br><span class="line">file_name_src=[]          #训练集文本文件名列表</span><br><span class="line">train_src=[]              #训练集总列表</span><br><span class="line">test_src=[]               #测试集总列表</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def readfile(path):</span><br><span class="line">    for filename in os.listdir(path):</span><br><span class="line">        starttime=time.time()</span><br><span class="line">        filepath=path+&quot;/&quot;+filename</span><br><span class="line">        filestr=open(filepath).read()</span><br><span class="line">        opinion=path[9:]</span><br><span class="line">        train_src.append((filename,filestr,opinion))</span><br><span class="line">        endtime=time.time()</span><br><span class="line">        print &apos;类别:%s &gt;&gt;&gt;&gt;文件:%s &gt;&gt;&gt;&gt;导入用时: %.3f&apos; % (opinion, filename, endtime - starttime)</span><br><span class="line">    return train_src</span><br><span class="line">    </span><br><span class="line">    train_src_all=readfile(path_en)</span><br><span class="line">train_src_all=train_src_all+readfile(path_peo)</span><br><span class="line"></span><br><span class="line">def readtrain(train_src_list):</span><br><span class="line">    for (fn,w,s) in train_src_list:</span><br><span class="line">        file_name_src.append(fn)</span><br><span class="line">        content_train_src.append(w)</span><br><span class="line">        opinion_train_stc.append(s)</span><br><span class="line">    train=[content_train_src,opinion_train_stc,file_name_src]</span><br><span class="line">    return train</span><br><span class="line"></span><br><span class="line">def segmentWord(cont):</span><br><span class="line">    listseg=[]</span><br><span class="line">    for i in cont:</span><br><span class="line">        Wordp = Word_pseg(i)</span><br><span class="line">        New_str = &apos;&apos;.join(Wordp)</span><br><span class="line">        Wordlist = Word_cut_list(New_str)</span><br><span class="line">        file_string = &apos;&apos;.join(Wordlist)</span><br><span class="line">        listseg.append(file_string)</span><br><span class="line">    return listseg</span><br><span class="line"></span><br><span class="line">train=readtrain(train_src_all)</span><br><span class="line">content=segmentWord(train[0])</span><br><span class="line">filenamel=train[2]</span><br><span class="line">opinion=train[1]</span><br><span class="line"></span><br><span class="line">train_content=content[:3000]</span><br><span class="line">test_content=content[3000:]</span><br><span class="line">train_opinion=opinion[:3000]</span><br><span class="line">test_opinion=opinion[3000:]</span><br><span class="line">train_filename=filenamel[:3000]</span><br><span class="line">test_filename=filenamel[3000:]</span><br><span class="line"></span><br><span class="line">test_all=[test_content,test_opinion,test_filename]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vectorizer=CountVectorizer()</span><br><span class="line">tfidftransformer=TfidfTransformer()</span><br><span class="line">tfidf = tfidftransformer.fit_transform(vectorizer.fit_transform(train_content))  # 先转换成词频矩阵，再计算TFIDF值</span><br><span class="line"></span><br><span class="line">print tfidf.shape</span><br><span class="line"></span><br><span class="line">word = vectorizer.get_feature_names()</span><br><span class="line">weight = tfidf.toarray()</span><br><span class="line"># 分类器</span><br><span class="line">clf = MultinomialNB().fit(tfidf, opinion)</span><br><span class="line">docs = [&quot;原任第一集团军副军长&quot;, &quot;在9·3抗战胜利日阅兵中担任“雁门关伏击战英雄连”英模方队领队记者林韵诗继黄铭少将后&quot;]</span><br><span class="line">new_tfidf = tfidftransformer.transform(vectorizer.transform(docs))</span><br><span class="line">predicted = clf.predict(new_tfidf)</span><br><span class="line">print predicted</span><br><span class="line"></span><br><span class="line"># 训练和预测一体</span><br><span class="line">text_clf = Pipeline([(&apos;vect&apos;, CountVectorizer()), (&apos;tfidf&apos;, TfidfTransformer()), (&apos;clf&apos;, SVC(C=1, kernel = &apos;linear&apos;))])</span><br><span class="line">text_clf = text_clf.fit(train_content, train_opinion)</span><br><span class="line">predicted = text_clf.predict(test_content)</span><br><span class="line">print &apos;SVC&apos;,np.mean(predicted == test_opinion)</span><br><span class="line">print set(predicted)</span><br><span class="line">print metrics.confusion_matrix(test_opinion,predicted) # 混淆矩阵</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/朴素贝叶斯/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/15/朴素贝叶斯/" itemprop="url">朴素贝叶斯</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T00:40:20+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="朴素贝叶斯算法"><a href="#朴素贝叶斯算法" class="headerlink" title="朴素贝叶斯算法"></a>朴素贝叶斯算法</h1><blockquote>
+<p>朴素贝叶斯法（Naive Bayes）是基于贝叶斯定理与特征条件独立假设的分类方法。对于给定的训练数据集，首先基于特征条件独立假设学习输入/输出的联合概率分布；然后基于此模型，对给定的输入 <em>x</em>x ，利用贝叶斯定理求出后验概率最大的输出 <em>y</em>y 。</p>
+</blockquote>
+<p> 可能读完上面这段话仍旧没办法理解朴素贝叶斯法到底是什么，又是怎样进行分类的。下面我尽可能详细且直观地描述朴素贝叶斯法的工作原理。首先我们需要知道的是，<strong>朴素贝叶斯是基于概率论的分类算法</strong>。</p>
+<h3 id="1-朴素贝叶斯"><a href="#1-朴素贝叶斯" class="headerlink" title="1. 朴素贝叶斯"></a>1. 朴素贝叶斯</h3><pre><code>朴素贝叶斯被认为是最简单的分类算法之一。首先，我们需要了解一些概率论的基本理论。假设有两个随机变量X和Y，他们分别可以取值为x和y。有这两个随机变量，我们可以定义两种概率：
+关键概念：联合概率与条件概率
+联合概率：“X取值为x”和“Y取值为y”两个事件同时发生的概率，表示为P(X=x,Y=y)P(X=x,Y=y)      P(X = x, Y = y)P(X=x,Y=y)
+条件概率：在X取值为x的前提下，Y取值为y的概率，表示为P(Y=y∣X=x)P(Y=y∣X=x)      P(Y = y | X = x)P(Y=y∣X=x)
+
+在概率论中，我们可以证明，两个事件的联合概率等于这两个事件任意条件概率 * 这个条件事件本身的概率。
+P(X=1,Y=1)=P(Y=1∣X=1)∗P(X=1)=P(X=1∣Y=1)∗P(Y=1)P(X=1,Y=1)=P(Y=1∣X=1)∗P(X=1)=P(X=1∣Y=1)∗P(Y=1)      P(X = 1, Y = 1) =P(Y = 1|X = 1)*P(X=1)=P(X = 1|Y=1)*P(Y=1)P(X=1,Y=1)=P(Y=1∣X=1)∗P(X=1)=P(X=1∣Y=1)∗P(Y=1)
+简单一些，则可以将上面的式子写成：
+P(X,Y)=P(Y∣X)∗P(X)=P(X∣Y)∗P(Y)P(X,Y)=P(Y∣X)∗P(X)=P(X∣Y)∗P(Y)      P(X, Y)=P(Y|X)*P(X)=P(X|Y)*P(Y)P(X,Y)=P(Y∣X)∗P(X)=P(X∣Y)∗P(Y)
+由上面的式子，我们可以得到贝叶斯理论等式：
+P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(X|Y)*P(Y)}{P(X)}P(Y∣X)=P(X)P(X∣Y)∗P(Y)
+而这个式子，就是我们一切贝叶斯算法的根源理论。我们可以把我们的特征XX      XX当成是我们的条件事件，而我们要求解的标签YY      YY当成是我们被满足条件后会被影响的结果，而两者之间的概率关系就是P(Y∣X)P(Y∣X)      P(Y|X)P(Y∣X)，这个概率在机器学习中，被我们称之为是标签的后验概率（posterior probability），即是说我们先知道了条件，再去求解结果。而标签 在没有任何条件限制下取值为某个值的概率，被我们写作P(Y)P(Y)      P(Y)P(Y)，与后验概率相反，这是完全没有任何条件限制的，标签的先验概率（prior probability）。而我们的P(X∣Y)P(X∣Y)      P(X|Y)P(X∣Y) 被称为“类的条件概率”，表示当Y的取值固定的时候，X为某个值的概率。
+</code></pre><h3 id="3-朴素贝叶斯公式的推导"><a href="#3-朴素贝叶斯公式的推导" class="headerlink" title="3.朴素贝叶斯公式的推导"></a>3.朴素贝叶斯公式的推导</h3><p><img src="/2019/04/15/朴素贝叶斯/pp2.PNG" alt=""></p>
+<h3 id="2-贝叶斯估计"><a href="#2-贝叶斯估计" class="headerlink" title="2.贝叶斯估计"></a>2.贝叶斯估计</h3><p><img src="/2019/04/15/朴素贝叶斯/pp3.PNG" alt=""></p>
+<h3 id="3-朴素贝叶斯算法的过程"><a href="#3-朴素贝叶斯算法的过程" class="headerlink" title="3.朴素贝叶斯算法的过程"></a>3.朴素贝叶斯算法的过程</h3><p><img src="/2019/04/15/朴素贝叶斯/pp4.PNG" alt=""></p>
+<h2 id="使用朴素贝叶斯进行文本分类示例"><a href="#使用朴素贝叶斯进行文本分类示例" class="headerlink" title="使用朴素贝叶斯进行文本分类示例"></a>使用朴素贝叶斯进行文本分类示例</h2><p>本次使用的数据集来自于业内著名的20 Newsgroups 数据集，包含20类标注好的样本，数据量共计约2万条记录。该数据集每篇文档均不长，即使同时使用多个类目数据合并起来进行建模，在单机上也可快速完成，因此具有很好的学习训练价值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from time import time</span><br><span class="line">from sklearn.datasets import load_files</span><br><span class="line"></span><br><span class="line">#加载数据</span><br><span class="line">print(&quot;loading train dataset.....&quot;)</span><br><span class="line">t=time()</span><br><span class="line">news_train=load_files(&apos;D:/20news/20news-bydate-train/&apos;)</span><br><span class="line">print(&quot;summary:&#123;0&#125; documents in &#123;1&#125; categories.&quot;.format(len(news_train.data),len(news_train.target_names)))</span><br><span class="line">print(&quot;done in &#123;0&#125; seconds&quot;.format(time()-t))</span><br></pre></td></tr></table></figure>
+<p>结果输出:</p>
+<p><img src="/2019/04/15/朴素贝叶斯/结果1.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#将文档转化为TF-IDF形式</span><br><span class="line">from sklearn.feature_extraction.text import TfidfVectorizer</span><br><span class="line"></span><br><span class="line">print(&quot;vaectoring train dataset......&quot;)</span><br><span class="line">t=time()</span><br><span class="line">vectorsize=TfidfVectorizer(encoding=&quot;latin-1&quot;)</span><br><span class="line">X_train=vectorsize.fit_transform((d for d in news_train.data))#转换为矩阵</span><br><span class="line">print(&quot;n_sample:%d,n_features:%d&quot;% X_train.shape)</span><br><span class="line">print(&quot;number of non-zero features in sample [&#123;0&#125;]:&#123;1&#125;&quot;.format(news_train.filenames[0],X_train[0].getnnz()))#打印</span><br><span class="line">#第一篇文章名称和文章中的词语数</span><br><span class="line">print(&quot;done in &#123;0&#125; seconds&quot;.format(time()-t))</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/15/朴素贝叶斯/结果2.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#使用模块MultinomialNB训练数据集</span><br><span class="line">from sklearn.naive_bayes import MultinomialNB</span><br><span class="line"></span><br><span class="line">print(&quot;training models....&quot;.format(time()-t))</span><br><span class="line">t=time()</span><br><span class="line">y_train=news_train.target#元素大小为0到20的一维矩阵</span><br><span class="line">clf=MultinomialNB(alpha=0.0001)#拼平滑指数，过小容易造成过拟合，过大容易过拟合</span><br><span class="line">clf.fit(X_train,y_train)</span><br><span class="line">train_score=clf.score(X_train,y_train)</span><br><span class="line">print(&quot;train_socre :&#123;0&#125;&quot;.format(train_score))</span><br><span class="line">print(&quot;done in &#123;0&#125; seconds&quot;.format(time()-t))</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/15/朴素贝叶斯/结果3.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#加载测试集合</span><br><span class="line">print(&quot;loading test dataset.....&quot;)</span><br><span class="line">t=time()</span><br><span class="line">news_test=load_files(&quot;D:/20news/20news-bydate-test/&quot;)</span><br><span class="line">print(&quot;summary :&#123;0&#125; Documents in &#123;1&#125; catelogies.&quot;.format(len(news_test.data),len(news_test.target_names)))</span><br><span class="line">print(&quot;done in &#123;0&#125; seconds &quot;.format(time()-t))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">      </span><br><span class="line">      #将测试集向量化</span><br><span class="line">print(&quot;向量化测试机集&quot;)</span><br><span class="line">y_test=news_test.target</span><br><span class="line">X_test=vectorsize.transform((b for b in news_test.data))</span><br><span class="line">print(&quot;n_samples: %d. n_fetures : %d &quot;% X_test.shape)</span><br><span class="line">print(&quot;&#123;0&#125; numers of None-zero in file[&#123;1&#125;]&quot;.format(X_test[0].getnnz(),news_test.filenames[0]))</span><br><span class="line">print(&quot;done in %fs&quot;%(time()-t))</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/15/朴素贝叶斯/结果4.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#取第一篇预测一下</span><br><span class="line">pred=clf.predict(X_test[0])</span><br><span class="line"></span><br><span class="line">#print(X_test[0])</span><br><span class="line">print(&quot;the first page is &#123;0&#125;,the predict is &#123;1&#125;&quot;.format(news_test.filenames[0],news_test.target_names[news_test.target[0]]))</span><br><span class="line">#模型评价</span><br><span class="line">#首先对测试机进行预测</span><br><span class="line">print(&quot;predicting the test.......&quot;)</span><br><span class="line">t0=time()</span><br><span class="line">pred=clf.predict(X_test)</span><br><span class="line">print(&quot;done in &#123;0&#125; seconds&quot;.format(time()-t0))</span><br><span class="line">#使用classification_report查看每个类别预测的准确性</span><br><span class="line">from sklearn.metrics import classification_report</span><br><span class="line"></span><br><span class="line">print(&quot;classification_report on test set for classifier:&quot;)</span><br><span class="line">print(clf)</span><br><span class="line">print(classification_report(y_test,pred,target_names=news_test.target_names))#精确度，召回率，F1值</span><br><span class="line"></span><br><span class="line">print(&quot;**********************************************&quot;)</span><br><span class="line">#使用confusion_matrix生成混淆矩阵,</span><br><span class="line">from sklearn.metrics import confusion_matrix</span><br><span class="line">cm=confusion_matrix(y_test,pred)</span><br><span class="line">print(&quot;confusion_matrix:&quot;)</span><br><span class="line">print(cm)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/15/朴素贝叶斯/结果5.PNG" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/自然语言处理4-文本分析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/14/自然语言处理4-文本分析/" itemprop="url">自然语言处理4:文本分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T14:13:39+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="自然语言处理-4-文本表示"><a href="#自然语言处理-4-文本表示" class="headerlink" title="自然语言处理(4):文本表示"></a>自然语言处理(4):文本表示</h1><h3 id="1-TF-IDF原理"><a href="#1-TF-IDF原理" class="headerlink" title="1.TF-IDF原理"></a>1.TF-IDF原理</h3><ol>
+<li><strong> 词频TF（item frequency）</strong>：某一给定词语在该文本中出现次数。该数字通常会被归一化（分子一般小于分母），以防止它偏向长的文件，因为不管该词语重要与否，它在长文件中出现的次数很可能比在段文件中出现的次数更大。       需要注意的是有一些通用词对文章主题没有太大作用，如“的”“是”等，而有一些频率出现少的词如一些专业词更能表现文章主题，所以为词语设置权重，权重的设计满足：一个词预测主题的能力越强，权重越大，反之，权重越小。也就是说，一些词只在很少几篇文章中出现，那么这样的词对文章主题的判断能力很大，这些词的权重应该设计的较大。IDF完成这样的工作。       </li>
+<li><strong>逆向文件频率IDF（inverse document frequency）</strong>：一个词语普遍重要性的度量。主要思想是：如果包含词条t的文档越少, IDF越大，则说明词条具有很好的类别区分能力。某一特定词语的IDF，可以由总文件数目除以包含该词语之文件的数目，再将得到的商取对数得到。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TF=(某个词在文章中出现的次数)/(文章的总词数)</span><br><span class="line">IDF=log((语料库的文档总数)/(包含该词的文档数+1))</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用不同的方法来计算TF-IDF的值"><a href="#2-使用不同的方法来计算TF-IDF的值" class="headerlink" title="2.使用不同的方法来计算TF-IDF的值"></a>2.使用不同的方法来计算TF-IDF的值</h3><ol>
+<li>词袋模型<br>Bag of words，也叫做“词袋”，在信息检索中，Bag of words model假定对于一个文本，忽略其词序和语法，句法，将其仅仅看做是一个词集合，或者说是词的一个组合，文本中每个词的出现都是独立的，不依赖于其他词是否出现，或者说当这篇文章的作者在任意一个位置选择一个词汇都不受前面句子的影响而独立选择的。</li>
+</ol>
+<h5 id="1-使用gensim模块"><a href="#1-使用gensim模块" class="headerlink" title="1.使用gensim模块"></a>1.使用gensim模块</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">corpus = [</span><br><span class="line">    &apos;this is the first document&apos;,</span><br><span class="line">    &apos;this is the second second document&apos;,</span><br><span class="line">    &apos;and the third one&apos;,</span><br><span class="line">    &apos;is this the first document&apos;</span><br><span class="line">]#语料库</span><br><span class="line"></span><br><span class="line">#先做分词处理</span><br><span class="line">word_list=[]</span><br><span class="line">for i in range(len(corpus)):</span><br><span class="line">    word_list.append(corpus[i].split(&apos; &apos;))</span><br><span class="line">print(word_list)</span><br><span class="line"></span><br><span class="line">#得到每个词的id值和词频</span><br><span class="line"></span><br><span class="line">from gensim import corpora</span><br><span class="line">dic=corpora.Dictionary(word_list)#赋给语料库中每个不重复的词一个id</span><br><span class="line">new_corpus=[dic.doc2bow(text) for text in word_list]#寻找整篇语料的词典、所有词，corpora.Dictionary</span><br><span class="line">print(new_corpus)</span><br><span class="line"></span><br><span class="line">#训练gensim模型</span><br><span class="line">from gensim import models</span><br><span class="line">tfidf=models.TfidfModel(new_corpus)</span><br><span class="line">tfidf.save(&quot;my_model.tfidf&quot;)</span><br><span class="line"></span><br><span class="line">#载入模型</span><br><span class="line">tfidf=models.TfidfModel.load(&quot;my_model.tfidf&quot;)</span><br><span class="line">#使用模型得到单词的tfidf值</span><br><span class="line">tfidf_vec=[]</span><br><span class="line">for i in range(len(corpus)):</span><br><span class="line">    string=corpus[i]</span><br><span class="line">    string_bow=dic.doc2bow(string.lower().split())</span><br><span class="line">    stringtfidf=tfidf[string_bow]</span><br><span class="line">    tfidf_vec.append(stringtfidf)</span><br><span class="line">print(tfidf_vec)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>结论</li>
+</ol>
+<ul>
+<li>gensim训练出来的tf-idf值左边是词的id，右边是词的tfidf值</li>
+<li>gensim有自动去除停用词的功能，比如the</li>
+<li>gensim会自动去除单个字母，比如i</li>
+<li>gensim会去除没有被训练到的词，比如name<br>所以通过gensim并不能计算每个单词的tfidf值</li>
+</ul>
+<h5 id="2-使用sklearn提取文本tfidf特征"><a href="#2-使用sklearn提取文本tfidf特征" class="headerlink" title="2.使用sklearn提取文本tfidf特征"></a>2.使用sklearn提取文本tfidf特征</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.feature_extraction.text import TfidfVectorizer</span><br><span class="line">tfidf_vec=TfidfVectorizer()#模型构建</span><br><span class="line">tfidf_matrix=tfidf_vec.fit_transform(corpus)#传入句子组成的list</span><br><span class="line"></span><br><span class="line">print(tfidf_vec.get_feature_names())#得到所有不重复的词</span><br><span class="line">print(tfidf_vec.vocabulary_)#得到对应的id值</span><br><span class="line">print(tfidf_matrix.toarray())</span><br></pre></td></tr></table></figure>
+<h6 id="3-python提取文本特征tfidf值"><a href="#3-python提取文本特征tfidf值" class="headerlink" title="3.python提取文本特征tfidf值"></a>3.python提取文本特征tfidf值</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#统计词频</span><br><span class="line">from collections import Counter</span><br><span class="line">countlist=[]</span><br><span class="line">for i in range(len(word_list)):</span><br><span class="line">    count=Counter(word_list[i])#每个count是一个句子</span><br><span class="line">    countlist.append(count)</span><br><span class="line"># word可以通过count得到，count可以通过countlist得到</span><br><span class="line"># count[word]可以得到每个单词的词频， sum(count.values())得到整个句子的单词总数</span><br><span class="line">def tf(word,count):</span><br><span class="line">    return count[word]/sum(count.values())</span><br><span class="line">#统计含有该单词的句子数</span><br><span class="line">def n_containing(word,countlist):</span><br><span class="line">    return sum(1 for count in countlist if word in count)</span><br><span class="line"># len(count_list)是指句子的总数，n_containing(word, count_list)是指含有该单词的句子的总数，加1是为了防止分母为0</span><br><span class="line">def idf(word, count_list):</span><br><span class="line">    return math.log(len(count_list) / (1 + n_containing(word, count_list)))</span><br><span class="line"></span><br><span class="line"># 将tf和idf相乘</span><br><span class="line">def tfidf(word, count, count_list):</span><br><span class="line">    return tf(word, count) * idf(word, count_list)</span><br><span class="line"></span><br><span class="line">import math</span><br><span class="line">for i,count in enumerate(countlist):</span><br><span class="line">    print(&quot;Top words in docment&#123;&#125;&quot;.format(i+1))</span><br><span class="line">    scores=&#123;word:tfidf(word,count,countlist) for word in count&#125;</span><br><span class="line">    sorted_words=sorted(scores.items(),key=lambda x:x[1],reverse=True)</span><br><span class="line">    for word,score in sorted_words[:]:</span><br><span class="line">        print(&quot;\tWord: &#123;&#125;, TF-IDF: &#123;&#125;&quot;.format(word, round(score, 5)))</span><br></pre></td></tr></table></figure>
+<h3 id="3-sklearn：点互信息和互信息"><a href="#3-sklearn：点互信息和互信息" class="headerlink" title="3.sklearn：点互信息和互信息"></a>3.sklearn：点互信息和互信息</h3><ol>
+<li>点互信息PMI<br>机器学习相关文献里面，经常会用到点互信息PMI(Pointwise Mutual Information)这个指标来衡量两个事物之间的相关性（比如两个词）。<br>  在概率论中，我们知道，如果x跟y不相关，则p(x,y)=p(x)p(y)。二者相关性越大，则p(x, y)就相比于p(x)p(y)越大。用后面的式子可能更好理解，在y出现的情况下x出现的条件概率p(x|y)除以x本身出现的概率p(x)，自然就表示x跟y的相关程度。举个自然语言处理中的例子来说，我们想衡量like这个词的极性（正向情感还是负向情感）。我们可以预先挑选一些正向情感的词，比如good。然后我们算like跟good的PMI。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PMI(x;y)=log(p(x,y)/(p(x)*p(y)))=log(p(y|x)/p(y))</span><br></pre></td></tr></table></figure>
+<ol>
+<li>互信息MI<br>衡量的是两个随机变量之间的相关性，即一个随机变量中包含的关于另一个随机变量的信息量。所谓的随机变量，即随机试验结果的量的表示，可以简单理解为按照一个概率分布进行取值的变量，比如随机抽查的一个人的身高就是一个随机变量。可以看出，互信息其实就是对X和Y的所有可能的取值情况的点互信息PMI的加权和。因此，点互信息这个名字还是很形象的。</li>
+</ol>
+<h3 id="4-如何进行特征选择（理论篇）机器学习你会遇到的“坑”-来源于网络"><a href="#4-如何进行特征选择（理论篇）机器学习你会遇到的“坑”-来源于网络" class="headerlink" title="4.如何进行特征选择（理论篇）机器学习你会遇到的“坑”(来源于网络)"></a>4.如何进行特征选择（理论篇）机器学习你会遇到的“坑”(来源于网络)</h3><p>一个典型的机器学习任务，是通过样本的特征来预测样本所对应的值。如果样本的特征少了，我们会考虑增加特征，比如Polynomial Regression就是典型的增加特征的算法。在前一周的课程中，相信大家已经体会到，模型特征越多，模型的复杂度也就越高，越容易导致过拟合。事实上，如果我们的样本数少于特征数，那么过拟合就不可避免。</p>
+<p>而现实中的情况，往往是特征太多了，需要减少一些特征。</p>
+<p>首先是“无关特征”（irrelevant feature）。比如，通过空气的湿度，环境的温度，风力和当地人的男女比例来预测明天会不会下雨，其中男女比例就是典型的无关特征。</p>
+<p>其次，要减少的另一类特征叫做“多余特征”（redundant feature），比如，通过房屋的面积，卧室的面积，车库的面积，所在城市的消费水平，所在城市的税收水平等特征来预测房价，那么消费水平（或税收水平）就是多余特征。证据表明，消费水平和税收水平存在相关性，我们只需要其中一个特征就够了，因为另一个能从其中一个推演出来。（如果是线性相关，那么我们在用线性模型做回归的时候，会出现严重的多重共线性问题，将会导致过拟合。）</p>
+<p>减少特征有非常重要的现实意义，甚至有人说，这是工业界最重要的问题。因为除了降低过拟合，特征选择还可以使模型获得更好的解释性，加快模型的训练速度，一般的，还会获得更好的性能。</p>
+<p>问题在于，在面对未知领域的时候，很难有足够的知识去判断特征与我们的目标是不是相关，特征与特征之间是不是相关。这时候，就需要一些数学和工程上的办法来帮助我们尽可能地把恰好需要的特征选择出来。</p>
+<p>常见的方法包括过滤法（Filter）、包裹法（Warpper），嵌入法</p>
+<h5 id="1-过滤法"><a href="#1-过滤法" class="headerlink" title="1.过滤法"></a>1.过滤法</h5><p>过滤法只用于检验特征向量和目标（响应变量）的相关度，不需要任何的机器学习的算法，不依赖于任何模型，只是应用统计量做筛选：我们根据统计量的大小，设置合适的阈值，将低于阈值的特征剔除.</p>
+<h5 id="2-包裹法"><a href="#2-包裹法" class="headerlink" title="2.包裹法"></a>2.包裹法</h5><p>与过滤法不同的是，包裹法采用的是特征搜索的办法。它的基本思路是，从初始特征集合中不断的选择子集合，根据学习器的性能来对子集进行评价，直到选择出最佳的子集。在搜索过程中，我们会对每个子集做建模和训练。</p>
+<p>图为包裹法的流程图，其中Estimated Accuracy是机器学习分类问题的典型的性能指标。</p>
+<p>基于此，包裹法很大程度上变成了一个计算机问题：在特征子集的搜索问题（subset search）。我们有多种思路，最容易想到的办法是穷举（Brute-force search），遍历所有可能的子集，但这样的方法适用于特征数较少的情形，特征一旦增多，就会遇到组合爆炸，在计算上并不可行。（N个特征，则子集会有种可能）</p>
+<p>另一个思路是随机化搜索，比如拉斯维加斯算法（Las Vegas algorithm），但这样的算法在特征数大的时候，计算开销仍然很大，而且有给不出任何解的风险。所以，我们常使用的是贪心算法：</p>
+<ul>
+<li>前向搜索（Forward search）</li>
+</ul>
+<p>在开始时，按照特征数来划分子集，每个子集只有一个特征，对每个子集进行评价。然后在最优的子集上逐步增加特征，使模型性能提升最大，直到增加特征并不能使模型性能提升为止。</p>
+<ul>
+<li>后向搜索（Backward search）</li>
+</ul>
+<p>在开始时，将特征集合分别减去一个特征作为子集，每个子集有N—1个特征，对每个子集进行评价。然后在最优的子集上逐步减少特征，使得模型性能提升最大，直到减少特征并不能使模型性能提升为止。</p>
+<ul>
+<li>双向搜索（Bidirectional search）</li>
+</ul>
+<p>将Forward search 和Backward search结合起来。</p>
+<ul>
+<li>递归剔除（Recursive elimination ）</li>
+</ul>
+<p>反复的训练模型，并剔除每次的最优或者最差的特征，将剔除完毕的特征集进入下一轮训练，直到所有的特征被剔除，被剔除的顺序度量了特征的重要程度。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/自然语言处理3-文本处理技能基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1497,462 +2097,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/应用实例/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/18/应用实例/" itemprop="url">应用实例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T18:57:57+08:00">
-                2019-03-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="海量数据中的商品推荐"><a href="#海量数据中的商品推荐" class="headerlink" title="海量数据中的商品推荐"></a>海量数据中的商品推荐</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from collections import defaultdict</span><br><span class="line">from operator import itemgetter</span><br><span class="line"></span><br><span class="line">dataset_filename=&quot;C:\Python数据挖掘入门与实践代码和数据集\Code_REWRITE\Chapter 1&quot;</span><br><span class="line">X=np.loadtxt(dataset_filename+r&quot;\affinity_dataset.txt&quot;)</span><br><span class="line">#print(X)</span><br><span class="line">v=defaultdict(int)</span><br><span class="line">i=defaultdict(int)</span><br><span class="line">n=defaultdict(int)</span><br><span class="line"></span><br><span class="line">for sample in X:</span><br><span class="line">    for permiss in range(4):</span><br><span class="line">        if sample[permiss]==0:</span><br><span class="line">            continue</span><br><span class="line">        n[permiss]+=1</span><br><span class="line">        for c in range(4):</span><br><span class="line">            if permiss==c:</span><br><span class="line">                continue</span><br><span class="line">            if sample[c]==1:</span><br><span class="line">                v[(permiss,c)]+=1#两者均为1时加一</span><br><span class="line">            else:</span><br><span class="line">                i[(permiss,c)]+=1#两者不同时为1</span><br><span class="line"></span><br><span class="line">support=v</span><br><span class="line">#permiss=1</span><br><span class="line">#c=3</span><br><span class="line">#print(&quot; -Support:&#123;0&#125;&quot;.format(support[(permiss,c)]))</span><br><span class="line">confidence=defaultdict(float)</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">for permiss,c in v.keys():</span><br><span class="line">    rule=(permiss,c)</span><br><span class="line">    confidence[rule]=v[rule]/n[permiss]</span><br><span class="line">    print(confidence[rule])</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">def print_rule(permiss,c,support,confidence,features):</span><br><span class="line">    permiss_name=features[permiss]</span><br><span class="line">    c_name=features[c]</span><br><span class="line">    print(&quot;Rule if a people buy &#123;0&#125; they will also buy &#123;1&#125;&quot;.format(permiss_name,c_name))</span><br><span class="line"></span><br><span class="line">    #s输出置信度</span><br><span class="line">    #输出支持度</span><br><span class="line">    print(&quot;  -Support: &#123;0&#125;&quot;.format(support[(permiss,c)]))</span><br><span class="line">    print(&quot;  -Confidence&quot;.format(confidence[(permiss,c)]))</span><br><span class="line">##排序找出最佳规则</span><br><span class="line"></span><br><span class="line">print(support)#内涵键值对</span><br><span class="line">sorted_support=sorted(support.items(),key=itemgetter(1),reverse=True)</span><br><span class="line">#输出支持度最高的五个规则</span><br><span class="line">for index in range(5):</span><br><span class="line">    print(&quot; Rule #&#123;0&#125;&quot;.format(index+1))</span><br><span class="line">    permiss,c=sorted_support[index][0]</span><br><span class="line">    print_rule(permiss,c,support,confidence,features)</span><br><span class="line">    </span><br><span class="line">#输出置信度最高的规则</span><br><span class="line">sorted_confidence=sorted(support.items(),key=itemgetter(1),reverse=True)</span><br><span class="line">for index in sorted_confidence:</span><br><span class="line">    permiss,c=sorted_confidence[index][0]</span><br><span class="line">    print_rule(permiss,c,support,confidence,features)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/java聊天室的实现/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/18/java聊天室的实现/" itemprop="url">java聊天室的实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T10:01:45+08:00">
-                2019-03-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="java-聊天室的实现"><a href="#java-聊天室的实现" class="headerlink" title="java 聊天室的实现"></a>java 聊天室的实现</h1><h4 id="1-部分代码"><a href="#1-部分代码" class="headerlink" title="1.部分代码"></a>1.部分代码</h4><p>Sqlserver类是一个自己设定的数据存储类，与登录界面共同作用，记录当前在线的人数，以及实现一些必备的功能函数，如返回在线用户的列表，删除用户等。<br><figure class="highlight plain"><figcaption><span>projectcenter;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Map.Entry;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">//用户数据库</span><br><span class="line">public class SqlServer &#123;</span><br><span class="line">   private static Map&lt;String,UserInfor&gt;SQL=new HashMap();</span><br><span class="line">   </span><br><span class="line">   //判断输入账号是否存在</span><br><span class="line">    public static boolean CheckUser(String name) &#123;</span><br><span class="line">    	if(SQL.containsKey(name)) &#123;</span><br><span class="line">    		return true;</span><br><span class="line">    	&#125;</span><br><span class="line">    	//System.out.println(&quot;不存在此用户：&quot;+name);</span><br><span class="line">    	return false;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //检查账号密码是否输入正确</span><br><span class="line">    public static boolean CheckPassword(String name,String Password) &#123;</span><br><span class="line">    	if(SQL.get(name).Check(Password)) &#123;</span><br><span class="line">    		return true;</span><br><span class="line">    	&#125;else &#123;</span><br><span class="line">    		return false;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回对象数组</span><br><span class="line">    public static Map&lt;String, UserInfor&gt; Getusers() &#123;</span><br><span class="line">    	return SQL;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //返回key1值对应的对象</span><br><span class="line">    public UserInfor returnUser(String name) &#123;</span><br><span class="line">    	return SQL.get(name);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //返回用户姓名列表</span><br><span class="line">    public String[] Groupusername() &#123;</span><br><span class="line">    	</span><br><span class="line">    	Object[] key =  SQL.keySet().toArray();    </span><br><span class="line">    	Arrays.sort(key); </span><br><span class="line">    	int l=key.length;</span><br><span class="line">    	String username[]=new String[l];</span><br><span class="line">  </span><br><span class="line">    	</span><br><span class="line">    	for(int i=0;i&lt;key.length;i++) &#123;</span><br><span class="line">    		username[i]=key[i].toString();</span><br><span class="line">    		//System.out.println(key[i].toString());</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	</span><br><span class="line">        return username;</span><br><span class="line">    &#125;</span><br><span class="line">    	</span><br><span class="line">    //创建用户</span><br><span class="line">    public int BuildNewUser(String name,String password) &#123;</span><br><span class="line">    	if(SQL.containsKey(name)) &#123;</span><br><span class="line">    		//System.out.println(&quot;该用户名已存在!请重新输入&quot;);</span><br><span class="line">    		return 0;</span><br><span class="line">    	   &#125;else &#123;</span><br><span class="line">    		   UserInfor u=new UserInfor();</span><br><span class="line">    		   u.SetName(name);</span><br><span class="line">    		   u.SetPwd(password);</span><br><span class="line">    		   System.out.println(&quot;新用户密码为：&quot;+password);</span><br><span class="line">    		   this.SQL.put(name,u);</span><br><span class="line">    		   return 1;</span><br><span class="line">    	   &#125;</span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //遍历打印Map中的键值对</span><br><span class="line">    public static void ShowMap()&#123;</span><br><span class="line">        for(Map.Entry&lt;String, UserInfor&gt; entry: SQL.entrySet())&#123;</span><br><span class="line">            System.out.println(entry.getKey()+&quot;=&quot;+entry.getValue().toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //删除用户</span><br><span class="line">    public static void DeleteUser(String name) &#123;</span><br><span class="line">    	SQL.get(name).SetOnline2();</span><br><span class="line">    </span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回在线的用户id列表</span><br><span class="line">    public String[] WhoisOnline() &#123;</span><br><span class="line">    	</span><br><span class="line">    	Object[] key =  SQL.keySet().toArray();    </span><br><span class="line">    	Arrays.sort(key); </span><br><span class="line">    	int l=key.length;</span><br><span class="line">    	String username[]=new String[l];</span><br><span class="line">    	for(int i=0;i&lt;key.length;i++) &#123;</span><br><span class="line">            if(SQL.get(key[i].toString()).getOnline()) &#123;//如果在线则加入数组</span><br><span class="line">    		username[i]=key[i].toString();</span><br><span class="line">           &#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	return username;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回不在线用户列表</span><br><span class="line">    public String[] WHoisnotOnline() &#123;</span><br><span class="line">    	Object[] key =  SQL.keySet().toArray();    </span><br><span class="line">    	Arrays.sort(key); </span><br><span class="line">    	int l=key.length;</span><br><span class="line">    	String username[]=new String[l];</span><br><span class="line">    	for(int i=0;i&lt;key.length;i++) &#123;</span><br><span class="line">            if(!SQL.get(key[i].toString()).getOnline()) &#123;//如果不在线则加入数组</span><br><span class="line">    		username[i]=key[i].toString();</span><br><span class="line">           &#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	return username;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //系统先建立十个用户</span><br><span class="line">    static&#123;</span><br><span class="line">    	for (int i=0;i&lt;10;i++) &#123;</span><br><span class="line">    		UserInfor u=new UserInfor();</span><br><span class="line">    		u.SetName(String.valueOf(i+1));//用户名即是索引</span><br><span class="line">    		u.SetPwd(&quot;123456&quot;);</span><br><span class="line">    		SQL.put(u.get_name(),u);</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>接下来是用户界面类，与BuildCheck类相连接每当用户实现了登录窗口的检测，则新建一个用户类对象Client,用户类中包含了界面的实现和socket消息的发送和接受，以信息的开头辨别信息的种类，若为一号信息则是私聊信息，则再在BufferedReader中读取私聊信息并显示在私聊界面上，二号信息指代群信息。在界面设计时，应当有好友列表上下线下线的的刷新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Client extends Thread&#123;/部分代码</span><br><span class="line">	</span><br><span class="line">		//监听事件的添加</span><br><span class="line">		send.addActionListener(new ActionListener() &#123;//发送私聊消息</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent arg0) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">			   WriterMess(&quot;1&quot;);//表示是私聊信息</span><br><span class="line">         	   WriterMess(selected);//私聊用户号</span><br><span class="line">         	   String mess=textfield.getText();</span><br><span class="line">         	   WriterMess(mess);//私聊信息</span><br><span class="line">         	   area.append(&quot;自己：&quot;+mess+&quot;\n&quot;);</span><br><span class="line">         	  if(mess.equals(&quot;bye&quot;)) &#123;//设置用户下线</span><br><span class="line">					WriterMess(&quot;3&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		send2.addActionListener(new ActionListener() &#123;//实现群聊功能</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent arg0) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">				try &#123;</span><br><span class="line">					WriterMess(&quot;2&quot;);</span><br><span class="line">					String gets=textfield2.getText();				</span><br><span class="line">					WriterMess(gets);</span><br><span class="line">					if(gets.equals(&quot;bye&quot;)) &#123;//设置用户下线</span><br><span class="line">						WriterMess(&quot;3&quot;);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125; catch(Exception e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">					</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		 //JList点击事件的添加</span><br><span class="line">		list1.addMouseListener(new MouseAdapter() &#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void mouseClicked(MouseEvent arg0) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">				String select=(String) list1.getSelectedValue();</span><br><span class="line">            	if(!select.equals(userinfor.get_name())) &#123;//不能对自己进行私聊</span><br><span class="line">                   area.append(&quot;	================================================\n&quot;);</span><br><span class="line">            	   area.append(&quot;	===你选择&quot;+select+&quot;号在线客户进行私聊===\n&quot;);</span><br><span class="line">            	   </span><br><span class="line">            	   selected=select;</span><br><span class="line"></span><br><span class="line">            	&#125;else &#123;</span><br><span class="line">            		area.append(&quot;    	============您不能选择自己进行私聊!===========\n&quot;);</span><br><span class="line">            	&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		list2.addMouseListener(new MouseAdapter() &#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void mouseClicked(MouseEvent e) &#123;</span><br><span class="line">				// TODO Auto-generated method stub</span><br><span class="line">				area.append(&quot;=================当前用户不在线！=============\n&quot;);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public void ShashSelf() &#123;</span><br><span class="line">		this.use.updateUI();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public void CloseSelf() &#123;//将自己关闭</span><br><span class="line">		try &#123;</span><br><span class="line">			socket.close();</span><br><span class="line">		&#125; catch (IOException e) &#123;</span><br><span class="line">			// TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void ReadMess() &#123;</span><br><span class="line">		 //读取服务器返回的消息</span><br><span class="line">		try &#123;</span><br><span class="line">			BufferedReader br = new BufferedReader(new InputStreamReader(in));</span><br><span class="line">	        String mess1 = br.readLine();</span><br><span class="line">		while(true) &#123;</span><br><span class="line">        </span><br><span class="line">        //私聊消息</span><br><span class="line">        </span><br><span class="line">        System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">        System.out.println(&quot;****************************************&quot;);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        	</span><br><span class="line">        /*while(mess1.equals(&quot;4&quot;)) &#123;//刷新</span><br><span class="line">        		this.use.revalidate();</span><br><span class="line">        		mess1=br.readLine();</span><br><span class="line">        		 System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">        	        System.out.println(&quot;****************************************&quot;);</span><br><span class="line">        	&#125;*/</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        while(mess1.equals(&quot;1&quot;)) &#123;//私聊</span><br><span class="line">        	System.out.println(&quot;*********收到信息**************\n&quot;);</span><br><span class="line">        	String mess2=br.readLine();//用户号</span><br><span class="line">        	System.out.println(&quot;发信息的用户号为&quot;+mess2);</span><br><span class="line">        	String mess3=br.readLine();//信息</span><br><span class="line">        	System.out.println(&quot;私信为&quot;+mess3);</span><br><span class="line">        	area.append(&quot;客户&quot;+mess2+&quot;对您私聊说:  &quot;);</span><br><span class="line">        	area.append(mess3+&quot;\n&quot;);</span><br><span class="line">        	</span><br><span class="line">        	mess1=br.readLine();//刷新mess1</span><br><span class="line">        	 System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">             System.out.println(&quot;****************************************&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //群聊消息</span><br><span class="line">        while((mess1.equals(&quot;2&quot;))) &#123;</span><br><span class="line">        	String mess2=br.readLine();</span><br><span class="line">        	if(mess2.equals(&quot;4&quot;)) &#123;</span><br><span class="line">        		//this.use.revalidate();</span><br><span class="line">        		//use.repaint();</span><br><span class="line">        		String WhoisOnline[]=SQL.WhoisOnline();</span><br><span class="line">        		list1.setListData(WhoisOnline);</span><br><span class="line">        		String WhoisNotOnline[]=SQL.WHoisnotOnline();</span><br><span class="line">        		list2.setListData(WhoisNotOnline);</span><br><span class="line">        		System.out.println(&quot;2中收到四号消息&quot;);</span><br><span class="line">        		mess1=br.readLine();</span><br><span class="line">        	&#125;else &#123;</span><br><span class="line">        	area2.append(mess2+&quot;\n&quot;);</span><br><span class="line">        	mess1=br.readLine();</span><br><span class="line">        	 System.out.println(&quot;mess1：&quot;+mess1);</span><br><span class="line">             System.out.println(&quot;****************************************&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">       while((mess1.equals(&quot;3&quot;))) &#123;//终止</span><br><span class="line">        	br.close();</span><br><span class="line">        	bw.close();</span><br><span class="line">        	in.close();</span><br><span class="line">        	out.close();</span><br><span class="line">        	this.socket.close();</span><br><span class="line">        	mess1=&quot;&quot;;</span><br><span class="line">        	this.runnning=false;</span><br><span class="line">        	SqlServer.DeleteUser(this.userinfor.get_name());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(!this.runnning) &#123;</span><br><span class="line">        	break;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">        </span><br><span class="line">	     &#125;catch(Exception e) &#123;</span><br><span class="line">	    	 e.printStackTrace();</span><br><span class="line">	   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>自定义一个ChatList类，用于管理在线聊天的与服务器相连的线程对象，在这个类中实现了向所有的在线Client发送消息的函数功能，也实现了删除在线ThreadForChat对象，在线的ThreadForChat是一个与Server服务器相关联的类，每当有一个Client与Server相连接，Server就创造一个ThreadForChat对象与之相连实现通信，在Server类中的强制删除功能既是删除对应的ThreadForChat类并向对应的Client对象发出下线的消息,实现强制下线。CLass   BuildCheck是登录窗口，每当用户输入账号和验证密码并且检验正确时，就new一个Client对象。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/机器学习3/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/10/机器学习3/" itemprop="url">机器学习3</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T00:10:20+08:00">
-                2019-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="机器学习3（-matplotlib补充以及线性回归之最小二乘法的实现）"><a href="#机器学习3（-matplotlib补充以及线性回归之最小二乘法的实现）" class="headerlink" title="机器学习3（ matplotlib补充以及线性回归之最小二乘法的实现）"></a>机器学习3（ matplotlib补充以及线性回归之最小二乘法的实现）</h2><h6 id="1-matplotlib补充"><a href="#1-matplotlib补充" class="headerlink" title="1.matplotlib补充"></a>1.matplotlib补充</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import matplotlib as mp</span><br><span class="line">from pylab import *</span><br><span class="line"></span><br><span class="line">figure(figsize=(16,6),dpi=80)</span><br><span class="line">subplot(1,1,1)</span><br><span class="line">#创建等差数列</span><br><span class="line">X=np.linspace(-np.pi,np.pi,256,endpoint=True)</span><br><span class="line">c,s=np.cos(X),np.sin(X)</span><br><span class="line">#绘制余弦曲线</span><br><span class="line">plot(X,c,color=&quot;blue&quot;,linewidth=1.0,linestyle=&quot;-&quot;)</span><br><span class="line">#绘制正弦曲线</span><br><span class="line">plot(X,s,color=&quot;green&quot;,linewidth=1.0,linestyle=&quot;-&quot;)</span><br><span class="line">xlim(-4.0,4.0)</span><br><span class="line">#设置上下限,设置横轴标记符</span><br><span class="line">xticks(np.linspace(-4,4,9,endpoint=True))</span><br><span class="line">ylim(-1.0,1.0)</span><br><span class="line">yticks(np.linspace(-1,1,5,endpoint=True))</span><br><span class="line"></span><br><span class="line">#设置边界</span><br><span class="line">xlim(X.min()*(1.1),X.max()*1.1)</span><br><span class="line">ylim(c.min()*1.1,c.max()*1.1)</span><br><span class="line"></span><br><span class="line">#设置记号</span><br><span class="line">xticks([-np.pi,-np.pi/2,0,np.pi/2,np.pi],[r&apos;$-\pi$&apos;,r&apos;$-\pi/2$&apos;,r&apos;$0$&apos;,r&apos;$+\pi/2$&apos;,r&apos;$+\pi$&apos;])</span><br><span class="line">yticks([-1,0,+1],[r&apos;$-1$&apos;,r&apos;$-\pi/2$&apos;,r&apos;$0$&apos;,r&apos;$+\pi/2$&apos;,r&apos;$+\pi$&apos;])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">savefig(&quot;exciese1&quot;,dpi=72)</span><br></pre></td></tr></table></figure>
-<h6 id="2-线性回归之最小二乘法-使用sklearn中的糖尿病数据集"><a href="#2-线性回归之最小二乘法-使用sklearn中的糖尿病数据集" class="headerlink" title="2.线性回归之最小二乘法(使用sklearn中的糖尿病数据集)"></a>2.线性回归之最小二乘法(使用sklearn中的糖尿病数据集)</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line">from sklearn import datasets,linear_model</span><br><span class="line">from sklearn.metrics import mean_squared_error,r2_score</span><br><span class="line"></span><br><span class="line">#加载数据集</span><br><span class="line">diabetes=datasets.load_diabetes()</span><br><span class="line">diabetes_X=diabetes.data[:,np.newaxis,2]</span><br><span class="line"></span><br><span class="line">diabetes_x_train=diabetes_X[:-20]</span><br><span class="line">diabetes_x_test=diabetes_X[-20:]</span><br><span class="line"></span><br><span class="line">diabetes_y_train=diabetes.target[:-20]</span><br><span class="line">diabetes_y_test=diabetes.target[-20:]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">regr=linear_model.LinearRegression()</span><br><span class="line">regr.fit(diabetes_x_train,diabetes_y_train)</span><br><span class="line"></span><br><span class="line">diabetes_y_predict=regr.predict(diabetes_x_test)</span><br><span class="line"></span><br><span class="line">#系数</span><br><span class="line">print(regr.coef_)</span><br><span class="line">#均方差</span><br><span class="line">print(&quot;%.2f&quot;%mean_squared_error(diabetes_y_test,diabetes_y_predict))</span><br><span class="line">#预测</span><br><span class="line">print(&quot;得分：%.2f&quot;%r2_score(diabetes_y_test,diabetes_y_predict))</span><br><span class="line"></span><br><span class="line">#绘制结果</span><br><span class="line">plt.scatter(diabetes_x_test,diabetes_y_test,color=&apos;black&apos;)</span><br><span class="line">plt.plot(diabetes_x_test,diabetes_y_predict,color=&apos;blue&apos;,linewidth=3)</span><br><span class="line">plt.xticks()</span><br><span class="line">plt.yticks()</span><br><span class="line">plt</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/03/10/机器学习3/C:/blog\source\_posts\机器学习3\捕获.PNG" alt="运行结果"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2003,7 +2147,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
