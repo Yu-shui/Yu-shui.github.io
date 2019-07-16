@@ -301,6 +301,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/SVM补充（一/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/15/SVM补充（一/" itemprop="url">SVM补充（一)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-15T16:02:47+08:00">
+                2019-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="SVM算法补充-一-核函数"><a href="#SVM算法补充-一-核函数" class="headerlink" title="SVM算法补充(一): 核函数"></a>SVM算法补充(一): 核函数</h1><h4 id="1-名词"><a href="#1-名词" class="headerlink" title="1.名词"></a>1.名词</h4><ul>
+<li><p>分割超平面</p>
+</li>
+<li><p>支持向量：离分割超平面最近的点</p>
+</li>
+<li>间距:支持向量到分割超平面的距离的两倍</li>
+</ul>
+<p>原理：找到一个分割超平面。将数据正确分类，并且间距最大。</p>
+<h4 id="2-计算间距"><a href="#2-计算间距" class="headerlink" title="2.计算间距"></a>2.计算间距</h4><ol>
+<li>在二维空间既是点到直线的距离</li>
+<li>在高维空间中，使用直线方程：<img src="/2019/07/15/SVM补充（一/捕获.PNG" alt="">距离相应的表示为：<img src="/2019/07/15/SVM补充（一/2.PNG" alt=""></li>
+</ol>
+<p>由于支持向量在直线<strong> W^Tx+b=-1和W^Tx+b=1 </strong>上，所以带入可得<img src="/2019/07/15/SVM补充（一/3.PNG" alt=""></p>
+<p>为了使得距离最大，只需要找到合适的参数w和b,使得<img src="/2019/07/15/SVM补充（一/3.PNG" alt="">最大即可。<strong> ||w|| </strong>就是向量w的L2范数。使用分割超平面可以解决分类问题。求解SVM算法，就是在满足约束条件<img src="/2019/07/15/SVM补充（一/4.PNG" alt="">下求w的L2范数的最小值。</p>
+<h4 id="3-松弛系数"><a href="#3-松弛系数" class="headerlink" title="3.松弛系数"></a>3.松弛系数</h4><p>针对现行不可分的数据集，上面的方法就不能用了。解决这个问题的办法就是引入一个参数ϵ，称为松弛系数。然后把优化的目标函数变为<img src="/2019/07/15/SVM补充（一/5.PNG" alt="">,m是数据集的个数，R为算法参数，其约束条件变为:<img src="/2019/07/15/SVM补充（一/6.PNG" alt="">，可以把ε理解为样本x(i)违反一大间距规则的程度。针对大多数满足约束条件的样本ε=0。而对部分违反最大间距规则的样本ε&gt;0。参数R则表示对违反约束的样本的”惩罚”。R越大对违反约束的点“惩罚力度”越大反之越小 。这样模型就会倾向于允许部分点违反最大间距规则。可以纠正过拟合问题</p>
+<h2 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h2><p>核函数是<strong>特征转换</strong>函数。</p>
+<h4 id="（1）最基础的核函数"><a href="#（1）最基础的核函数" class="headerlink" title="（1）最基础的核函数"></a>（1）最基础的核函数</h4><p>间距最大是我们的优化目标。真确地对数据分类是约束条件。即在满足约束条件y(i)(wTx(i)+b)≥1的前提下，求解||w||^2的最小值。<br>使用拉格朗日乘子法：<img src="/2019/07/15/SVM补充（一/7.PNG" alt=""></p>
+<p>对w和b求骗到，用拉格朗日法解得:</p>
+<p><img src="/2019/07/15/SVM补充（一/8.PNG" alt=""></p>
+<p>对这个公式求解最小值，求出的ai大多数是0，因为只有支持向量所对应的样本才决定了间隙的大小，引入核函数：</p>
+<p><img src="/2019/07/15/SVM补充（一/9.PNG" alt=""></p>
+<p><em>L</em>里的x(i)^Tx(j)部分，其中<em>x</em>(<em>i</em>)是一个特征向量，所以x(i)^Tx(j)是一个数值，就是两个输入特征向量的内积。预测函数为：<img src="/2019/07/15/SVM补充（一/SVM补充(一\10.PNG" alt="">预测函数中也包含x(i)^Tx(j),引入<strong>K</strong>(x^(i),x(j))=x(i)^Tx(j)作为核函数，白哦是两个向量的相似性，如向量垂直时，就表示两个向量线性无关，值为0，引入核函数后预测函数变为：</p>
+<p><img src="/2019/07/15/SVM补充（一/11.PNG" alt=""></p>
+<h4 id="2-相似性函数"><a href="#2-相似性函数" class="headerlink" title="(2)相似性函数"></a>(2)相似性函数</h4><p>对无法进行线性分割的样本集，可以使用一定的规则将样本映射到更高纬度的空间，然后找出超平面。核函数的引入就是为了实现这种映射，联想利用多项式解决线性回归欠拟合问题的方法。如果输入特征是一维的[x1]变量，我们把它变成二维的一个方法是把输入特征转化为[x1,2x1 ^2]，定义这种特征映射的函数就称之为相似性函数<strong>Φ(x)</strong>。这样在原来低维度计算相似性的运算x(i)^Tx(j)，就可以转换为高纬度空间里进行相似性运算Φ(x(i))^TΦ(x(i))。</p>
+<h4 id="3-常用的核函数"><a href="#3-常用的核函数" class="headerlink" title="(3)常用的核函数"></a>(3)常用的核函数</h4><p>一般有两种：<strong>多项式核函数</strong>和<strong>高斯核函数</strong>。</p>
+<h5 id="1-多项式核函数"><a href="#1-多项式核函数" class="headerlink" title="1.多项式核函数"></a>1.多项式核函数</h5><p><img src="/2019/07/15/SVM补充（一/12.PNG" alt=""></p>
+<h5 id="2-高斯核函数"><a href="#2-高斯核函数" class="headerlink" title="2.高斯核函数"></a>2.高斯核函数</h5><p><img src="/2019/07/15/SVM补充（一/13.PNG" alt=""></p>
+<p>如果输入的特征是一维的标量，那么高斯核函数对应的形状就是一个反钟形的曲线，其参数σσ控制反钟形的宽度。由K(x(i),x(j))=Φ(x(i))TΦ(x(i))，经过合适的数学变换，可得高斯核函数对应的特征转换函数为：<br><img src="/2019/07/15/SVM补充（一/14.PNG" alt=""></p>
+<p>前面无限多项的累加器，其物理意义就是把特征向量转换到无限多维向量空间里，即<strong>高斯函数可以吧输入特征扩展到无限多维空间里</strong>。公式的推导公式会用到<strong>泰勒公式</strong>。</p>
+<p><img src="/2019/07/15/SVM补充（一/15.PNG" alt=""></p>
+<p>其中<em>K</em>(<em>x</em>(<em>i</em>),<em>x</em>(<em>j</em>))是高斯核函数，<strong>ai</strong>只在支持向量对应的样本出不为0.由此可知，<strong>预测函数时中心点在支持向量机处的高斯函数的线性组合</strong>，其线性组合的系数为<strong>aiy(i)</strong>。因此，高斯核函数也称为<strong>RBF核函数</strong>，即反钟形函数的线性组合。</p>
+<h4 id="4-核函数的对比-摘自网络"><a href="#4-核函数的对比-摘自网络" class="headerlink" title="(4)核函数的对比(摘自网络)"></a>(4)核函数的对比(摘自网络)</h4><p>1、线性核函数：这是最简单的核函数，它直接计算两个输入特征向量的内积。 </p>
+<ul>
+<li>优点：简单高效，结果易解释，总能生成一个最简洁的线性分割超平面 </li>
+<li>缺点：只适用线性可分的数据集</li>
+</ul>
+<p>2、多项式核函数：通过多项式来作为特征映射函数 </p>
+<ul>
+<li>优点：可以拟合出复杂的分割超平面。 </li>
+<li>缺点：参数太多。有γ,c,nγ,c,n三个参数要选择，选择起来比较困难；另外多项式的阶数不宜太高否则会给模型求解带来困难。</li>
+</ul>
+<p>3、高斯核函数： </p>
+<ul>
+<li>优点：可以把特征映射到无限多维，并且没有多项式计算那么困难，参数也比较好选择。 </li>
+<li>缺点：不容易解释，计算速度比较慢，容易过拟合。</li>
+</ul>
+<h4 id="（5）核函数的选择"><a href="#（5）核函数的选择" class="headerlink" title="（5）核函数的选择"></a>（5）核函数的选择</h4><p>1、最一般的选择原则是针对数据量很大的时候，可以选择复杂一点的模型。虽然复杂模型容易过拟合，但由于数据量很大，可以有效弥补过拟合问题。如果数据集较小选择简单点的模型，否则很容易过拟合，此时特别要注意模型是否欠拟合，如果欠拟合可以增加多项式纠正欠拟合。</p>
+<p>2、根据样本量mm和特征量nn进行选择： </p>
+<ul>
+<li>特征相比样本较大（如m=10～1000，n=10000）：选逻辑回归或者线性函数SVM </li>
+<li>特征较少，样本量中（如m=10～10000，n=1～1000）：选择高斯SVM </li>
+<li>特征量少，样本多（如m=50000+，n=1~1000)：选多项式或高斯SVM</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/OpenCV基础一/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -332,7 +535,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-15T17:02:44+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-15T12:00:44+08:00">
                 2019-07-15
               </time>
             
@@ -433,171 +636,6 @@
 <p>这里所用的实例不具有明显的双峰，所以可能效果不好</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">img=cv2.imread(&quot;h.jpg&quot;)</span><br><span class="line">gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">#简单滤波</span><br><span class="line">ret1,th1=cv2.threshold(gray,127,255,cv2.THRESH_BINARY)</span><br><span class="line">#Otsu 滤波</span><br><span class="line">ret2,th2 = cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)</span><br><span class="line">plt.figure()</span><br><span class="line">plt.subplot(221),plt.imshow(gray,&apos;gray&apos;)</span><br><span class="line">plt.subplot(223),plt.imshow(th1,&apos;gray&apos;)</span><br><span class="line">plt.subplot(224),plt.imshow(th2,&apos;gray&apos;)</span><br></pre></td></tr></table></figure>
 <p><img src="/2019/07/15/OpenCV基础一/6.PNG" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/SVM补充（一/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/10/SVM补充（一/" itemprop="url">SVM补充（一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-10T00:20:47+08:00">
-                2019-07-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="SVM算法补充-一"><a href="#SVM算法补充-一" class="headerlink" title="SVM算法补充(一)"></a>SVM算法补充(一)</h1><h4 id="1-名词"><a href="#1-名词" class="headerlink" title="1.名词"></a>1.名词</h4><ul>
-<li><p>分割超平面</p>
-</li>
-<li><p>支持向量：离分割超平面最近的点</p>
-</li>
-<li>间距:支持向量到分割超平面的距离的两倍</li>
-</ul>
-<p>原理：找到一个分割超平面。将数据正确分类，并且间距最大。</p>
-<h4 id="2-计算间距"><a href="#2-计算间距" class="headerlink" title="2.计算间距"></a>2.计算间距</h4><ol>
-<li>在二维空间既是点到直线的距离</li>
-<li>在高维空间中，使用直线方程：<img src="/2019/07/10/SVM补充（一/捕获.PNG" alt="">距离相应的表示为：<img src="/2019/07/10/SVM补充（一/2.PNG" alt=""></li>
-</ol>
-<p>由于支持向量在直线<strong> W^Tx+b=-1和W^Tx+b=1 </strong>上，所以带入可得<img src="/2019/07/10/SVM补充（一/3.PNG" alt=""></p>
-<p>为了使得距离最大，只需要找到合适的参数w和b,使得<img src="/2019/07/10/SVM补充（一/3.PNG" alt="">最大即可。<strong> ||w|| </strong>就是向量w的L2范数。使用分割超平面可以解决分类问题。求解SVM算法，就是在满足约束条件<img src="/2019/07/10/SVM补充（一/4.PNG" alt="">下求w的L2范数的最小值。</p>
-<h4 id="3-松弛系数"><a href="#3-松弛系数" class="headerlink" title="3.松弛系数"></a>3.松弛系数</h4><p>针对现行不可分的数据集，上面的方法就不能用了。解决这个问题的办法就是引入一个参数ϵ，称为松弛系数。然后把优化的目标函数变为<img src="/2019/07/10/SVM补充（一/5.PNG" alt="">,m是数据集的个数，R为算法参数，其约束条件变为:<img src="/2019/07/10/SVM补充（一/6.PNG" alt=""></p>
 
           
         
