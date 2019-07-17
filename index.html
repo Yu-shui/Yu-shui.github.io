@@ -301,6 +301,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/OpenCV-使用普通摄像头进行深度估计/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/" itemprop="url">OpenCV:使用普通摄像头进行深度估计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T18:02:30+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="OpenCV-使用普通摄像头进行深度估计"><a href="#OpenCV-使用普通摄像头进行深度估计" class="headerlink" title="OpenCV:使用普通摄像头进行深度估计"></a>OpenCV:使用普通摄像头进行深度估计</h2><h4 id="1-双目视觉测距原理"><a href="#1-双目视觉测距原理" class="headerlink" title="1.双目视觉测距原理"></a>1.双目视觉测距原理</h4><h5 id="1-理想情况"><a href="#1-理想情况" class="headerlink" title="(1)理想情况"></a>(1)理想情况</h5><p>双目立体视觉是基于视差原理，从双目相机中获取的多幅图像中恢复被测物体三维几何信息的方法。如图，对于空间物体表面任意一点，如果从左右2个摄像机同时观察P，并能确定在左摄像机图像上的点Pl与右摄像机图像上的点Pr是空间同一点P的图像点(称Pl与Pr，为共轭对应点)，则可计算出空间点P的三维坐标（包含距离信息）。基于双目立体视觉的测距系统包含摄像机标定、立体校正、立体匹配和三维重建等步骤。</p>
+<p><img src="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/1.PNG" alt="理想双目相机成像模型"></p>
+<h5 id="1-计算原理"><a href="#1-计算原理" class="headerlink" title="(1)计算原理"></a>(1)计算原理</h5><p><img src="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/2.PNG" alt=""></p>
+<p>根据三角形相似原理：</p>
+<p><strong>z/f=(x-b)/xr=x/xl=y/yl</strong></p>
+<p>解方程得：</p>
+<p><strong>z=b<em>f/d, x=z</em>xl/d, y=z*y/f </strong></p>
+<p>由此可知：想要得到距离z,必须知道：</p>
+<p>1、相机焦距f，左右相机基线b（可以通过先验信息或者相机标定得到）。<br>2、视差 ：<strong>d=xl-xr</strong>，即左相机像素点(xl, yl)和右相机中对应点(xr, yr)的关系，这是双目视觉的核心问题。</p>
+<p><img src="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/6.PNG" alt=""></p>
+<h5 id="2-极线约束"><a href="#2-极线约束" class="headerlink" title="(2)极线约束"></a>(2)极线约束</h5><p>对于左图中的一个像素点，来确定该点在右图中的位置，不需要在整个图像中地毯式搜索，需要用到极线约束。如上图所示。O1，O2是两个相机，P是空间中的一个点，P和两个相机中心点O1、O2形成了三维空间中的一个平面PO1O2，称为极平面（Epipolar plane）。极平面和两幅图像相交于两条直线，这两条直线称为极线(Epipolar line)。P在相机O1中的成像点是P1，在相机O2中的成像点是P2，但是P的位置是未知的。我们的目标是：对于左图的P1点，寻找它在右图中的对应点P2，这样就能确定P点的空间位置。极线约束（Epipolar Constraint）是指当空间点在两幅图像上分别成像时，已知左图投影点p1，那么对应右图投影点p2一定在相对于p1的极线上，这样可以极大的缩小匹配范围。即P2一定在对应极线上，所以只需要沿着极线搜索便可以找到P1的对应点P2。</p>
+<p><strong>当两个相机光心不是处于同一水平面时</strong>:这种情况下拍摄的两张左右图片，右图中对应的极线是右图中的多条直线，也就是对应的搜索区域。这多条直线并不是水平的，如果进行逐点搜索效率非常低。</p>
+<p><img src="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/8.PNG" alt=""></p>
+<p><strong>（3)图像矫正技术</strong>:</p>
+<p>像矫正是通过分别对两张图片用单应性矩阵变换得到，目的是把两个不同方向的图像平面（下图中灰色平面）重新投影到同一个平面且光轴互相平行（下图中黄色平面），这样转化为理想情况的模型。</p>
+<p><img src="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/7.PNG" alt=""></p>
+<p>经过图像矫正后，左图中的像素点只需要沿着水平的极线方向搜索对应点,从下图中我们可以看到三个点对应的视差（红色双箭头线段）是不同的，越远的物体视差越小，越近的物体视差越大。</p>
+<p><img src="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/9.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#使用普通摄像头进行深度估计</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">def update(val=0):</span><br><span class="line">    stereo.setBlockSize(cv2.getTrackbarPos(&apos;window_size&apos;,&apos;disparity&apos;))</span><br><span class="line">    stereo.setUniquenessRatio(cv2.getTrackbarPos(&apos;uniquenessRatio&apos;,&apos;disparity&apos;))</span><br><span class="line">    stereo.setSpeckleWindowSize(cv2.getTrackbarPos(&apos;speckleRange&apos;,&apos;disparity&apos;))</span><br><span class="line">    stereo.setSpeckleRange(cv2.getTrackbarPos(&apos;speckleRange&apos;,&apos;disparity&apos;))</span><br><span class="line">    stereo.setDisp12MaxDiff(cv2.getTrackbarPos(&apos;disp12MaxDiff&apos;,&apos;disparity&apos;))</span><br><span class="line">    </span><br><span class="line">    print(&apos;computing disparity.......&apos;)</span><br><span class="line">    disp=stereo.compute(imgL,imgR).astype(np.float32)/16.0</span><br><span class="line">    </span><br><span class="line">    cv2.imshow(&apos;left&apos;,imgL)</span><br><span class="line">    cv2.imshow(&apos;right&apos;,imgR)</span><br><span class="line">    cv2.imshow(&apos;disparity&apos;,(disp-min_disp)/num_disp)</span><br><span class="line"></span><br><span class="line">#创建窗口,设置初始值</span><br><span class="line">cv2.namedWindow(&apos;disparity&apos;)</span><br><span class="line">cv2.createTrackbar(&apos;speckleRange&apos;,&apos;disparity&apos;,speckleRange,50,update)</span><br><span class="line">cv2.createTrackbar(&apos;window_size&apos;,&apos;disparity&apos;,window_size,21,update)</span><br><span class="line">cv2.createTrackbar(&apos;speckleWindowSize&apos;,&apos;disparity&apos;,speckleWindowSize,200,update)</span><br><span class="line">cv2.createTrackbar(&apos;uniquenessRatio&apos;,&apos;disparity&apos;,uniquenessRatio,50,update)</span><br><span class="line">cv2.createTrackbar(&apos;disp12MaxDiff&apos;,&apos;disparity&apos;,disp12MaxDiff,250,update)</span><br><span class="line">#创建stereoSGBM算法的实例</span><br><span class="line">stereo=cv2.StereoSGBM_create(</span><br><span class="line">    minDisparity=min_disp,</span><br><span class="line">    numDisparities=num_disp,</span><br><span class="line">    blockSize=window_size,</span><br><span class="line">    uniquenessRatio=uniquenessRatio,</span><br><span class="line">    speckleRange=speckleRange,</span><br><span class="line">    speckleWindowSize=speckleWindowSize,</span><br><span class="line">    disp12MaxDiff=disp12MaxDiff,</span><br><span class="line">    P1=p1,</span><br><span class="line">    P2=p2</span><br><span class="line">)</span><br><span class="line">update()</span><br><span class="line">cv2.waitKey(0)</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/3.PNG" alt=""></p>
+<p><img src="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/4.PNG" alt=""></p>
+<p><img src="/2019/07/16/OpenCV-使用普通摄像头进行深度估计/5.PNG" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/OpenCV基础一/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1820,194 +1993,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/神经网络基础-1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/27/神经网络基础-1/" itemprop="url">神经网络基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:38:17+08:00">
-                2019-04-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="神经网络基础"><a href="#神经网络基础" class="headerlink" title="神经网络基础"></a>神经网络基础</h1><h3 id="1-RNN结构"><a href="#1-RNN结构" class="headerlink" title="1.RNN结构"></a>1.RNN结构</h3><h5 id="1-背景"><a href="#1-背景" class="headerlink" title="(1).背景"></a>(1).背景</h5><p>DNN以及CNN在对样本提取特征的时候，样本与样本之间是独立的，而有些情况是无法把每个输入的样本都看作是独立的，比如NLP中的此行标注问题，ASR中每个音素都和前一个音素是相关的，这类问题可以看做一种带有时序序列的问题，无法将样本看做是相互独立的，因此单纯的DNN和CNN解决这类问题就比较棘手。此时RNN就是一种解决这类问题很好的模型。</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn1.PNG" alt=""></p>
-<p>特点：</p>
-<ul>
-<li><p>权重W,U,V是共享的，以此减少参数量</p>
-</li>
-<li><p>第t时刻的输出与第t-1时刻的输出有关</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn2.gif" alt=""></p>
-</li>
-</ul>
-<p><img src="/2019/04/27/神经网络基础-1/nn3.gif" alt=""></p>
-<p><img src="/2019/04/27/神经网络基础-1/nn4.PNG" alt=""></p>
-<h5 id="2-优缺点，存在的问题"><a href="#2-优缺点，存在的问题" class="headerlink" title="(2).优缺点，存在的问题"></a>(2).优缺点，存在的问题</h5><p>DNN无法对<strong>时间序列</strong>上有变化的情况进行处理。然而，样本出现的时间顺序对于自然语言处理、语音识别、手写体识别等应用非常重要。因此出现了——循环神经网络RNN。<br>在普通的全连接网络或CNN中，每层神经元的信号只能向上一层传播，样本的处理在各个时刻独立，因此又被成为前向神经网络(Feed-forward Neural Networks)。而在RNN中，<strong>神经元的输出可以在下一个时间段直接作用到自身</strong>，即第i层神经元在m时刻的输入，除了(i-1)层神经元在该时刻的输出外，还包括其自身在(m-1)时刻的输出！</p>
-<p>但是出现了一个问题——<strong>“梯度消失”现象</strong>又要出现了，只不过这次发生在时间轴上。<br>所以RNN存在无法解决<strong>长时依赖</strong>的问题。为解决上述问题，提出了LSTM（长短时记忆单元），通过cell门开关实现时间上的记忆功能，并防止梯度消失.</p>
-<h5 id="3-RNN如何实现参数更新-基于时间得反向传播算法-BPTT"><a href="#3-RNN如何实现参数更新-基于时间得反向传播算法-BPTT" class="headerlink" title="(3).RNN如何实现参数更新(基于时间得反向传播算法 BPTT)"></a>(3).RNN如何实现参数更新(基于时间得反向传播算法 BPTT)</h5><p>下图展示了在训练过程中的损失的产生：</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn5.gif" alt=""></p>
-<p>详细的数学推导过程：</p>
-<p>首先列出在推导过程中的一般计算公式：</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn6.gif" alt=""></p>
-<p>将输出对应的损失求导：</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn7.gif" alt=""></p>
-<p><img src="/2019/04/27/神经网络基础-1/nn8.gif" alt=""></p>
-<p>接下来是对参数W,U,b进行更新，虽然三者在过程中是共享的，但是他们不止在t时刻做出了贡献，在t+1时刻也对隐藏层St+1做出了贡献，所以求导时，要从前往后一步步推导。</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn9.PNG" alt=""></p>
-<p>三者有一个共同项，所以先求这个共同项：</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn10.PNG" alt=""></p>
-<p>在求解激活函数导数时，是将已知的部分求导之后，然后将它和激活函数导数部分进行哈达马乘积。激活函数的导数一般是和前面的进行哈达马乘积，这里的激活函数是双曲正切，用矩阵中对角线元素表示向量中各个值的导数，可以去掉哈达马乘积，转化为矩阵乘法。</p>
-<p><img src="/2019/04/27/神经网络基础-1/n11.PNG" alt=""></p>
-<p>在求得了st以后，将其带回最初得公式对参数进行求导：</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn12.PNG" alt=""></p>
-<p>在有了各个导数以后，对参数进行更新：</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn13.PNG" alt=""></p>
-<h3 id="2-双向RNN"><a href="#2-双向RNN" class="headerlink" title="2.双向RNN"></a>2.双向RNN</h3><p>Bidirectional RNN(双向RNN)假设当前t的输出不仅仅和之前的序列有关，并且 还与之后的序列有关，例如：预测一个语句中缺失的词语那么需要根据上下文进 行预测；Bidirectional RNN是一个相对简单的RNNs，由两个RNNs上下叠加在 一起组成。输出由这两个RNNs的隐藏层的状态决定。</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn14.png" alt=""></p>
-<h3 id="3-LSTM"><a href="#3-LSTM" class="headerlink" title="3.LSTM"></a>3.LSTM</h3><p>LSTM 通过刻意的设计来避免长期依赖问题。记住长期的信息在实践中是 LSTM 的默认行为，</p>
-<p><img src="/2019/04/27/神经网络基础-1/nn15.PNG" alt=""></p>
-<h3 id="4-Text-RNN原理"><a href="#4-Text-RNN原理" class="headerlink" title="4.Text-RNN原理"></a>4.Text-RNN原理</h3><p><strong>TextCNN</strong>擅长捕获更短的序列信息，但是TextRNN擅长捕获更长的序列信息。</p>
-<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">from tensorflow.examples.tutorials.mnist import input_data</span><br><span class="line">tf.set_random_seed(1)</span><br><span class="line"></span><br><span class="line">mnist = input_data.read_data_sets(&apos;MNIST_data&apos;, one_hot=True)</span><br><span class="line"></span><br><span class="line"># hyperparameters</span><br><span class="line">lr = 0.001</span><br><span class="line">training_iters = 100000</span><br><span class="line">batch_size = 128</span><br><span class="line"></span><br><span class="line">n_inputs = 28  # shape 28*28</span><br><span class="line">n_steps = 28  # time steps</span><br><span class="line">n_hidden_unis = 128  # neurons in hidden layer</span><br><span class="line">n_classes = 10  # classes 0-9</span><br><span class="line"></span><br><span class="line"># tf Graph input</span><br><span class="line">x = tf.placeholder(tf.float32, [None, n_steps, n_inputs])</span><br><span class="line">y = tf.placeholder(tf.float32, [None, n_classes])</span><br><span class="line"></span><br><span class="line"># Define weights</span><br><span class="line">weights = &#123;</span><br><span class="line">    # (28,128)</span><br><span class="line">    &apos;in&apos;: tf.Variable(tf.random_normal([n_inputs, n_hidden_unis])),</span><br><span class="line">    # (128,10)</span><br><span class="line">    &apos;out&apos;: tf.Variable(tf.random_normal([n_hidden_unis, n_classes]))</span><br><span class="line">&#125;</span><br><span class="line">biases = &#123;</span><br><span class="line">    # (128,)</span><br><span class="line">    &apos;in&apos;: tf.Variable(tf.constant(0.1, shape=[n_hidden_unis, ])),</span><br><span class="line">    # (10,)</span><br><span class="line">    &apos;out&apos;: tf.Variable(tf.constant(0.1, shape=[n_classes, ]))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def RNN(X, weights, biases):</span><br><span class="line"></span><br><span class="line">    # hidden layer for input to cell</span><br><span class="line">    # X(128 batch, 28 steps, 28 inputs) =&gt; (128*28, 28)</span><br><span class="line">    X = tf.reshape(X, [-1, n_inputs])</span><br><span class="line">    # ==&gt;(128 batch * 28 steps, 28 hidden)</span><br><span class="line">    X_in = tf.matmul(X, weights[&apos;in&apos;])+biases[&apos;in&apos;]</span><br><span class="line">    # ==&gt;(128 batch , 28 steps, 28 hidden)</span><br><span class="line">    X_in = tf.reshape(X_in,[-1, n_steps, n_hidden_unis])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # cell</span><br><span class="line">    lstm_cell = tf.contrib.rnn.BasicLSTMCell(n_hidden_unis, forget_bias=1.0, state_is_tuple=True)</span><br><span class="line">    # lstm cell is divided into two parts(c_state, m_state)</span><br><span class="line">    _init_state = lstm_cell.zero_state(batch_size, dtype=tf.float32)</span><br><span class="line">    outputs, states = tf.nn.dynamic_rnn(lstm_cell, X_in, initial_state=_init_state, time_major=False)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # hidden layer for output as the final results</span><br><span class="line">    results = tf.matmul(states[1], weights[&apos;out&apos;]) + biases[&apos;out&apos;]  # states[1]-&gt;m_state states[1]=output[-1]</span><br><span class="line">    # outputs = tf.unstack(tf.transpose(outputs,[1,0,2]))</span><br><span class="line">    # results = tf.matmul(outputs[-1], weights[&apos;out&apos;]) + biases[&apos;out&apos;]</span><br><span class="line">    return results</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pred = RNN(x, weights, biases)</span><br><span class="line">cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))</span><br><span class="line">train_op = tf.train.AdamOptimizer(lr).minimize(cost)</span><br><span class="line"></span><br><span class="line">correct_pred = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))</span><br><span class="line"></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    step = 0</span><br><span class="line">    while step * batch_size &lt; training_iters:</span><br><span class="line">        batch_xs, batch_ys = mnist.train.next_batch(batch_size)</span><br><span class="line">        batch_xs = batch_xs.reshape([batch_size, n_steps, n_inputs])</span><br><span class="line">        sess.run([train_op], feed_dict=&#123;</span><br><span class="line">            x: batch_xs,</span><br><span class="line">            y: batch_ys</span><br><span class="line">        &#125;)</span><br><span class="line">        if step % 20 ==0:</span><br><span class="line">            print (sess.run(accuracy, feed_dict=&#123;</span><br><span class="line">            x: batch_xs,</span><br><span class="line">            y: batch_ys</span><br><span class="line">        &#125;))</span><br><span class="line">        step += 1</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2058,7 +2043,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

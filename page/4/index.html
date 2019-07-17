@@ -301,6 +301,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/补充：matplotlib/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/09/补充：matplotlib/" itemprop="url">补充：matplotlib</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-09T04:04:58+08:00">
+                2019-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="机器学习2（补充：Matplotlib"><a href="#机器学习2（补充：Matplotlib" class="headerlink" title="机器学习2（补充：Matplotlib)"></a>机器学习2（补充：Matplotlib)</h2><p>matplotlib及其子包PyPlot时实现可视化二维数据的基本工具，PyPlot的核心时plot方法，实现为传入一个列表或者一维数组，只要传入一个参数，就会假设该值为y值序列，并自动生成x值。可以接受指明线条属性的参数。</p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">x=np.arange(0.,5.,0.2)</span><br><span class="line">plt.plot(x,x**4,&apos;r&apos;,x,x*90,&apos;bs&apos;,x,x**3,&apos;g^&apos;)</span><br><span class="line">plt.show()</span><br><span class="line">print(help(plt.plot))</span><br></pre></td></tr></table></figure>
+<p>图形显示结果如下：</p>
+<p><img src="/2019/03/09/补充：matplotlib/C:/blog\source\_posts\补充：matplotlib\捕获.PNG" alt="程序运行结果"></p>
+<p>也可以使用help(plt.plot)获得完整的线条风格列表,截取一部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Parameters</span><br><span class="line">    ----------</span><br><span class="line">    x, y : array-like or scalar</span><br><span class="line">        The horizontal / vertical coordinates of the data points.</span><br><span class="line">        *x* values are optional. If not given, they default to</span><br><span class="line">        ``[0, ..., N-1]``.</span><br><span class="line">    </span><br><span class="line">        Commonly, these parameters are arrays of length N. However,</span><br><span class="line">        scalars are supported as well (equivalent to an array with</span><br><span class="line">        constant value).</span><br><span class="line">    </span><br><span class="line">        The parameters can also be 2-dimensional. Then, the columns</span><br><span class="line">        represent separate data sets.</span><br></pre></td></tr></table></figure>
+<h3 id="创建多个坐标轴，使用subplot命令"><a href="#创建多个坐标轴，使用subplot命令" class="headerlink" title="创建多个坐标轴，使用subplot命令"></a>创建多个坐标轴，使用subplot命令</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/机器学习2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1345,7 +1502,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
