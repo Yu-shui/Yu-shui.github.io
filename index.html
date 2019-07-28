@@ -408,22 +408,42 @@
 <p>​    第一步是计算期望（E），利用对隐藏变量的现有估计值，计算其最大似然估计值<strong>；</strong></p>
 <p>​    第二步是最大化（M），最大化在E步上求得的最大似然值来计算参数的值。</p>
 <p>​    M步上找到的参数估计值被用于下一个E步计算中，这个过程不断交替进行。</p>
-<h3 id="2-EM算法推导"><a href="#2-EM算法推导" class="headerlink" title="2. EM算法推导"></a>2. EM算法推导</h3><p>​    对于m个样本观察数据x=(x^{1},x^{2},…,x^{m})，现在想找出样本的模型参数$\thet</p>
-<p>a$，其极大化模型分布的对数似然函数为：<br>$$<br>\theta = \mathop{\arg\max}<em>\theta\sum\limits</em>{i=1}^m logP(x^{(i)};\theta)<br>$$<br>如果得到的观察数据有未观察到的隐含数据$z=(z^{(1)},z^{(2)},…z^{(m)})$，极大化模型分布的对数似然函数则为：<br>$$<br>\theta =\mathop{\arg\max}<em>\theta\sum\limits</em>{i=1}^m logP(x^{(i)};\theta) = \mathop{\arg\max}<em>\theta\sum\limits</em>{i=1}^m log\sum\limits_{z^{(i)}}P(x^{(i)}, z^{(i)};\theta)  \tag{a}<br>$$<br>由于上式不能直接求出$\theta$，采用缩放技巧：<br>$$<br>\begin{align} \sum\limits_{i=1}^m log\sum\limits_{z^{(i)}}P(x^{(i)}, z^{(i)};\theta)   &amp; = \sum\limits_{i=1}^m log\sum\limits_{z^{(i)}}Q_i(z^{(i)})\frac{P(x^{(i)}, z^{(i)};\theta)}{Q_i(z^{(i)})} \ &amp; \geqslant  \sum\limits_{i=1}^m \sum\limits_{z^{(i)}}Q_i(z^{(i)})log\frac{P(x^{(i)}, z^{(i)};\theta)}{Q_i(z^{(i)})} \end{align}   \tag{1}<br>$$<br>上式用到了Jensen不等式：<br>$$<br>log\sum\limits_j\lambda_jy_j \geqslant \sum\limits_j\lambda_jlogy_j\;\;,  \lambda_j \geqslant 0, \sum\limits_j\lambda_j =1<br>$$<br>并且引入了一个未知的新分布$Q_i(z^{(i)})$。</p>
-<p>此时，如果需要满足Jensen不等式中的等号，所以有：<br>$$<br>\frac{P(x^{(i)}, z^{(i)};\theta)}{Q_i(z^{(i)})} =c, c为常数<br>$$<br>由于$Q_i(z^{(i)})$是一个分布，所以满足<br>$$<br>\sum\limits_{z}Q_i(z^{(i)}) =1<br>$$<br>综上，可得：<br>$$<br>Q_i(z^{(i)})  = \frac{P(x^{(i)}， z^{(i)};\theta)}{\sum\limits_{z}P(x^{(i)}, z^{(i)};\theta)} =  \frac{P(x^{(i)}, z^{(i)};\theta)}{P(x^{(i)};\theta)} = P( z^{(i)}|x^{(i)};\theta)<br>$$<br>如果$Q_i(z^{(i)}) = P( z^{(i)}|x^{(i)};\theta)$ ，则第(1)式是我们的包含隐藏数据的对数似然的一个下界。如果我们能极大化这个下界，则也在尝试极大化我们的对数似然。即我们需要最大化下式：<br>$$<br>\mathop{\arg\max}<em>\theta \sum\limits</em>{i=1}^m \sum\limits_{z^{(i)}}Q_i(z^{(i)})log\frac{P(x^{(i)}， z^{(i)};\theta)}{Q_i(z^{(i)})}<br>$$<br>简化得：<br>$$<br>\mathop{\arg\max}<em>\theta \sum\limits</em>{i=1}^m \sum\limits_{z^{(i)}}Q_i(z^{(i)})log{P(x^{(i)}, z^{(i)};\theta)}<br>$$<br>以上即为EM算法的M步，$\sum\limits_{z^{(i)}}Q_i(z^{(i)})log{P(x^{(i)}, z^{(i)};\theta)}​$可理解为$logP(x^{(i)}, z^{(i)};\theta) $基于条件概率分布$Q_i(z^{(i)}) $的期望。以上即为EM算法中E步和M步的具体数学含义。</p>
+<h3 id="2-EM算法推导"><a href="#2-EM算法推导" class="headerlink" title="2. EM算法推导"></a>2. EM算法推导</h3><p>​    对于m个样本观察数据x=(x^{1},x^{2},…,x^{m})，现在想找出样本的模型参数\thet</p>
+<p>a，其极大化模型分布的对数似然函数为：</p>
+<p><img src="/2019/07/23/EM算法/2.PNG" alt=""></p>
+<p>如果得到的观察数据有未观察到的隐含数据z=(z^{(1)},z^{(2)},…z^{(m)})，极大化模型分布的对数似然函数则为：</p>
+<p><img src="/2019/07/23/EM算法/1.PNG" alt=""></p>
+<p>由于上式不能直接求出\theta，采用缩放技巧：</p>
+<p><img src="/2019/07/23/EM算法/3.PNG" alt=""></p>
+<p>上式用到了Jensen不等式：</p>
+<p><img src="/2019/07/23/EM算法/4.PNG" alt=""></p>
+<p>并且引入了一个未知的新分布Q_i(z^{(i)})。</p>
+<p>此时，如果需要满足Jensen不等式中的等号，所以有：</p>
+<p>​                                                 <img src="/2019/07/23/EM算法/5.PNG" alt=""></p>
+<p>由于Q_i(z^{(i)})是一个分布，所以满足</p>
+<p>​                            <img src="/2019/07/23/EM算法/6.PNG" alt=""></p>
+<p>综上，可得：</p>
+<p><img src="/2019/07/23/EM算法/7.PNG" alt=""></p>
+<p>如果Q_i(z^{(i)}) = P( z^{(i)}|x^{(i)};\theta)，则第(1)式是我们的包含隐藏数据的对数似然的一个下界。如果我们能极大化这个下界，则也在尝试极大化我们的对数似然。即我们需要最大化下式：</p>
+<p><img src="/2019/07/23/EM算法/8.PNG" alt=""></p>
+<p>简化得：</p>
+<p><img src="/2019/07/23/EM算法/9.PNG" alt=""></p>
+<p>以上即为EM算法的M步，\sum\limits_{z^{(i)}}Q_i(z^{(i)})log{P(x^{(i)}, z^{(i)};\theta)}​可理解为logP(x^{(i)}, z^{(i)};\theta) 基于条件概率分布Q_i(z^{(i)}) 的期望。以上即为EM算法中E步和M步的具体数学含义。</p>
 <h3 id="3-图解EM算法​"><a href="#3-图解EM算法​" class="headerlink" title="3. 图解EM算法​"></a>3. 图解EM算法​</h3><p>考虑上一节中的（a）式，表达式中存在隐变量，直接找到参数估计比较困难，通过EM算法迭代求解下界的最大值到收敛为止。</p>
 <p><img src="/2019/07/23/EM算法/1.jpg" alt=""></p>
-<p>​    图片中的紫色部分是我们的目标模型$p(x|\theta)$，该模型复杂，难以求解析解，为了消除隐变量$z^{(i)}$的影响，我们可以选择一个不包含$z^{(i)}$的模型$r(x|\theta)$，使其满足条件$r(x|\theta) \leqslant p(x|\theta) $。</p>
+<p>​    图片中的紫色部分是我们的目标模型p(x|\theta)，该模型复杂，难以求解析解，为了消除隐变量z^{(i)}的影响，我们可以选择一个不包含$z^{(i)}$的模型r(x|\theta)，使其满足条件r(x|\theta) \leqslant p(x|\theta) 。</p>
 <p>求解步骤如下：</p>
-<p>（1）选取$\theta_1$，使得$r(x|\theta_1) = p(x|\theta_1)$，然后对此时的$r$求取最大值，得到极值点$\theta_2$，实现参数的更新。</p>
-<p>（2）重复以上过程到收敛为止，在更新过程中始终满足$r \leqslant p $.</p>
-<h3 id="4-EM算法流程"><a href="#4-EM算法流程" class="headerlink" title="4. EM算法流程"></a>4. EM算法流程</h3><p>输入：观察数据$x=(x^{(1)},x^{(2)},…x^{(m)})$，联合分布$p(x,z ;\theta)$，条件分布$p(z|x; \theta)$，最大迭代次数$J$</p>
-<p>1）随机初始化模型参数$\theta$的初值$\theta^0$。</p>
-<p>2）$for \ j  \ from \ 1  \ to  \ j$：</p>
-<p>​    a） E步。计算联合分布的条件概率期望：<br>$$<br>Q_i(z^{(i)}) = P( z^{(i)}|x^{(i)}, \theta^{j})<br>$$</p>
-<p>$$<br>L(\theta, \theta^{j}) = \sum\limits_{i=1}^m\sum\limits_{z^{(i)}}P( z^{(i)}|x^{(i)}, \theta^{j})log{P(x^{(i)}, z^{(i)};\theta)}<br>$$</p>
-<p>​    b） M步。极大化$L(\theta, \theta^{j})$，得到$\theta^{j+1}$:<br>$$<br>\theta^{j+1} = \mathop{\arg\max}_\theta L(\theta, \theta^{j})<br>$$<br>​    c） 如果$\theta^{j+1}$收敛，则算法结束。否则继续回到步骤a）进行E步迭代。</p>
-<p>输出：模型参数$\theta​$。</p>
+<p>（1）选取\theta_1，使得r(x|\theta_1) = p(x|\theta_1)，然后对此时的r求取最大值，得到极值点\theta_2，实现参数的更新。</p>
+<p>（2）重复以上过程到收敛为止，在更新过程中始终满足r \leqslant p .</p>
+<h3 id="4-EM算法流程"><a href="#4-EM算法流程" class="headerlink" title="4. EM算法流程"></a>4. EM算法流程</h3><p>输入：观察数据x=(x^{(1)},x^{(2)},…x^{(m)})，联合分布p(x,z ;\theta)，条件分布p(z|x; \theta)，最大迭代次数J</p>
+<p>1）随机初始化模型参数\theta的初值\theta^0。</p>
+<p>2）for  j  from  1   to   j：</p>
+<p>​    a） E步。计算联合分布的条件概率期望：</p>
+<p><img src="/2019/07/23/EM算法/10.PNG" alt=""></p>
+<p>​    b） M步。极大化$L(\theta, \theta^{j})$，得到\theta^{j+1}$\:</p>
+<p><img src="/2019/07/23/EM算法/11.PNG" alt=""></p>
+<p>​    c） 如果\theta^{j+1}收敛，则算法结束。否则继续回到步骤a）进行E步迭代。</p>
+<p>输出：模型参数\theta​。</p>
 
           
         
