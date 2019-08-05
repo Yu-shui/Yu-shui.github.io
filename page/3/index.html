@@ -301,6 +301,200 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/17/传统机器学习-LDA/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/17/传统机器学习-LDA/" itemprop="url">传统机器学习--LDA</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-17T23:02:46+08:00">
+                2019-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-共轭先验分布"><a href="#1-共轭先验分布" class="headerlink" title="1.共轭先验分布"></a>1.共轭先验分布</h3><p>共轭先验分布的提出：某观测数据服从概率分布p(θ），当观测到新的数据时，思考下列问题：</p>
+<blockquote>
+<p>1.能否根据新观测数据X更新参数θ；<br>2.根据新观测的数据可以在多大的程度上改变参数θ：θ=θ+rθ；<br>3.当重新估计得到θ时，给出的新参数数值θ的新概率分布p(θ|x)；</p>
+</blockquote>
+<p>分析：根据贝叶斯公式：p(θ|x)=p(x|θ)p(θ)<br>p(x),其中p(x|θ)是在已知θ的情况下估计x的概率分布，又称似然函数；p(θ)是原有的θ的概率分布；要想利用观测到的数据更新参数θ，就要使更新后的p(θ|x)和p(θ)服从相同的分布，所以p(θ)和p(θ|x)形成共轭分布，p(θ)叫做p(θ|x)的共轭先验分布。<br>举个投硬币的例子：使用参数θ的伯努利模型，θ为正面的概率，则结果为x的概率分布为：p(x|θ)=θx(1−θ)1-x</p>
+<p>在贝叶斯概率理论中，如果后验概率P(θ|X)和先验概率P(θ)满足同样的分布律(形式相同，参数不同)。那么，先验分布和后验分布被叫做共轭分布，同时，先验分布叫做似然函数的共轭先验分布。</p>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk.PNG" alt=""></p>
+<h3 id="2-pLSA"><a href="#2-pLSA" class="headerlink" title="2.pLSA"></a>2.pLSA</h3><p><a href="https://baike.baidu.com/item/LSA" target="_blank" rel="noopener"><strong>LSA</strong></a>是处理这类问题的著名技术。其主要思想就是映射高维向量到潜在语义空间，使其降维。LSA的目标就是要寻找到能够很好解决实体间词法和语义关系的数据映射。正是由于这些特性，使得LSA成为相当有价值并被广泛应用的分析工具。PLSA是以统计学的角度来看待<a href="https://baike.baidu.com/item/LSA" target="_blank" rel="noopener">LSA</a>，相比于标准的LSA，他的概率学变种有着更巨大的影响。</p>
+<p>概率潜在语义分析（pLSA）  基于双模式和共现的数据分析方法延伸的经典的统计学方法。 </p>
+<p>概率潜在语义分析应用于信息检索，过滤，自然语言处理，文本的机器学习或者其他相关领域。概率潜在语义分析与标准潜在语义分析的不同是，标准潜在语义分析是以共现表（就是共现的矩阵）的奇异值分解的形式表现的，而概率潜在语义分析却是基于派生自LCM的混合矩阵分解。考虑到word和doc共现形式，概率潜在语义分析基于多项式分布和条件分布的混合来建模共现的概率。所谓共现其实就是W和D的一个矩阵，所谓双模式就是在W和D上同时进行考虑。</p>
+<p>PLSA有时会出现过拟合的现象。所谓过拟合（Overfit），是这样一种现象：一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少。</p>
+<p>解决办法，要避免过拟合的问题，PLSA使用了一种广泛应用的最大似然估计的方法，期望最大化。PLSA中训练参数的值会随着文档的数目线性递增。PLSA可以生成其所在数据集的的文档的模型，但却不能生成新文档的模型。</p>
+<p>数学推导待补充（看不懂…..)</p>
+<h3 id="3-LDA主题模型原理"><a href="#3-LDA主题模型原理" class="headerlink" title="3.LDA主题模型原理"></a>3.LDA主题模型原理</h3><p>待补充（看不懂…..)</p>
+<h3 id="4-LDA参数学习–Gibbs采样训练流程"><a href="#4-LDA参数学习–Gibbs采样训练流程" class="headerlink" title="4.LDA参数学习–Gibbs采样训练流程"></a>4.LDA参数学习–Gibbs采样训练流程</h3><ol>
+<li>选择合适的主题数K，选择合适的超参数α、η；</li>
+<li>对于语料库中每一篇文档的每一个词，随机的赋予一个主题编号z；</li>
+<li>重新扫描语料库，对于每一个词，利用Gibbs采样公式更新它的topic的编号，并更新语料库中该词的编号。</li>
+<li>重复第三步中基于坐标轴轮询的Gibbs采样，直到Gibbs采样收敛。</li>
+<li>统计语料库中各个文档各个词的主题，得到文档主题分布</li>
+</ol>
+<h3 id="5-LDA生成主题特征，在之前的特征的基础上加入主题特征实现文本分类"><a href="#5-LDA生成主题特征，在之前的特征的基础上加入主题特征实现文本分类" class="headerlink" title="5.LDA生成主题特征，在之前的特征的基础上加入主题特征实现文本分类"></a>5.LDA生成主题特征，在之前的特征的基础上加入主题特征实现文本分类</h3><h5 id="1-先来了解数据集"><a href="#1-先来了解数据集" class="headerlink" title="1.先来了解数据集"></a>1.先来了解数据集</h5><p>数据集位于lda安装目录的tests文件夹中，包含三个文件：reuters.ldac, reuters.titles, reuters.tokens。<br>reuters.titles包含了395个文档的标题<br>reuters.tokens包含了这395个文档中出现的所有单词，总共是4258个<br>reuters.ldac有395行，第i行代表第i个文档中各个词汇出现的频率。以第0行为例，第0行代表的是第0个文档，从reuters.titles中可查到该文档的标题为“UK: Prince Charles spearheads British royal revolution. LONDON 1996-08-20”。<br>第0行的数据为：<br>159 0:1 2:1 6:1 9:1 12:5 13:2 20:1 21:4 24:2 29:1 ……<br>第一个数字159表示第0个文档里总共出现了159个单词（每个单词出现一或多次），<br>0:1表示第0个单词出现了1次，从reuters.tokens查到第0个单词为church<br>2:1表示第2个单词出现了1次，从reuters.tokens查到第2个单词为years<br>6:1表示第6个单词出现了1次，从reuters.tokens查到第6个单词为told<br>9:1表示第9个单词出现了1次，从reuters.tokens查到第9个单词为year<br>12:5表示第12个单词出现了5次，从reuters.tokens查到第12个单词为charles<br>……<br>这里第1、3、4、5、7、8、10、11……个单词序号和次数没列出来，表示出现的次数为0<br>注意：<br>395个文档的原文是没有的。上述三个文档是根据这395个文档处理之后得到的。</p>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk2.PNG" alt=""></p>
+<h5 id="2代码实现"><a href="#2代码实现" class="headerlink" title="2代码实现"></a>2代码实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#查看文本中词出先的频率</span><br><span class="line">import numpy as np</span><br><span class="line">import lda</span><br><span class="line">import lda.datasets</span><br><span class="line"></span><br><span class="line">X=lda.datasets.load_reuters()</span><br><span class="line">print(&quot;type(X):&#123;&#125;&quot;.format(type(X)))</span><br><span class="line">print(&quot;shape:&#123;&#125;\n&quot;.format(X.shape))</span><br><span class="line"></span><br><span class="line">print(X[:5,:5])</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk3.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#查看词</span><br><span class="line">vocab=lda.datasets.load_reuters_vocab()</span><br><span class="line">print(&quot;type(vocab):&#123;&#125;&quot;.format(type(vocab)))</span><br><span class="line">print(&quot;len(vocab):&#123;&#125;\n&quot;.format(len(vocab)))</span><br><span class="line">print(vocab[:5])</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk4.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#查看文档标题</span><br><span class="line">titles=lda.datasets.load_reuters_titles()</span><br><span class="line">print(&quot;type(title):&#123;&#125;&quot;.format(type(titles)))</span><br><span class="line">print(&quot;len(titles):&#123;&#125;&quot;.format(len(titles)))</span><br><span class="line">print(titles[:5])</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk5.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#查看前五个文档第0个词出现的次数</span><br><span class="line">doc_id=0</span><br><span class="line">word_id=0</span><br><span class="line">while doc_id &lt;5:</span><br><span class="line">    print(&quot;doc id:&#123;&#125; word id:&#123;&#125;&quot;.format(doc_id,word_id))</span><br><span class="line">    print(&quot;--count:&#123;&#125;&quot;.format(X[doc_id,word_id]))#doc_id是文档的标记</span><br><span class="line">    print(&quot;--word:&#123;&#125;&quot;.format(vocab[word_id]))</span><br><span class="line">    print(&quot;--doc :&#123;&#125;\n&quot;.format(titles[doc_id]))</span><br><span class="line">    doc_id+=1</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk6.PNG" alt=""></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#训练模型</span><br><span class="line">model=lda.LDA(n_topics=20,n_iter=500,random_state=1)</span><br><span class="line">model.fit(X)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk7.PNG" alt=""></p>
+<p>#主题-单词分布</p>
+<p>#计算前三个单词在所有的主题中所占的权重<br>topic_word=model.topic_word_<br>print(“type(topic_word):{}”.format(type(topic_word)))<br>print(“shape:{}”.format(topic_word.shape))<br>print(vocab[:3])<br>print(topic_word[:,:3])</p>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk8.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#计算所有行的比重之和</span><br><span class="line">for n in range(20):</span><br><span class="line">    sum_pr=sum(topic_word[n,:])</span><br><span class="line">    print(&quot;topic:&#123;&#125; sum:&#123;&#125;&quot;.format(n,sum_pr))</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk9.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#计算各个主题的topN个词</span><br><span class="line">n=5</span><br><span class="line">for i,topic_dist in enumerate(topic_word):</span><br><span class="line">    topic_words=np.array(vocab)[np.argsort(topic_dist)[:-(n+1):-1]]</span><br><span class="line">    print(&quot;top &#123;&#125;\n- &#123;&#125;&quot;.format(i,&apos; &apos;.join(topic_words)))</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/17/传统机器学习-LDA/kk10.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#计算前十篇文章最有可能的主题</span><br><span class="line"></span><br><span class="line">doc_topic=model.doc_topic_</span><br><span class="line">print(&quot;ytpr(doc_topic):&#123;&#125;&quot;.format(type(doc_topic)))</span><br><span class="line">print(&quot;shape:&#123;&#125;&quot;.format(doc_topic.shape))</span><br><span class="line">for n in range(10):</span><br><span class="line">    topic_most_pr=doc_topic[n].argmax()</span><br><span class="line">    print(&quot;doc:&#123;&#125; topic :&#123;&#125;&quot;.format(n,topic_most_pr))</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/17/传统机器学习-LDA/C:/blog\source\_posts\传统机器学习-LDA\kk11.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#可视化分析</span><br><span class="line">#绘制主题0，5，9，14的词的出现次数</span><br><span class="line"></span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">f,ax=plt.subplots(5,1,figsize=(8,6),sharex=True)</span><br><span class="line">for i,k in enumerate([0,5,9,14,19]):#枚举</span><br><span class="line">    print(i,k)</span><br><span class="line">    ax[i].stem(topic_word[k,:],linefmt=&apos;b-&apos;, markerfmt=&apos;bo&apos;, basefmt=&apos;w-&apos;)</span><br><span class="line">    </span><br><span class="line">    ax[i].set_xlim(-50, 4350)</span><br><span class="line">    ax[i].set_ylim(0, 0.08)</span><br><span class="line">    ax[i].set_ylabel(&quot;Prob&quot;)</span><br><span class="line">    ax[i].set_title(&quot;topic &#123;&#125;&quot;.format(k))</span><br><span class="line">ax[4].set_xlabel(&quot;word&quot;)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/17/传统机器学习-LDA/C:/blog\source\_posts\传统机器学习-LDA\kk12.PNG" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/支持向量机原理及应用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1936,172 +2130,11 @@ P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/机器学习5-决策树（部分/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/19/机器学习5-决策树（部分/" itemprop="url">机器学习5  决策树（部分)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-19T01:00:39+08:00">
-                2019-03-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>​                               </p>
-<h1 id="机器学习5（决策树）"><a href="#机器学习5（决策树）" class="headerlink" title="机器学习5（决策树）"></a>机器学习5（决策树<1>）</1></h1><h5 id="1-决策树"><a href="#1-决策树" class="headerlink" title="1.决策树"></a>1.决策树</h5><p>决策树为树结构，节点时决策结果，每隔叶节点存放一个类别，在每个节点的数个输出中，每个输出都代表特征属性在某个值域上的输出。</p>
-<h5 id="2-构成"><a href="#2-构成" class="headerlink" title="2.构成"></a>2.构成</h5><p>构造决策树最关键时在节点进行分支的时候，所分出的各个分支要尽可能的纯。典型的有三种算法：ID3算法使用信息增益作为不纯度，C4.5算法使用信息增益律作为不纯度，CART算法使用基尼系数作为不纯度。</p>
-<h5 id="3-信息增益，信息增益率，基尼系数"><a href="#3-信息增益，信息增益率，基尼系数" class="headerlink" title="3. 信息增益，信息增益率，基尼系数"></a>3. 信息增益，信息增益率，基尼系数</h5><p>信息增益越大，属性纯度越高，信息增益率是信息增益处以数目的平均值，基尼指数反应的是随机抽取两个样本，其类别不一致的概率，因此Gini(D)越小，数据集D的纯度越高。</p>
-<h5 id="4-剪枝（防止过拟合）"><a href="#4-剪枝（防止过拟合）" class="headerlink" title="4. 剪枝（防止过拟合）"></a>4. 剪枝（防止过拟合）</h5><p>优点：计算复杂度不高，输出结果容易理解，对中间值的缺失不敏感，可以处理不相关特征数据<br>缺点：可能产生过拟合问题<br>适用数据类型：数值型和标称型</p>
-<h6 id="3-1-预剪枝"><a href="#3-1-预剪枝" class="headerlink" title="3.1 预剪枝"></a>3.1 预剪枝</h6><pre><code>预剪枝对划分前后的泛化性能进行估计，若对某一节点划分后验证集的精度下降，则禁止划分该节点。预剪枝使得决策树的很多分支没有展开，不仅降低了过拟合的风险，还显著减少了决策树的训练时间开销和测试时间开销。但另一方面，有些分支的当前划分虽不能提升泛化性能、甚至可能导致泛化性能暂时下降，但在其基础上进行的后续划分却有可能导致性能显著提高。预剪枝基于“贪心”的本质禁止这些分支展开，给预剪枝决策树带来了欠拟合的风险。
-停止分类的条件：
-</code></pre><p>(1) 如果节点中所有观测属于一类；<br>(2) 如果节点中所有观测的属性取值一致；<br>(3) 如果树的深度达到设定的阈值；<br>(4) 如果该节点所含观测值小于设定的父节点应含观测数的阈值；<br>(5) 如果该节点的子节点所含观测数将小于设定的阈值；<br>(6) 如果没有属性能满足设定的分裂准则的阈值。</p>
-<h6 id="3-2-后剪枝"><a href="#3-2-后剪枝" class="headerlink" title="3.2 后剪枝"></a>3.2 后剪枝</h6><pre><code>后剪枝先从训练集生成一棵完整决策树，对每个节点，若将该节点对应的子树替换为叶节点后，验证集精度提升，则进行剪枝。后剪枝决策树通常比预剪枝决策树保留了更多的分支。一般情况下，后剪枝决策树的欠拟合风险很小，泛化性能往往优于预剪枝决策树，但后剪枝过程是在生成完全决策树之后进行的，并且要自底向上地对树中的所有非叶节点进行逐一考察，因此其训练时间开销比未剪枝决策树和预剪枝决策树都要大得多。
-后剪枝的方法：
-</code></pre><p>(1) Reduced-Error Pruning (REP)：删除以此节点为根的子树使其成为叶节点，赋予该节点关联的训练数据的最常见分类，当修剪后的树对于验证集合的性能不会比原来的树差时，才真正删除该节点。<br>(2) Pessimistic Error Pruning (PEP)：计算某节点的误差，计算该节点的叶节点误差之和，当其误差小于等于叶节点误差之和加一个标准差时，则修建该节点。<br>(3) CCP：给基尼指数加上惩罚项，此时树的层次越深，基尼指数的惩罚项越大。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2147,7 +2180,7 @@ P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
