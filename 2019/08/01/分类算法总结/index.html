@@ -79,21 +79,20 @@
 
 
 
-<meta name="description" content="简单神经网络（2）1.词袋模型(bow : 离散、高维、稀疏)在自然语言处理和文本分析的问题中，词袋（Bag of Words, BOW）和词向量（Word Embedding）是两种最常用的模型。更准确地说，词向量只能表征单个词，如果要表示文本，需要做一些额外的处理。所谓BOW，就是将文本/Query看作是一系列词的集合。  离散：无法衡量词向量之间的关系, 比如酒店、宾馆、旅社 三者都只在某一">
+<meta name="description" content="分类算法总结​    分类算法和回归算法是对真实世界不同建模的方法。分类模型是认为模型的输出是离散的，例如大自然的生物被划分为不同的种类，是离散的。回归模型的输出是连续的，例如人的身高变化过程是一个连续过程，而不是离散的。 ​    因此，在实际建模过程时，采用分类模型还是回归模型，取决于你对任务（真实世界）的分析和理解。 1. 常用分类算法的优缺点？​    接下来我们介绍常用分类算法的优缺点，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="简单神经网络(2)">
-<meta property="og:url" content="http://yoursite.com/2019/04/22/简单神经网络-2/index.html">
+<meta property="og:title" content="分类算法总结">
+<meta property="og:url" content="http://yoursite.com/2019/08/01/分类算法总结/index.html">
 <meta property="og:site_name" content="Yu-shui">
-<meta property="og:description" content="简单神经网络（2）1.词袋模型(bow : 离散、高维、稀疏)在自然语言处理和文本分析的问题中，词袋（Bag of Words, BOW）和词向量（Word Embedding）是两种最常用的模型。更准确地说，词向量只能表征单个词，如果要表示文本，需要做一些额外的处理。所谓BOW，就是将文本/Query看作是一系列词的集合。  离散：无法衡量词向量之间的关系, 比如酒店、宾馆、旅社 三者都只在某一">
+<meta property="og:description" content="分类算法总结​    分类算法和回归算法是对真实世界不同建模的方法。分类模型是认为模型的输出是离散的，例如大自然的生物被划分为不同的种类，是离散的。回归模型的输出是连续的，例如人的身高变化过程是一个连续过程，而不是离散的。 ​    因此，在实际建模过程时，采用分类模型还是回归模型，取决于你对任务（真实世界）的分析和理解。 1. 常用分类算法的优缺点？​    接下来我们介绍常用分类算法的优缺点，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络-2/nn1.PNG">
-<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络-2/nn2.PNG">
-<meta property="og:image" content="http://yoursite.com/2019/04/22/简单神经网络-2/nn3.PNG">
-<meta property="og:updated_time" content="2019-04-23T06:16:25.837Z">
+<meta property="og:image" content="http://yoursite.com/2019/08/01/分类算法总结/1.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/08/01/分类算法总结/2.PNG">
+<meta property="og:updated_time" content="2019-07-31T18:12:30.934Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="简单神经网络(2)">
-<meta name="twitter:description" content="简单神经网络（2）1.词袋模型(bow : 离散、高维、稀疏)在自然语言处理和文本分析的问题中，词袋（Bag of Words, BOW）和词向量（Word Embedding）是两种最常用的模型。更准确地说，词向量只能表征单个词，如果要表示文本，需要做一些额外的处理。所谓BOW，就是将文本/Query看作是一系列词的集合。  离散：无法衡量词向量之间的关系, 比如酒店、宾馆、旅社 三者都只在某一">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/22/简单神经网络-2/nn1.PNG">
+<meta name="twitter:title" content="分类算法总结">
+<meta name="twitter:description" content="分类算法总结​    分类算法和回归算法是对真实世界不同建模的方法。分类模型是认为模型的输出是离散的，例如大自然的生物被划分为不同的种类，是离散的。回归模型的输出是连续的，例如人的身高变化过程是一个连续过程，而不是离散的。 ​    因此，在实际建模过程时，采用分类模型还是回归模型，取决于你对任务（真实世界）的分析和理解。 1. 常用分类算法的优缺点？​    接下来我们介绍常用分类算法的优缺点，">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/01/分类算法总结/1.PNG">
 
 
 
@@ -123,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/22/简单神经网络-2/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/01/分类算法总结/">
 
 
 
 
 
-  <title>简单神经网络(2) | Yu-shui</title>
+  <title>分类算法总结 | Yu-shui</title>
   
 
 
@@ -308,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/简单神经网络-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/分类算法总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yu-shui">
@@ -325,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">简单神经网络(2)</h1>
+          <h1 class="post-title" itemprop="name headline">分类算法总结</h1>
         
 
         <div class="post-meta">
@@ -337,8 +336,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T21:31:36+08:00">
-                2019-04-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-01T02:06:29+08:00">
+                2019-08-01
               </time>
             
 
@@ -406,29 +405,91 @@
       
 
       
-        <h1 id="简单神经网络（2）"><a href="#简单神经网络（2）" class="headerlink" title="简单神经网络（2）"></a>简单神经网络（2）</h1><h3 id="1-词袋模型-bow-离散、高维、稀疏"><a href="#1-词袋模型-bow-离散、高维、稀疏" class="headerlink" title="1.词袋模型(bow : 离散、高维、稀疏)"></a>1.词袋模型(bow : 离散、高维、稀疏)</h3><p>在自然语言处理和文本分析的问题中，词袋（Bag of Words, BOW）和词向量（Word Embedding）是两种最常用的模型。更准确地说，词向量只能表征单个词，如果要表示文本，需要做一些额外的处理。所谓BOW，就是将文本/Query看作是一系列词的集合。</p>
+        <h2 id="分类算法总结"><a href="#分类算法总结" class="headerlink" title="分类算法总结"></a>分类算法总结</h2><p>​    分类算法和回归算法是对真实世界不同建模的方法。分类模型是认为模型的输出是离散的，例如大自然的生物被划分为不同的种类，是离散的。回归模型的输出是连续的，例如人的身高变化过程是一个连续过程，而不是离散的。</p>
+<p>​    因此，在实际建模过程时，采用分类模型还是回归模型，取决于你对任务（真实世界）的分析和理解。</p>
+<h3 id="1-常用分类算法的优缺点？"><a href="#1-常用分类算法的优缺点？" class="headerlink" title="1. 常用分类算法的优缺点？"></a>1. 常用分类算法的优缺点？</h3><p>​    接下来我们介绍常用分类算法的优缺点，如表2-1所示。</p>
+<p>​                                    表2-1 常用分类算法的优缺点</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">算法</th>
+<th style="text-align:left">优点</th>
+<th style="text-align:left">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Bayes 贝叶斯分类法</td>
+<td style="text-align:left">1）所需估计的参数少，对于缺失数据不敏感。<br>2）有着坚实的数学基础，以及稳定的分类效率。</td>
+<td style="text-align:left">1）需要假设属性之间相互独立，这往往并不成立。（喜欢吃番茄、鸡蛋，却不喜欢吃番茄炒蛋）。<br>2）需要知道先验概率。<br>3）分类决策存在错误率。</td>
+</tr>
+<tr>
+<td style="text-align:left">Decision Tree决策树</td>
+<td style="text-align:left">1）不需要任何领域知识或参数假设。<br>2）适合高维数据。<br>3）简单易于理解。<br>4）短时间内处理大量数据，得到可行且效果较好的结果。<br>5）能够同时处理数据型和常规性属性。</td>
+<td style="text-align:left">1）对于各类别样本数量不一致数据，信息增益偏向于那些具有更多数值的特征。<br>2）易于过拟合。<br>3）忽略属性之间的相关性。<br>4）不支持在线学习。</td>
+</tr>
+<tr>
+<td style="text-align:left">SVM支持向量机</td>
+<td style="text-align:left">1）可以解决小样本下机器学习的问题。<br>2）提高泛化性能。<br>3）可以解决高维、非线性问题。超高维文本分类仍受欢迎。<br>4）避免神经网络结构选择和局部极小的问题。</td>
+<td style="text-align:left">1）对缺失数据敏感。<br>2）内存消耗大，难以解释。<br>3）运行和调参略烦人。</td>
+</tr>
+<tr>
+<td style="text-align:left">KNN K近邻</td>
+<td style="text-align:left">1）思想简单，理论成熟，既可以用来做分类也可以用来做回归； <br>2）可用于非线性分类；<br> 3）训练时间复杂度为O(n)； <br>4）准确度高，对数据没有假设，对outlier不敏感；</td>
+<td style="text-align:left">1）计算量太大。<br>2）对于样本分类不均衡的问题，会产生误判。<br>3）需要大量的内存。<br>4）输出的可解释性不强。</td>
+</tr>
+<tr>
+<td style="text-align:left">Logistic Regression逻辑回归</td>
+<td style="text-align:left">1）速度快。<br>2）简单易于理解，直接看到各个特征的权重。<br>3）能容易地更新模型吸收新的数据。<br>4）如果想要一个概率框架，动态调整分类阀值。</td>
+<td style="text-align:left">特征处理复杂。需要归一化和较多的特征工程。</td>
+</tr>
+<tr>
+<td style="text-align:left">Neural Network 神经网络</td>
+<td style="text-align:left">1）分类准确率高。<br>2）并行处理能力强。<br>3）分布式存储和学习能力强。<br>4）鲁棒性较强，不易受噪声影响。</td>
+<td style="text-align:left">1）需要大量参数（网络拓扑、阀值、阈值）。<br>2）结果难以解释。<br>3）训练时间过长。</td>
+</tr>
+<tr>
+<td style="text-align:left">Adaboosting</td>
+<td style="text-align:left">1）adaboost是一种有很高精度的分类器。<br>2）可以使用各种方法构建子分类器，Adaboost算法提供的是框架。<br>3）当使用简单分类器时，计算出的结果是可以理解的。而且弱分类器构造极其简单。<br>4）简单，不用做特征筛选。<br>5）不用担心overfitting。</td>
+<td style="text-align:left">对outlier比较敏感</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-分类算法的评估方法"><a href="#2-分类算法的评估方法" class="headerlink" title="2. 分类算法的评估方法"></a>2. 分类算法的评估方法</h3><p>​    分类评估方法主要功能是用来评估分类算法的好坏，而评估一个分类器算法的好坏又包括许多项指标。了解各种评估方法，在实际应用中选择正确的评估方法是十分重要的。</p>
 <ul>
-<li><strong>离散</strong>：无法衡量词向量之间的关系, 比如酒店、宾馆、旅社 三者都只在某一个固定的位置为 1 ，所以找不到三者的关系，各种度量(与或非、距离)都不合适，即太稀疏，很难捕捉到文本的含义。</li>
-<li><p><strong>高维</strong>：词表维度随着语料库增长膨胀，n-gram 序列随语料库膨胀更快。</p>
-</li>
-<li><p><strong>数据稀疏</strong>： 数据都没有特征多，数据有 100 条，特征有 1000 个</p>
+<li><p><strong>几个常用术语</strong><br> 1) True positives(TP):  被正确地划分为正例的个数，即实际为正例且被分类器划分为正例的实例数；<br> 2) False positives(FP): 被错误地划分为正例的个数，即实际为负例但被分类器划分为正例的实例数；<br> 3) False negatives(FN):被错误地划分为负例的个数，即实际为正例但被分类器划分为负例的实例数；<br> 4) True negatives(TN): 被正确地划分为负例的个数，即实际为负例且被分类器划分为负例的实数。　</p>
+<p>​                                    表2-2 四个术语的混淆矩阵</p>
 </li>
 </ul>
-<p>举个例子：<br>                   <strong>文本1：苏宁易购/是/国内/著名/的/B2C/电商/之一</strong><br>这是一个短文本。“/”作为词与词之间的分割。从中我们可以看到这个文本包含“苏宁易购”，“B2C”，“电商”等词。换句话说，该文本的的词袋由“苏宁易购”，“电商”等词构成。就像这样：</p>
-<p><img src="/2019/04/22/简单神经网络-2/nn1.PNG" alt=""></p>
-<p>但计算机不认识字，只认识数字，那在计算机中怎么表示词袋模型呢？其实很简单，给每个词一个位置/索引就可以了。例如，我们令“苏宁易购”的索引为0，“电商”的索引为1，其他以此类推。则该文本的词袋就变成了：</p>
-<p><img src="/2019/04/22/简单神经网络-2/nn2.PNG" alt=""></p>
-<p>词袋是在词集的基础上增加了频率的维度，词集只关注有和没有，词袋还要关注有几个。 </p>
-<p>假设我们要对一篇文章进行特征化，最常见的方式就是词袋。</p>
-<p>假如现在有1000篇新闻文档，把这些文档拆成一个个的字，去重后得到3000个字，然后把这3000个字作为字典，进行文本表示的模型，叫做词袋模型。这种模型的特点是字典中的字没有特定的顺序，句子的总体结构也被舍弃了.</p>
+<p>​       <img src="/2019/08/01/分类算法总结/1.PNG" alt=""><br>​    1）P=TP+FN表示实际为正例的样本个数。<br>​    2）True、False描述的是分类器是否判断正确。<br>​    3）Positive、Negative是分类器的分类结果，如果正例计为1、负例计为-1，即positive=1、negative=-1。用1表示True，-1表示False，那么实际的类标=TF*PN，TF为true或false，PN为positive或negative。<br>​    4）例如True positives(TP)的实际类标=1*1=1为正例，False positives(FP)的实际类标=(-1)*1=-1为负例，False negatives(FN)的实际类标=(-1)*(-1)=1为正例，True negatives(TN)的实际类标=1*(-1)=-1为负例。</p>
 <ul>
-<li>2.分布式表示(连续，稠密，低维)</li>
+<li><p><strong>评价指标</strong><br>1) 正确率（accuracy）</p>
+<pre><code>正确率是我们最常见的评价指标，accuracy = (TP+TN)/(P+N)，正确率是被分对的样本数在所有样本数中的占比，通常来说，正确率越高，分类器越好。
+</code></pre><p>2) 错误率（error rate)</p>
+<pre><code>错误率则与正确率相反，描述被分类器错分的比例，error rate = (FP+FN)/(P+N)，对某一个实例来说，分对与分错是互斥事件，所以accuracy =1 -  error rate。
+</code></pre><p>3) 灵敏度（sensitivity）</p>
+<pre><code>sensitivity = TP/P，表示的是所有正例中被分对的比例，衡量了分类器对正例的识别能力。
+</code></pre><p>4) 特异性（specificity)</p>
+<pre><code>specificity = TN/N，表示的是所有负例中被分对的比例，衡量了分类器对负例的识别能力。
+</code></pre><p>5) 精度（precision）</p>
+<pre><code>precision=TP/(TP+FP)，精度是精确性的度量，表示被分为正例的示例中实际为正例的比例。
+</code></pre><p>6) 召回率（recall）</p>
+<pre><code>召回率是覆盖面的度量，度量有多个正例被分为正例，recall=TP/(TP+FN)=TP/P=sensitivity，可以看到召回率与灵敏度是一样的。
+</code></pre><p>7) 其他评价指标</p>
+<pre><code>计算速度：分类器训练和预测需要的时间；
+鲁棒性：处理缺失值和异常值的能力；
+可扩展性：处理大数据集的能力；
+可解释性：分类器的预测标准的可理解性，像决策树产生的规则就是很容易理解的，而神经网络的一堆参数就不好理解，我们只好把它看成一个黑盒子。
+</code></pre><p>8) 精度和召回率反映了分类器分类性能的两个方面。如果综合考虑查准率与查全率，可以得到新的评价指标F1-score，也称为综合分类率：$F1=\frac{2 \times precision \times recall}{precision + recall}​$。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">为了综合多个类别的分类情况，评测系统整体性能，经常采用的还有微平均F1（micro-averaging）和宏平均F1（macro-averaging ）两种指标。</span><br><span class="line"></span><br><span class="line">（1）宏平均F1与微平均F1是以两种不同的平均方式求的全局F1指标。</span><br><span class="line"></span><br><span class="line">（2）宏平均F1的计算方法先对每个类别单独计算F1值，再取这些F1值的算术平均值作为全局指标。</span><br><span class="line"></span><br><span class="line">（3）微平均F1的计算方法是先累加计算各个类别的a、b、c、d的值，再由这些值求出F1值。</span><br><span class="line"></span><br><span class="line">（4）由两种平均F1的计算方式不难看出，宏平均F1平等对待每一个类别，所以它的值主要受到稀有类别的影响，而微平均F1平等考虑文档集中的每一个文档，所以它的值受到常见类别的影响比较大。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ROC曲线和PR曲线</strong></p>
+<p>如图2-3，ROC曲线是（Receiver Operating Characteristic Curve，受试者工作特征曲线）的简称，是以灵敏度（真阳性率）为纵坐标，以1减去特异性（假阳性率）为横坐标绘制的性能评价曲线。可以将不同模型对同一数据集的ROC曲线绘制在同一笛卡尔坐标系中，ROC曲线越靠近左上角，说明其对应模型越可靠。也可以通过ROC曲线下面的面积（Area Under Curve, AUC）来评价模型，AUC越大，模型越可靠。</p>
+<p><img src="/2019/08/01/分类算法总结/2.PNG" alt=""></p>
+</li>
 </ul>
-<p>分布式（distributed）描述的是把<br>信息分布式地存储在向量的各个维度中，与之相对的是局部表示（local<br>representation），如词的独热表示（one-hot representation），在高维向量中<br>只有一个维度描述了词的语义。一般来说，通过矩阵降维或神经网络降维<br>可以将语义分散存储到向量的各个维度中，因此，这类方法得到的低维向 量一般都可以称作分布式表示。</p>
-<h3 id="2-word2vec代码实现"><a href="#2-word2vec代码实现" class="headerlink" title="2.word2vec代码实现"></a>2.word2vec代码实现</h3><p><img src="/2019/04/22/简单神经网络-2/nn3.PNG" alt=""></p>
-<h3 id="3-bow2vec-TFIDF模型"><a href="#3-bow2vec-TFIDF模型" class="headerlink" title="3.bow2vec + TFIDF模型"></a>3.bow2vec + TFIDF模型</h3><p>主要内容为：<br>拆分句子为单词颗粒，记号化；<br>生成词典；<br>生成稀疏文档矩阵</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">documents = [&quot;Human machine interface for lab abc computer applications&quot;,</span><br><span class="line">             &quot;A survey of user opinion of computer system response time&quot;,</span><br><span class="line">             &quot;The EPS user interface management system&quot;,</span><br><span class="line">             &quot;System and human system engineering testing of EPS&quot;,              </span><br><span class="line">             &quot;Relation of user perceived response time to error measurement&quot;,</span><br><span class="line">             &quot;The generation of random binary unordered trees&quot;,</span><br><span class="line">             &quot;The intersection graph of paths in trees&quot;,</span><br><span class="line">             &quot;Graph minors IV Widths of trees and well quasi ordering&quot;,</span><br><span class="line">             &quot;Graph minors A survey&quot;]</span><br><span class="line"></span><br><span class="line"># 分词并根据词频剔除</span><br><span class="line"># remove common words and tokenize</span><br><span class="line">stoplist = set(&apos;for a of the and to in&apos;.split())</span><br><span class="line">texts = [[word for word in document.lower().split() if word not in stoplist]</span><br><span class="line">         for document in documents]</span><br><span class="line">         </span><br><span class="line">         #分词并根据词频剔除</span><br><span class="line">#将句子划分为词</span><br><span class="line">stoplist=set(&apos;for a of the end to in&apos;.split())</span><br><span class="line">texts=[[word for word in document.lower().split() if word not in stoplist] for document in documents]</span><br><span class="line">print(texts)</span><br><span class="line"></span><br><span class="line">#生成词典</span><br><span class="line">from gensim import corpora</span><br><span class="line">import os</span><br><span class="line">dictionary=corpora.Dictionary(texts)</span><br><span class="line">dictionary.save(os.path.join(&apos;C:/Users/wuxun/Desktop/&apos;,&apos;deerwester.dict&apos;))#存储词典#路径拼接函数</span><br><span class="line">print(dictionary)</span><br><span class="line">print(dictionary.token2id)</span><br></pre></td></tr></table></figure>
-<h5 id="tfidf"><a href="#tfidf" class="headerlink" title="tfidf"></a>tfidf</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#生成词袋</span><br><span class="line">new_doc=&quot;Human computer interaction Human&quot;</span><br><span class="line">new_vec=dictionary.doc2bow(new_doc.lower().split())</span><br><span class="line">print(new_vec)</span><br><span class="line"># the word &quot;interaction&quot; does not appear in the dictionary and is ignored</span><br><span class="line">    # [(0, 1), (1, 1)] ，词典（dictionary）中第0个词，出现的频数为1（当前句子），</span><br><span class="line">    # 第1个词，出现的频数为1</span><br><span class="line">#多句bow生成</span><br><span class="line">[dictionary.doc2bow(text) for text in texts]</span><br><span class="line">#print(texts)</span><br><span class="line"></span><br><span class="line">from gensim import corpora,models,similarities</span><br><span class="line">corpus = [[(0, 1.0), (1, 1.0), (2, 1.0)],</span><br><span class="line">          [(2, 1.0), (3, 1.0), (4, 1.0), (5, 1.0), (6, 1.0), (8, 1.0)],</span><br><span class="line">          [(1, 1.0), (3, 1.0), (4, 1.0), (7, 1.0)],</span><br><span class="line">          [(0, 1.0), (4, 2.0), (7, 1.0)],</span><br><span class="line">          [(3, 1.0), (5, 1.0), (6, 1.0)],</span><br><span class="line">          [(9, 1.0)],</span><br><span class="line">          [(9, 1.0), (10, 1.0)],</span><br><span class="line">          [(9, 1.0), (10, 1.0), (11, 1.0)],</span><br><span class="line">          [(8, 1.0), (10, 1.0), (11, 1.0)]]</span><br><span class="line">tfidf=models.TfidfModel(corpus)</span><br><span class="line"></span><br><span class="line">#词袋模型，实践</span><br><span class="line">vec=[(0,1),(4,1),(9,1)]</span><br><span class="line">print(tfidf[vec])</span><br><span class="line">#查找vec中，0,4,9号三个词的TFIDF值。同时进行转化，把之前的文档矩阵中的词频变成了TFIDF值。</span><br><span class="line">#利用tfidf求相似：</span><br><span class="line"></span><br><span class="line">index=similarities.SparseMatrixSimilarity(tfidf[corpus],num_features=12)</span><br><span class="line">vec=[(0,1),(4,1),(9,1)]</span><br><span class="line">sims=index[tfidf[vec]]</span><br><span class="line">#对corpus中的九个文档进行文档级别索引，vec是新文档的词袋,sim就是该vec向量对corpus中九个文档的相似性</span><br><span class="line">print(list(enumerate(sims)))</span><br></pre></td></tr></table></figure>
+<p>​                                                                             图2-3 ROC曲线</p>
+<p>​    PR曲线是Precision Recall Curve的简称，描述的是precision和recall之间的关系，以recall为横坐标，precision为纵坐标绘制的曲线。该曲线的所对应的面积AUC实际上是目标检测中常用的评价指标平均精度（Average Precision, AP）。AP越高，说明模型性能越好。</p>
 
       
     </div>
@@ -453,8 +514,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/22/简单神经网络/" rel="next" title="简单神经网络">
-                <i class="fa fa-chevron-left"></i> 简单神经网络
+              <a href="/2019/08/01/机器学习学习方式/" rel="next" title="机器学习学习方式">
+                <i class="fa fa-chevron-left"></i> 机器学习学习方式
               </a>
             
           </div>
@@ -462,10 +523,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/23/tensorflow-实现神经网络/" rel="prev" title="tensorflow 实现神经网络">
-                tensorflow 实现神经网络 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单神经网络（2）"><span class="nav-number">1.</span> <span class="nav-text">简单神经网络（2）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-词袋模型-bow-离散、高维、稀疏"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.词袋模型(bow : 离散、高维、稀疏)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-word2vec代码实现"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.word2vec代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-bow2vec-TFIDF模型"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.bow2vec + TFIDF模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#tfidf"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">tfidf</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类算法总结"><span class="nav-number">1.</span> <span class="nav-text">分类算法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-常用分类算法的优缺点？"><span class="nav-number">1.1.</span> <span class="nav-text">1. 常用分类算法的优缺点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分类算法的评估方法"><span class="nav-number">1.2.</span> <span class="nav-text">2. 分类算法的评估方法</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -301,6 +301,241 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/分类算法总结/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/01/分类算法总结/" itemprop="url">分类算法总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-01T02:06:29+08:00">
+                2019-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="分类算法总结"><a href="#分类算法总结" class="headerlink" title="分类算法总结"></a>分类算法总结</h2><p>​    分类算法和回归算法是对真实世界不同建模的方法。分类模型是认为模型的输出是离散的，例如大自然的生物被划分为不同的种类，是离散的。回归模型的输出是连续的，例如人的身高变化过程是一个连续过程，而不是离散的。</p>
+<p>​    因此，在实际建模过程时，采用分类模型还是回归模型，取决于你对任务（真实世界）的分析和理解。</p>
+<h3 id="1-常用分类算法的优缺点？"><a href="#1-常用分类算法的优缺点？" class="headerlink" title="1. 常用分类算法的优缺点？"></a>1. 常用分类算法的优缺点？</h3><p>​    接下来我们介绍常用分类算法的优缺点，如表2-1所示。</p>
+<p>​                                    表2-1 常用分类算法的优缺点</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">算法</th>
+<th style="text-align:left">优点</th>
+<th style="text-align:left">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Bayes 贝叶斯分类法</td>
+<td style="text-align:left">1）所需估计的参数少，对于缺失数据不敏感。<br>2）有着坚实的数学基础，以及稳定的分类效率。</td>
+<td style="text-align:left">1）需要假设属性之间相互独立，这往往并不成立。（喜欢吃番茄、鸡蛋，却不喜欢吃番茄炒蛋）。<br>2）需要知道先验概率。<br>3）分类决策存在错误率。</td>
+</tr>
+<tr>
+<td style="text-align:left">Decision Tree决策树</td>
+<td style="text-align:left">1）不需要任何领域知识或参数假设。<br>2）适合高维数据。<br>3）简单易于理解。<br>4）短时间内处理大量数据，得到可行且效果较好的结果。<br>5）能够同时处理数据型和常规性属性。</td>
+<td style="text-align:left">1）对于各类别样本数量不一致数据，信息增益偏向于那些具有更多数值的特征。<br>2）易于过拟合。<br>3）忽略属性之间的相关性。<br>4）不支持在线学习。</td>
+</tr>
+<tr>
+<td style="text-align:left">SVM支持向量机</td>
+<td style="text-align:left">1）可以解决小样本下机器学习的问题。<br>2）提高泛化性能。<br>3）可以解决高维、非线性问题。超高维文本分类仍受欢迎。<br>4）避免神经网络结构选择和局部极小的问题。</td>
+<td style="text-align:left">1）对缺失数据敏感。<br>2）内存消耗大，难以解释。<br>3）运行和调参略烦人。</td>
+</tr>
+<tr>
+<td style="text-align:left">KNN K近邻</td>
+<td style="text-align:left">1）思想简单，理论成熟，既可以用来做分类也可以用来做回归； <br>2）可用于非线性分类；<br> 3）训练时间复杂度为O(n)； <br>4）准确度高，对数据没有假设，对outlier不敏感；</td>
+<td style="text-align:left">1）计算量太大。<br>2）对于样本分类不均衡的问题，会产生误判。<br>3）需要大量的内存。<br>4）输出的可解释性不强。</td>
+</tr>
+<tr>
+<td style="text-align:left">Logistic Regression逻辑回归</td>
+<td style="text-align:left">1）速度快。<br>2）简单易于理解，直接看到各个特征的权重。<br>3）能容易地更新模型吸收新的数据。<br>4）如果想要一个概率框架，动态调整分类阀值。</td>
+<td style="text-align:left">特征处理复杂。需要归一化和较多的特征工程。</td>
+</tr>
+<tr>
+<td style="text-align:left">Neural Network 神经网络</td>
+<td style="text-align:left">1）分类准确率高。<br>2）并行处理能力强。<br>3）分布式存储和学习能力强。<br>4）鲁棒性较强，不易受噪声影响。</td>
+<td style="text-align:left">1）需要大量参数（网络拓扑、阀值、阈值）。<br>2）结果难以解释。<br>3）训练时间过长。</td>
+</tr>
+<tr>
+<td style="text-align:left">Adaboosting</td>
+<td style="text-align:left">1）adaboost是一种有很高精度的分类器。<br>2）可以使用各种方法构建子分类器，Adaboost算法提供的是框架。<br>3）当使用简单分类器时，计算出的结果是可以理解的。而且弱分类器构造极其简单。<br>4）简单，不用做特征筛选。<br>5）不用担心overfitting。</td>
+<td style="text-align:left">对outlier比较敏感</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-分类算法的评估方法"><a href="#2-分类算法的评估方法" class="headerlink" title="2. 分类算法的评估方法"></a>2. 分类算法的评估方法</h3><p>​    分类评估方法主要功能是用来评估分类算法的好坏，而评估一个分类器算法的好坏又包括许多项指标。了解各种评估方法，在实际应用中选择正确的评估方法是十分重要的。</p>
+<ul>
+<li><p><strong>几个常用术语</strong><br> 1) True positives(TP):  被正确地划分为正例的个数，即实际为正例且被分类器划分为正例的实例数；<br> 2) False positives(FP): 被错误地划分为正例的个数，即实际为负例但被分类器划分为正例的实例数；<br> 3) False negatives(FN):被错误地划分为负例的个数，即实际为正例但被分类器划分为负例的实例数；<br> 4) True negatives(TN): 被正确地划分为负例的个数，即实际为负例且被分类器划分为负例的实数。　</p>
+<p>​                                    表2-2 四个术语的混淆矩阵</p>
+</li>
+</ul>
+<p>​       <img src="/2019/08/01/分类算法总结/1.PNG" alt=""><br>​    1）P=TP+FN表示实际为正例的样本个数。<br>​    2）True、False描述的是分类器是否判断正确。<br>​    3）Positive、Negative是分类器的分类结果，如果正例计为1、负例计为-1，即positive=1、negative=-1。用1表示True，-1表示False，那么实际的类标=TF*PN，TF为true或false，PN为positive或negative。<br>​    4）例如True positives(TP)的实际类标=1*1=1为正例，False positives(FP)的实际类标=(-1)*1=-1为负例，False negatives(FN)的实际类标=(-1)*(-1)=1为正例，True negatives(TN)的实际类标=1*(-1)=-1为负例。</p>
+<ul>
+<li><p><strong>评价指标</strong><br>1) 正确率（accuracy）</p>
+<pre><code>正确率是我们最常见的评价指标，accuracy = (TP+TN)/(P+N)，正确率是被分对的样本数在所有样本数中的占比，通常来说，正确率越高，分类器越好。
+</code></pre><p>2) 错误率（error rate)</p>
+<pre><code>错误率则与正确率相反，描述被分类器错分的比例，error rate = (FP+FN)/(P+N)，对某一个实例来说，分对与分错是互斥事件，所以accuracy =1 -  error rate。
+</code></pre><p>3) 灵敏度（sensitivity）</p>
+<pre><code>sensitivity = TP/P，表示的是所有正例中被分对的比例，衡量了分类器对正例的识别能力。
+</code></pre><p>4) 特异性（specificity)</p>
+<pre><code>specificity = TN/N，表示的是所有负例中被分对的比例，衡量了分类器对负例的识别能力。
+</code></pre><p>5) 精度（precision）</p>
+<pre><code>precision=TP/(TP+FP)，精度是精确性的度量，表示被分为正例的示例中实际为正例的比例。
+</code></pre><p>6) 召回率（recall）</p>
+<pre><code>召回率是覆盖面的度量，度量有多个正例被分为正例，recall=TP/(TP+FN)=TP/P=sensitivity，可以看到召回率与灵敏度是一样的。
+</code></pre><p>7) 其他评价指标</p>
+<pre><code>计算速度：分类器训练和预测需要的时间；
+鲁棒性：处理缺失值和异常值的能力；
+可扩展性：处理大数据集的能力；
+可解释性：分类器的预测标准的可理解性，像决策树产生的规则就是很容易理解的，而神经网络的一堆参数就不好理解，我们只好把它看成一个黑盒子。
+</code></pre><p>8) 精度和召回率反映了分类器分类性能的两个方面。如果综合考虑查准率与查全率，可以得到新的评价指标F1-score，也称为综合分类率：$F1=\frac{2 \times precision \times recall}{precision + recall}​$。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">为了综合多个类别的分类情况，评测系统整体性能，经常采用的还有微平均F1（micro-averaging）和宏平均F1（macro-averaging ）两种指标。</span><br><span class="line"></span><br><span class="line">（1）宏平均F1与微平均F1是以两种不同的平均方式求的全局F1指标。</span><br><span class="line"></span><br><span class="line">（2）宏平均F1的计算方法先对每个类别单独计算F1值，再取这些F1值的算术平均值作为全局指标。</span><br><span class="line"></span><br><span class="line">（3）微平均F1的计算方法是先累加计算各个类别的a、b、c、d的值，再由这些值求出F1值。</span><br><span class="line"></span><br><span class="line">（4）由两种平均F1的计算方式不难看出，宏平均F1平等对待每一个类别，所以它的值主要受到稀有类别的影响，而微平均F1平等考虑文档集中的每一个文档，所以它的值受到常见类别的影响比较大。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ROC曲线和PR曲线</strong></p>
+<p>如图2-3，ROC曲线是（Receiver Operating Characteristic Curve，受试者工作特征曲线）的简称，是以灵敏度（真阳性率）为纵坐标，以1减去特异性（假阳性率）为横坐标绘制的性能评价曲线。可以将不同模型对同一数据集的ROC曲线绘制在同一笛卡尔坐标系中，ROC曲线越靠近左上角，说明其对应模型越可靠。也可以通过ROC曲线下面的面积（Area Under Curve, AUC）来评价模型，AUC越大，模型越可靠。</p>
+<p><img src="/2019/08/01/分类算法总结/2.PNG" alt=""></p>
+</li>
+</ul>
+<p>​                                                                             图2-3 ROC曲线</p>
+<p>​    PR曲线是Precision Recall Curve的简称，描述的是precision和recall之间的关系，以recall为横坐标，precision为纵坐标绘制的曲线。该曲线的所对应的面积AUC实际上是目标检测中常用的评价指标平均精度（Average Precision, AP）。AP越高，说明模型性能越好。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/机器学习学习方式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1898,156 +2133,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/数据分析任务1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/12/数据分析任务1/" itemprop="url">数据分析任务1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-12T19:38:47+08:00">
-                2019-05-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="数据分析任务-1"><a href="#数据分析任务-1" class="headerlink" title="数据分析任务(1)"></a>数据分析任务(1)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">from sklearn.preprocessing import Imputer</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line"></span><br><span class="line">#导入数据</span><br><span class="line">data = pd.read_csv(&apos;D:\statistical\data.csv&apos;, encoding=&apos;gbk&apos;)</span><br><span class="line"></span><br><span class="line">#查看数据概况</span><br><span class="line">data.info()</span><br><span class="line"></span><br><span class="line">#查看数据前5行</span><br><span class="line">data.head()</span><br><span class="line"></span><br><span class="line">#统计每列的缺失值个数</span><br><span class="line">data.isnull().sum().sort_values(ascending=False)</span><br><span class="line"></span><br><span class="line">#&apos;student_feature&apos; 这列考虑删除, 或者将NA以0填充</span><br><span class="line">data[[&apos;student_feature&apos;, &apos;status&apos;]].groupby(data[&apos;status&apos;]).count()</span><br><span class="line"></span><br><span class="line">cat_vars = []</span><br><span class="line">def fea_categorical_check(df):</span><br><span class="line">    print(&apos;描述变量有:\n&apos;)</span><br><span class="line">    for col in df.columns:</span><br><span class="line">        if df[col].dtype == &apos;object&apos;:</span><br><span class="line">            print(col)</span><br><span class="line">            cat_vars.append(col)</span><br><span class="line">    return cat_vars</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">#测试集30%，训练集70%，随机种子设置为2018</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">x_train,x_test,y_train,y_test=train_test_split(data,y_data,train_size=0.7,random_state=2018</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2098,7 +2183,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
