@@ -86,10 +86,16 @@
 <meta property="og:site_name" content="Yu-shui">
 <meta property="og:description" content="1. 逻辑回归适用性逻辑回归可用于以下几个方面： （1）用于概率预测。用于可能性预测时，得到的结果有可比性。比如根据模型进而预测在不同的自变量情况下，发生某病或某种情况的概率有多大。 （2）用于分类。实际上跟预测有些类似，也是根据模型，判断某人属于某病或属于某种情况的概率有多大，也就是看一下这个人有多大的可能性是属于某病。进行分类时，仅需要设定一个阈值即可，可能性高于阈值是一类，低于阈值是另一类。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-06T11:23:07.832Z">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/逻辑回归总结/1.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/逻辑回归总结/2.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/逻辑回归总结/3.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/逻辑回归总结/4.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/逻辑回归总结/5.PNG">
+<meta property="og:updated_time" content="2019-08-07T07:07:15.472Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逻辑回归总结">
 <meta name="twitter:description" content="1. 逻辑回归适用性逻辑回归可用于以下几个方面： （1）用于概率预测。用于可能性预测时，得到的结果有可比性。比如根据模型进而预测在不同的自变量情况下，发生某病或某种情况的概率有多大。 （2）用于分类。实际上跟预测有些类似，也是根据模型，判断某人属于某病或属于某种情况的概率有多大，也就是看一下这个人有多大的可能性是属于某病。进行分类时，仅需要设定一个阈值即可，可能性高于阈值是一类，低于阈值是另一类。">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/05/逻辑回归总结/1.PNG">
 
 
 
@@ -416,10 +422,15 @@
 <h3 id="3-线性回归与逻辑回归的区别"><a href="#3-线性回归与逻辑回归的区别" class="headerlink" title="3. 线性回归与逻辑回归的区别"></a>3. 线性回归与逻辑回归的区别</h3><p>线性回归与逻辑回归的区别如下描述：</p>
 <p>（1）线性回归的样本的输出，都是连续值，而逻辑回归中只能取0和1。</p>
 <p>（2）对于拟合函数也有本质上的差别： </p>
-<p>​    线性回归：<br>$$<br>f(x)=\theta ^{T}x=\theta _{1}x _{1}+\theta _{2}x _{2}+…+\theta _{n}x _{n}<br>$$<br>​    逻辑回归：<br>$$<br>f(x)=P(y=1|x;\theta )=g(\theta ^{T}x)<br>$$</p>
+<p>​    线性回归：</p>
+<p><img src="/2019/08/05/逻辑回归总结/1.PNG" alt=""></p>
+<p>​    逻辑回归：</p>
+<p><img src="/2019/08/05/逻辑回归总结/2.PNG" alt=""></p>
 <p>​         其中，</p>
-<p>$$<br>g(z)=\frac{1}{1+e^{-z}}<br>$$</p>
-<p>​    可以看出，线性回归的拟合函数，是对f(x)的输出变量y的拟合，而逻辑回归的拟合函数是对为1类样本的概率的拟合。<br>​    那么，为什么要以1类样本的概率进行拟合呢，为什么可以这样拟合呢？<br>$\theta ^{T}x=0$就相当于是1类和0类的决策边界：<br>当$\theta ^{T}x&gt;0$，则y&gt;0.5；若$\theta ^{T}x\rightarrow +\infty$，则$y \rightarrow  1$ ，即y为1类;<br>当$\theta ^{T}x&lt;0$，则y&lt;0.5；若$\theta ^{T}x\rightarrow -\infty$，则$y \rightarrow  0$ ，即y为0类;<br>这个时候就能看出区别，在线性回归中:$\theta ^{T}x$为预测值的拟合函数；而在逻辑回归中为决策边界。下表2-3为线性回归和逻辑回归的区别。</p>
+<p><img src="/2019/08/05/逻辑回归总结/3.PNG" alt=""></p>
+<p>​    可以看出，线性回归的拟合函数，是对f(x)的输出变量y的拟合，而逻辑回归的拟合函数是对为1类样本的概率的拟合。<br>​    那么，为什么要以1类样本的概率进行拟合呢，为什么可以这样拟合呢？ </p>
+<p><img src="/2019/08/05/逻辑回归总结/4.PNG" alt=""></p>
+<p>这个时候就能看出区别，在线性回归中:$\theta ^{T}x$为预测值的拟合函数；而在逻辑回归中为决策边界。下表2-3为线性回归和逻辑回归的区别。</p>
 <p>​                                    表2-3 线性回归和逻辑回归的区别</p>
 <table>
 <thead>
@@ -454,10 +465,12 @@
 </table>
 <p>下面具体解释一下： </p>
 <ol>
-<li><p>拟合函数和预测函数什么关系呢？简单来说就是将拟合函数做了一个逻辑函数的转换，转换后使得<br>$$<br>y^{(i)} \in (0,1)<br>$$</p>
+<li><p>拟合函数和预测函数什么关系呢？简单来说就是将拟合函数做了一个逻辑函数的转换，转换后使得</p>
+<p><img src="/2019/08/05/逻辑回归总结/5.PNG" alt=""></p>
 </li>
-<li><p>最小二乘和最大似然估计可以相互替代吗？回答当然是不行了。我们来看看两者依仗的原理：最大似然估计是计算使得数据出现的可能性最大的参数，依仗的自然是Probability。而最小二乘是计算误差损失。</p>
-</li>
+</ol>
+<ol start="2">
+<li>最小二乘和最大似然估计可以相互替代吗？回答当然是不行了。我们来看看两者依仗的原理：最大似然估计是计算使得数据出现的可能性最大的参数，依仗的自然是Probability。而最小二乘是计算误差损失。</li>
 </ol>
 
       
