@@ -301,6 +301,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/机器学习之集成学习-二/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/17/机器学习之集成学习-二/" itemprop="url">机器学习之集成学习(二)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-17T00:19:54+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="机器学习之集成学习（二-AdaBoost算法-部分"><a href="#机器学习之集成学习（二-AdaBoost算法-部分" class="headerlink" title="机器学习之集成学习（二) AdaBoost算法(部分)"></a>机器学习之集成学习（二) AdaBoost算法(部分)</h1><h3 id="一-Boosting系列算法需要解决以下几个具体问题："><a href="#一-Boosting系列算法需要解决以下几个具体问题：" class="headerlink" title="一. Boosting系列算法需要解决以下几个具体问题："></a>一. Boosting系列算法需要解决以下几个具体问题：</h3><p>​        1、如何计算学习误差e？<br>​        2、如何得到弱学习器权重系数a？<br>​        3、如何更新样本权重D？<br>​        4、使用何种结合策略？</p>
+<h3 id="二-AdaBoost算法的基本思路"><a href="#二-AdaBoost算法的基本思路" class="headerlink" title="二. AdaBoost算法的基本思路"></a>二. AdaBoost算法的基本思路</h3><p>假设训练集为T={(Xi,Yi)},训练集的第k个弱学习器的输出权重为D(k)=(Wk1,Wk2,…….),初始时权重为:Wi=1/N。</p>
+<h5 id="2-1Adaboost的分类问题"><a href="#2-1Adaboost的分类问题" class="headerlink" title="2.1Adaboost的分类问题"></a>2.1Adaboost的分类问题</h5><ul>
+<li><p><strong>误差率</strong></p>
+<p> 由于多元分类是二元分类的推广，这里假设是二元分类，输出为{-1, 1}，则第k个弱分类器Gk(x)在训 练集上的加权误差率为:</p>
+<p><img src="/2019/05/17/机器学习之集成学习-二/2.PNG" alt=""></p>
+</li>
+<li><p><strong>弱学习器权重a</strong></p>
+<p>对于二元分类问题，第k个弱分类器Gk(x)的权重系数为</p>
+<p>​    <img src="/2019/05/17/机器学习之集成学习-二/1.PNG" alt=""></p>
+<p>​         从上式可以看出，分类误差率e_k越大，则对应的弱分类器权重系数越小，误差率小的弱分类器权重系数越大</p>
+</li>
+<li><p><strong>更新样本权重D</strong><br>假设第k个弱分类器的样本集权重系数为D(k)=(Wk1,Wk2…..WkN)，则第k+1个弱分类器的样本集权重系数为</p>
+<p><img src="/2019/05/17/机器学习之集成学习-二/3.PNG" alt=""></p>
+<p>这里Z_K是规范化因子</p>
+<p><img src="/2019/05/17/机器学习之集成学习-二/4.PNG" alt=""></p>
+<p>从的计算公式可以看出，如果第i个样本分类错误，则，导致样本的权重在第k+1个弱分类器中增大；如果分类正确，则权重在第k+1个弱分类器中减小。</p>
+</li>
+<li><p><strong>结合策略</strong></p>
+<p>AdaBoost分类采用加权平均法，最终的强分类器为:</p>
+<p><img src="/2019/05/17/机器学习之集成学习-二/5.PNG" alt=""></p>
+</li>
+</ul>
+<h5 id="2-2Adaboost的回归问题"><a href="#2-2Adaboost的回归问题" class="headerlink" title="2.2Adaboost的回归问题"></a>2.2Adaboost的回归问题</h5><ul>
+<li><p><strong>误差率</strong></p>
+<p><img src="/2019/05/17/机器学习之集成学习-二/6.PNG" alt=""></p>
+</li>
+<li><p><strong>弱学习器权重系数</strong></p>
+<p><img src="/2019/05/17/机器学习之集成学习-二/7.PNG" alt=""></p>
+</li>
+<li><p><strong>更新样本权重</strong></p>
+<p><img src="/2019/05/17/机器学习之集成学习-二/8.PNG" alt=""></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/机器学习之集成学习-1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1960,283 +2144,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/21/神经网络基础/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/21/神经网络基础/" itemprop="url">神经网络基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-21T11:20:09+08:00">
-                2019-04-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="神经网络基础"><a href="#神经网络基础" class="headerlink" title="神经网络基础"></a>神经网络基础</h1><h3 id="1-神经网络模型"><a href="#1-神经网络模型" class="headerlink" title="1.神经网络模型"></a>1.神经网络模型</h3><p>所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。例如，下图就是一个简单的神经网络： </p>
-<p><img src="/2019/04/21/神经网络基础/nn1.PNG" alt=""></p>
-<p>我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为”’偏置节点”’，也就是截距项。神经网络最左边的一层叫做 <strong>”‘输入层”’</strong>，最右的一层叫做<strong>”‘输出层’”</strong>（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做<strong>”’隐藏层”’</strong>，因为我们不能在训练样本集中观测到它们的值。同时可以看到，以上神经网络的例子中有3个”’输入单元”’（偏置单元不计在内），3个”’隐藏单元”’及一个”’输出单元”’。</p>
-<p>我们用nl 来表示网络的层数，本例中nl=3，我们将第l 层记为Ll ，于是L1是输入层，输出层Lni 。本例神经网络有参数(W,b)=(W(1),b(1),W(2),b(2)) ，其中W(l)ij（下面的式子中用到）是第l层第j 单元与第l+1 层第i 单元之间的联接参数（其实就是连接线上的权重，注意标号顺序），bi(l) 是第l+1 层第i 单元的偏置项。因此在本例中，W(1)∈ℜ3×3 ，W(2)∈ℜ1×3 。注意，没有其他单元连向偏置单元(即偏置单元没有输入)，因为它们总是输出+1。同时，我们用sl表示第ll 层的节点数（偏置单元不计在内）。</p>
-<p>本例神经网络的计算步骤如下:</p>
-<p><img src="/2019/04/21/神经网络基础/nn2.PNG" alt=""></p>
-<p>我们用<em>z</em>(<em>l</em>)<em>i</em> 表示第<em>l</em> 层第<em>i</em>单元输入加权和（包括偏置单元）:</p>
-<p><img src="/2019/04/21/神经网络基础/nn3.PNG" alt=""></p>
-<p>再将激活函数进行广播,及可以得到前向传播过程：</p>
-<p><img src="/2019/04/21/神经网络基础/nn4.PNG" alt=""></p>
-<p>当然神经网络也可以具有多个隐藏层，其计算原理同之前类似。</p>
-<p><img src="/2019/04/21/神经网络基础/nn5.PNG" alt=""></p>
-<p>如果你想预测的输出是多个的，那这种神经网络很适用。（比如，在医疗诊断应用中，患者的体征指标就可以作为向量的输入值，而不同的输出值<em>y**i</em>yi 可以表示不同的疾病存在与否。）</p>
-<h3 id="2-前馈神经网络-FF"><a href="#2-前馈神经网络-FF" class="headerlink" title="2.前馈神经网络(FF)"></a>2.前馈神经网络(FF)</h3><p><img src="/2019/04/21/神经网络基础/nn6.PNG" alt=""></p>
-<p><strong>前馈神经网络（FF）</strong>，这是一个很古老的方法——这种方法起源于50年代。它的工作原理通常遵循以下规则：</p>
-<p>1.所有节点都完全连接</p>
-<p>2.激活从输入层流向输出，无回环</p>
-<p>3.输入和输出之间有一层（隐含层）</p>
-<p>在大多数情况下，这种类型的网络使用<strong>反向传播方法</strong>进行训练。</p>
-<h3 id="3-感知机"><a href="#3-感知机" class="headerlink" title="3.感知机"></a>3.感知机</h3><h5 id="1-算法原理"><a href="#1-算法原理" class="headerlink" title="1.算法原理"></a>1.算法原理</h5><p>想法来自生物学的神经元的一些工作方式，多个生物信号 (input singals) 到达树突 (dentrites)并进入细胞核 (cell nucleus)，如果这些信号的效果累加达到一个阈值，那么通过轴突 (axon) 产生一个输出信号 (output signals)。在有监督学习与分类的背景下，这样的算法可被用来预测一个样本是否属于某个类别。</p>
-<p><img src="/2019/04/21/神经网络基础/nn7.PNG" alt=""></p>
-<p>正式地，我们可以把这个问题表述为一个二分类任务，并且为了简单起见，将这两个类别分别定义为 1 (正类) 与 -1（负类）。接着定义一个激活函数 (activation function) ,, 它输入的是 xx 与其对应的权重向量 ww 的一个线性组合.</p>
-<p>对于一个指定样本 x(i)x(i), 如果 ϕ(z)ϕ(z) 的输出值大于预先定义的一个阈值 Θ, 那么就预测其类别 1. 否则，预测为类别 -1. 在感知器算法中，激活函数 是一个简单的单位阶跃函数 (unit step function)</p>
-<p>需要注意一点的是只有当两个类别是<strong>线性可分</strong>时，感知器算法才能保证收敛。如果两个类别不是线性可分，那么我们可以在训练集上设置一个最大的迭代次数, 或是设置一个可接受的错误分类的阈值。</p>
-<h5 id="2-感知机权重的学习过程"><a href="#2-感知机权重的学习过程" class="headerlink" title="2.感知机权重的学习过程"></a>2.感知机权重的学习过程</h5><p>采用随机梯度下降法：<br><img src="/2019/04/21/神经网络基础/nn8.PNG" alt=""></p>
-<h3 id="推荐一个神经网络可视化的网站-tensorflow-游乐场"><a href="#推荐一个神经网络可视化的网站-tensorflow-游乐场" class="headerlink" title="推荐一个神经网络可视化的网站 :tensorflow 游乐场"></a>推荐一个神经网络可视化的网站 :<a href="https://www.jianshu.com/p/191d1e21f7ed" target="_blank" rel="noopener">tensorflow 游乐场</a></h3><h3 id="3-使用tensoeflow定义几层简单的神经网络"><a href="#3-使用tensoeflow定义几层简单的神经网络" class="headerlink" title="3.使用tensoeflow定义几层简单的神经网络"></a>3.使用tensoeflow定义几层简单的神经网络</h3><p>激活函数使用sigmoid,递归使用链式法则来实现反向传播:</p>
-<ol>
-<li><p>再次运用的时简单类定义进行神经网络的计算。</p>
-</li>
-<li><p>tensorflow版本待更</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import math</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">def rand(a,b):</span><br><span class="line">    return (b-a)*random.random()+a</span><br><span class="line"></span><br><span class="line">def make_matrix(m,n,fill=0.0):</span><br><span class="line">    mat=[]</span><br><span class="line">    for i in range(m):</span><br><span class="line">        mat.append([fill]*n)</span><br><span class="line">    return mat</span><br><span class="line"></span><br><span class="line">def sigmoid(x):</span><br><span class="line">    return 1.0/(1.0+math.exp(-x));</span><br><span class="line"></span><br><span class="line">def sigmod_derivate(x):</span><br><span class="line">    return x*(1-x)</span><br><span class="line"></span><br><span class="line">class BPNeuralNetWork:</span><br><span class="line">    </span><br><span class="line">    def _init_(self):</span><br><span class="line">        self.input_n=0</span><br><span class="line">        self.hidden_n=0</span><br><span class="line">        self.output_n=0</span><br><span class="line">        self.input_cells=[]</span><br><span class="line">        self.hidden_cells=[]</span><br><span class="line">        self.output_cells=[]</span><br><span class="line">        self.input_weights=[]</span><br><span class="line">        self.output_weights=[]</span><br><span class="line">        </span><br><span class="line">    def setup(self,ni,nh,no):</span><br><span class="line">        self.input_n=ni+1</span><br><span class="line">        self.hidden_n=nh</span><br><span class="line">        self.output_n=no</span><br><span class="line">        </span><br><span class="line">        self.input_cells=[1.0]*self.input_n</span><br><span class="line">        self.hidden_cells=[1.0]*self.hidden_n</span><br><span class="line">        self.output_cells=[1.0]*self.output_n</span><br><span class="line">        </span><br><span class="line">        self.input_weights=make_matrix(self.input_n,self.hidden_n)</span><br><span class="line">        self.output_weights=make_matrix(self.hidden_n,self.output_n)</span><br><span class="line">        for i in range(self.input_n):</span><br><span class="line">            for h in range(self.hidden_n):</span><br><span class="line">                self.input_weights[i][h]=rand(-0.2,0.2)</span><br><span class="line">        for h in range(self.hidden_n):</span><br><span class="line">            for j in range(self.output_n):</span><br><span class="line">                self.output_weights[h][j]=rand(-0.2,0.2)</span><br><span class="line"></span><br><span class="line">    def predict(self,inputs):</span><br><span class="line">        for i in range(self.input_n-1.0):</span><br><span class="line">            self.input_cells[i]=inputs[i]</span><br><span class="line">            </span><br><span class="line">        for j in range(self.hidden_n):</span><br><span class="line">            total+=self.input_cells[i]*self.input_weights[i][j]</span><br><span class="line">        self.hidden_cells[i]=sigmoid(total)#不要忘记去线性化</span><br><span class="line">        </span><br><span class="line">        for k in range(self.output_n):</span><br><span class="line">            total=0.0</span><br><span class="line">            for j in range(self.output_n):</span><br><span class="line">                total+=self.hidden_cells[j]*self.output_weights[j][k]</span><br><span class="line">                self.output_cells[k]=sigmoid(total)</span><br><span class="line">        return self.output_cells[:]</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    def back_propagate(self,case,label,learn):</span><br><span class="line">        </span><br><span class="line">        self.predict(case)</span><br><span class="line">        </span><br><span class="line">        output_deltas=[0.0]*self.output_n</span><br><span class="line">        for k in range(self.output_n):</span><br><span class="line">            error=label[k]-self.output_cells[k]</span><br><span class="line">            output_deltas[k]=sigmod_derivate(self.output_cells[k])*error</span><br><span class="line">            </span><br><span class="line">        hidden_deltas=[0.0]*self.hidden_n</span><br><span class="line">        for j in range(self.input_n):</span><br><span class="line">            error=0.0</span><br><span class="line">            for k in range(self.output_n):</span><br><span class="line">                error+=output_deltas[k]*self.output_weights[j][k]</span><br><span class="line">            hidden_deltas[j]=sigmod_derivate(self.hidden_cells[j])*error</span><br><span class="line">            </span><br><span class="line">        for j in range(self.hidden_n):</span><br><span class="line">            for k in range(self.output_n):</span><br><span class="line">                self.output_weights[j][k]+=learn*output_deltas[k]*self.hidden_cells[j]</span><br><span class="line">        </span><br><span class="line">        for i in range(self.input_n):</span><br><span class="line">            for j in range(self.hidden_n):</span><br><span class="line">                self.input_weights[i][j]=learn*hidden_deltas[j]*self.input_cells[i]</span><br><span class="line">                </span><br><span class="line">                error=0</span><br><span class="line">        </span><br><span class="line">        for o in range(len(label)):</span><br><span class="line">            #L1实现</span><br><span class="line">            error+=0.5*(label[o]-self.output_cells[o])**2</span><br><span class="line">        return error</span><br><span class="line">    </span><br><span class="line">    def train(self,cases,labels,limit=100,learn=0.05):</span><br><span class="line">        for i in range(limit):</span><br><span class="line">            error=0</span><br><span class="line">            for i in range(len(cases)):</span><br><span class="line">                label=labels[i]</span><br><span class="line">                case=cases[i]</span><br><span class="line">                error+=self.back_propagate(case,label,learn)</span><br><span class="line">            pass</span><br><span class="line">        </span><br><span class="line">    def test(self):</span><br><span class="line">        cases=[</span><br><span class="line">            [0,0],</span><br><span class="line">            [0,1],</span><br><span class="line">            [1,0],</span><br><span class="line">            [1,1],</span><br><span class="line">        ]</span><br><span class="line">        labels=[[0],[1],[1],[0]]</span><br><span class="line">        dself.setup(2,5,1)</span><br><span class="line">        self.train(cases,labels,10000,0.05)</span><br><span class="line">        for case in cases:</span><br><span class="line">            print(self.predict(case))</span><br><span class="line">            </span><br><span class="line">if __name__==&apos;__mian__&apos;:</span><br><span class="line">    nn=BPNeuralNetWork()</span><br><span class="line">    nn.test()</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="4-激活函数的种类以及各自的背景，优缺点"><a href="#4-激活函数的种类以及各自的背景，优缺点" class="headerlink" title="4.激活函数的种类以及各自的背景，优缺点"></a>4.激活函数的种类以及各自的背景，优缺点</h3><h5 id="1-定义"><a href="#1-定义" class="headerlink" title="1,定义"></a>1,定义</h5><p>在神经元中，输入的 inputs 通过加权，求和后，还被作用了一个函数，这个函数就是激活函数 Activation Function。</p>
-<p>使用激活函数对线性值进行去线性化。</p>
-<h5 id="2-为什么要使用激活函数-线性模型的局限性"><a href="#2-为什么要使用激活函数-线性模型的局限性" class="headerlink" title="2.为什么要使用激活函数(线性模型的局限性)"></a>2.为什么要使用激活函数(线性模型的局限性)</h5><p>如果不用激励函数，每一层输出都是上层输入的线性函数，无论神经网络有多少层，输出都是输入的线性组合。如果使用的话，激活函数给神经元引入了非线性因素，使得神经网络可以任意逼近任何非线性函数，这样神经网络就可以应用到众多的非线性模型中</p>
-<h5 id="3-分类定义"><a href="#3-分类定义" class="headerlink" title="3.分类定义"></a>3.分类定义</h5><h6 id="1-sigmoid函数"><a href="#1-sigmoid函数" class="headerlink" title="(1).sigmoid函数"></a>(1).sigmoid函数</h6><p>公式：<br><img src="/2019/04/21/神经网络基础/nn10.PNG" alt=""></p>
-<p>曲线:</p>
-<p><img src="/2019/04/21/神经网络基础/nn11.PNG" alt=""></p>
-<p>取值范围为(0,1)，用于<strong>隐层神经元输出</strong>。<br>它可以将一个实数映射到(0,1)的区间，可以用来做二分类。<br><strong>在特征相差比较复杂或是相差不是特别大时效果比较好。</strong><br><strong>sigmoid缺点</strong>：</p>
-<p>激活函数计算量大，反向传播求误差梯度时，求导涉及除法。反向传播时，很容易就会出现梯度消失的情况，从而无法完成深层网络的训练。</p>
-<h4 id="2-Tanh函数"><a href="#2-Tanh函数" class="headerlink" title="(2) Tanh函数"></a>(2) Tanh函数</h4><p>公式：</p>
-<p><img src="/2019/04/21/神经网络基础/nn12.PNG" alt=""></p>
-<p>曲线:</p>
-<p><img src="/2019/04/21/神经网络基础/nn13.PNG" alt=""></p>
-<p>也称为双切正切函数<br>取值范围为[-1,1]。<br>tanh在特征相差明显时的效果会很好，在循环过程中会不断扩大特征果。与 sigmoid 的区别是，tanh 是 0 均值的，因此实际应用中 tanh 会比 sigmoid 更好。</p>
-<h4 id="3-ReLU"><a href="#3-ReLU" class="headerlink" title="3) ReLU"></a>3) ReLU</h4><p>Rectified Linear Unit(ReLU) - 用于隐层神经元输出</p>
-<p>公式：</p>
-<p><img src="/2019/04/21/神经网络基础/nn14.PNG" alt=""></p>
-<p>曲线</p>
-<p><img src="/2019/04/21/神经网络基础/nn15.PNG" alt=""></p>
-<p>输入信号 <0 时，输出都是0，="">0 的情况下，输出等于输入</0></p>
-<p><strong>ReLU 的优点</strong>：使用 ReLU 得到的 SGD 的收敛速度会比 sigmoid/tanh 快很多</p>
-<p><strong>ReLU 的缺点</strong>：<br> 训练的时候很”脆弱”，很容易就”die”了<br> 例如，一个非常大的梯度流过一个 ReLU 神经元，更新过参数之后，这个神经元再也不会对任何数据有激活现象了，那么这个神经元的梯度就永远都会是 0.<br> 如果 learning rate 很大，那么很有可能网络中的 40% 的神经元都”dead”了。</p>
-<h3 id="5-深度学习中的正则化"><a href="#5-深度学习中的正则化" class="headerlink" title="5.深度学习中的正则化"></a>5.深度学习中的正则化</h3><h5 id="1-定义-1"><a href="#1-定义-1" class="headerlink" title="1.定义"></a>1.定义</h5><p>《统计学习方法》中认为正则化是<strong>选择模型</strong>的一种方法。</p>
-<p>正则化通过对学习算法的修改，旨在减少泛化误差而不是训练误差。目前有很多正则化策略，有些是向机器学习模型中添加限制参数值的额外约束，有些是向目标函数添加额外项来对参数值进行软约束。</p>
-<h5 id="2-L1正则化"><a href="#2-L1正则化" class="headerlink" title="2.L1正则化"></a>2.L1正则化</h5><p>L1正则化对梯度的影响不是线性地缩放每个wi而是添加了一项与sign(wi)同号的常数。这种形式的梯度不一定能得到直接算术解。 </p>
-<p><img src="/2019/04/21/神经网络基础/nn16.PNG" alt=""></p>
-<p>相比L2正则化，L1正则化会产生更稀疏的解。这种稀疏性广泛用于特征选择机制，可以从可用的特征子集中选择出有意义的特征，化简机器学习问题。</p>
-<p><strong>L1正则化可通过假设权重w的先验分布为拉普拉斯分布，由最大后验概率估计导出. </strong></p>
-<h5 id="3-L2正则化"><a href="#3-L2正则化" class="headerlink" title="3.L2正则化"></a>3.L2正则化</h5><p>通过向目标函数添加一个L2范数平方项，使权重更加接近原点。<br><img src="/2019/04/21/神经网络基础/C:/blog\source\_posts\神经网络基础\nn17.PNG" alt=""></p>
-<p>《Deep Learning》书中也提到：<strong>L2正则化能让学习算法“感知”到具有较高方差的输入xx，因此与输出目标的协方差较小的特征的权重将会收缩。</strong>L2正则化能够很好的防止过拟合：</p>
-<ol>
-<li>通过引入L2正则，使模型参数偏好比较小的值，这其实也限制的函数空间的大小，有针对的减小了模型容量。一般来说，大的参数值对应于波动剧烈的函数，小的参数值对应于比较平缓的参数，因为小参数对于输入的改变不会那么敏感。发生过拟合往往是因为顾及到了所有样本点，所以此时的函数波动会比较大，如下面右图所示。过拟合的模型往往具有比较大的参数，如果将这部分模型族从假设空间中剔除掉，发生过拟合的可能就变小。</li>
-</ol>
-<p>​       <img src="/2019/04/21/神经网络基础/C:/blog\source\_posts\神经网络基础\nn18.PNG" alt=""></p>
-<ol start="2">
-<li>L2正则化能让学习算法“感知”到具有较高方差的输入xx，因此与输出目标的协方差较小的特征的权重将会收缩。因此L2正则化总是倾向于对那些训练集样本共用的特征产生较大的响应，而减小对个别样本独有的特征产生的响应。因此L2正则有抑制那些“独有特征”的作用，这在一定程度上也减小了过拟合的风险。<br>　　<strong>L2正则化可通过假设权重ww的先验分布为高斯分布，由最大后验概率估计导出.</strong></li>
-</ol>
-<h5 id="4-数据集增强"><a href="#4-数据集增强" class="headerlink" title="4.数据集增强"></a>4.数据集增强</h5><ul>
-<li>原因：一般而言，比较成功的神经网络需要大量的参数，许许多多的神经网路的参数都是数以百万计，而使得这些参数可以正确工作则需要大量的数据进行训练，而实际情况中数据并没有我们想象中的那么多</li>
-<li>作用：<ol>
-<li>增加训练的数据量，提高模型的泛化能力</li>
-<li>增加噪声数据，提升模型的鲁棒性</li>
-</ol>
-</li>
-<li>方法：<ol>
-<li>增加数据集，一般较难实现</li>
-<li>利用已有的数据比如翻转、平移或旋转，创造出更多的数据，来使得神经网络具有更好的泛化效果。</li>
-</ol>
-</li>
-<li>分类：<ol>
-<li><strong>离线增强</strong> ： 直接对数据集进行处理，数据的数目会变成增强因子 x 原数据集的数目 ，这种方法常常用于数据集很小的时候</li>
-<li><strong>在线增强</strong> ： 这种增强的方法用于，获得 batch 数据之后，然后对这个 batch 的数据进行增强，如旋转、平移、翻折等相应的变化，由于有些数据集不能接受线性级别的增长，这种方法长用于大的数据集，很多机器学习框架已经支持了这种数据增强方式，并且可以使用 GPU 优化计算。</li>
-</ol>
-</li>
-</ul>
-<h5 id="5-噪声增加"><a href="#5-噪声增加" class="headerlink" title="5.噪声增加"></a>5.噪声增加</h5><p>​    简单提高网络抗噪能力的方法，就是在训练中加入随机噪声一起训练。我们可以在网络的不同位置加入噪声：输入层，隐藏层，输出层。<br>　　数据集增强在某种意义上也能看做是在输入层加入噪声，通过随机旋转、翻转，色彩变换，裁剪等操作人工扩充训练集大小。这样可以使得网络对于输入更加鲁棒。<br>　　当然如果你能保证数据集没错误，不向输出层加入噪声也没关系。解决这个问题常见的办法是<strong>标签平滑</strong>，通过把确切的分类目标从0和1替换成ϵk−1和1−ϵ，正则化具有k个输出的softmax函数的模型。标签平滑的优势是能够防止模型追求确切的概率而不能学习正确分类。<br>　　从优化过程的角度来看，对权重叠加方差极小噪声等价于对权重是假范数惩罚，可以被解释为关于权重的贝叶斯推断的随即实现（这一点我不是很理解）。换个角度就很结论就很明朗了，因为我们在权重中添加了一些随机扰动，这鼓励优化过程找到一个参数空间，该空间对微小参数变化引起的输出变化影像很小。将模型送入了一个对于微小变化不敏感的区域，不仅找到了最小值，还找到了一个宽扁的最小值区域。</p>
-<h5 id="early-stop（提前终止"><a href="#early-stop（提前终止" class="headerlink" title="early stop（提前终止)"></a>early stop（提前终止)</h5><p>模型过拟合一般是发生在训练次数过多的情况下，那么只要我们在过拟合之前停止训练即可。这也是深度学习中最常用的正则化形式，主要是因为它的有效性和简单性。提前终止需要验证集损失作为观测指标，当验证集损失开始持续上升时，这时就该停止训练过程了。 </p>
-<h5 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h5><p>先介绍集成学习的概念</p>
-<ul>
-<li><p>集成学习通过结合几个模型降低泛化误差的技术。分别训练几个不同的模型，然后让所有模型表决测试样例的输出，也被称为模型平均。模型平均奏效的原因是不同的模型通常不会再测试集上产生完全相同的误差。 </p>
-<p>  假设我们有k个回归模型，每个模型在每个例子上的误差为ϵi，这个误差服从均值为0，方差E[ϵi^2]=v且协方差E[ϵiϵj]=c的多维正态分布。通过所有集成模型的平均预测所得误差是1k∑iϵi，则该集成预测期的平方误差的期望为：</p>
-<p>  <img src="/2019/04/21/神经网络基础/C:/blog\source\_posts\神经网络基础\nn19.PNG" alt=""></p>
-</li>
-</ul>
-<p>​      在误差完全相关即c=v的情况下，E[(1/k*∑iϵi)^2]=v，模型平均对提升结果没有任何帮       助；在误差完全不想关即c=0的情况下，集成模型的误差期望为E[(1/k∑iϵi)^2]=(1/k)v。用一  句话说，平均上，集成至少与它任何成员表现的一样好，并且如果成员误差是独立的，集成将显著地比其成员表现的更好。神经网络中随机初始化的差异、小批量的随机选择、超参数的差异或不同输出的非确定性实现往往足以使得集成中的不同成员具有部分独立的误差。 </p>
-<ul>
-<li><p>Dropout</p>
-<p>Dropout是每次训练过程中随机舍弃一些神经元之间的连接</p>
-<p><img src="/2019/04/21/神经网络基础/C:/blog\source\_posts\神经网络基础\nn20.PNG" alt=""></p>
-</li>
-</ul>
-<p>Dropout提供了一种廉价的Bagging集成近似，能够训练和评估指数级数量的神经网络。Dropout和Bagging训练不太一样，Bagging所有模型都是独立的，而Dropout是所有模型共享参数，每个模型集成父神经网络参数的不同子集，这中参数共享的方式使得在有限可用内存下表示指数级数量的模型变得可能。<br>　　隐藏单元经过Dropout训练后，它必须学习与不同采样神经元的合作，使得神经元具有更强的健壮性，并驱使神经元通过自身获取到有用的特征，而不是依赖其他神经元去纠正自身的错误。这可以看错对输入内容的信息高度智能化，自适应破坏的一种形式，而不是对输入原始值的破坏。<br>　　Dropout的另一个重要方面是噪声是乘性的。如果是固定规模的加性噪声，那么加了噪声ϵ的ReLU可以简单的学会使hi变得很大（使增加的噪声ϵϵ变得不显著）。乘性噪声就不允许这样病态的去解决噪声鲁棒问题。</p>
-<h3 id="深度模型的优化"><a href="#深度模型的优化" class="headerlink" title="深度模型的优化"></a>深度模型的优化</h3><h5 id="1-参数初始化策略"><a href="#1-参数初始化策略" class="headerlink" title="1.参数初始化策略"></a>1.参数初始化策略</h5><p>1.梯度下降算法</p>
-<ul>
-<li><p>批量梯度下降<strong>(Batch gradient descent)</strong> </p>
-<p>批量梯度下降每次学习都使用整个训练集，因此其优点在于每次更新都会朝着正确的方向进行，最后能够保证收敛于极值点(凸函数收敛于全局极值点，非凸函数可能会收敛于局部极值点)，但是其缺点在于每次学习时间过长，并且如果训练集很大以至于需要消耗大量的内存，并且全量梯度下降不能进行在线模型参数更新。</p>
-</li>
-<li><p>随机梯度下降<strong>(Stochastic gradient descent)</strong></p>
-<p>随机梯度下降算法每次从训练集中随机选择一个样本来进行学习，即： θ=θ−η⋅∇θJ(θ;xi;yi)</p>
-<p>批量梯度下降算法每次都会使用全部训练样本，因此这些计算是冗余的，因为每次都使用完全相同的样本集。而随机梯度下降算法每次只随机选择一个样本来更新模型参数，因此每次的学习是非常快速的，并且可以进行在线更新。</p>
-<p>随机梯度下降最大的缺点在于每次更新可能并不会按照正确的方向进行，因此可以带来优化波动(扰动)</p>
-<p><img src="/2019/04/21/神经网络基础/n27.PNG" alt=""></p>
-</li>
-<li><p>小批量梯度下降<strong>(Mini-batch gradient descent)</strong></p>
-<p>Mini-batch 梯度下降综合了 batch 梯度下降与 stochastic 梯度下降，在每次更新速度与更新次数中间取得一个平衡，其每次更新从训练集中随机选择 m,m&lt;n 个样本进行学习，mini-batch梯度下降可以保证收敛性，常用于神经网络中。</p>
-</li>
-</ul>
-<p>以下摘抄自网络:<a href="https://blog.csdn.net/qq_29462849/article/details/80626772" target="_blank" rel="noopener">参数初始化策略</a><br><strong>2.AdaGrad</strong></p>
-<p>AdaGrad 算法，如下图所示，独立地适应所有模型参数的学习率，缩放每个参数反比于其所有梯度历史平方值总和的平方根 (Duchi et al., 2011)。具有损失最大偏导的参数相应地有一个快速下降的学习率，而具有小偏导的参数在学习率上有相对较小的下降。净效果是在参数空间中更为平缓的倾斜方向会取得更大的进步。在凸优化背景中， AdaGrad 算法具有一些令人满意的理论性质。然而，经验上已经发现，对于训练深度神经网络模型而言， 从训练开始时积累梯度平方会导致有效学习率过早和过量的减小。 AdaGrad 在某些深度学习模型上效果不错，但不是全部</p>
-<p><img src="/2019/04/21/神经网络基础/nn23.PNG" alt=""></p>
-<p><strong>1.RMSProp</strong></p>
-<p>RMSProp 算法 (Hinton, 2012) 修改 AdaGrad 以在非凸设定下效果更好，改<br>变梯度积累为指数加权的移动平均。 AdaGrad 旨在应用于凸问题时快速收敛。当应用于非凸函数训练神经网络时，学习轨迹可能穿过了很多不同的结构，最终到达一个局部是凸碗的区域。 AdaGrad 根据平方梯度的整个历史收缩学习率，可能使得学习率在达到这样的凸结构前就变得太小了。 RMSProp 使用指数衰减平均以丢弃遥远过去的历史，使其能够在找到凸碗状结构后快速收敛，它就像一个初始化于该碗状结构的 AdaGrad 算法实例。RMSProp 的标准形式如算法 8.5 所示，结合 Nesterov 动量的形式如算法 8.6 所示。相比于 AdaGrad，使用移动平均引入了一个新的超参数ρ，用来控制移动平均的长度范围。经验上， RMSProp 已被证明是一种有效且实用的深度神经网络优化算法。目前它是深度学习从业者经常采用的优化方法之一。<br><img src="/2019/04/21/神经网络基础/n24.PNG" alt=""></p>
-<p><img src="/2019/04/21/神经网络基础/n23.PNG" alt=""></p>
-<p><strong>4.Adam</strong></p>
-<p>Adam (Kingma and Ba, 2014) 是另一种学习率自适应的优化算法，如算法 8.7 所示。 “Adam’’ 这个名字派生自短语 “adaptive moments’’。早期算法背景下，它也许最好被看作结合 RMSProp 和具有一些重要区别的动量的变种。首先，在 Adam 中，动量直接并入了梯度一阶矩（指数加权）的估计。将动量加入 RMSProp 最直观的方法是将动量应用于缩放后的梯度。结合缩放的动量使用没有明确的理论动机。其次， Adam 包括偏置修正，修正从原点初始化的一阶矩（动量项）和（非中心的）二阶矩的估计（算法 8.7 ）。 RMSProp 也采用了（非中心的）二阶矩估计，然而缺失了修正因子。因此，不像 Adam，RMSProp 二阶矩估计可能在训练初期有很高的偏置。Adam 通常被认为对超参数的选择相当鲁棒，尽管学习率有时需要从建议的默认修改。<br><img src="/2019/04/21/神经网络基础/n26.PNG" alt=""></p>
-<h5 id="2-batch-normal层"><a href="#2-batch-normal层" class="headerlink" title="2.batch normal层"></a>2.batch normal层</h5><h5 id="3-layer-normal层"><a href="#3-layer-normal层" class="headerlink" title="3.layer normal层"></a>3.layer normal层</h5>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2287,7 +2194,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
