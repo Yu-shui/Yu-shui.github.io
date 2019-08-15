@@ -301,6 +301,277 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/PCA主成分分析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/15/PCA主成分分析/" itemprop="url">PCA主成分分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-15T19:03:58+08:00">
+                2019-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="主成分分析（PCA）"><a href="#主成分分析（PCA）" class="headerlink" title="主成分分析（PCA）"></a>主成分分析（PCA）</h2><h3 id="1-PCA思想总结"><a href="#1-PCA思想总结" class="headerlink" title="1. PCA思想总结"></a>1. PCA思想总结</h3><ol>
+<li>PCA就是将高维的数据通过线性变换投影到低维空间上去。</li>
+<li>投影思想：找出最能够代表原始数据的投影方法。被PCA降掉的那些维度只能是那些噪声或是冗余的数据。</li>
+<li>去冗余：去除可以被其他向量代表的线性相关向量，这部分信息量是多余的。</li>
+<li>去噪声，去除较小特征值对应的特征向量，特征值的大小反映了变换后在特征向量方向上变换的幅度，幅度越大，说明这个方向上的元素差异也越大，要保留。</li>
+<li>对角化矩阵，寻找极大线性无关组，保留较大的特征值，去除较小特征值，组成一个投影矩阵，对原始样本矩阵进行投影，得到降维后的新样本矩阵。</li>
+<li>完成PCA的关键是——协方差矩阵。协方差矩阵，能同时表现不同维度间的相关性以及各个维度上的方差。协方差矩阵度量的是维度与维度之间的关系，而非样本与样本之间。</li>
+<li>之所以对角化，因为对角化之后非对角上的元素都是0，达到去噪声的目的。对角化后的协方差矩阵，对角线上较小的新方差对应的就是那些该去掉的维度。所以我们只取那些含有较大能量(特征值)的维度，其余的就舍掉，即去冗余。</li>
+</ol>
+<h3 id="2-图解PCA"><a href="#2-图解PCA" class="headerlink" title="2. 图解PCA"></a>2. 图解PCA</h3><p>​    PCA可解决训练数据中存在数据特征过多或特征累赘的问题。核心思想是将m维特征映射到n维（n &lt; m），这n维形成主元，是重构出来最能代表原始数据的正交特征。</p>
+<p>​    假设数据集是m个n维，(X(1),X(2)……..X(n)), 如果n=2​，需要降维到n’=1，现在想找到某一维度方向代表这两个维度的数据。下图有u1, u2​两个向量方向，但是哪个向量才是我们所想要的，可以更好代表原始数据集的呢？</p>
+<p><img src="/2019/08/15/PCA主成分分析/1.PNG" alt=""></p>
+<p>从图可看出，u1,u2好，为什么呢？有以下两个主要评价指标：</p>
+<ol>
+<li>样本点到这个直线的距离足够近。</li>
+<li>样本点在这个直线上的投影能尽可能的分开。</li>
+</ol>
+<p>如果我们需要降维的目标维数是其他任意维，则：</p>
+<ol>
+<li>样本点到这个超平面的距离足够近。</li>
+<li>样本点在这个超平面上的投影能尽可能的分开。</li>
+</ol>
+<h3 id="3-PCA算法推理"><a href="#3-PCA算法推理" class="headerlink" title="3. PCA算法推理"></a>3. PCA算法推理</h3><p>下面以基于最小投影距离为评价指标推理：</p>
+<p>​    假设数据集是m个n维, (X(1),X(2)……..X(n))，且数据进行了中心化。经过投影变换得到新坐标为 {w_1,w_2,…,w_n}，其中 w 是标准正交基，即 || w ||^2 = 1，w^T(i) w(j) = 0。</p>
+<p>​    经过降维后，新坐标为 { w_1,w_2,…,w_n }，其中 n’ 是降维后的目标维数。样本点 x^(i)在新坐标系下的投影为 z^(i) = (z^(i)1, z^(i)2, …, z^(i)n’ )，其中 z^(i)j = w^Tj x^(i)x^(i)$在低维坐标系里第 j 维的坐标。</p>
+<p>​    如果用 $z^{(i)} $ 去恢复 $x^{(i)} $ ，则得到的恢复数据为</p>
+<p><img src="/2019/08/15/PCA主成分分析/2.PNG" alt=""></p>
+<p>其中 W​为标准正交基组成的矩阵。</p>
+<p>​    考虑到整个样本集，样本点到这个超平面的距离足够近，目标变为最小化</p>
+<p><img src="/2019/08/15/PCA主成分分析/3.PNG" alt=""></p>
+<p>对此式进行推理，可得：</p>
+<p><img src="/2019/08/15/PCA主成分分析/4.PNG" alt=""></p>
+<p>​    在推导过程中，分别用x^(i) = Wz^(i), 矩阵转置公式 (AB)^T = B^T  A^T，W^T  W = I，z^(i) = W^T x^(i), 以及矩阵的迹，最后两步是将代数和转为矩阵形式。<br>​    由于W 的每一个向量 wj是标准正交基，</p>
+<p><img src="/2019/08/15/PCA主成分分析/5.PNG" alt=""></p>
+<p> 是数据集的协方差矩阵，<img src="/2019/08/15/PCA主成分分析/6.PNG" alt=""> 是一个常量。最小化<img src="/2019/08/15/PCA主成分分析/7.PNG" alt=""> 又可等价于</p>
+<p><img src="/2019/08/15/PCA主成分分析/8.PNG" alt=""></p>
+<p>利用拉格朗日函数可得到：</p>
+<p><img src="/2019/08/15/PCA主成分分析/9.PNG" alt=""></p>
+<p>​    对 W 求导，可得 <img src="/2019/08/15/PCA主成分分析/10.PNG" alt=""> , X X^T 是 n’ 个特征向量组成的矩阵，lambda为XX^T 的特征值。W 即为我们想要的矩阵。<br>​    对于原始数据，只需要 z^(i) = W^T X^(i) ，就可把原始数据集降维到最小投影距离的 n’$维数据集。</p>
+<h3 id="4-PCA算法主要优缺点"><a href="#4-PCA算法主要优缺点" class="headerlink" title="4. PCA算法主要优缺点"></a>4. PCA算法主要优缺点</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">优缺点</th>
+<th style="text-align:left">简要说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">优点</td>
+<td style="text-align:left">1. 仅仅需要以方差衡量信息量，不受数据集以外的因素影响。　2.各主成分之间正交，可消除原始数据成分间的相互影响的因素。3. 计算方法简单，主要运算是特征值分解，易于实现。</td>
+</tr>
+<tr>
+<td style="text-align:center">缺点</td>
+<td style="text-align:left">1.主成分各个特征维度的含义具有一定的模糊性，不如原始样本特征的解释性强。2. 方差小的非主成分也可能含有对样本差异的重要信息，因降维丢弃可能对后续数据处理有影响。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-降维的必要性及目的"><a href="#5-降维的必要性及目的" class="headerlink" title="5. 降维的必要性及目的"></a>5. 降维的必要性及目的</h3><p><strong>降维的必要性</strong>：</p>
+<ol>
+<li>多重共线性和预测变量之间相互关联。多重共线性会导致解空间的不稳定，从而可能导致结果的不连贯。</li>
+<li>高维空间本身具有稀疏性。一维正态分布有68%的值落于正负标准差之间，而在十维空间上只有2%。</li>
+<li>过多的变量，对查找规律造成冗余麻烦。</li>
+<li>仅在变量层面上分析可能会忽略变量之间的潜在联系。例如几个预测变量可能落入仅反映数据某一方面特征的一个组内。</li>
+</ol>
+<p><strong>降维的目的</strong>：</p>
+<ol>
+<li>减少预测变量的个数。</li>
+<li>确保这些变量是相互独立的。</li>
+<li>提供一个框架来解释结果。相关特征，特别是重要特征更能在数据中明确的显示出来；如果只有两维或者三维的话，更便于可视化展示。</li>
+<li>数据在低维下更容易处理、更容易使用。</li>
+<li>去除数据噪声。</li>
+<li>降低算法运算开销。</li>
+</ol>
+<h3 id="6-KPCA-核主成分分析-与PCA的区别"><a href="#6-KPCA-核主成分分析-与PCA的区别" class="headerlink" title="6. KPCA( 核主成分分析 )与PCA的区别"></a>6. KPCA( 核主成分分析 )与PCA的区别</h3><p>​    应用PCA算法前提是假设存在一个线性超平面，进而投影。那如果数据不是线性的, 就需要KPCA，数据集从 $n$ 维映射到线性可分的高维 N &gt;n​，然后再从 ​N​维降维到一个低维度 n’(n’&lt;n&lt;N)$。</p>
+<p>​    KPCA用到了核函数思想，使用了核函数的主成分分析一般称为核主成分分析(简称KPCA）。</p>
+<p>假设高维空间数据由 n 维空间的数据通过映射产生。</p>
+<p>​    $n$ 维空间的特征分解为：</p>
+<p><img src="/2019/08/15/PCA主成分分析/11.PNG" alt=""></p>
+<p>​    其映射为:  <img src="/2019/08/15/PCA主成分分析/12.PNG" alt=""></p>
+<p>​    通过在高维空间进行协方差矩阵的特征值分解，然后用和PCA一样的方法进行降维。由于KPCA需要核函数的运算，因此它的计算量要比PCA大很多。</p>
+<h3 id="7-LDA和PCA区别"><a href="#7-LDA和PCA区别" class="headerlink" title="7. LDA和PCA区别"></a>7. LDA和PCA区别</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">异同点</th>
+<th style="text-align:left">LDA</th>
+<th style="text-align:left">PCA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">相同点</td>
+<td style="text-align:left">1. 两者均可以对数据进行降维；<br>2. 两者在降维时均使用了矩阵特征分解的思想；<br>3. 两者都假设数据符合高斯分布；</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">不同点</td>
+<td style="text-align:left">有监督的降维方法；</td>
+<td style="text-align:left">无监督的降维方法；</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:left">降维最多降到k-1维；</td>
+<td style="text-align:left">降维多少没有限制；</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:left">可以用于降维，还可以用于分类；</td>
+<td style="text-align:left">只用于降维；</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:left">选择分类性能最好的投影方向；</td>
+<td style="text-align:left">选择样本点投影具有最大方差的方向；</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:left">更明确，更能反映样本间差异；</td>
+<td style="text-align:left">目的较为模糊；</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/LDA线性判别分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2000,171 +2271,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/18/Adaboost算法补充/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/18/Adaboost算法补充/" itemprop="url">Adaboost算法补充</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-18T00:50:15+08:00">
-                2019-05-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="AdaBoost算法补充"><a href="#AdaBoost算法补充" class="headerlink" title="AdaBoost算法补充"></a>AdaBoost算法补充</h1><h3 id="1-AdaBoost的回归问题"><a href="#1-AdaBoost的回归问题" class="headerlink" title="1.AdaBoost的回归问题"></a>1.AdaBoost的回归问题</h3><p>此处以AdaBoost算法为准</p>
-<h5 id="1-误差率"><a href="#1-误差率" class="headerlink" title="1.误差率"></a>1.误差率</h5><p><img src="/2019/05/18/Adaboost算法补充/2.PNG" alt=""></p>
-<h5 id="2-弱学习器的权重系数"><a href="#2-弱学习器的权重系数" class="headerlink" title="2.弱学习器的权重系数"></a>2.弱学习器的权重系数</h5><p><img src="/2019/05/18/Adaboost算法补充/3.PNG" alt=""></p>
-<h5 id="3-更新权重"><a href="#3-更新权重" class="headerlink" title="3.更新权重"></a>3.更新权重</h5><p>第k+1个弱学习器的样本集权重系数为</p>
-<p><img src="/2019/05/18/Adaboost算法补充/4.PNG" alt=""></p>
-<p>Z_K时规范化因子:</p>
-<p><img src="/2019/05/18/Adaboost算法补充/5.PNG" alt=""></p>
-<p>最终的强回归器为：</p>
-<p><img src="/2019/05/18/Adaboost算法补充/6.PNG" alt=""></p>
-<h3 id="2-AdaBoost算法的正则化"><a href="#2-AdaBoost算法的正则化" class="headerlink" title="2.AdaBoost算法的正则化"></a>2.AdaBoost算法的正则化</h3><p> 为防止AdaBoost过拟合，通常会加入正则化项，这个正则化项通常称为步长，定义为ν，对于前面弱学习器的迭代</p>
-<p><img src="/2019/05/18/Adaboost算法补充/8.jpg" alt=""></p>
-<p>如果加上前面的正则项，有：</p>
-<p><img src="/2019/05/18/Adaboost算法补充/9.jpg" alt=""></p>
-<p>ν的取值范围为0&lt;ν&lt;1，对于同样的训练集学习效果，较小的ν意味着需要更多的弱学习器迭代次数，通常用步长和迭代最大次数一起来决定算法的拟合效果。</p>
-<h3 id="3-AdaBoost小结"><a href="#3-AdaBoost小结" class="headerlink" title="3.AdaBoost小结"></a>3.AdaBoost小结</h3><p>  理论上任何学习器都可以用于Adaboost，但一般来说，使用最广泛的Adaboost弱学习器是决策树和神经网络。对于决策树，Adaboost分类用了CART分类树，而Adaboost回归用了CART回归树。<br>       <strong>Adaboost的主要优点有</strong>：<br>（1）Adaboost作为分类器时，分类精度很高；<br>（2）在Adaboost的框架下，可以使用各种回归分类模型来构建弱学习器，非常灵活；<br>（3）作为简单的二元分类器时，构造简单，结果可理解；<br>（4）不容易发生过拟合。<br>        <strong>Adaboost的主要缺点有</strong>：<br>对异常样本敏感，异常样本在迭代中可能会获得较高的权重，影响最终的强学习器的预测准确性。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2215,7 +2321,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
