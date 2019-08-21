@@ -301,6 +301,372 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/SVM补充（一/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/15/SVM补充（一/" itemprop="url">SVM补充（一)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-15T12:00:47+08:00">
+                2019-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="SVM算法补充-一-核函数"><a href="#SVM算法补充-一-核函数" class="headerlink" title="SVM算法补充(一): 核函数"></a>SVM算法补充(一): 核函数</h1><h4 id="1-名词"><a href="#1-名词" class="headerlink" title="1.名词"></a>1.名词</h4><ul>
+<li><p>分割超平面</p>
+</li>
+<li><p>支持向量：离分割超平面最近的点</p>
+</li>
+<li>间距:支持向量到分割超平面的距离的两倍</li>
+</ul>
+<p>原理：找到一个分割超平面。将数据正确分类，并且间距最大。</p>
+<h4 id="2-计算间距"><a href="#2-计算间距" class="headerlink" title="2.计算间距"></a>2.计算间距</h4><ol>
+<li>在二维空间既是点到直线的距离</li>
+<li>在高维空间中，使用直线方程：<img src="/2019/07/15/SVM补充（一/捕获.PNG" alt="">距离相应的表示为：<img src="/2019/07/15/SVM补充（一/2.PNG" alt=""></li>
+</ol>
+<p>由于支持向量在直线<strong> W^Tx+b=-1和W^Tx+b=1 </strong>上，所以带入可得<img src="/2019/07/15/SVM补充（一/3.PNG" alt=""></p>
+<p>为了使得距离最大，只需要找到合适的参数w和b,使得<img src="/2019/07/15/SVM补充（一/3.PNG" alt="">最大即可。<strong> ||w|| </strong>就是向量w的L2范数。使用分割超平面可以解决分类问题。求解SVM算法，就是在满足约束条件<img src="/2019/07/15/SVM补充（一/4.PNG" alt="">下求w的L2范数的最小值。</p>
+<h4 id="3-松弛系数"><a href="#3-松弛系数" class="headerlink" title="3.松弛系数"></a>3.松弛系数</h4><p>针对现行不可分的数据集，上面的方法就不能用了。解决这个问题的办法就是引入一个参数ϵ，称为松弛系数。然后把优化的目标函数变为<img src="/2019/07/15/SVM补充（一/5.PNG" alt="">,m是数据集的个数，R为算法参数，其约束条件变为:<img src="/2019/07/15/SVM补充（一/6.PNG" alt="">，可以把ε理解为样本x(i)违反一大间距规则的程度。针对大多数满足约束条件的样本ε=0。而对部分违反最大间距规则的样本ε&gt;0。参数R则表示对违反约束的样本的”惩罚”。R越大对违反约束的点“惩罚力度”越大反之越小 。这样模型就会倾向于允许部分点违反最大间距规则。可以纠正过拟合问题</p>
+<h2 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h2><p>核函数是<strong>特征转换</strong>函数。</p>
+<h4 id="（1）最基础的核函数"><a href="#（1）最基础的核函数" class="headerlink" title="（1）最基础的核函数"></a>（1）最基础的核函数</h4><p>间距最大是我们的优化目标。真确地对数据分类是约束条件。即在满足约束条件y(i)(wTx(i)+b)≥1的前提下，求解||w||^2的最小值。<br>使用拉格朗日乘子法：<img src="/2019/07/15/SVM补充（一/7.PNG" alt=""></p>
+<p>对w和b求骗到，用拉格朗日法解得:</p>
+<p><img src="/2019/07/15/SVM补充（一/8.PNG" alt=""></p>
+<p>对这个公式求解最小值，求出的ai大多数是0，因为只有支持向量所对应的样本才决定了间隙的大小，引入核函数：</p>
+<p><img src="/2019/07/15/SVM补充（一/9.PNG" alt=""></p>
+<p><em>L</em>里的x(i)^Tx(j)部分，其中<em>x</em>(<em>i</em>)是一个特征向量，所以x(i)^Tx(j)是一个数值，就是两个输入特征向量的内积。预测函数为：<img src="/2019/07/15/SVM补充（一/SVM补充(一\10.PNG" alt="">预测函数中也包含x(i)^Tx(j),引入<strong>K</strong>(x^(i),x(j))=x(i)^Tx(j)作为核函数，白哦是两个向量的相似性，如向量垂直时，就表示两个向量线性无关，值为0，引入核函数后预测函数变为：</p>
+<p><img src="/2019/07/15/SVM补充（一/11.PNG" alt=""></p>
+<h4 id="2-相似性函数"><a href="#2-相似性函数" class="headerlink" title="(2)相似性函数"></a>(2)相似性函数</h4><p>对无法进行线性分割的样本集，可以使用一定的规则将样本映射到更高纬度的空间，然后找出超平面。核函数的引入就是为了实现这种映射，联想利用多项式解决线性回归欠拟合问题的方法。如果输入特征是一维的[x1]变量，我们把它变成二维的一个方法是把输入特征转化为[x1,2x1 ^2]，定义这种特征映射的函数就称之为相似性函数<strong>Φ(x)</strong>。这样在原来低维度计算相似性的运算x(i)^Tx(j)，就可以转换为高纬度空间里进行相似性运算Φ(x(i))^TΦ(x(i))。</p>
+<h4 id="3-常用的核函数"><a href="#3-常用的核函数" class="headerlink" title="(3)常用的核函数"></a>(3)常用的核函数</h4><p>一般有两种：<strong>多项式核函数</strong>和<strong>高斯核函数</strong>。</p>
+<h5 id="1-多项式核函数"><a href="#1-多项式核函数" class="headerlink" title="1.多项式核函数"></a>1.多项式核函数</h5><p><img src="/2019/07/15/SVM补充（一/12.PNG" alt=""></p>
+<h5 id="2-高斯核函数"><a href="#2-高斯核函数" class="headerlink" title="2.高斯核函数"></a>2.高斯核函数</h5><p><img src="/2019/07/15/SVM补充（一/13.PNG" alt=""></p>
+<p>如果输入的特征是一维的标量，那么高斯核函数对应的形状就是一个反钟形的曲线，其参数σσ控制反钟形的宽度。由K(x(i),x(j))=Φ(x(i))TΦ(x(i))，经过合适的数学变换，可得高斯核函数对应的特征转换函数为：<br><img src="/2019/07/15/SVM补充（一/14.PNG" alt=""></p>
+<p>前面无限多项的累加器，其物理意义就是把特征向量转换到无限多维向量空间里，即<strong>高斯函数可以吧输入特征扩展到无限多维空间里</strong>。公式的推导公式会用到<strong>泰勒公式</strong>。</p>
+<p><img src="/2019/07/15/SVM补充（一/15.PNG" alt=""></p>
+<p>其中<em>K</em>(<em>x</em>(<em>i</em>),<em>x</em>(<em>j</em>))是高斯核函数，<strong>ai</strong>只在支持向量对应的样本出不为0.由此可知，<strong>预测函数时中心点在支持向量机处的高斯函数的线性组合</strong>，其线性组合的系数为<strong>aiy(i)</strong>。因此，高斯核函数也称为<strong>RBF核函数</strong>，即反钟形函数的线性组合。</p>
+<h4 id="4-核函数的对比-摘自网络"><a href="#4-核函数的对比-摘自网络" class="headerlink" title="(4)核函数的对比(摘自网络)"></a>(4)核函数的对比(摘自网络)</h4><p>1、线性核函数：这是最简单的核函数，它直接计算两个输入特征向量的内积。 </p>
+<ul>
+<li>优点：简单高效，结果易解释，总能生成一个最简洁的线性分割超平面 </li>
+<li>缺点：只适用线性可分的数据集</li>
+</ul>
+<p>2、多项式核函数：通过多项式来作为特征映射函数 </p>
+<ul>
+<li>优点：可以拟合出复杂的分割超平面。 </li>
+<li>缺点：参数太多。有γ,c,nγ,c,n三个参数要选择，选择起来比较困难；另外多项式的阶数不宜太高否则会给模型求解带来困难。</li>
+</ul>
+<p>3、高斯核函数： </p>
+<ul>
+<li>优点：可以把特征映射到无限多维，并且没有多项式计算那么困难，参数也比较好选择。 </li>
+<li>缺点：不容易解释，计算速度比较慢，容易过拟合。</li>
+</ul>
+<h4 id="（5）核函数的选择"><a href="#（5）核函数的选择" class="headerlink" title="（5）核函数的选择"></a>（5）核函数的选择</h4><p>1、最一般的选择原则是针对数据量很大的时候，可以选择复杂一点的模型。虽然复杂模型容易过拟合，但由于数据量很大，可以有效弥补过拟合问题。如果数据集较小选择简单点的模型，否则很容易过拟合，此时特别要注意模型是否欠拟合，如果欠拟合可以增加多项式纠正欠拟合。</p>
+<p>2、根据样本量mm和特征量nn进行选择： </p>
+<ul>
+<li>特征相比样本较大（如m=10～1000，n=10000）：选逻辑回归或者线性函数SVM </li>
+<li>特征较少，样本量中（如m=10～10000，n=1～1000）：选择高斯SVM </li>
+<li>特征量少，样本多（如m=50000+，n=1~1000)：选多项式或高斯SVM</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/18/AdaBoost算法流程和优化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/18/AdaBoost算法流程和优化/" itemprop="url">AdaBoost算法流程和优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-18T01:19:25+08:00">
+                2019-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="AdaBoost算法流程与优化"><a href="#AdaBoost算法流程与优化" class="headerlink" title="AdaBoost算法流程与优化"></a>AdaBoost算法流程与优化</h2><h5 id="1-AdaBoost分类问题的损失函数优化"><a href="#1-AdaBoost分类问题的损失函数优化" class="headerlink" title="1.AdaBoost分类问题的损失函数优化"></a>1.AdaBoost分类问题的损失函数优化</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AdaBoost的弱学习器权重系数公式和样本权重更新公式，可以从AdaBoost的损失函数推导出来。</span><br><span class="line">AdaBoost算法是模型为加法模型、损失函数为指数函数、学习算法为前向分步算法时的二类分类学习方法。 模型为加法模型很好理解，最终的强分类器是若干个弱分类器加权平均得到的。 前向分步学习算法也好理解，算法是通过一轮轮的弱学习器学习，利用前一个弱学习器的结果来更新后一个弱学习器的训练集权重，即第k-1轮的强学习器为</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/18/AdaBoost算法流程和优化/1.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第k轮学习器为：</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/18/AdaBoost算法流程和优化/2.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以得到</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/18/AdaBoost算法流程和优化/3.jpg" alt=""></p>
+<p>可以看出强学习器时通过前向学习算法一步步得到的。</p>
+<p>AdaBoost损失函数为指数函数，定义损失函数为：</p>
+<p><img src="/2019/05/18/AdaBoost算法流程和优化/4.jpg" alt=""></p>
+<p>利用前向分布学习算法的关系可以得到：</p>
+<p><img src="/2019/05/18/AdaBoost算法流程和优化/6.jpg" alt=""></p>
+<p>令Wki=exp(-YiFk-1(x)),他的值不依赖于α,G，因此与最小化无关，仅仅依赖于fk-1(x)，随每一轮迭代而改变。将这个式子代入损失函数，损失函数转化为</p>
+<p><img src="/2019/05/18/AdaBoost算法流程和优化/7.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/18/Adaboost算法补充/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1725,330 +2091,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/tensorflow-实现神经网络/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/23/tensorflow-实现神经网络/" itemprop="url">tensorflow 实现神经网络</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T15:13:56+08:00">
-                2019-04-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line">#生产数据集</span><br><span class="line">D=2#X的特征个数</span><br><span class="line">K=300</span><br><span class="line">C=2#输出Y的几类</span><br><span class="line">X=(np.random((K,D))*10)-5</span><br><span class="line">Y_c=[int(x0*x0+x1*x1&lt;9) for (x0,x1) in X]</span><br><span class="line">Y=pd.get_dummies(Y_c).values#one-hot</span><br><span class="line"></span><br><span class="line">#构建网络模型</span><br><span class="line">def get_weight(shape,reg):</span><br><span class="line">    w=tf.Variable(tf.random_normal(shape),dtype=tf.float32)</span><br><span class="line">    #如果进行正则化将损失值加入到loss中</span><br><span class="line">    tf.add_to_collection(&apos;losses&apos;,tf.contrib.layers.l2_regularizer(reg)(w))</span><br><span class="line">    return w</span><br><span class="line"></span><br><span class="line">def get_bais(shape):</span><br><span class="line">    return tf.Variable(tf.constant(0.0,shape=shape,dtypeype=tf.float32))</span><br><span class="line">#输入输出占位</span><br><span class="line">x=tf.placeholder(dtype=tf.float32,shape=(None,D))</span><br><span class="line">y=tf.placeholder(dtype=float32,shape=(None,C))#输入数据的量不确定，使用None占位</span><br><span class="line">h=100</span><br><span class="line">#构建网络</span><br><span class="line">w1=get_weight([D,h],1e-3)</span><br><span class="line">b1=get_bais([1,h])</span><br><span class="line">#隐藏层使用激活函数relu</span><br><span class="line">y1=tf.nn.relu(tf.matmul(x,w1)+b1)</span><br><span class="line"></span><br><span class="line">w2=get_weight([h,C],1e-3)</span><br><span class="line">b2=get_bias([1,C])</span><br><span class="line">y_=tf.matmul(y1,w2)+b2</span><br><span class="line"> </span><br><span class="line">#参数设置</span><br><span class="line">STEPS=2000</span><br><span class="line">BATCH_SIZE=256</span><br><span class="line">#学习率</span><br><span class="line">learning_rate=1e-0</span><br><span class="line"></span><br><span class="line">#数据损失</span><br><span class="line">data_loss=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels = y,logits =y_))#交叉熵</span><br><span class="line">#正则损失</span><br><span class="line">reg_loss=tf.add_n(tf.get_collection(&quot;losses&quot;))</span><br><span class="line">total_loss=reg_loss+data_loss</span><br><span class="line"></span><br><span class="line">#定义训练方式-梯度下降</span><br><span class="line">train_function=tf.train.GradientDescentOptimizer(learning_rate).minimize(total_loss)</span><br><span class="line"></span><br><span class="line">#开始训练</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    init_op=tf.global_variables_initializervar()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    fpr i in range(STEPS):</span><br><span class="line">        start=(i*BATCH_SIZE)%k</span><br><span class="line">        end=start+BATCH_SIZE</span><br><span class="line">        sess.run(train_function,feed_dict=&#123;x:X[start:end],y:Y[start:end]&#125;)</span><br><span class="line">        if i%100==0:</span><br><span class="line">#             # 计算当前数据损失值</span><br><span class="line">            loss_v = sess.run(data_loss,feed_dict=&#123;x:X,y:Y&#125;)</span><br><span class="line">            print(&quot;this is %dth step,the loss is %f&quot;%(i,loss_v))</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/简单神经网络-2/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/22/简单神经网络-2/" itemprop="url">简单神经网络(2)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T21:31:36+08:00">
-                2019-04-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="简单神经网络（2）"><a href="#简单神经网络（2）" class="headerlink" title="简单神经网络（2）"></a>简单神经网络（2）</h1><h3 id="1-词袋模型-bow-离散、高维、稀疏"><a href="#1-词袋模型-bow-离散、高维、稀疏" class="headerlink" title="1.词袋模型(bow : 离散、高维、稀疏)"></a>1.词袋模型(bow : 离散、高维、稀疏)</h3><p>在自然语言处理和文本分析的问题中，词袋（Bag of Words, BOW）和词向量（Word Embedding）是两种最常用的模型。更准确地说，词向量只能表征单个词，如果要表示文本，需要做一些额外的处理。所谓BOW，就是将文本/Query看作是一系列词的集合。</p>
-<ul>
-<li><strong>离散</strong>：无法衡量词向量之间的关系, 比如酒店、宾馆、旅社 三者都只在某一个固定的位置为 1 ，所以找不到三者的关系，各种度量(与或非、距离)都不合适，即太稀疏，很难捕捉到文本的含义。</li>
-<li><p><strong>高维</strong>：词表维度随着语料库增长膨胀，n-gram 序列随语料库膨胀更快。</p>
-</li>
-<li><p><strong>数据稀疏</strong>： 数据都没有特征多，数据有 100 条，特征有 1000 个</p>
-</li>
-</ul>
-<p>举个例子：<br>                   <strong>文本1：苏宁易购/是/国内/著名/的/B2C/电商/之一</strong><br>这是一个短文本。“/”作为词与词之间的分割。从中我们可以看到这个文本包含“苏宁易购”，“B2C”，“电商”等词。换句话说，该文本的的词袋由“苏宁易购”，“电商”等词构成。就像这样：</p>
-<p><img src="/2019/04/22/简单神经网络-2/nn1.PNG" alt=""></p>
-<p>但计算机不认识字，只认识数字，那在计算机中怎么表示词袋模型呢？其实很简单，给每个词一个位置/索引就可以了。例如，我们令“苏宁易购”的索引为0，“电商”的索引为1，其他以此类推。则该文本的词袋就变成了：</p>
-<p><img src="/2019/04/22/简单神经网络-2/nn2.PNG" alt=""></p>
-<p>词袋是在词集的基础上增加了频率的维度，词集只关注有和没有，词袋还要关注有几个。 </p>
-<p>假设我们要对一篇文章进行特征化，最常见的方式就是词袋。</p>
-<p>假如现在有1000篇新闻文档，把这些文档拆成一个个的字，去重后得到3000个字，然后把这3000个字作为字典，进行文本表示的模型，叫做词袋模型。这种模型的特点是字典中的字没有特定的顺序，句子的总体结构也被舍弃了.</p>
-<ul>
-<li>2.分布式表示(连续，稠密，低维)</li>
-</ul>
-<p>分布式（distributed）描述的是把<br>信息分布式地存储在向量的各个维度中，与之相对的是局部表示（local<br>representation），如词的独热表示（one-hot representation），在高维向量中<br>只有一个维度描述了词的语义。一般来说，通过矩阵降维或神经网络降维<br>可以将语义分散存储到向量的各个维度中，因此，这类方法得到的低维向 量一般都可以称作分布式表示。</p>
-<h3 id="2-word2vec代码实现"><a href="#2-word2vec代码实现" class="headerlink" title="2.word2vec代码实现"></a>2.word2vec代码实现</h3><p><img src="/2019/04/22/简单神经网络-2/nn3.PNG" alt=""></p>
-<h3 id="3-bow2vec-TFIDF模型"><a href="#3-bow2vec-TFIDF模型" class="headerlink" title="3.bow2vec + TFIDF模型"></a>3.bow2vec + TFIDF模型</h3><p>主要内容为：<br>拆分句子为单词颗粒，记号化；<br>生成词典；<br>生成稀疏文档矩阵</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">documents = [&quot;Human machine interface for lab abc computer applications&quot;,</span><br><span class="line">             &quot;A survey of user opinion of computer system response time&quot;,</span><br><span class="line">             &quot;The EPS user interface management system&quot;,</span><br><span class="line">             &quot;System and human system engineering testing of EPS&quot;,              </span><br><span class="line">             &quot;Relation of user perceived response time to error measurement&quot;,</span><br><span class="line">             &quot;The generation of random binary unordered trees&quot;,</span><br><span class="line">             &quot;The intersection graph of paths in trees&quot;,</span><br><span class="line">             &quot;Graph minors IV Widths of trees and well quasi ordering&quot;,</span><br><span class="line">             &quot;Graph minors A survey&quot;]</span><br><span class="line"></span><br><span class="line"># 分词并根据词频剔除</span><br><span class="line"># remove common words and tokenize</span><br><span class="line">stoplist = set(&apos;for a of the and to in&apos;.split())</span><br><span class="line">texts = [[word for word in document.lower().split() if word not in stoplist]</span><br><span class="line">         for document in documents]</span><br><span class="line">         </span><br><span class="line">         #分词并根据词频剔除</span><br><span class="line">#将句子划分为词</span><br><span class="line">stoplist=set(&apos;for a of the end to in&apos;.split())</span><br><span class="line">texts=[[word for word in document.lower().split() if word not in stoplist] for document in documents]</span><br><span class="line">print(texts)</span><br><span class="line"></span><br><span class="line">#生成词典</span><br><span class="line">from gensim import corpora</span><br><span class="line">import os</span><br><span class="line">dictionary=corpora.Dictionary(texts)</span><br><span class="line">dictionary.save(os.path.join(&apos;C:/Users/wuxun/Desktop/&apos;,&apos;deerwester.dict&apos;))#存储词典#路径拼接函数</span><br><span class="line">print(dictionary)</span><br><span class="line">print(dictionary.token2id)</span><br></pre></td></tr></table></figure>
-<h5 id="tfidf"><a href="#tfidf" class="headerlink" title="tfidf"></a>tfidf</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#生成词袋</span><br><span class="line">new_doc=&quot;Human computer interaction Human&quot;</span><br><span class="line">new_vec=dictionary.doc2bow(new_doc.lower().split())</span><br><span class="line">print(new_vec)</span><br><span class="line"># the word &quot;interaction&quot; does not appear in the dictionary and is ignored</span><br><span class="line">    # [(0, 1), (1, 1)] ，词典（dictionary）中第0个词，出现的频数为1（当前句子），</span><br><span class="line">    # 第1个词，出现的频数为1</span><br><span class="line">#多句bow生成</span><br><span class="line">[dictionary.doc2bow(text) for text in texts]</span><br><span class="line">#print(texts)</span><br><span class="line"></span><br><span class="line">from gensim import corpora,models,similarities</span><br><span class="line">corpus = [[(0, 1.0), (1, 1.0), (2, 1.0)],</span><br><span class="line">          [(2, 1.0), (3, 1.0), (4, 1.0), (5, 1.0), (6, 1.0), (8, 1.0)],</span><br><span class="line">          [(1, 1.0), (3, 1.0), (4, 1.0), (7, 1.0)],</span><br><span class="line">          [(0, 1.0), (4, 2.0), (7, 1.0)],</span><br><span class="line">          [(3, 1.0), (5, 1.0), (6, 1.0)],</span><br><span class="line">          [(9, 1.0)],</span><br><span class="line">          [(9, 1.0), (10, 1.0)],</span><br><span class="line">          [(9, 1.0), (10, 1.0), (11, 1.0)],</span><br><span class="line">          [(8, 1.0), (10, 1.0), (11, 1.0)]]</span><br><span class="line">tfidf=models.TfidfModel(corpus)</span><br><span class="line"></span><br><span class="line">#词袋模型，实践</span><br><span class="line">vec=[(0,1),(4,1),(9,1)]</span><br><span class="line">print(tfidf[vec])</span><br><span class="line">#查找vec中，0,4,9号三个词的TFIDF值。同时进行转化，把之前的文档矩阵中的词频变成了TFIDF值。</span><br><span class="line">#利用tfidf求相似：</span><br><span class="line"></span><br><span class="line">index=similarities.SparseMatrixSimilarity(tfidf[corpus],num_features=12)</span><br><span class="line">vec=[(0,1),(4,1),(9,1)]</span><br><span class="line">sims=index[tfidf[vec]]</span><br><span class="line">#对corpus中的九个文档进行文档级别索引，vec是新文档的词袋,sim就是该vec向量对corpus中九个文档的相似性</span><br><span class="line">print(list(enumerate(sims)))</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2099,7 +2141,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

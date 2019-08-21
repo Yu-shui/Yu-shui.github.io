@@ -301,6 +301,370 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/聚类/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/21/聚类/" itemprop="url">聚类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T19:53:27+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-聚类和降维有什么区别与联系"><a href="#1-聚类和降维有什么区别与联系" class="headerlink" title="1. 聚类和降维有什么区别与联系"></a>1. 聚类和降维有什么区别与联系</h3><p>​    聚类用于找寻数据内在的分布结构，既可以作为一个单独的过程，比如异常检测等等。也可作为分类等其他学习任务的前驱过程。聚类是标准的<strong>无监督学习</strong>。</p>
+<p>​    1）在一些推荐系统中需确定新用户的类型，但定义“用户类型”却可能不太容易，此时往往可先对原有的用户数据进行聚类，根据聚类结果将每个簇定义为一个类,然后再基于这些类训练分类模型,用于判别新用户的类型。</p>
+<p><img src="/2019/08/21/聚类/1.PNG" alt=""></p>
+<p>​    2）而降维则是为了缓解维数灾难的一个重要方法，就是通过某种数学变换将原始高维属性空间转变为一个低维“子空间”。其基于的假设就是，虽然人们平时观测到的数据样本虽然是高维的，但是实际上真正与学习任务相关的是个低维度的分布。从而通过最主要的几个特征维度就可以实现对数据的描述，对于后续的分类很有帮助。比如对于Kaggle上的泰坦尼克号生还预测问题。通过给定一个乘客的许多特征如年龄、姓名、性别、票价等，来判断其是否能在海难中生还。这就需要首先进行特征筛选，从而能够找出主要的特征，让学习到的模型有更好的泛化性。</p>
+<p>​    <strong>聚类和降维都可以作为分类等问题的预处理步骤。</strong></p>
+<p>​    但是他们虽然都能实现对数据的约减。但是二者适用的对象不同，聚类针对的是数据点，而降维则是对于数据的特征。另外它们有着很多种实现方法。聚类中常用的有<strong>K-means、层次聚类、基于密度的聚类</strong>等；降维中常用的则<strong>PCA、Isomap、LLE</strong>等。</p>
+<h3 id="2-聚类算法衡量标准"><a href="#2-聚类算法衡量标准" class="headerlink" title="2. 聚类算法衡量标准"></a>2. 聚类算法衡量标准</h3><p>不同聚类算法有不同的优劣和不同的适用条件。可从以下方面进行衡量判断：<br>    1、算法的处理能力：处理大的数据集的能力，即算法复杂度；处理数据噪声的能力；处理任意形状，包括有间隙的嵌套的数据的能力； </p>
+<p>​    2、算法是否需要预设条件：是否需要预先知道聚类个数，是否需要用户给出领域知识； </p>
+<p>​    3、算法的数据输入属性：算法处理的结果与数据输入的顺序是否相关，也就是说算法是否独立于数据输入顺序；算法处理有很多属性数据的能力，也就是对数据维数是否敏感，对数据的类型有无要求。</p>
+<h3 id="3-聚类和分类的区别"><a href="#3-聚类和分类的区别" class="headerlink" title="3. 聚类和分类的区别"></a>3. 聚类和分类的区别</h3><p><strong>聚类（Clustering） </strong><br>    聚类，简单地说就是把相似的东西分到一组，聚类的时候，我们并不关心某一类是什么，我们需要实现的目标只是把相似的东西聚到一起。一个聚类算法通常只需要知道如何计算相似度就可以开始工作了，因此聚类通常并不需要使用训练数据进行学习，在机器学习中属于<strong>无监督学习</strong>。 </p>
+<p><strong>分类（Classification） </strong></p>
+<p>​     分类，对于一个分类器，通常需要标注号的数据集。一般情况下，一个分类器会从它得到的训练集中进行学习，从而具备对未知数据进行分类的能力，在机器学习中属于<strong>监督学习</strong>。</p>
+<h3 id="4-四种常用聚类方法"><a href="#4-四种常用聚类方法" class="headerlink" title="4. 四种常用聚类方法"></a>4. 四种常用聚类方法</h3><p>​    聚类就是按照某个特定标准把一个数据集分割成不同的类或簇，使得同一个簇内的数据对象的相似性尽可能大，同时不在同一个簇中的数据对象的差异性也尽可能地大。即聚类后同一类的数据尽可能聚集到一起，不同类数据尽量分离。<br>​    主要的聚类算法可以划分为如下几类：划分方法、层次方法、基于密度的方法、基于网格的方法以及基于模型的方法。</p>
+<h4 id="（1）k-means聚类算法"><a href="#（1）k-means聚类算法" class="headerlink" title="（1）k-means聚类算法"></a>（1）k-means聚类算法</h4><p>​    k-means是划分方法中较经典的聚类算法之一。由于该算法的效率高，所以在对大规模数据进行聚类时被广泛应用。k-means算法以k为参数，把n个对象分成k个簇，使簇内具有较高的相似度，而簇间的相似度较低。k-means算法的处理过程如下：首先，随机地 选择k个对象，每个对象初始地代表了一个簇的平均值或中心;对剩余的每个对象，根据其与各簇中心的距离，将它赋给最近的簇;然后重新计算每个簇的平均值。 这个过程不断重复，直到准则函数收敛。通常，采用平方误差准则，其定义如下：</p>
+<p><img src="/2019/08/21/聚类/2.PNG" alt=""></p>
+<p>　这里E是数据中所有对象的平方误差的总和，p是空间中的点，$m_i$是簇$C_i$的平均值[9]。该目标函数使生成的簇尽可能紧凑独立，使用的距离度量是欧几里得距离，当然也可以用其他距离度量。</p>
+<p><strong>算法流程</strong>：<br>　　(1) 任意选择k个对象作为初始的簇中心；<br>　　(2) 根据簇中对象的平均值，将每个对象(重新)赋予最类似的簇；<br>　　(3) 更新簇的平均值，即计算每个簇中对象的平均值；<br>　　(4) 重复步骤(2)、(3)直到簇中心不再变化；</p>
+<h4 id="3-层次聚类算法"><a href="#3-层次聚类算法" class="headerlink" title="(3)  层次聚类算法"></a>(3)  层次聚类算法</h4><p>​    根据层次分解的顺序是自底向上的还是自上向下的，层次聚类算法分为凝聚的层次聚类算法和分裂的层次聚类算法。<br>　凝聚型层次聚类的策略是先将每个对象作为一个簇，然后合并这些原子簇为越来越大的簇，直到所有对象都在一个簇中，或者某个终结条件被满足。绝大多数层次聚类属于凝聚型层次聚类，它们只是在簇间相似度的定义上有所不同。</p>
+<p><strong>算法流程</strong>：</p>
+<p>注：以采用最小距离的凝聚层次聚类算法为例：</p>
+<p>　(1) 将每个对象看作一类，计算两两之间的最小距离；<br>　(2) 将距离最小的两个类合并成一个新类；<br>　(3) 重新计算新类与所有类之间的距离；<br>　(4) 重复(2)、(3)，直到所有类最后合并成一类。</p>
+<h4 id="3-SOM聚类算法"><a href="#3-SOM聚类算法" class="headerlink" title="(3)  SOM聚类算法"></a>(3)  SOM聚类算法</h4><p>​    该算法假设在输入对象中存在一些拓扑结构或顺序，可以实现从输入空间(n维)到输出平面(2维)的降维映射，其映射具有拓扑特征保持性质,与实际的大脑处理有很强的理论联系。</p>
+<p>​    SOM网络包含输入层和输出层。输入层对应一个高维的输入向量，输出层由一系列组织在2维网格上的有序节点构成，输入节点与输出节点通过权重向量连接。 学习过程中，找到与之距离最短的输出层单元，即获胜单元，对其更新。同时，将邻近区域的权值更新，使输出节点保持输入向量的拓扑特征。</p>
+<p><strong>算法流程</strong>：</p>
+<p>​    (1) 网络初始化，对输出层每个节点权重赋初值；<br>​    (2) 从输入样本中随机选取输入向量并且归一化，找到与输入向量距离最小的权重向量；<br>​    (3) 定义获胜单元，在获胜单元的邻近区域调整权重使其向输入向量靠拢；<br>​    (4) 提供新样本、进行训练；<br>​    (5) 收缩邻域半径、减小学习率、重复，直到小于允许值，输出聚类结果。</p>
+<h4 id="4-FCM聚类算法"><a href="#4-FCM聚类算法" class="headerlink" title="(4)  FCM聚类算法"></a>(4)  FCM聚类算法</h4><p>​    FCM算法是一种以隶属度来确定每个数据点属于某个聚类程度的算法。<br>​    设数据集<strong>X={x_1,x_2,…,x_n}</strong>,它的模糊<strong>c</strong>划分可用模糊矩阵<strong>U=[u_(ij) ]</strong>表示，矩阵<strong>U​</strong>的元素<strong>u_(ij)</strong>表示第<strong>j(j=1,2,…,n)​</strong>个数据点属于第<strong>i(i=1,2,…,c)</strong>类的隶属度，​<strong>u_(ij)​</strong>满足如下条件：  </p>
+<p><img src="/2019/08/21/聚类/3.PNG" alt=""></p>
+<p>目前被广泛使用的聚类准则是取类内加权误差平方和的极小值。即：</p>
+<p><img src="/2019/08/21/聚类/4.PNG" alt=""></p>
+<p>其中<strong>V</strong>为聚类中心，<strong>m</strong>为加权指数，<strong>d_{ij}(x_j,v_i)=||v_i - x_j||​</strong>。</p>
+<p><strong>算法流程</strong>：</p>
+<p>　(1) 标准化数据矩阵；<br>　(2) 建立模糊相似矩阵，初始化隶属矩阵；<br>　(3) 算法开始迭代，直到目标函数收敛到极小值；<br>　(4) 根据迭代结果，由最后的隶属矩阵确定数据所属的类，显示最后的聚类结果。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/20/维数灾难/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/20/维数灾难/" itemprop="url">维数灾难</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-20T19:31:42+08:00">
+                2019-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="图解为什么会产生维数灾难"><a href="#图解为什么会产生维数灾难" class="headerlink" title="图解为什么会产生维数灾难"></a>图解为什么会产生维数灾难</h2><p>​    假如数据集包含10张照片，照片中包含三角形和圆两种形状。现在来设计一个分类器进行训练，让这个分类器对其他的照片进行正确分类（假设三角形和圆的总数是无限大），简单的，我们用一个特征进行分类：</p>
+<p><img src="/2019/08/20/维数灾难/1.PNG" alt=""></p>
+<p>​                                                                                      图a</p>
+<p>​    从上图可看到，如果仅仅只有一个特征进行分类，三角形和圆几乎是均匀分布在这条线段上，很难将10张照片线性分类。那么，增加一个特征后的情况会怎么样：</p>
+<p><img src="/2019/08/20/维数灾难/2.PNG" alt=""></p>
+<p>​                                                                                    图b</p>
+<p>增加一个特征后，我们发现仍然无法找到一条直线将三角形和圆形分开。所以，考虑需要再增加一个特征：</p>
+<p><img src="/2019/08/20/维数灾难/3.PNG" alt=""></p>
+<p>​                                                                                    图c</p>
+<p><img src="/2019/08/20/维数灾难/4.PNG" alt=""></p>
+<p>​                                                                                         图d</p>
+<p>​    此时，可以找到一个平面将三角形和圆分开。</p>
+<p>​    计算不同特征数是样本的密度：</p>
+<p>​    （1）一个特征时，假设特征空间时长度为5的线段，则样本密度为10/5 = 2。</p>
+<p>​    （2）两个特征时，特征空间大小为5 * 5 = 25，样本密度为10/25 = 0.4。</p>
+<p>​    （3）三个特征时，特征空间大小是5 <em> 5 </em> 5 = 125，样本密度为10 / 125 = 0.08​。</p>
+<p>​    以此类推，如果继续增加特征数量，样本密度会越来越稀疏，此时，更容易找到一个超平面将训练样本分开。当特征数量增长至无限大时，样本密度就变得非常稀疏。</p>
+<h5 id="将高维空间的分类结果映射到低维空间时"><a href="#将高维空间的分类结果映射到低维空间时" class="headerlink" title="将高维空间的分类结果映射到低维空间时:"></a>将高维空间的分类结果映射到低维空间时:</h5><p><img src="/2019/08/20/维数灾难/5.PNG" alt=""></p>
+<p>​                                                                                        图e</p>
+<p>​    上图是将三维特征空间映射到二维特征空间后的结果。尽管在高维特征空间时训练样本线性可分，但是映射到低维空间后，结果正好相反。事实上，增加特征数量使得高维空间线性可分，相当于在低维空间内训练一个复杂的非线性分类器。不过，这个非线性分类器太过“聪明”，仅仅学到了一些特例。如果将其用来辨别那些未曾出现在训练样本中的测试样本时，通常结果不太理想，会造成过拟合问题。</p>
+<p><img src="/2019/08/20/维数灾难/6.PNG" alt=""></p>
+<p>​                                                                                           图f</p>
+<p>​    上图所示的只采用2个特征的线性分类器分错了一些训练样本，准确率似乎没有图e的高，但是，采用2个特征的线性分类器的泛化能力比采用3个特征的线性分类器要强。因为，采用2个特征的线性分类器学习到的不只是特例，而是一个整体趋势，对于那些未曾出现过的样本也可以比较好地辨别开来。换句话说，通过减少特征数量，可以避免出现过拟合问题，从而避免“维数灾难”。</p>
+<h2 id="从另一个角度看维数灾难"><a href="#从另一个角度看维数灾难" class="headerlink" title="从另一个角度看维数灾难"></a>从另一个角度看维数灾难</h2><p><img src="/2019/08/20/维数灾难/7.PNG" alt=""></p>
+<p>假设只有一个特征时，特征的值域是0到1，每一个三角形和圆的特征值都是唯一的。如果我们希望训练样本覆盖特征值值域的20%，那么就需要三角形和圆总数的20%。我们增加一个特征后，为了继续覆盖特征值值域的20%就需要三角形和圆总数的45%(0.452的平方约等于0.2)。继续增加一个特征后，需要三角形和圆总数的58%(0.583的三次方约等于0.2)。随着特征数量的增加，为了覆盖特征值值域的20%，就需要更多的训练样本。如果没有足够的训练样本，就可能会出现过拟合问题。</p>
+<p>​    通过上述例子，我们可以看到特征数量越多，训练样本就会越稀疏，分类器的参数估计就会越不准确，更加容易出现过拟合问题。“维数灾难”的另一个影响是训练样本的稀疏性并不是均匀分布的。处于中心位置的训练样本比四周的训练样本更加稀疏。</p>
+<p><img src="/2019/08/20/维数灾难/8.PNG" alt=""></p>
+<p>​    假设有一个二维特征空间，如上图所示的矩形，在矩形内部有一个内切的圆形。由于越接近圆心的样本越稀疏，因此，相比于圆形内的样本，那些位于矩形四角的样本更加难以分类。当维数变大时，特征超空间的容量不变，但单位圆的容量会趋于0，在高维空间中，大多数训练数据驻留在特征超空间的角落。散落在角落的数据要比处于中心的数据难于分类。</p>
+<h2 id="怎样避免维数灾难"><a href="#怎样避免维数灾难" class="headerlink" title="怎样避免维数灾难"></a>怎样避免维数灾难</h2><p>解决维度灾难问题：</p>
+<p>主成分分析法PCA，线性判别法LDA</p>
+<p>奇异值分解简化数据、拉普拉斯特征映射</p>
+<p>Lassio缩减系数法、小波分析法等。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/PCA主成分分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1905,372 +2269,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/SVM补充（一/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/15/SVM补充（一/" itemprop="url">SVM补充（一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-15T12:00:47+08:00">
-                2019-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="SVM算法补充-一-核函数"><a href="#SVM算法补充-一-核函数" class="headerlink" title="SVM算法补充(一): 核函数"></a>SVM算法补充(一): 核函数</h1><h4 id="1-名词"><a href="#1-名词" class="headerlink" title="1.名词"></a>1.名词</h4><ul>
-<li><p>分割超平面</p>
-</li>
-<li><p>支持向量：离分割超平面最近的点</p>
-</li>
-<li>间距:支持向量到分割超平面的距离的两倍</li>
-</ul>
-<p>原理：找到一个分割超平面。将数据正确分类，并且间距最大。</p>
-<h4 id="2-计算间距"><a href="#2-计算间距" class="headerlink" title="2.计算间距"></a>2.计算间距</h4><ol>
-<li>在二维空间既是点到直线的距离</li>
-<li>在高维空间中，使用直线方程：<img src="/2019/07/15/SVM补充（一/捕获.PNG" alt="">距离相应的表示为：<img src="/2019/07/15/SVM补充（一/2.PNG" alt=""></li>
-</ol>
-<p>由于支持向量在直线<strong> W^Tx+b=-1和W^Tx+b=1 </strong>上，所以带入可得<img src="/2019/07/15/SVM补充（一/3.PNG" alt=""></p>
-<p>为了使得距离最大，只需要找到合适的参数w和b,使得<img src="/2019/07/15/SVM补充（一/3.PNG" alt="">最大即可。<strong> ||w|| </strong>就是向量w的L2范数。使用分割超平面可以解决分类问题。求解SVM算法，就是在满足约束条件<img src="/2019/07/15/SVM补充（一/4.PNG" alt="">下求w的L2范数的最小值。</p>
-<h4 id="3-松弛系数"><a href="#3-松弛系数" class="headerlink" title="3.松弛系数"></a>3.松弛系数</h4><p>针对现行不可分的数据集，上面的方法就不能用了。解决这个问题的办法就是引入一个参数ϵ，称为松弛系数。然后把优化的目标函数变为<img src="/2019/07/15/SVM补充（一/5.PNG" alt="">,m是数据集的个数，R为算法参数，其约束条件变为:<img src="/2019/07/15/SVM补充（一/6.PNG" alt="">，可以把ε理解为样本x(i)违反一大间距规则的程度。针对大多数满足约束条件的样本ε=0。而对部分违反最大间距规则的样本ε&gt;0。参数R则表示对违反约束的样本的”惩罚”。R越大对违反约束的点“惩罚力度”越大反之越小 。这样模型就会倾向于允许部分点违反最大间距规则。可以纠正过拟合问题</p>
-<h2 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h2><p>核函数是<strong>特征转换</strong>函数。</p>
-<h4 id="（1）最基础的核函数"><a href="#（1）最基础的核函数" class="headerlink" title="（1）最基础的核函数"></a>（1）最基础的核函数</h4><p>间距最大是我们的优化目标。真确地对数据分类是约束条件。即在满足约束条件y(i)(wTx(i)+b)≥1的前提下，求解||w||^2的最小值。<br>使用拉格朗日乘子法：<img src="/2019/07/15/SVM补充（一/7.PNG" alt=""></p>
-<p>对w和b求骗到，用拉格朗日法解得:</p>
-<p><img src="/2019/07/15/SVM补充（一/8.PNG" alt=""></p>
-<p>对这个公式求解最小值，求出的ai大多数是0，因为只有支持向量所对应的样本才决定了间隙的大小，引入核函数：</p>
-<p><img src="/2019/07/15/SVM补充（一/9.PNG" alt=""></p>
-<p><em>L</em>里的x(i)^Tx(j)部分，其中<em>x</em>(<em>i</em>)是一个特征向量，所以x(i)^Tx(j)是一个数值，就是两个输入特征向量的内积。预测函数为：<img src="/2019/07/15/SVM补充（一/SVM补充(一\10.PNG" alt="">预测函数中也包含x(i)^Tx(j),引入<strong>K</strong>(x^(i),x(j))=x(i)^Tx(j)作为核函数，白哦是两个向量的相似性，如向量垂直时，就表示两个向量线性无关，值为0，引入核函数后预测函数变为：</p>
-<p><img src="/2019/07/15/SVM补充（一/11.PNG" alt=""></p>
-<h4 id="2-相似性函数"><a href="#2-相似性函数" class="headerlink" title="(2)相似性函数"></a>(2)相似性函数</h4><p>对无法进行线性分割的样本集，可以使用一定的规则将样本映射到更高纬度的空间，然后找出超平面。核函数的引入就是为了实现这种映射，联想利用多项式解决线性回归欠拟合问题的方法。如果输入特征是一维的[x1]变量，我们把它变成二维的一个方法是把输入特征转化为[x1,2x1 ^2]，定义这种特征映射的函数就称之为相似性函数<strong>Φ(x)</strong>。这样在原来低维度计算相似性的运算x(i)^Tx(j)，就可以转换为高纬度空间里进行相似性运算Φ(x(i))^TΦ(x(i))。</p>
-<h4 id="3-常用的核函数"><a href="#3-常用的核函数" class="headerlink" title="(3)常用的核函数"></a>(3)常用的核函数</h4><p>一般有两种：<strong>多项式核函数</strong>和<strong>高斯核函数</strong>。</p>
-<h5 id="1-多项式核函数"><a href="#1-多项式核函数" class="headerlink" title="1.多项式核函数"></a>1.多项式核函数</h5><p><img src="/2019/07/15/SVM补充（一/12.PNG" alt=""></p>
-<h5 id="2-高斯核函数"><a href="#2-高斯核函数" class="headerlink" title="2.高斯核函数"></a>2.高斯核函数</h5><p><img src="/2019/07/15/SVM补充（一/13.PNG" alt=""></p>
-<p>如果输入的特征是一维的标量，那么高斯核函数对应的形状就是一个反钟形的曲线，其参数σσ控制反钟形的宽度。由K(x(i),x(j))=Φ(x(i))TΦ(x(i))，经过合适的数学变换，可得高斯核函数对应的特征转换函数为：<br><img src="/2019/07/15/SVM补充（一/14.PNG" alt=""></p>
-<p>前面无限多项的累加器，其物理意义就是把特征向量转换到无限多维向量空间里，即<strong>高斯函数可以吧输入特征扩展到无限多维空间里</strong>。公式的推导公式会用到<strong>泰勒公式</strong>。</p>
-<p><img src="/2019/07/15/SVM补充（一/15.PNG" alt=""></p>
-<p>其中<em>K</em>(<em>x</em>(<em>i</em>),<em>x</em>(<em>j</em>))是高斯核函数，<strong>ai</strong>只在支持向量对应的样本出不为0.由此可知，<strong>预测函数时中心点在支持向量机处的高斯函数的线性组合</strong>，其线性组合的系数为<strong>aiy(i)</strong>。因此，高斯核函数也称为<strong>RBF核函数</strong>，即反钟形函数的线性组合。</p>
-<h4 id="4-核函数的对比-摘自网络"><a href="#4-核函数的对比-摘自网络" class="headerlink" title="(4)核函数的对比(摘自网络)"></a>(4)核函数的对比(摘自网络)</h4><p>1、线性核函数：这是最简单的核函数，它直接计算两个输入特征向量的内积。 </p>
-<ul>
-<li>优点：简单高效，结果易解释，总能生成一个最简洁的线性分割超平面 </li>
-<li>缺点：只适用线性可分的数据集</li>
-</ul>
-<p>2、多项式核函数：通过多项式来作为特征映射函数 </p>
-<ul>
-<li>优点：可以拟合出复杂的分割超平面。 </li>
-<li>缺点：参数太多。有γ,c,nγ,c,n三个参数要选择，选择起来比较困难；另外多项式的阶数不宜太高否则会给模型求解带来困难。</li>
-</ul>
-<p>3、高斯核函数： </p>
-<ul>
-<li>优点：可以把特征映射到无限多维，并且没有多项式计算那么困难，参数也比较好选择。 </li>
-<li>缺点：不容易解释，计算速度比较慢，容易过拟合。</li>
-</ul>
-<h4 id="（5）核函数的选择"><a href="#（5）核函数的选择" class="headerlink" title="（5）核函数的选择"></a>（5）核函数的选择</h4><p>1、最一般的选择原则是针对数据量很大的时候，可以选择复杂一点的模型。虽然复杂模型容易过拟合，但由于数据量很大，可以有效弥补过拟合问题。如果数据集较小选择简单点的模型，否则很容易过拟合，此时特别要注意模型是否欠拟合，如果欠拟合可以增加多项式纠正欠拟合。</p>
-<p>2、根据样本量mm和特征量nn进行选择： </p>
-<ul>
-<li>特征相比样本较大（如m=10～1000，n=10000）：选逻辑回归或者线性函数SVM </li>
-<li>特征较少，样本量中（如m=10～10000，n=1～1000）：选择高斯SVM </li>
-<li>特征量少，样本多（如m=50000+，n=1~1000)：选多项式或高斯SVM</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/18/AdaBoost算法流程和优化/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/18/AdaBoost算法流程和优化/" itemprop="url">AdaBoost算法流程和优化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-18T01:19:25+08:00">
-                2019-05-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="AdaBoost算法流程与优化"><a href="#AdaBoost算法流程与优化" class="headerlink" title="AdaBoost算法流程与优化"></a>AdaBoost算法流程与优化</h2><h5 id="1-AdaBoost分类问题的损失函数优化"><a href="#1-AdaBoost分类问题的损失函数优化" class="headerlink" title="1.AdaBoost分类问题的损失函数优化"></a>1.AdaBoost分类问题的损失函数优化</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AdaBoost的弱学习器权重系数公式和样本权重更新公式，可以从AdaBoost的损失函数推导出来。</span><br><span class="line">AdaBoost算法是模型为加法模型、损失函数为指数函数、学习算法为前向分步算法时的二类分类学习方法。 模型为加法模型很好理解，最终的强分类器是若干个弱分类器加权平均得到的。 前向分步学习算法也好理解，算法是通过一轮轮的弱学习器学习，利用前一个弱学习器的结果来更新后一个弱学习器的训练集权重，即第k-1轮的强学习器为</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/18/AdaBoost算法流程和优化/1.jpg" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第k轮学习器为：</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/18/AdaBoost算法流程和优化/2.jpg" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以得到</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/18/AdaBoost算法流程和优化/3.jpg" alt=""></p>
-<p>可以看出强学习器时通过前向学习算法一步步得到的。</p>
-<p>AdaBoost损失函数为指数函数，定义损失函数为：</p>
-<p><img src="/2019/05/18/AdaBoost算法流程和优化/4.jpg" alt=""></p>
-<p>利用前向分布学习算法的关系可以得到：</p>
-<p><img src="/2019/05/18/AdaBoost算法流程和优化/6.jpg" alt=""></p>
-<p>令Wki=exp(-YiFk-1(x)),他的值不依赖于α,G，因此与最小化无关，仅仅依赖于fk-1(x)，随每一轮迭代而改变。将这个式子代入损失函数，损失函数转化为</p>
-<p><img src="/2019/05/18/AdaBoost算法流程和优化/7.jpg" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2321,7 +2319,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

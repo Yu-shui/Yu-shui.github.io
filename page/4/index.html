@@ -301,6 +301,342 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/tensorflow-及机器学习基础知识/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/09/tensorflow-及机器学习基础知识/" itemprop="url">tensorflow 及机器学习基础知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T14:03:45+08:00">
+                2019-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-召回率和查全率"><a href="#1-召回率和查全率" class="headerlink" title="1.召回率和查全率"></a>1.召回率和查全率</h2><p>召回率(Recall Rate,也叫查全率，是检索出的相关文档数和文档库中所有的相关文档数的比率，衡量的是检索系统的查全率，精度是检索出的相关文档数与检索出的文档总数的比率，衡量的是检索系统查准率。</p>
+<p>召回率(Recall)和精度(Precise)是广泛用于信息检索和统计学分类领域的两个度量值，用来评价结果的质量。</p>
+<h2 id="1-ROC曲线"><a href="#1-ROC曲线" class="headerlink" title="1.ROC曲线"></a>1.ROC曲线</h2><p>1、roc曲线：接收者操作特征(receiveroperating characteristic),roc曲线上每个点反映着对同一信号刺激的感受性。</p>
+<p><strong>横轴</strong>：负正类率(false postive rate FPR)特异度，划分实例中所有负例占所有负例的比例；(1-Specificity)</p>
+<p><strong>纵轴</strong>：真正类率(true postive rate TPR)灵敏度，Sensitivity(正类覆盖率)</p>
+<p>机器学习中常用的指标量</p>
+<p><strong>TP</strong>:正确的肯定数目</p>
+<p><strong>FN</strong>:漏报，没有找到正确匹配的数目</p>
+<p><strong>FP</strong>:误报，没有的匹配不正确</p>
+<p><strong>TN</strong>:正确拒绝的非匹配数目</p>
+<p>由上表可得出横，纵轴的计算公式：</p>
+<p>(1)真正类率(True Postive Rate)TPR: <strong>TP/(TP+FN)</strong>,代表分类器预测的<strong>正类中</strong>实际正实例占所有正实例的比例。Sensitivity</p>
+<p>(2)负正类率(False Postive Rate)FPR: <strong>FP/(FP+TN)</strong>，代表分类器预测的<strong>正类中</strong>实际负实例占所有负实例的比例。1-Specificity</p>
+<p>(3)真负类率(True Negative Rate)TNR: <strong>TN/(FP+TN)</strong>,代表分类器预测的<strong>负类中</strong>实际负实例占所有负实例的比例，<strong>TNR=1-FPR</strong>。Specificity</p>
+<p>AUC(Area under Curve)：Roc曲线下的面积，介于0.1和1之间。Auc作为数值可以直观的评价分类器的好坏，值越大越好。</p>
+<p><strong>首先AUC值是一个概率值，当你随机挑选一个正样本以及负样本，当前的分类算法根据计算得到的Score值将这个正样本排在负样本前面的概率就是AUC值，AUC值越大，当前分类算法越有可能将正样本排在负样本前面，从而能够更好地分类。</strong></p>
+<h2 id="3-为什么使用Roc-和Auc评价分类器"><a href="#3-为什么使用Roc-和Auc评价分类器" class="headerlink" title="3. 为什么使用Roc 和Auc评价分类器"></a>3. 为什么使用Roc 和Auc评价分类器</h2><p>既然已经这么多标准，为什么还要使用ROC和AUC呢？因为ROC曲线有个很好的特性：当测试集中的正负样本的分布变换的时候，ROC曲线能够保持不变。在实际的数据集中经常会出现样本类不平衡，即正负样本比例差距较大，而且测试数据中的正负样本也可能随着时间变化。</p>
+<h2 id="4-PR曲线"><a href="#4-PR曲线" class="headerlink" title="4.PR曲线"></a>4.PR曲线</h2><p>P-R曲线刻画查准率和查全率之间的关系，查准率指的是在所有预测为正例的数据中，真正例所占的比例，查全率是指预测为真正例的数据占所有正例数据的比例。<br> 即：查准率P=TP／(TP + FP) 查全率=TP／（TP+FN）<br> 查准率和查全率是一对矛盾的度量，一般来说，查准率高时，查全率往往偏低，查全率高时，查准率往往偏低，例如，若希望将好瓜尽可能多选出来，则可通过增加选瓜的数量来实现，如果希望将所有的西瓜都选上，那么所有的好瓜必然都被选上了，但这样查准率就会较低；若希望选出的瓜中好瓜比例尽可能高，则可只挑选最有把握的瓜，但这样就难免会漏掉不少好瓜，使得查全率较低。</p>
+<p>在很多情况下，我们可以根据学习器的预测结果对样例进行排序，排在前面的是学习器认为最可能是正例的样本，排在后面的是学习器认为最不可能是正例的样本，按此顺序逐个把样本作为正例进行预测，则每次可计算当前的查全率和查准率，以查准率为y轴，以查全率为x轴，可以画出下面的P-R曲线。</p>
+<p><img src="/2019/04/09/tensorflow-及机器学习基础知识/pr曲线.png" alt="PR曲线"></p>
+<h2 id="5-IMDB影评数据集"><a href="#5-IMDB影评数据集" class="headerlink" title="5.IMDB影评数据集"></a>5.IMDB影评数据集</h2><p>该数据下载后包含train和test两个文件夹和三个文件，其中test文件夹中的两个文件夹pos和neg分别为1.25W个代表积极和消极态度的训练样本。而train中的三个文件夹pos、neg、unsup分别为1.25W代表积极和消极态度的训练样本以及5W个未标记的样本。未标记样本可以用来作无监督学习时使用。</p>
+<h2 id="THUCnews数据集"><a href="#THUCnews数据集" class="headerlink" title="THUCnews数据集"></a>THUCnews数据集</h2><p>THUCNews是根据新浪新闻RSS订阅频道2005~2011年间的历史数据筛选过滤生成，包含74万篇新闻文档（2.19 GB），均为UTF-8纯文本格式。我们在原始新浪新闻分类体系的基础上，重新整合划分出14个候选分类类别：财经、彩票、房产、股票、家居、教育、科技、社会、时尚、时政、体育、星座、游戏、娱乐</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/用skikit-learn实现决策树/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/07/用skikit-learn实现决策树/" itemprop="url">用skikit-learn实现决策树</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T21:42:41+08:00">
+                2019-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="用scikit-learn实现决策树算法"><a href="#用scikit-learn实现决策树算法" class="headerlink" title="用scikit-learn实现决策树算法"></a>用scikit-learn实现决策树算法</h1><h2 id="1、scikit-learn决策树算法类库介绍"><a href="#1、scikit-learn决策树算法类库介绍" class="headerlink" title="1、scikit-learn决策树算法类库介绍"></a>1、scikit-learn决策树算法类库介绍</h2><p>​         scikit-learn决策树算法类库内部实现是使用了调优过的CART树算法，既可以做分类，又可以做回归。分类决策树的类对应的是DecisionTreeClassifier，而回归决策树的类对应的是DecisionTreeRegressor。两者的参数定义几乎完全相同，但是意义不全相同。下面就对DecisionTreeClassifier和DecisionTreeRegressor的重要参数做一个总结，重点比较两者参数使用的不同点和调参的注意点。 </p>
+<h2 id="2、DecisionTreeClassifier和DecisionTreeClassifier-重要参数调参注意点"><a href="#2、DecisionTreeClassifier和DecisionTreeClassifier-重要参数调参注意点" class="headerlink" title="2、DecisionTreeClassifier和DecisionTreeClassifier 重要参数调参注意点"></a>2、DecisionTreeClassifier和DecisionTreeClassifier 重要参数调参注意点</h2><h3 id="2-1-特征选择标准criterion"><a href="#2-1-特征选择标准criterion" class="headerlink" title="2.1 特征选择标准criterion"></a>2.1 特征选择标准criterion</h3><p>​        DecisionTreeClassifier：可以使用”gini”或者”entropy”，前者代表基尼系数，后者代表信息增益。一般说使用默认的基尼系数”gini”就可以了，即CART算法。除非你更喜欢类似ID3, C4.5的最优特征选择方法。 </p>
+<p>​        DecisionTreeRegressor：可以使用”mse”或者”mae”，前者是均方差，后者是和均值之差的绝对值之和。推荐使用默认的”mse”。一般来说”mse”比”mae”更加精确。除非你想比较二个参数的效果的不同之处。</p>
+<h3 id="2-2-特征划分点选择标准splitter"><a href="#2-2-特征划分点选择标准splitter" class="headerlink" title="2.2 特征划分点选择标准splitter"></a>2.2 特征划分点选择标准splitter</h3><p>​        可以使用”best”或者”random”。前者在特征的所有划分点中找出最优的划分点。后者是随机的在部分划分点中找局部最优的划分点。<br>​         默认的”best”适合样本量不大的时候，而如果样本数据量非常大，此时决策树构建推荐”random” </p>
+<h3 id="2-3-划分时考虑的最大特征数max-features"><a href="#2-3-划分时考虑的最大特征数max-features" class="headerlink" title="2.3 划分时考虑的最大特征数max_features"></a>2.3 划分时考虑的最大特征数max_features</h3><p>​        可以使用很多种类型的值，默认是”None”,意味着划分时考虑所有的特征数；如果是”log2”意味着划分时最多考虑log2N个特征；如果是”sqrt”或者”auto”意味着划分时最多考虑sqrt(N)个特征。如果是整数，代表考虑的特征绝对数。如果是浮点数，代表考虑特征百分比，即考虑（百分比xN）取整后的特征数。其中N为样本总特征数。<br>​         一般来说，如果样本特征数不多，比如小于50，我们用默认的”None”就可以了，如果特征数非常多，我们可以灵活使用刚才描述的其他取值来控制划分时考虑的最大特征数，以控制决策树的生成时间。</p>
+<h3 id="2-4-决策树最大深max-depth"><a href="#2-4-决策树最大深max-depth" class="headerlink" title="2.4 决策树最大深max_depth"></a>2.4 决策树最大深max_depth</h3><p>​        决策树的最大深度，默认可以不输入，如果不输入的话，决策树在建立子树的时候不会限制子树的深度。一般来说，数据少或者特征少的时候可以不管这个值。如果模型样本量多，特征也多的情况下，推荐限制这个最大深度，具体的取值取决于数据的分布。常用的可以取值10-100之间。</p>
+<h3 id="2-5-内部节点再划分所需最小样本数min-samples-split"><a href="#2-5-内部节点再划分所需最小样本数min-samples-split" class="headerlink" title="2.5 内部节点再划分所需最小样本数min_samples_split"></a>2.5 内部节点再划分所需最小样本数min_samples_split</h3><p>​        这个值限制了子树继续划分的条件，如果某节点的样本数少于min_samples_split，则不会继续再尝试选择最优特征来进行划分。 默认是2.如果样本量不大，不需要管这个值。如果样本量数量级非常大，则推荐增大这个值。我之前的一个项目例子，有大概10万样本，建立决策树时，我选择了min_samples_split=10。可以作为参考。</p>
+<h3 id="2-6-叶子节点最少样本数min-samples-leaf"><a href="#2-6-叶子节点最少样本数min-samples-leaf" class="headerlink" title="2.6 叶子节点最少样本数min_samples_leaf"></a>2.6 叶子节点最少样本数min_samples_leaf</h3><p>​        这个值限制了叶子节点最少的样本数，如果某叶子节点数目小于样本数，则会和兄弟节点一起被剪枝。 默认是1，可以输入最少的样本数的整数，或者最少样本数占样本总数的百分比。如果样本量不大，不需要管这个值。如果样本量数量级非常大，则推荐增大这个值。之前的10万样本项目使用min_samples_leaf的值为5，仅供参考。</p>
+<h3 id="2-7-叶子节点最小的样本权重和min-weight-fraction-leaf"><a href="#2-7-叶子节点最小的样本权重和min-weight-fraction-leaf" class="headerlink" title="2.7 叶子节点最小的样本权重和min_weight_fraction_leaf"></a>2.7 叶子节点最小的样本权重和min_weight_fraction_leaf</h3><p>​        这个值限制了叶子节点所有样本权重和的最小值，如果小于这个值，则会和兄弟节点一起被剪枝。 默认是0，就是不考虑权重问题。一般来说，如果我们有较多样本有缺失值，或者分类树样本的分布类别偏差很大，就会引入样本权重，这时我们就要注意这个值了。</p>
+<h3 id="2-8-最大叶子节点数max-leaf-nodes"><a href="#2-8-最大叶子节点数max-leaf-nodes" class="headerlink" title="2.8 最大叶子节点数max_leaf_nodes"></a>2.8 最大叶子节点数max_leaf_nodes</h3><p>​        通过限制最大叶子节点数，可以防止过拟合，默认是”None”，即不限制最大的叶子节点数。如果加了限制，算法会建立在最大叶子节点数内最优的决策树。如果特征不多，可以不考虑这个值，但是如果特征分成多的话，可以加以限制，具体的值可以通过交叉验证得到。</p>
+<h3 id="2-9-类别权重class-weight"><a href="#2-9-类别权重class-weight" class="headerlink" title="2.9 类别权重class_weight"></a>2.9 类别权重class_weight</h3><p>​        不适用于回归树。指定样本各类别的的权重，主要是为了防止训练集某些类别的样本过多，导致训练的决策树过于偏向这些类别。这里可以自己指定各个样本的权重，或者用“balanced”，如果使用“balanced”，则算法会自己计算权重，样本量少的类别所对应的样本权重会高。当然，如果你的样本类别分布没有明显的偏倚，则可以不管这个参数，选择默认的”None”</p>
+<h3 id="2-10-节点划分最小不纯度min-impurity-split"><a href="#2-10-节点划分最小不纯度min-impurity-split" class="headerlink" title="2.10 节点划分最小不纯度min_impurity_split"></a>2.10 节点划分最小不纯度min_impurity_split</h3><p>​        这个值限制了决策树的增长，如果某节点的不纯度(基尼系数，信息增益，均方差，绝对差)小于这个阈值，则该节点不再生成子节点。即为叶子节点 。</p>
+<h3 id="2-11-数据是否预排序presort"><a href="#2-11-数据是否预排序presort" class="headerlink" title="2.11 数据是否预排序presort"></a>2.11 数据是否预排序presort</h3><p>​        这个值是布尔值，默认是False不排序。一般来说，如果样本量少或者限制了一个深度很小的决策树，设置为true可以让划分点选择更加快，决策树建立的更加快。如果样本量太大的话，反而没有什么好处。问题是样本量少的时候，我速度本来就不慢。所以这个值一般懒得理它就可以了。</p>
+<p>​        除了这些参数要注意以外，其他在调参时的注意点有：<br> 　　1）当样本少数量但是样本特征非常多的时候，决策树很容易过拟合，一般来说，样本数比特征数多一些会比较容易建立健壮的模型<br> 　　2）如果样本数量少但是样本特征非常多，在拟合决策树模型前，推荐先做维度规约，比如主成分分析（PCA），特征选择（Losso）或者独立成分分析（ICA）。这样特征的维度会大大减小。再来拟合决策树模型效果会好。<br>​     　3）推荐多用决策树的可视化（下节会讲），同时先限制决策树的深度（比如最多3层），这样可以先观察下生成的决策树里数据的初步拟合情况，然后再决定是否要增加深度。<br> 　　4）在训练模型前，注意观察样本的类别情况（主要指分类树），如果类别分布非常不均匀，就要考虑用class_weight来限制模型过于偏向样本多的类别。<br> 　　5）决策树的数组使用的是numpy的float32类型，如果训练数据不是这样的格式，算法会先做copy再运行。<br> 　　6）如果输入的样本矩阵是稀疏的，推荐在拟合前调用csc_matrix稀疏化，在预测前调用csr_matrix稀疏化</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/安装时遇到的问题/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1587,314 +1923,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/python爬虫1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/05/python爬虫1/" itemprop="url">python爬虫1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-05T01:38:15+08:00">
-                2019-03-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="python爬虫（1）"><a href="#python爬虫（1）" class="headerlink" title="python爬虫（1）"></a>python爬虫（1）</h3><p>(注：代码使用的IP代理不稳定，运行时极有可能失效，建议取免费IP代理网站上寻找代理IP，替换代码中的IP)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">mport re</span><br><span class="line">import time</span><br><span class="line">import chardet</span><br><span class="line">import requests</span><br><span class="line">import urllib.robotparser</span><br><span class="line">from fake_useragent import UserAgent</span><br><span class="line"></span><br><span class="line">def get_headers():</span><br><span class="line">    ua=UserAgent()</span><br><span class="line">    user_agent=ua.random</span><br><span class="line">    headers=&#123;&apos;User-Agent&apos;:user_agent&#125;</span><br><span class="line">    return headers</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def get_proxies():</span><br><span class="line">    proxies=&#123;</span><br><span class="line">        &quot;http&quot;:&quot;111.43.70.58&quot;,</span><br><span class="line">        &quot;http&quot;: &quot;117.90.1.102&quot;,</span><br><span class="line">        &quot;http&quot;: &quot;111.177.186.120&quot;,</span><br><span class="line">        &quot;http&quot;: &quot;58.210.94.242&quot;,</span><br><span class="line">        &quot;http&quot;: &quot;122.234.206.52&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    return proxies</span><br><span class="line"></span><br><span class="line">#robot检测</span><br><span class="line">def robot_check(robotstxt_url,headers,url):</span><br><span class="line">        rp=urllib.robotparser.RobotFileParser()</span><br><span class="line">        rp.set_url(robotstxt_url)</span><br><span class="line">        rp.read()</span><br><span class="line">        result=rp.can_fetch(headers[&apos;User-Agent&apos;],url)</span><br><span class="line">        return result</span><br><span class="line"></span><br><span class="line">def get_data(url,num_retries=3,proxies=None):</span><br><span class="line">    try:</span><br><span class="line">        data=requests.get(url,headers=headers)</span><br><span class="line">        print(data.status_code)</span><br><span class="line">    except requests.exceptions.ConnectionError as e:</span><br><span class="line">        print(&quot;请求错误,url:&quot;,url)</span><br><span class="line">        print(&quot;错误详情&quot;,e)</span><br><span class="line">        data=None</span><br><span class="line">    except:</span><br><span class="line">        print(&quot;未知错误，url:&quot;,url)</span><br><span class="line">        data=None</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        if(data!=None)and(500&lt;=data.status_code&lt;600):</span><br><span class="line">            if(num_retries&gt;0):</span><br><span class="line">                print(&quot;服务器错误，正在重试.......&quot;)</span><br><span class="line">                time.sleep(1)</span><br><span class="line">                num_retries-=1</span><br><span class="line">                get_data(url,num_retries,proxies=proxies)</span><br><span class="line">        return data</span><br><span class="line"></span><br><span class="line">def parse_data(data):</span><br><span class="line">    if(data==None):</span><br><span class="line">        return None</span><br><span class="line">    charset=chardet.detect(data.content)</span><br><span class="line">    data.encoding=charset[&apos;encoding&apos;]</span><br><span class="line">    html_text=data.text</span><br><span class="line">    t=re.findall(&apos;&lt;a&gt;(.*?)&lt;/a444&gt;&apos;,html_text)</span><br><span class="line">    return t</span><br><span class="line"></span><br><span class="line">if __name__==&apos;__main__&apos;:</span><br><span class="line">    headers=get_headers()</span><br><span class="line">    proxies=get_proxies()</span><br><span class="line">    data=get_data(&quot;http://www.baidu.com&quot;,num_retries=3,proxies=proxies)</span><br><span class="line">    t=parse_data(data)</span><br><span class="line">    print(t)</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/04/机器学习1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/04/机器学习1/" itemprop="url">机器学习1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T00:58:17+08:00">
-                2019-03-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="机器学习周记"><a href="#机器学习周记" class="headerlink" title="机器学习周记"></a>机器学习周记<1></1></h2><h5 id="1-基础知识点"><a href="#1-基础知识点" class="headerlink" title="1.基础知识点"></a>1.基础知识点</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 机器学习的核心是“使用算法解析数据，从中学习，然后对世界上的某件事情做出决定或预测”</span><br><span class="line"></span><br><span class="line">2. 机器学习分为监督学习，无监督学习，强化学习</span><br></pre></td></tr></table></figure>
-<h5 id="2-机器学习算法分类"><a href="#2-机器学习算法分类" class="headerlink" title="2.机器学习算法分类"></a>2.机器学习算法分类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 回归算法</span><br><span class="line">2. 基于实例的算法</span><br><span class="line">3. 决策树算法</span><br><span class="line">4. 贝叶斯算法</span><br><span class="line">5. 聚类算法</span><br><span class="line">6. 深度学习和神经网络算法</span><br><span class="line">7. 其他算法</span><br></pre></td></tr></table></figure>
-<h5 id="3-基础机器学习代码实现"><a href="#3-基础机器学习代码实现" class="headerlink" title="3.基础机器学习代码实现"></a>3.基础机器学习代码实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.区分橘子与苹果</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">rom sklearn import datasets</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">from sklearn.tree import DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    iris = datasets.load_iris()</span><br><span class="line">    iris_feature = iris.data</span><br><span class="line">    iris_target = iris.target</span><br><span class="line">    #print(iris_target)</span><br><span class="line">    #print(&apos;***********&apos;)</span><br><span class="line">    #print(iris_feature)</span><br><span class="line"></span><br><span class="line">    feature_train, feature_test, target_train, target_test =            train_test_split(iris_feature, iris_target,test_size=0.33,random_state=42)</span><br><span class="line">    dt_model=DecisionTreeClassifier()</span><br><span class="line">    dt_model.fit(feature_train,target_train)</span><br><span class="line">    predict_results=dt_model.predict(feature_test)</span><br><span class="line">    print(predict_results)</span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.识别鸢尾花类别</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">from sklearn import datasets#导入内置数据集模块</span><br><span class="line">from sklearn.neighbors import KNeighborsClassifier#导入sklear.neughbors模板中的KNN类</span><br><span class="line">import numpy as np</span><br><span class="line">np.random.seed(0)#设置随机种子</span><br><span class="line"></span><br><span class="line">#数据集梳理</span><br><span class="line">iris=datasets.load_iris()#导入鸢尾花样本数据</span><br><span class="line">iris_x=iris.data</span><br><span class="line">iris_y=iris.target</span><br><span class="line">indices=np.random.permutation(len(iris_x))#对样本数据进行打乱(150)</span><br><span class="line">iris_x_train=iris_x[indices[:-10]]#选取140个数据集作为训练集</span><br><span class="line">iris_y_train=iris_y[indices[:-10]]</span><br><span class="line">iris_x_test=iris_x[indices[-10:]]</span><br><span class="line">#剩下的十个样本作为测试集</span><br><span class="line">iris_y_test=iris_y[indices[-10:]]</span><br><span class="line"></span><br><span class="line">knn=KNeighborsClassifier()</span><br><span class="line">knn.fit(iris_x_train,iris_y_train)</span><br><span class="line">iris_y_predict=knn.predict(iris_x_test)</span><br><span class="line">#测试数据集</span><br><span class="line">probility=knn.predict_proba(iris_x_test)</span><br><span class="line">#计算各测试样本基于概率的预测</span><br><span class="line">neighbor=knn.kneighbors(iris_x_test[-1],5,False)</span><br><span class="line">#计算与最后一个样本距离最近的五个点，返回的是这些样本的序号组成的数组</span><br><span class="line">score=knn.score(iris_x_test,iris_y_test,sample_weight=None)</span><br><span class="line">#计算准确率</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(&apos;iris_y_predict=&apos;)</span><br><span class="line">print(iris_y_predict)</span><br><span class="line"></span><br><span class="line">print(&apos;iris_y_test:&apos;)</span><br><span class="line">print(iris_y_test)</span><br><span class="line">print(&quot;准确率：&quot;,score)</span><br><span class="line">print(&quot;邻近对象数据为：&quot;,neighbor)</span><br><span class="line">print(&quot;基于概率的预测：&quot;,probility)</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1945,7 +1973,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
