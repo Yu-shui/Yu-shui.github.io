@@ -301,6 +301,185 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/机器学习2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/09/机器学习2/" itemprop="url">机器学习2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-09T01:15:49+08:00">
+                2019-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="python机器学习基础库-numpy-pandas-matplotlib"><a href="#python机器学习基础库-numpy-pandas-matplotlib" class="headerlink" title="python机器学习基础库(numpy,pandas,matplotlib)"></a>python机器学习基础库(numpy,pandas,matplotlib)</h1><h2 id="1-numpy"><a href="#1-numpy" class="headerlink" title="1.numpy"></a>1.numpy</h2><p>NumPy是Python数值计算最重要的基础包，支持高级大量的维度数组与矩阵运算，大多数提供科学计算的包都是使用Numpy的数组作为构建基础。Numpy内部解除了Python的PIL(全局解释器锁),运算效率极好,是大量机器学习框架的基础库。</p>
+<p>下面简要介绍numpy的简单使用方法</p>
+<h4 id="创建ndarray对象"><a href="#创建ndarray对象" class="headerlink" title="创建ndarray对象:"></a>创建ndarray对象:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">numpy.array(object, dtype = None, copy = True, order = None, subok = False, ndmin = 0)</span><br><span class="line"></span><br><span class="line">1.</span><br><span class="line">object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。</span><br><span class="line">2.</span><br><span class="line">dtype 数组的所需数据类型，可选。</span><br><span class="line">3.</span><br><span class="line">copy 可选，默认为true，对象是否被复制。</span><br><span class="line">4.</span><br><span class="line">order C（按行）、F（按列）或A（任意，默认）。</span><br><span class="line">5.</span><br><span class="line">subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。</span><br><span class="line">6.</span><br><span class="line">ndmin 指定返回数组的最小维数。</span><br></pre></td></tr></table></figure>
+<p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line"></span><br><span class="line">a = np.array([1,2,3])  </span><br><span class="line"></span><br><span class="line">print a</span><br><span class="line"></span><br><span class="line">输出为：[1, 2, 3]</span><br></pre></td></tr></table></figure>
+<h4 id="创建一个二维数组"><a href="#创建一个二维数组" class="headerlink" title="创建一个二维数组"></a>创建一个二维数组</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line"></span><br><span class="line">a = np.array([[1,  2],  [3,  4]])  </span><br><span class="line"></span><br><span class="line">print a</span><br><span class="line"></span><br><span class="line">output:[[1, 2] ,[3, 4]]</span><br></pre></td></tr></table></figure>
+<h5 id="使用reshape调整数组大小"><a href="#使用reshape调整数组大小" class="headerlink" title="使用reshape调整数组大小"></a>使用reshape调整数组大小</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line"></span><br><span class="line">a = np.array([[1,2,3],[4,5,6]]) </span><br><span class="line"></span><br><span class="line">b = a.reshape(3,2)  </span><br><span class="line"></span><br><span class="line">print b</span><br><span class="line"></span><br><span class="line">output:</span><br><span class="line">[[1, 2] </span><br><span class="line"></span><br><span class="line"> [3, 4] </span><br><span class="line"></span><br><span class="line"> [5, 6]]</span><br></pre></td></tr></table></figure>
+<h3 id="切片和索引"><a href="#切片和索引" class="headerlink" title="切片和索引"></a>切片和索引</h3><p><code>ndarray</code>对象的内容可以通过索引或切片来访问和修改，就像 Python 的内置容器对象一样。</p>
+<p>如前所述，<code>ndarray</code>对象中的元素遵循基于零的索引。 有三种可用的索引方法类型： <strong>字段访问，基本切片</strong>和<strong>高级索引</strong>。</p>
+<p>基本切片是 Python 中基本切片概念到 n 维的扩展。 通过将<code>start</code>，<code>stop</code>和<code>step</code>参数提供给内置的<code>slice</code>函数来构造一个 Python <code>slice</code>对象。 此<code>slice</code>对象被传递给数组来提取数组的一部分。</p>
+<h5 id="示例-1"><a href="#示例-1" class="headerlink" title="示例 1"></a>示例 1</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">10</span>)</span><br><span class="line">s = slice(<span class="number">2</span>,<span class="number">7</span>,<span class="number">2</span>)  </span><br><span class="line"><span class="keyword">print</span> a[s]</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2  4  6]</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，<code>ndarray</code>对象由<code>arange()</code>函数创建。 然后，分别用起始，终止和步长值<code>2</code>，<code>7</code>和<code>2</code>定义切片对象。 当这个切片对象传递给<code>ndarray</code>时，会对它的一部分进行切片，从索引<code>2</code>到<code>7</code>，步长为<code>2</code>。</p>
+<p>通过将由冒号分隔的切片参数（<code>start:stop:step</code>）直接提供给<code>ndarray</code>对象，也可以获得相同的结果。</p>
+<h5 id="示例-2"><a href="#示例-2" class="headerlink" title="示例 2"></a>示例 2</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">10</span>)</span><br><span class="line">b = a[<span class="number">2</span>:<span class="number">7</span>:<span class="number">2</span>]  </span><br><span class="line"><span class="keyword">print</span> b</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2  4  6]</span><br></pre></td></tr></table></figure>
+<p>如果只输入一个参数，则将返回与索引对应的单个项目。 如果使用<code>a:</code>，则从该索引向后的所有项目将被提取。 如果使用两个参数（以<code>:</code>分隔），则对两个索引（不包括停止索引）之间的元素以默认步骤进行切片。</p>
+<h5 id="示例-3"><a href="#示例-3" class="headerlink" title="示例 3"></a>示例 3</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对单个元素进行切片  </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">10</span>)</span><br><span class="line">b = a[<span class="number">5</span>]  </span><br><span class="line"><span class="keyword">print</span> b</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
+<h5 id="示例-4"><a href="#示例-4" class="headerlink" title="示例 4"></a>示例 4</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对始于索引的元素进行切片  </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">10</span>)  </span><br><span class="line"><span class="keyword">print</span> a[<span class="number">2</span>:]</span><br></pre></td></tr></table></figure>
+<h3 id="数学运算"><a href="#数学运算" class="headerlink" title="数学运算"></a>数学运算</h3><p>可以对Numpy数组进行加法，减法，乘法，甚至三角运算，可以通过广度映射对不同阵型的数组进行算术运算。</p>
+<h4 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h4><p>使用np.vectorize(函数)创建标量函数的向量化版本，以Python函数或方法作为参数，输出函数的向量化版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">def myfunc(a,b):</span><br><span class="line">def myfunc(a,b):</span><br><span class="line">	if a&gt;b:</span><br><span class="line">		return a-b</span><br><span class="line">  	else:</span><br><span class="line">    	return a+b</span><br><span class="line">vfunc=np.vectorize(myfunc)</span><br><span class="line">print(vfunc([1,2,3,4],[4,3,2,1]))</span><br></pre></td></tr></table></figure>
+<p>输出为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[5 5 1 3]</span><br></pre></td></tr></table></figure></p>
+<h3 id="多项式函数"><a href="#多项式函数" class="headerlink" title="多项式函数"></a>多项式函数</h3><p>ployld接受降幂次序的参数数组作为参数</p>
+<h5 id="创建多项式"><a href="#创建多项式" class="headerlink" title="创建多项式"></a>创建多项式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import  numpy as np</span><br><span class="line">p=np.poly1d([2,3,4])</span><br><span class="line">print(np.poly1d(p))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">output: </span><br><span class="line">   2</span><br><span class="line">2 x + 3 x + 4</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/python爬虫1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1166,7 +1345,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

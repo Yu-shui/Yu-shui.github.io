@@ -301,6 +301,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/OpenCV基础一/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/15/OpenCV基础一/" itemprop="url">OpenCV基础一</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-15T16:00:44+08:00">
+                2019-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="OpenCV：二值化操作cv2-threshold函数"><a href="#OpenCV：二值化操作cv2-threshold函数" class="headerlink" title="OpenCV：二值化操作cv2.threshold函数"></a>OpenCV：二值化操作cv2.threshold函数</h2><h3 id="一-简单阈值"><a href="#一-简单阈值" class="headerlink" title="(一)简单阈值"></a>(一)简单阈值</h3><p>简单阈值当然是最简单，选取一个全局阈值，然后就把整幅图像分成了非黑即白的二值图像了。函数为cv2.threshold()<br> 这个函数有四个参数，第一个原图像，第二个进行分类的阈值，第三个是高于（低于）阈值时赋予的新值，第四个是一个方法选择参数，常用的有：<br> • cv2.THRESH_BINARY（黑白二值）<br> • cv2.THRESH_BINARY_INV（黑白二值反转）<br> • cv2.THRESH_TRUNC （得到的图像为多像素值）<br> • cv2.THRESH_TOZERO<br> • cv2.THRESH_TOZERO_INV<br> 该函数有两个返回值，第一个ret（得到的阈值值（在后面一个方法中会用到）），第二个就是阈值化后的图像。<br> 一个实例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import matplotlib as mpt</span><br><span class="line">image=cv2.imread(&quot;h.jpg&quot;,cv2.IMREAD_UNCHANGED)</span><br><span class="line">cv2.imshow(&quot;frame&quot;,image)</span><br><span class="line">cv2.waitKey(0)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/07/15/OpenCV基础一/1.PNG" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)</span><br><span class="line">ret,thresh1 = cv2.threshold(gray,127,255,cv2.THRESH_BINARY)</span><br><span class="line">ret,thresh2 = cv2.threshold(gray,127,255,cv2.THRESH_BINARY_INV)</span><br><span class="line">ret,thresh3 = cv2.threshold(gray,127,255,cv2.THRESH_TRUNC)</span><br><span class="line">ret,thresh4 = cv2.threshold(gray,127,255,cv2.THRESH_TOZERO)</span><br><span class="line">ret,thresh5 = cv2.threshold(gray,127,255,cv2.THRESH_TOZERO_INV)</span><br><span class="line"></span><br><span class="line">titles = [&apos;img&apos;,&apos;BINARY&apos;,&apos;BINARY_INV&apos;,&apos;TRUNC&apos;,&apos;TOZERO&apos;,&apos;TOZERO_INV&apos;]</span><br><span class="line">images = [image,thresh1,thresh2,thresh3,thresh4,thresh5]</span><br><span class="line">for i in range(6):</span><br><span class="line">    mpt.subplot(2,3,i+1),mpt.imshow(images[i],&apos;gray&apos;)</span><br><span class="line">    mpt.title(titles[i])</span><br><span class="line">    mpt.xticks([]),mpt.yticks([])</span><br><span class="line">mpt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/07/15/OpenCV基础一/2.PNG" alt=""></p>
+<h3 id="（二）自适应阈值"><a href="#（二）自适应阈值" class="headerlink" title="（二）自适应阈值"></a>（二）自适应阈值</h3><p>前面看到简单阈值是一种全局性的阈值，只需要规定一个阈值值，整个图像都和这个阈值比较。而自适应阈值可以看成一种局部性的阈值，通过规定一个区域大小，比较这个点与区域大小里面像素点的平均值（或者其他特征）的大小关系确定这个像素点是属于黑或者白（如果是二值情况）。使用的函数为：cv2.adaptiveThreshold（）<br> 该函数需要填6个参数：</p>
+<ul>
+<li><p>第一个原始图像</p>
+</li>
+<li><p>第二个像素值上限</p>
+</li>
+<li><p>第三个自适应方法<strong>Adaptive Method</strong>:<br> —<strong>cv2.ADAPTIVE_THRESH_MEAN_C</strong>：领域内均值<br> —<strong>cv2.ADAPTIVE_THRESH_GAUSSIAN_C</strong> ：领域内像素点加权和，权      重为一个高斯窗口</p>
+</li>
+<li><p>第四个值的赋值方法：只有cv2.THRESH_BINARY  和cv2.THRESH_BINARY_INV</p>
+</li>
+<li><p>第五个Block size:规定领域大小（一个正方形的领域）</p>
+</li>
+<li><p>第六个常数C，阈值等于均值或者加权值减去这个常数（为0相当于阈值    就是求得领域内均值或者加权值）<br> 这种方法理论上得到的效果更好，相当于在动态自适应的调整属于自己像素点的阈值，而不是整幅图像都用一个阈值。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">img=cv2.imread(&quot;h.jpg&quot;)</span><br><span class="line">gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">#全局阈值</span><br><span class="line">ret,th1=cv2.threshold(gray,127,255,cv2.THRESH_BINARY)</span><br><span class="line">#自适应阈值</span><br><span class="line">th2=cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,11,2)</span><br><span class="line">th3=cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)</span><br><span class="line">images=[gray,th1,th2,th3]</span><br><span class="line">plt.figure()</span><br><span class="line">for i in range(4):</span><br><span class="line">    plt.subplot(2,2,i+1),plt.imshow(images[i],&apos;gray&apos;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p> <img src="/2019/07/15/OpenCV基础一/3.PNG" alt=""></p>
+</li>
+</ul>
+<h3 id="三-Otsu’s二值化"><a href="#三-Otsu’s二值化" class="headerlink" title="(三)Otsu’s二值化"></a>(三)Otsu’s二值化</h3><p>有的图像可能阈值不是127得到的效果更好。那么这里我们需要算法自己去寻找到一个阈值，而Otsu’s就可以自己找到一个认为最好的阈值。并且Otsu’s非常适合于图像灰度直方图(灰度直方图是反映一幅图像中各灰度级像素出现的频率与灰度级的关系，以灰度级为横坐标，频率为纵坐标，绘制频率同灰度级的关系图像就是一幅灰度图像的直方图)具有双峰的情况，他会在双峰之间找到一个值作为阈值，对于非双峰图像，可能并不是很好用。那么经过Otsu’s得到的那个阈值就是函数cv2.threshold的第一个参数了。因为Otsu’s方法会产生一个阈值，那么函数cv2.threshold的的第二个参数（设置阈值）就是0了，并且在cv2.threshold的方法参数中还得加上语句cv2.THRESH_OTSU。图像的灰度统计图中可以明显看出只有两个波峰就是双峰图像，比如下面一个图的灰度直方图就可以是双峰图：</p>
+<p><img src="/2019/07/15/OpenCV基础一/4.PNG" alt=""></p>
+<p>绘制灰度直方图：</p>
+<figure class="highlight plain"><figcaption><span>cv2</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">img=cv2.imread(&quot;h.jpg&quot;)</span><br><span class="line">plt.hist(img.ravel(),256)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/07/15/OpenCV基础一/5.PNG" alt=""></p>
+<p>这里所用的实例不具有明显的双峰，所以可能效果不好</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">img=cv2.imread(&quot;h.jpg&quot;)</span><br><span class="line">gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">#简单滤波</span><br><span class="line">ret1,th1=cv2.threshold(gray,127,255,cv2.THRESH_BINARY)</span><br><span class="line">#Otsu 滤波</span><br><span class="line">ret2,th2 = cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)</span><br><span class="line">plt.figure()</span><br><span class="line">plt.subplot(221),plt.imshow(gray,&apos;gray&apos;)</span><br><span class="line">plt.subplot(223),plt.imshow(th1,&apos;gray&apos;)</span><br><span class="line">plt.subplot(224),plt.imshow(th2,&apos;gray&apos;)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/07/15/OpenCV基础一/6.PNG" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/SVM补充（一/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1828,269 +2008,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/卷积神经网络基础/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/23/卷积神经网络基础/" itemprop="url">卷积神经网络基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T22:27:11+08:00">
-                2019-04-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="卷积神经网络基础"><a href="#卷积神经网络基础" class="headerlink" title="卷积神经网络基础"></a>卷积神经网络基础</h1><h2 id="1-卷积运算"><a href="#1-卷积运算" class="headerlink" title="1.卷积运算"></a>1.卷积运算</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h3><p><img src="/2019/04/23/卷积神经网络基础/nn1.PNG" alt=""></p>
-<h3 id="2-动机"><a href="#2-动机" class="headerlink" title="2.动机"></a>2.动机</h3><p>卷积运算改进机器学习系统的三个重要思想：</p>
-<p><strong>稀疏交互(saprse interactions)</strong><br>又称稀疏权重(sparse weights)，这是因为核大小远小于输入大小。eg：当输入图像包含成千上万像素点，只采用几十个到上百个像素点的和来检测小而有意义的特征。<br>减少了存取需求，提高统计效率。</p>
-<p><strong>参数共享(parameter sharing)</strong><br>是指，在一个模型中的多个函数中使用相同参数。卷积运算共享一个卷积核，保证我们只需学习一个参数集，而非在每一个位置学习同一个参数集。</p>
-<p><strong>等变表示(equivariant represetations)</strong><br>如果一个函数满足输入改变，而输出也以同样方式改变则该函数是等变的。这在处理时间序列中事件延后，图像序列中对象的移动是非常有利的。<br>而一些其他的变换在卷积中并非必然。比如图像放缩和旋转变换，则需要其他机制处理。</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn2.gif" alt=""></p>
-<h3 id="3-一维矩阵运算"><a href="#3-一维矩阵运算" class="headerlink" title="3.一维矩阵运算"></a>3.一维矩阵运算</h3><p>在数学里我们知道f(-x)的图像是f(x)对y轴的反转</p>
-<p>​     g(-m)就是把g(m)的序列反转，g(n-m)的意义是把g(-m)平移的n点：</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn2.PNG" alt=""></p>
-<p>卷积运算时可以交换顺序.</p>
-<ul>
-<li><p>代码实现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">x=np.array([1,2,3])</span><br><span class="line">h=np.array([2,3,1])</span><br><span class="line">import scipy.signal</span><br><span class="line">scipy.signal.convolve(x,h)</span><br><span class="line">print(scipy.signal.convolve(x,h))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="4-二维矩阵运算"><a href="#4-二维矩阵运算" class="headerlink" title="4.二维矩阵运算"></a>4.二维矩阵运算</h3><p>其中，矩阵A和B的尺寸分别为ma<em>na即mb</em>nb</p>
-<p>① 对矩阵A补零，</p>
-<p>第一行之前和最后一行之后都补mb-1行，</p>
-<p>第一列之前和最后一列之后都补nb-1列</p>
-<p>（注意conv2不支持其他的边界补充选项，函数内部对输入总是补零）；</p>
-<p>之所以都是-1是因为卷积核要在图像A上面移动,移动的时候需要满足两者至少有一列或者一行是重叠的.</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn3.PNG" alt=""></p>
-<p>再将卷积核旋转180度，之后有三种计算方式，分别是按照shape=full,shape=same,shape=valid进行计算(重叠部分进行矢量积运算)</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn4.png" alt=""></p>
-<p><strong>卷积层输入特征和输出特征尺寸和卷积核的关系</strong></p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn5.PNG" alt=""></p>
-<h1 id="2-反卷积"><a href="#2-反卷积" class="headerlink" title="2.反卷积"></a>2.反卷积</h1><p>我们把4×4的输入特征展成[16,1]的矩阵X ,那么Y = CX则是一个[4,1]的输出特征矩阵，把它重新排列2×2的输出特征就得到最终的结果，从上述分析可以看出卷积层的计算其实是可以转化成矩阵相乘的。值得注意的是，在一些深度学习网络的开源框架中并不是通过这种这个转换方法来计算卷积的，因为这个转换会存在很多无用的0乘操作，<strong>Caffe</strong>中具体实现卷积计算的方法可参考<strong>Implementing convolution as a matrix multiplication</strong></p>
-<p>​    通过上述的分析，我们已经知道卷积层的前向操作可以表示为和矩阵C相乘，那么 我们很容易得到卷积层的反向传播就是和C的转置相乘。</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn7.gif" alt=""></p>
-<p>这里提到的反卷积跟1维信号处理的反卷积计算是很不一样的，FCN作者称为backwards convolution，有人称Deconvolution layer is a very unfortunate name and should rather be called a transposed convolutional layer. 我们可以知道，在CNN中有con layer与pool layer，con layer进行对图像卷积提取特征，pool layer对图像缩小一半筛选重要特征，对于经典的图像识别CNN网络，如IMAGENET，最后输出结果是1X1X1000，1000是类别种类，1x1得到的是。FCN作者，或者后来对end to end研究的人员，就是对最终1x1的结果使用反卷积（事实上FCN作者最后的输出不是1X1，是图片大小的32分之一，但不影响反卷积的使用）。</p>
-<p> 这里图像的反卷积与图6的full卷积原理是一样的，使用了这一种反卷积手段使得图像可以变大，FCN作者使用的方法是这里所说反卷积的一种变体，这样就可以获得相应的像素值，图像可以实现end to end。</p>
-<p>这里说另外一种反卷积做法，假设原图是3X3，首先使用上采样让图像变成7X7，可以看到图像多了很多空白的像素点。使用一个3X3的卷积核对图像进行滑动步长为1的valid卷积，得到一个5X5的图像，我们知道的是使用上采样扩大图片，使用反卷积填充图像内容，使得图像内容变得丰富，这也是CNN输出end to end结果的一种方法。韩国作者Hyeonwoo Noh使用VGG16层CNN网络后面加上对称的16层反卷积与上采样网络实现end to end 输出，其不同层上采样与反卷积变化效果如下:</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn6.PNG" alt=""></p>
-<h3 id="3-图像卷积的再解释"><a href="#3-图像卷积的再解释" class="headerlink" title="3.图像卷积的再解释"></a>3.图像卷积的再解释</h3><p><strong>基本方法</strong>（2种）：</p>
-<p>方法1：full卷积,完整的卷积使得原来的定义变大</p>
-<p>方法2：记录pooling index,然后扩大空间</p>
-<p>图像的反卷积过程如下：</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn7.PNG" alt=""></p>
-<ol>
-<li>输入图片每个像素进行一次full卷积，根据full卷积大小计算可以知道每个像素的卷积后大小为 1+4-1=4， 即4x4大小的特征图，输入有4个像素所以4个4x4的特征图</li>
-<li>将4个特征图进行步长为3的fusion（即相加）； 例如红色的特征图仍然是在原来输入位置（左上角），绿色还是在原来的位置（右上角），步长为3是指每隔3个像素进行fusion，重叠部分进行相加，即输出的第1行第4列是由红色特阵图的第一行第四列与绿色特征图的第一行第一列相加得到，其他如此类推。</li>
-</ol>
-<h2 id="2-池化运算"><a href="#2-池化运算" class="headerlink" title="2.池化运算"></a>2.池化运算</h2><p>池化层往往在卷积层后面，通过池化来降低卷积层输出的特征向量，同时改善结果（不易出现过拟合）。图像具有一种“静态性”的属性，这也就意味着在一个图像区域有用的特征极有可能在另一个区域同样适用。因此，为了描述大的图像，一个很自然的想法就是对不同位置的特征进行聚合统计，例如，人们可以计算图像一个区域上的某个特定特征的平均值 (或最大值)来代表这个区域的特征</p>
-<h4 id="1-Max-pooling池化操作"><a href="#1-Max-pooling池化操作" class="headerlink" title="1.Max pooling池化操作"></a>1.Max pooling池化操作</h4><p>利用CNN卷积神经网络进行训练时，进行完卷积运算，还需要接着进行Max pooling池化操作，目的是在尽量不丢失图像特征前期下，对图像进行downsampling。</p>
-<p>整个图片被不重叠的分割成若干个同样大小的小块（pooling size）。每个小块内只取最大的数字，再舍弃其他节点后，保持原有的平面结构得出 output。</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn8.PNG" alt=""></p>
-<p>是利用<strong>平移不变性</strong></p>
-<p>如下面，先进行卷积操作，再进行池化操作：</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn9.PNG" alt=""></p>
-<h4 id="2-一般池化"><a href="#2-一般池化" class="headerlink" title="2.一般池化"></a>2.一般池化</h4><p>池化窗口和窗口移动的距离大小是相等的</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn10.PNG" alt=""></p>
-<h4 id="3-重叠池化"><a href="#3-重叠池化" class="headerlink" title="3.重叠池化"></a>3.重叠池化</h4><p>重叠池化正如其名字所说的，相邻池化窗口之间会有重叠区域</p>
-<h4 id="4-空金字塔池化"><a href="#4-空金字塔池化" class="headerlink" title="4.空金字塔池化"></a>4.空金字塔池化</h4><p>先让图像进行卷积操作，然后转化成维度相同的特征输入到全连接层，这个可以把CNN扩展到任意大小的图像。</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn11.png" alt=""></p>
-<p>空间金字塔池化的思想来自于Spatial Pyramid Model，它一个pooling变成了多个scale的pooling。用不同大小池化窗口作用于卷积特征，我们可以得到1X1,2X2,4X4的池化结果，由于conv5中共有256个过滤器，所以得到1个256维的特征，4个256个特征，以及16个256维的特征，然后把这21个256维特征链接起来输入全连接层，通过这种方式把不同大小的图像转化成相同维度的特征。</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn12.png" alt=""></p>
-<h2 id="3-Text-CNN原理及文本分类模型"><a href="#3-Text-CNN原理及文本分类模型" class="headerlink" title="3.Text-CNN原理及文本分类模型"></a>3.Text-CNN原理及文本分类模型</h2><h3 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h3><p>具体过程如下</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn13.PNG" alt=""></p>
-<ul>
-<li><strong>Embedding</strong>：第一层是图中最左边的7乘5的句子矩阵，每行是词向量，维度=5，这个可以类比为图像中的原始像素点。</li>
-<li><strong>Convolution</strong>：然后经过 kernel_sizes=(2,3,4) 的一维卷积层，每个kernel_size 有两个输出 channel。</li>
-<li><strong>MaxPolling</strong>：第三层是一个1-max pooling层，这样不同长度句子经过pooling层之后都能变成定长的表示。</li>
-<li><p><strong>FullConnection and Softmax</strong>：最后接一层全连接的 softmax 层，输出每个类别的概率。</p>
-<p><strong>文本是一维数据，因此在TextCNN卷积用的是一维卷积</strong>（在<strong>word-level</strong>上是一维卷积；虽然文本经过词向量表达后是二维数据，但是在embedding-level上的二维卷积没有意义）。一维卷积带来的问题是需要<strong>通过设计不同 kernel_size 的 filter 获取不同宽度的视野</strong>。</p>
-</li>
-</ul>
-<p><strong>CNN的卷积和池化的过程就是一个抽取特征的过程</strong>（摘自<a href="https://blog.csdn.net/vivian_ll/article/details/80831509" target="_blank" rel="noopener">CNN原理文本分类</a>)</p>
-<p>2004年Yoon Kim 在 “Convolutional Neural Networks for Sentence Classification” 一文中提出（虽然第一个用的并不是他，但是在这篇文章中提出了4种Model Variations，并有详细的调参）：</p>
-<p>论文使用的模型主要包括五层，第一层是embedding layer,第二层是convolutional layer,第三层是max-pooling layer,第四层是fully connected layer，最后一层是softmax layer. </p>
-<ul>
-<li><p>为了使其可以进行卷积，首先需要将其转化为二维矩阵表示，通常使用word2vec、glove等word embedding实现。d=5表示每个词转化为5维的向量，矩阵的形状是[sentence_matrix × 5]，即[7 × 5]。</p>
-</li>
-<li><p>在处理图像数据时，CNN使用的卷积核的宽度和高度的一样的，但是在text-CNN中，卷积核的宽度是与词向量的维度一致。这是因为我们输入的每一行向量代表一个词，在抽取特征的过程中，词做为文本的最小粒度，如果我们使用卷积核的宽度小于词向量的维度就已经不是以词作为最小粒度了。而高度和CNN一样，可以自行设置（通常取值2,3,4,5）。由于我们的输入是一个句子，句子中相邻的词之间关联性很高，因此，当我们用卷积核进行卷积时，不仅考虑了词义而且考虑了词序及其上下文。（类似于skip-gram和CBOW模型的思想）。<br>详细讲解卷积的过程：卷积层输入的是一个表示句子的矩阵，维度为n*d，即每句话共有n个词，每个词有一个d维的词向量表示。假设Xi:i+j表示Xi到Xi+j个词，使用一个宽度为d，高度为h的卷积核W与Xi:i+h-1(h个词)进行卷积操作后再使用激活函数激活得到相应的特征ci，则卷积操作可以表示为：（使用点乘来表示卷积操作） </p>
-</li>
-</ul>
-<p><img src="/2019/04/23/卷积神经网络基础/nn14.PNG" alt=""></p>
-<ul>
-<li><p>在文本分类中常用的步长是1,更大的补偿会使得向神经网络靠近</p>
-</li>
-<li><p>窄卷积 vs 宽卷积</p>
-<p>在矩阵的中部使用卷积核滤波没有问题，在矩阵的边缘，如对于左侧和顶部没有相邻元素的元素，该如何滤波呢？解决的办法是采用补零法（zero-padding）。所有落在矩阵范围之外的元素值都默认为0。这样就可以对输入矩阵的每一个元素做滤波了，输出一个同样大小或是更大的矩阵。补零法又被称为是宽卷积，不使用补零的方法则被称为窄卷积。</p>
-<p><img src="/2019/04/23/卷积神经网络基础/nn15.png" alt=""></p>
-</li>
-<li><p><strong>池化</strong>:Max-Pooling之后，<strong>还需要将每个值给拼接起来</strong>。得到池化层最终的特征向量。在池化层到全连接层之前可以加上dropout防止过拟合。 </p>
-</li>
-</ul>
-<p>​       文本中pooling方法的优缺点:</p>
-<ul>
-<li><p>Max Pooling over time</p>
-<p>这个操作可以保证特征的位置与旋转不变性，对于图像处理来说这种位置与旋转不变性是很好的特性，但是对于NLP来说，这个特性其实并不一定是好事，因为在很多NLP的应用场合，特征的出现位置信息是很重要的，比如主语出现位置一般在句子头，宾语一般出现在句子尾等等，这些位置信息其实有时候对于分类任务来说还是很重要的，但是Max Pooling 基本把这些信息抛掉了。其次，MaxPooling能减少模型参数数量，有利于减少模型过拟合问题。再者，对于NLP任务来说，Max Pooling可以把变长的输入X整理成固定长度的输入。<br>但是，CNN模型采取MaxPooling Over Time也有一些值得注意的缺点：首先就如上所述，特征的位置信息在这一步骤完全丢失。在卷积层其实是保留了特征的位置信息的，但是通过取唯一的最大值，现在在Pooling层只知道这个最大值是多少，但是其出现位置信息并没有保留；另外一个明显的缺点是：有时候有些强特征会出现多次，比如我们常见的TF.IDF公式，TF就是指某个特征出现的次数，出现次数越多说明这个特征越强，但是因为Max Pooling只保留一个最大值，所以即使某个特征出现多次，现在也只能看到一次，就是说同一特征的强度信息丢失了。这是Max Pooling Over Time典型的两个缺点。</p>
-</li>
-</ul>
-<ul>
-<li><p>K-Max pooling</p>
-<p>取所有特征值中得分在Top –K的值，并保留这些特征值原始的先后顺序（下图是2-max Pooling的示意图），就是说通过多保留一些特征信息供后续阶段使用</p>
-</li>
-<li><p>Chunk-Max pooling</p>
-</li>
-<li><p>Chunk-MaxPooling的思想是：把某个Filter对应的Convolution层的所有特征向量进行分段，切割成若干段后，在每个分段里面各自取得一个最大特征值，比如将某个Filter的特征向量切成3个Chunk，那么就在每个Chunk里面取一个最大值，于是获得3个特征值。（如下图所示，不同颜色代表不同分段） </p>
-</li>
-</ul>
-<p><img src="/2019/04/23/卷积神经网络基础/nn14.jpg" alt=""></p>
-<ul>
-<li><p>全连接层跟其他模型一样，假设有两层全连接层，第一层可以加上relu作为激活函数，对于多分类来说，第二层则使用softmax激活函数得到属于每个类的概率，并选择categorical_crossentropy 作为激活函数。如果处理的数据集为二分类问题，如情感分析的正负面时，第二层也可以使用sigmoid作为激活函数，然后损失函数使用对数损失函数binary_crossentropy。 </p>
-<p>*将不同的词向量表征看成是不同的通道：</p>
-<ul>
-<li>CNN-rand: 随机初始化每个单词的词向量通过后续的训练去调整。 </li>
-<li>CNN-static: 使用预先训练好的词向量，如word2vec训练出来的词向量，在训练过程中不再调整该词向量。 </li>
-<li>CNN-non-static: 使用预先训练好的词向量，并在训练过程进一步进行调整。 </li>
-<li>CNN-multichannel: 将static与non-static作为两通道的词向量。</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2141,7 +2058,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

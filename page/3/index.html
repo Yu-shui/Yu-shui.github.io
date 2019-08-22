@@ -301,6 +301,269 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/卷积神经网络基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu-shui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yu-shui">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/23/卷积神经网络基础/" itemprop="url">卷积神经网络基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T22:27:11+08:00">
+                2019-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="卷积神经网络基础"><a href="#卷积神经网络基础" class="headerlink" title="卷积神经网络基础"></a>卷积神经网络基础</h1><h2 id="1-卷积运算"><a href="#1-卷积运算" class="headerlink" title="1.卷积运算"></a>1.卷积运算</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h3><p><img src="/2019/04/23/卷积神经网络基础/nn1.PNG" alt=""></p>
+<h3 id="2-动机"><a href="#2-动机" class="headerlink" title="2.动机"></a>2.动机</h3><p>卷积运算改进机器学习系统的三个重要思想：</p>
+<p><strong>稀疏交互(saprse interactions)</strong><br>又称稀疏权重(sparse weights)，这是因为核大小远小于输入大小。eg：当输入图像包含成千上万像素点，只采用几十个到上百个像素点的和来检测小而有意义的特征。<br>减少了存取需求，提高统计效率。</p>
+<p><strong>参数共享(parameter sharing)</strong><br>是指，在一个模型中的多个函数中使用相同参数。卷积运算共享一个卷积核，保证我们只需学习一个参数集，而非在每一个位置学习同一个参数集。</p>
+<p><strong>等变表示(equivariant represetations)</strong><br>如果一个函数满足输入改变，而输出也以同样方式改变则该函数是等变的。这在处理时间序列中事件延后，图像序列中对象的移动是非常有利的。<br>而一些其他的变换在卷积中并非必然。比如图像放缩和旋转变换，则需要其他机制处理。</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn2.gif" alt=""></p>
+<h3 id="3-一维矩阵运算"><a href="#3-一维矩阵运算" class="headerlink" title="3.一维矩阵运算"></a>3.一维矩阵运算</h3><p>在数学里我们知道f(-x)的图像是f(x)对y轴的反转</p>
+<p>​     g(-m)就是把g(m)的序列反转，g(n-m)的意义是把g(-m)平移的n点：</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn2.PNG" alt=""></p>
+<p>卷积运算时可以交换顺序.</p>
+<ul>
+<li><p>代码实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">x=np.array([1,2,3])</span><br><span class="line">h=np.array([2,3,1])</span><br><span class="line">import scipy.signal</span><br><span class="line">scipy.signal.convolve(x,h)</span><br><span class="line">print(scipy.signal.convolve(x,h))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="4-二维矩阵运算"><a href="#4-二维矩阵运算" class="headerlink" title="4.二维矩阵运算"></a>4.二维矩阵运算</h3><p>其中，矩阵A和B的尺寸分别为ma<em>na即mb</em>nb</p>
+<p>① 对矩阵A补零，</p>
+<p>第一行之前和最后一行之后都补mb-1行，</p>
+<p>第一列之前和最后一列之后都补nb-1列</p>
+<p>（注意conv2不支持其他的边界补充选项，函数内部对输入总是补零）；</p>
+<p>之所以都是-1是因为卷积核要在图像A上面移动,移动的时候需要满足两者至少有一列或者一行是重叠的.</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn3.PNG" alt=""></p>
+<p>再将卷积核旋转180度，之后有三种计算方式，分别是按照shape=full,shape=same,shape=valid进行计算(重叠部分进行矢量积运算)</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn4.png" alt=""></p>
+<p><strong>卷积层输入特征和输出特征尺寸和卷积核的关系</strong></p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn5.PNG" alt=""></p>
+<h1 id="2-反卷积"><a href="#2-反卷积" class="headerlink" title="2.反卷积"></a>2.反卷积</h1><p>我们把4×4的输入特征展成[16,1]的矩阵X ,那么Y = CX则是一个[4,1]的输出特征矩阵，把它重新排列2×2的输出特征就得到最终的结果，从上述分析可以看出卷积层的计算其实是可以转化成矩阵相乘的。值得注意的是，在一些深度学习网络的开源框架中并不是通过这种这个转换方法来计算卷积的，因为这个转换会存在很多无用的0乘操作，<strong>Caffe</strong>中具体实现卷积计算的方法可参考<strong>Implementing convolution as a matrix multiplication</strong></p>
+<p>​    通过上述的分析，我们已经知道卷积层的前向操作可以表示为和矩阵C相乘，那么 我们很容易得到卷积层的反向传播就是和C的转置相乘。</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn7.gif" alt=""></p>
+<p>这里提到的反卷积跟1维信号处理的反卷积计算是很不一样的，FCN作者称为backwards convolution，有人称Deconvolution layer is a very unfortunate name and should rather be called a transposed convolutional layer. 我们可以知道，在CNN中有con layer与pool layer，con layer进行对图像卷积提取特征，pool layer对图像缩小一半筛选重要特征，对于经典的图像识别CNN网络，如IMAGENET，最后输出结果是1X1X1000，1000是类别种类，1x1得到的是。FCN作者，或者后来对end to end研究的人员，就是对最终1x1的结果使用反卷积（事实上FCN作者最后的输出不是1X1，是图片大小的32分之一，但不影响反卷积的使用）。</p>
+<p> 这里图像的反卷积与图6的full卷积原理是一样的，使用了这一种反卷积手段使得图像可以变大，FCN作者使用的方法是这里所说反卷积的一种变体，这样就可以获得相应的像素值，图像可以实现end to end。</p>
+<p>这里说另外一种反卷积做法，假设原图是3X3，首先使用上采样让图像变成7X7，可以看到图像多了很多空白的像素点。使用一个3X3的卷积核对图像进行滑动步长为1的valid卷积，得到一个5X5的图像，我们知道的是使用上采样扩大图片，使用反卷积填充图像内容，使得图像内容变得丰富，这也是CNN输出end to end结果的一种方法。韩国作者Hyeonwoo Noh使用VGG16层CNN网络后面加上对称的16层反卷积与上采样网络实现end to end 输出，其不同层上采样与反卷积变化效果如下:</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn6.PNG" alt=""></p>
+<h3 id="3-图像卷积的再解释"><a href="#3-图像卷积的再解释" class="headerlink" title="3.图像卷积的再解释"></a>3.图像卷积的再解释</h3><p><strong>基本方法</strong>（2种）：</p>
+<p>方法1：full卷积,完整的卷积使得原来的定义变大</p>
+<p>方法2：记录pooling index,然后扩大空间</p>
+<p>图像的反卷积过程如下：</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn7.PNG" alt=""></p>
+<ol>
+<li>输入图片每个像素进行一次full卷积，根据full卷积大小计算可以知道每个像素的卷积后大小为 1+4-1=4， 即4x4大小的特征图，输入有4个像素所以4个4x4的特征图</li>
+<li>将4个特征图进行步长为3的fusion（即相加）； 例如红色的特征图仍然是在原来输入位置（左上角），绿色还是在原来的位置（右上角），步长为3是指每隔3个像素进行fusion，重叠部分进行相加，即输出的第1行第4列是由红色特阵图的第一行第四列与绿色特征图的第一行第一列相加得到，其他如此类推。</li>
+</ol>
+<h2 id="2-池化运算"><a href="#2-池化运算" class="headerlink" title="2.池化运算"></a>2.池化运算</h2><p>池化层往往在卷积层后面，通过池化来降低卷积层输出的特征向量，同时改善结果（不易出现过拟合）。图像具有一种“静态性”的属性，这也就意味着在一个图像区域有用的特征极有可能在另一个区域同样适用。因此，为了描述大的图像，一个很自然的想法就是对不同位置的特征进行聚合统计，例如，人们可以计算图像一个区域上的某个特定特征的平均值 (或最大值)来代表这个区域的特征</p>
+<h4 id="1-Max-pooling池化操作"><a href="#1-Max-pooling池化操作" class="headerlink" title="1.Max pooling池化操作"></a>1.Max pooling池化操作</h4><p>利用CNN卷积神经网络进行训练时，进行完卷积运算，还需要接着进行Max pooling池化操作，目的是在尽量不丢失图像特征前期下，对图像进行downsampling。</p>
+<p>整个图片被不重叠的分割成若干个同样大小的小块（pooling size）。每个小块内只取最大的数字，再舍弃其他节点后，保持原有的平面结构得出 output。</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn8.PNG" alt=""></p>
+<p>是利用<strong>平移不变性</strong></p>
+<p>如下面，先进行卷积操作，再进行池化操作：</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn9.PNG" alt=""></p>
+<h4 id="2-一般池化"><a href="#2-一般池化" class="headerlink" title="2.一般池化"></a>2.一般池化</h4><p>池化窗口和窗口移动的距离大小是相等的</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn10.PNG" alt=""></p>
+<h4 id="3-重叠池化"><a href="#3-重叠池化" class="headerlink" title="3.重叠池化"></a>3.重叠池化</h4><p>重叠池化正如其名字所说的，相邻池化窗口之间会有重叠区域</p>
+<h4 id="4-空金字塔池化"><a href="#4-空金字塔池化" class="headerlink" title="4.空金字塔池化"></a>4.空金字塔池化</h4><p>先让图像进行卷积操作，然后转化成维度相同的特征输入到全连接层，这个可以把CNN扩展到任意大小的图像。</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn11.png" alt=""></p>
+<p>空间金字塔池化的思想来自于Spatial Pyramid Model，它一个pooling变成了多个scale的pooling。用不同大小池化窗口作用于卷积特征，我们可以得到1X1,2X2,4X4的池化结果，由于conv5中共有256个过滤器，所以得到1个256维的特征，4个256个特征，以及16个256维的特征，然后把这21个256维特征链接起来输入全连接层，通过这种方式把不同大小的图像转化成相同维度的特征。</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn12.png" alt=""></p>
+<h2 id="3-Text-CNN原理及文本分类模型"><a href="#3-Text-CNN原理及文本分类模型" class="headerlink" title="3.Text-CNN原理及文本分类模型"></a>3.Text-CNN原理及文本分类模型</h2><h3 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h3><p>具体过程如下</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn13.PNG" alt=""></p>
+<ul>
+<li><strong>Embedding</strong>：第一层是图中最左边的7乘5的句子矩阵，每行是词向量，维度=5，这个可以类比为图像中的原始像素点。</li>
+<li><strong>Convolution</strong>：然后经过 kernel_sizes=(2,3,4) 的一维卷积层，每个kernel_size 有两个输出 channel。</li>
+<li><strong>MaxPolling</strong>：第三层是一个1-max pooling层，这样不同长度句子经过pooling层之后都能变成定长的表示。</li>
+<li><p><strong>FullConnection and Softmax</strong>：最后接一层全连接的 softmax 层，输出每个类别的概率。</p>
+<p><strong>文本是一维数据，因此在TextCNN卷积用的是一维卷积</strong>（在<strong>word-level</strong>上是一维卷积；虽然文本经过词向量表达后是二维数据，但是在embedding-level上的二维卷积没有意义）。一维卷积带来的问题是需要<strong>通过设计不同 kernel_size 的 filter 获取不同宽度的视野</strong>。</p>
+</li>
+</ul>
+<p><strong>CNN的卷积和池化的过程就是一个抽取特征的过程</strong>（摘自<a href="https://blog.csdn.net/vivian_ll/article/details/80831509" target="_blank" rel="noopener">CNN原理文本分类</a>)</p>
+<p>2004年Yoon Kim 在 “Convolutional Neural Networks for Sentence Classification” 一文中提出（虽然第一个用的并不是他，但是在这篇文章中提出了4种Model Variations，并有详细的调参）：</p>
+<p>论文使用的模型主要包括五层，第一层是embedding layer,第二层是convolutional layer,第三层是max-pooling layer,第四层是fully connected layer，最后一层是softmax layer. </p>
+<ul>
+<li><p>为了使其可以进行卷积，首先需要将其转化为二维矩阵表示，通常使用word2vec、glove等word embedding实现。d=5表示每个词转化为5维的向量，矩阵的形状是[sentence_matrix × 5]，即[7 × 5]。</p>
+</li>
+<li><p>在处理图像数据时，CNN使用的卷积核的宽度和高度的一样的，但是在text-CNN中，卷积核的宽度是与词向量的维度一致。这是因为我们输入的每一行向量代表一个词，在抽取特征的过程中，词做为文本的最小粒度，如果我们使用卷积核的宽度小于词向量的维度就已经不是以词作为最小粒度了。而高度和CNN一样，可以自行设置（通常取值2,3,4,5）。由于我们的输入是一个句子，句子中相邻的词之间关联性很高，因此，当我们用卷积核进行卷积时，不仅考虑了词义而且考虑了词序及其上下文。（类似于skip-gram和CBOW模型的思想）。<br>详细讲解卷积的过程：卷积层输入的是一个表示句子的矩阵，维度为n*d，即每句话共有n个词，每个词有一个d维的词向量表示。假设Xi:i+j表示Xi到Xi+j个词，使用一个宽度为d，高度为h的卷积核W与Xi:i+h-1(h个词)进行卷积操作后再使用激活函数激活得到相应的特征ci，则卷积操作可以表示为：（使用点乘来表示卷积操作） </p>
+</li>
+</ul>
+<p><img src="/2019/04/23/卷积神经网络基础/nn14.PNG" alt=""></p>
+<ul>
+<li><p>在文本分类中常用的步长是1,更大的补偿会使得向神经网络靠近</p>
+</li>
+<li><p>窄卷积 vs 宽卷积</p>
+<p>在矩阵的中部使用卷积核滤波没有问题，在矩阵的边缘，如对于左侧和顶部没有相邻元素的元素，该如何滤波呢？解决的办法是采用补零法（zero-padding）。所有落在矩阵范围之外的元素值都默认为0。这样就可以对输入矩阵的每一个元素做滤波了，输出一个同样大小或是更大的矩阵。补零法又被称为是宽卷积，不使用补零的方法则被称为窄卷积。</p>
+<p><img src="/2019/04/23/卷积神经网络基础/nn15.png" alt=""></p>
+</li>
+<li><p><strong>池化</strong>:Max-Pooling之后，<strong>还需要将每个值给拼接起来</strong>。得到池化层最终的特征向量。在池化层到全连接层之前可以加上dropout防止过拟合。 </p>
+</li>
+</ul>
+<p>​       文本中pooling方法的优缺点:</p>
+<ul>
+<li><p>Max Pooling over time</p>
+<p>这个操作可以保证特征的位置与旋转不变性，对于图像处理来说这种位置与旋转不变性是很好的特性，但是对于NLP来说，这个特性其实并不一定是好事，因为在很多NLP的应用场合，特征的出现位置信息是很重要的，比如主语出现位置一般在句子头，宾语一般出现在句子尾等等，这些位置信息其实有时候对于分类任务来说还是很重要的，但是Max Pooling 基本把这些信息抛掉了。其次，MaxPooling能减少模型参数数量，有利于减少模型过拟合问题。再者，对于NLP任务来说，Max Pooling可以把变长的输入X整理成固定长度的输入。<br>但是，CNN模型采取MaxPooling Over Time也有一些值得注意的缺点：首先就如上所述，特征的位置信息在这一步骤完全丢失。在卷积层其实是保留了特征的位置信息的，但是通过取唯一的最大值，现在在Pooling层只知道这个最大值是多少，但是其出现位置信息并没有保留；另外一个明显的缺点是：有时候有些强特征会出现多次，比如我们常见的TF.IDF公式，TF就是指某个特征出现的次数，出现次数越多说明这个特征越强，但是因为Max Pooling只保留一个最大值，所以即使某个特征出现多次，现在也只能看到一次，就是说同一特征的强度信息丢失了。这是Max Pooling Over Time典型的两个缺点。</p>
+</li>
+</ul>
+<ul>
+<li><p>K-Max pooling</p>
+<p>取所有特征值中得分在Top –K的值，并保留这些特征值原始的先后顺序（下图是2-max Pooling的示意图），就是说通过多保留一些特征信息供后续阶段使用</p>
+</li>
+<li><p>Chunk-Max pooling</p>
+</li>
+<li><p>Chunk-MaxPooling的思想是：把某个Filter对应的Convolution层的所有特征向量进行分段，切割成若干段后，在每个分段里面各自取得一个最大特征值，比如将某个Filter的特征向量切成3个Chunk，那么就在每个Chunk里面取一个最大值，于是获得3个特征值。（如下图所示，不同颜色代表不同分段） </p>
+</li>
+</ul>
+<p><img src="/2019/04/23/卷积神经网络基础/nn14.jpg" alt=""></p>
+<ul>
+<li><p>全连接层跟其他模型一样，假设有两层全连接层，第一层可以加上relu作为激活函数，对于多分类来说，第二层则使用softmax激活函数得到属于每个类的概率，并选择categorical_crossentropy 作为激活函数。如果处理的数据集为二分类问题，如情感分析的正负面时，第二层也可以使用sigmoid作为激活函数，然后损失函数使用对数损失函数binary_crossentropy。 </p>
+<p>*将不同的词向量表征看成是不同的通道：</p>
+<ul>
+<li>CNN-rand: 随机初始化每个单词的词向量通过后续的训练去调整。 </li>
+<li>CNN-static: 使用预先训练好的词向量，如word2vec训练出来的词向量，在训练过程中不再调整该词向量。 </li>
+<li>CNN-non-static: 使用预先训练好的词向量，并在训练过程进一步进行调整。 </li>
+<li>CNN-multichannel: 将static与non-static作为两通道的词向量。</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/tensorflow-实现神经网络/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2122,193 +2385,6 @@ P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/KNN算法原理及代码实现/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yu-shui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yu-shui">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/14/KNN算法原理及代码实现/" itemprop="url">KNN算法原理及代码实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T00:51:31+08:00">
-                2019-04-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="k邻近算法的原理和使用"><a href="#k邻近算法的原理和使用" class="headerlink" title="k邻近算法的原理和使用"></a>k邻近算法的原理和使用</h1><h3 id="1-算法原理"><a href="#1-算法原理" class="headerlink" title="1.算法原理"></a>1.算法原理</h3><h6 id="1-KNN算法三要素"><a href="#1-KNN算法三要素" class="headerlink" title="1. KNN算法三要素"></a>1. KNN算法三要素</h6><blockquote>
-<p>KNN算法我们主要要考虑三个重要的要素，对于固定的训练集，只要这三点确定了，算法的预测方式也就决定了。这三个最终的要素是k值的选取，距离度量的方式和分类决策规则。</p>
-</blockquote>
-<ol>
-<li>对于分类决策规则，一般都是使用前面提到的多数表决法。所以我们重点是关注与k值的选择和距离的度量方式。</li>
-</ol>
-<ol start="2">
-<li>对于k值的选择，没有一个固定的经验，一般根据样本的分布，选择一个较小的值，可以通过交叉验证选择一个合适的k值。</li>
-</ol>
-<ul>
-<li>选择较小的k值，就相当于用较小的领域中的训练实例进行预测，训练误差会减小，只有与输入实例较近或相似的训练实例才会对预测结果起作用，与此同时带来的问题是泛化误差会增大，换句话说，K值的减小就意味着整体模型变得复杂，容易发生过拟合；</li>
-<li>选择较大的k值，就相当于用较大领域中的训练实例进行预测，其优点是可以减少泛化误差，但缺点是训练误差会增大。这时候，与输入实例较远（不相似的）训练实例也会对预测器作用，使预测发生错误，且K值的增大就意味着整体的模型变得简单。</li>
-<li>一个极端是k等于样本数m，则完全没有分类，此时无论输入实例是什么，都只是简单的预测它属于在训练实例中最多的类，模型过于简单。</li>
-</ul>
-<ol start="3">
-<li>对于距离的度量，我们有很多的距离度量方式，但是最常用的是欧式距离。</li>
-</ol>
-<h5 id="2-核心思想"><a href="#2-核心思想" class="headerlink" title="2.核心思想"></a>2.核心思想</h5><blockquote>
-<p>计算待标记的数据样本和数据集中的每个样本的距离，取距离最近的K个样本，待标记的数据样本就由这k个距离最近的样本投票产生</p>
-</blockquote>
-<p>算法原理的伪代码</p>
-<ul>
-<li>遍历x_train中的所有样本，计算每个样本与X_test的距离，并吧距离保存在Distance数组中 </li>
-<li>对Distance数组进行排序，取距离最近的k个点，即为X_knn</li>
-<li>对X-knn中统计每个类别的个数，即在class0在X_knn中有几个样本，class1在X_knn中有几个样本…..</li>
-<li>待标记的样本类别，就是在X_knn中样本个数最多的那个类别。</li>
-</ul>
-<h5 id="3-算法优缺点"><a href="#3-算法优缺点" class="headerlink" title="3.算法优缺点"></a>3.算法优缺点</h5><ul>
-<li><em>优点</em>:准确性高，对异常值和噪声有较高的容忍度</li>
-<li><em>缺点</em>:计算量大，对内存需求大<h3 id="2-简单运用-使用k邻近算法进行分类"><a href="#2-简单运用-使用k邻近算法进行分类" class="headerlink" title="2.简单运用(使用k邻近算法进行分类)"></a>2.简单运用(使用k邻近算法进行分类)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.datasets.samples_generator import make_blobs</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line">#生成数据</span><br><span class="line"></span><br><span class="line">centers=[[-2,2],[2,2],[0,4]]</span><br><span class="line">X,y=make_blobs(n_samples=600,centers=centers,random_state=0,cluster_std=0.6)</span><br><span class="line"></span><br><span class="line">#画出数据</span><br><span class="line">plt.figure(figsize=(16,10),dpi=144)</span><br><span class="line">c=np.array(centers)</span><br><span class="line">plt.scatter(X[:,0],X[:,1],cmap=&apos;cool&apos;,c=y,s=100)</span><br><span class="line">plt.scatter(c[:,0],c[:,1],s=100,marker=&apos;^&apos;,c=&apos;orange&apos;)</span><br><span class="line"></span><br><span class="line">#调用训练器来进行分类</span><br><span class="line">from sklearn.neighbors import KNeighborsClassifier</span><br><span class="line">k=5</span><br><span class="line">#训练模型</span><br><span class="line">clf=KNeighborsClassifier()</span><br><span class="line">clf.fit(X,y)</span><br><span class="line"></span><br><span class="line">#预测</span><br><span class="line">X_sample=[[0,2]]</span><br><span class="line">y_sample=clf.predict(X_sample)</span><br><span class="line">neighbors=clf.kneighbors(X_sample,return_distance=False)</span><br><span class="line"></span><br><span class="line">#画出该点和临近点</span><br><span class="line">print(X_sample)</span><br><span class="line">print(neighbors)</span><br><span class="line">print(X_sample[0][0])</span><br><span class="line">plt.scatter(X_sample[0][0],X_sample[0][1],c=&quot;red&quot;,s=100)</span><br><span class="line"></span><br><span class="line">for i in neighbors[0]:</span><br><span class="line">    #print(X[i][0])</span><br><span class="line">    plt.plot([X[i][0],X_sample[0][0]],[X[i][1],X_sample[0][1]],&apos;k--&apos;,linewidth=0.8);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="/2019/04/14/KNN算法原理及代码实现/捕获.PNG" alt=""></p>
-<h3 id="3-示例运用-使用k邻近算法进行回归拟合"><a href="#3-示例运用-使用k邻近算法进行回归拟合" class="headerlink" title="3.示例运用(使用k邻近算法进行回归拟合)"></a>3.示例运用(使用k邻近算法进行回归拟合)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#生成数据集</span><br><span class="line">import numpy as np</span><br><span class="line">n_dots=400</span><br><span class="line">X=5*np.random.rand(n_dots,1)</span><br><span class="line">y=np.cos(X).ravel()#将多为数组将为一维</span><br><span class="line">#print(X)</span><br><span class="line">print(&quot;******************&quot;)</span><br><span class="line">#print(y)</span><br><span class="line"></span><br><span class="line">#添加一些噪声</span><br><span class="line">y=y+0.2*np.random.rand(n_dots)-0.1</span><br><span class="line"></span><br><span class="line">#训练模型</span><br><span class="line">from sklearn.neighbors import KNeighborsRegressor</span><br><span class="line">k=5</span><br><span class="line">knn=KNeighborsRegressor(k)</span><br><span class="line">knn.fit(X,y)</span><br><span class="line"></span><br><span class="line">#将所有的预测点用吸纳画起来，形成回归曲线</span><br><span class="line">T=np.linspace(0,5,500)[:,np.newaxis]#np.newaxis 在使用和功能上等价于 None，其实就是 None 的一个别名. </span><br><span class="line">print(T.shape)</span><br><span class="line">y_pred=knn.predict(T)</span><br><span class="line">print(&quot;得分为&#123;0&#125;&quot;.format(knn.score(X,y)))</span><br><span class="line"></span><br><span class="line">#画出拟合曲线</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line">plt.figure(figsize=(16,10),dpi=144)</span><br><span class="line">plt.scatter(X,y,c=&apos;g&apos;,label=&apos;data&apos;,s=100)#画出训练样本</span><br><span class="line">plt.plot(T,y_pred,c=&apos;k&apos;,label=&apos;prediction&apos;,lw=4)#画出拟合曲线（T为横坐标，y_pred为纵坐标</span><br><span class="line">plt.axis(&apos;tight&apos;)</span><br><span class="line">plt.title(&quot;KNeightborsRessor&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/14/KNN算法原理及代码实现/mm.PNG" alt=""></p>
-<h3 id="4-实际运用"><a href="#4-实际运用" class="headerlink" title="4.实际运用"></a>4.实际运用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">![gg](C:\Users\wuxun\Desktop\gg.PNG)from sklearn import datasets</span><br><span class="line">import numpy as np</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line"></span><br><span class="line">text=datasets.load_iris()</span><br><span class="line">#print(text)</span><br><span class="line">target=text.target</span><br><span class="line">data=text.data</span><br><span class="line">#print(target)</span><br><span class="line">print(&quot;***********&quot;)</span><br><span class="line">#print(data)</span><br><span class="line"></span><br><span class="line">data.shape</span><br><span class="line">#将样本分为训练集和测试集</span><br><span class="line">X_train,X_test,Y_train,Y_test=train_test_split(data,target,test_size=0.2)</span><br><span class="line"></span><br><span class="line">#通过使用普通的k-均值算法，带权重的k-均值算法，指定半斤的k-均值算法对数据进行拟合</span><br><span class="line">from sklearn.neighbors import KNeighborsClassifier,RadiusNeighborsClassifier</span><br><span class="line"></span><br><span class="line">#构造三个模型</span><br><span class="line"></span><br><span class="line">models=[]</span><br><span class="line">models.append((&quot;KNN&quot;,KNeighborsClassifier(n_neighbors=2)))</span><br><span class="line">models.append((&quot;KNN with weight&quot;,KNeighborsClassifier(n_neighbors2,weightsh=&quot;distance&quot;)))</span><br><span class="line">models.append((&quot;Radius Neighbors&quot;,RadiusNeighborsClassifier(n_neighbors=2,radius=500.0)))</span><br><span class="line"></span><br><span class="line">#分别训练三个模型</span><br><span class="line">results=[]</span><br><span class="line">for name,model in models:</span><br><span class="line">    model.fit(X_train,Y_train)</span><br><span class="line">    results.append((name,model.score(X_test,Y_test)))</span><br><span class="line">for i in range(len(results)):</span><br><span class="line">    print(&quot;name: &#123;&#125;: score:&#123;&#125;&quot;.format(results[i][0],results[i][1]))</span><br><span class="line"></span><br><span class="line">#由于随机测验数据存在的差异，所以我们用KFold计算一般的算法性质</span><br><span class="line">from sklearn.model_selection import KFold</span><br><span class="line">from sklearn.model_selection import cross_val_score</span><br><span class="line">results=[]</span><br><span class="line">for name,model in models:</span><br><span class="line">    kfold=KFold(n_splits=10)#将数据集分成十份，一份作为验证集</span><br><span class="line">    cv_result=cross_val_score(model,data,target,cv=kfold)#函数计算出十次数据集组合而得的模型得分</span><br><span class="line">for i in range(len(results)):</span><br><span class="line">    print(&quot;name &#123;&#125; :scor &#123;&#125;&quot;.format(results[i][0],results[i][1].mean()))</span><br><span class="line">    </span><br><span class="line">#模型训练及分析</span><br><span class="line">#普通的knn训练模型可能更优，我们使用普通的knn模型训练数据</span><br><span class="line"></span><br><span class="line">knn=KNeighborsClassifier(n_neighbors=2)</span><br><span class="line">knn.fit(X_train,Y_train)</span><br><span class="line">train_score=knn.score(X_train,Y_train)</span><br><span class="line">test_score=knn.score(X_test,Y_test)</span><br><span class="line">print(&quot;tsin score:&#123;&#125;,test score:&#123;&#125;&quot;.format(train_score,test_score))</span><br><span class="line"></span><br><span class="line">from sklearn.model_selection import ShuffleSplit</span><br><span class="line">#from common.utils import plot_learning_curve</span><br><span class="line"></span><br><span class="line">#knn.KNeighborsClassifier(n_neighbors=2)</span><br><span class="line">#cv=ShuffleSplit(n_splits=10,test_size=0.2,random_state=0)</span><br><span class="line"></span><br><span class="line">from sklearn.feature_selection import SelectKBest#选择相关性最大的两个特征</span><br><span class="line"></span><br><span class="line">selector=SelectKBest(k=2)</span><br><span class="line">X_new=selector.fit_transform(data,target)</span><br><span class="line">X_new[0:5]</span><br><span class="line"></span><br><span class="line">#选择最好的两个特征在对三个模型进行检测</span><br><span class="line">results=[]</span><br><span class="line">for name,model in models:</span><br><span class="line">    kfold=KFold(n_splits=10)</span><br><span class="line">    cv_result=cross_val_score(model,X_new,target,cv=kfold)</span><br><span class="line">    results.append((name,cv_result))</span><br><span class="line">for i in range(len(results)):</span><br><span class="line">    print(&quot;name:&#123;&#125;; cross val score:&#123;&#125;&quot;.format(results[i][0],results[i][1].mean()))</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">#画出二维数据</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line">plt.figure(figsize=(10,6),dpi=200)</span><br><span class="line">plt.ylabel(&quot;BMI&quot;)</span><br><span class="line">plt.xlabel(&quot;Glucose&quot;)</span><br><span class="line">plt.scatter(X_new[:,0],X_new[:,1],c=target)</span><br><span class="line">#plt.scatter(X_new,target,c=&apos;r&apos;,s=20,marker=&apos;o&apos;)</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/14/KNN算法原理及代码实现/gg.PNG" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2359,7 +2435,7 @@ P(Y∣X)=P(X∣Y)∗P(Y)P(X)P(Y∣X)=P(X∣Y)∗P(Y)P(X)      P(Y|X) =  \frac{P(
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
